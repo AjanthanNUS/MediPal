@@ -1,4 +1,4 @@
-package sg.nus.iss.mtech.ptsix.medipal.presentation.Activity;
+package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
