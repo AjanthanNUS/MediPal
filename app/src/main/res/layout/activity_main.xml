@@ -11,7 +11,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.MainActivity">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
+        <Button
+            android:text="Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/PersonalButton"
+            tools:text="PersonalBio" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ConsumableButton"
+            android:onClick="openConsumables"
+            android:text="Consumables" />
+
+        <Button
+            android:text="Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3" />
+
+        <Button
+            android:text="Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button4" />
+    </LinearLayout>
 </RelativeLayout>
