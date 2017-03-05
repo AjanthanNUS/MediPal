@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import sg.nus.iss.mtech.ptsix.medipal.presentation.Activity.ConsumablesActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumablesActivity;
 
 public class MainActivity extends AppCompatActivity {
 
