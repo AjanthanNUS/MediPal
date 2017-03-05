@@ -32,10 +32,11 @@
             android:text="Consumables" />
 
         <Button
-            android:text="Button"
+            android:text="Open Medicine View"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button3" />
+            android:id="@+id/medicineButton"
+            android:onClick="openMedicine" />
 
         <Button
             android:text="Button"
