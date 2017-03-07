@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumablesActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openConsumables(View view) {
-        Intent myIntent = new Intent(MainActivity.this, ConsumablesActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, ConsumptionActivity.class);
         startActivity(myIntent);
     }
 

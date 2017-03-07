@@ -18,7 +18,7 @@
         <activity android:name=".presentation.activity.AppointmentActivity">
            
         </activity>
-        <activity android:name=".presentation.activity.ConsumablesActivity"></activity>
+        <activity android:name=".presentation.activity.ConsumptionActivity"></activity>
     </application>
 
 </manifest>
