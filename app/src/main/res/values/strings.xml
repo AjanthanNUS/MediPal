@@ -25,5 +25,7 @@
 
     <string name="appointment_reminder_title">Coming Appointment</string>
     <string name="appointment_parceable">appointment</string>
+    <string name="consumption_parceable">consumption</string>
+    <string name="replenish_parceable">replenish</string>
 
 </resources>

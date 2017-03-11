@@ -31,6 +31,12 @@
         </activity>
         <receiver android:name=".business.services.AppointmentAlarmReceiver"/>
         <service android:name=".business.services.AppointmentReminder"/>
+
+        <receiver android:name=".business.services.ConsumptionAlarmReceiver"/>
+        <service android:name=".business.services.ConsumptionReminder"/>
+
+        <receiver android:name=".business.services.MedicineReplenishAlarmReceiver"/>
+        <service android:name=".business.services.MedicineReplenishReminder"/>
     </application>
 
 </manifest>

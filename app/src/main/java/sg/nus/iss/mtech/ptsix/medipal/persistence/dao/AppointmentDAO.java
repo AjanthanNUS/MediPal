@@ -8,6 +8,7 @@ import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
@@ -30,7 +31,7 @@ Description string
 public class AppointmentDAO extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.APP_ID + " =?";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
 
     public AppointmentDAO(Context context) {
         super(context);
@@ -115,4 +116,40 @@ public class AppointmentDAO extends DBDAO {
         }
         return appointment;
     }
+
+    public Appointment getAppointmentByDateTime(Date date)  {
+        Appointment ret = null;
+
+        String sql = "SELECT * FROM " + DatabaseHelper.APPOINTMENT_TABLE
+//                + " WHERE " + DatabaseHelper.APPOINTMENT_COLUMN + " = ?";
+                + " WHERE " + DatabaseHelper.APP_DATE + " = '" + formatter.format(date) + "'";
+
+//        Cursor cursor = database.rawQuery(sql, new String[] { formatter.format(date) });
+        Cursor cursor = database.rawQuery(sql, new String[]{});
+        while (cursor.moveToNext()) {
+            ret = new Appointment();
+            ret.setId(cursor.getInt(0));
+            ret.setLocation(cursor.getString(1));
+
+            try {
+                ret.setAppointmentDate(formatter.parse(cursor.getString(2)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            ret.setDescription(cursor.getString(3));
+        }
+        return ret;
+    }
+
+    public boolean truncateAllAppointments() {
+        boolean result = false;
+
+        database.execSQL("DROP TABLE IF EXISTS " + DatabaseHelper.APPOINTMENT_TABLE);
+        database.execSQL(DatabaseHelper.CREATE_APPOINTMENT_TABLE);
+        result = true;
+
+
+        return result;
+    }
+
 }
