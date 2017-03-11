@@ -49,6 +49,7 @@ public class CategoriesAddFragment extends Fragment {
             public void onClick(View v) {
                 if (isValid()) {
                     // Save the Category
+                    categoriesDao.save(createCategoryFromInput());
                     Toast.makeText(getActivity(), "Saving completed", Toast.LENGTH_SHORT).show();
                     resetFields();
                     ((CategoriesActivity) getActivity()).switchTab(0, -1);
@@ -109,6 +110,16 @@ public class CategoriesAddFragment extends Fragment {
         }
     }
 
+    private Categories createCategoryFromInput() {
+        Categories category = new Categories();
+        category.setCategory("ABC");
+        category.setCode("ABC");
+        category.setDescription("Temp");
+        category.setRemind(1);
+
+        return category;
+    }
+
     private void resetFields() {
         this.categoryName.setText("");
         this.categoryCode.setText("");
@@ -132,12 +143,16 @@ public class CategoriesAddFragment extends Fragment {
         }
 
         // Category code required check
-        if (TextUtils.isEmpty(categoryCode.getText().toString().trim())) {
+        if (TextUtils.isEmpty(categoryCode.getText().toString().trim()) || categoryCode.getText().toString().trim().length() != 3) {
             categoryCode.setError("Please fill in a 3 character code.");
             isValid = false;
         }
 
         //Check code only have character
+        if (!categoryCode.getText().toString().trim().matches("[a-zA-Z]+")) {
+            categoryCode.setError("Please fill in only using characters.");
+            isValid = false;
+        }
 
         // Category code duplicate required check
         // May have performance issue

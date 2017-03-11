@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@color/colorPrimary"
-                android:text="Edit"
+                android:text="@string/medicine_list_edit"
                 android:textColor="@android:color/white" />
 
             <TextView
