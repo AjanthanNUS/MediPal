@@ -3,20 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
     android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
-    android:clickable="true"
-    android:background="?android:attr/selectableItemBackground"
-    android:orientation="vertical">
+    android:paddingTop="4dp">
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/cv"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,112 +26,101 @@
 
             <TextView
                 android:id="@+id/medicine"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:textColor="@color/title"
                 android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btn_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:background="@color/colorPrimary"
                 android:text="Edit"
-                android:layout_alignParentRight="true"
-                android:textColor="@android:color/white"
-                />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/category"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/medicine"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/description"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/category"
                 android:layout_marginTop="20dp"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/remind"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/description"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/frequency"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/remind"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/quantity"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/frequency"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/dosage"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/quantity"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/consume_quantity"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/dosage"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/threshold"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consume_quantity"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/date_issued"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/threshold"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/expire_factor"
-                android:textColor="@color/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/date_issued"
-                android:textSize="14sp"
-                />
+                android:textColor="@color/title"
+                android:textSize="14sp" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

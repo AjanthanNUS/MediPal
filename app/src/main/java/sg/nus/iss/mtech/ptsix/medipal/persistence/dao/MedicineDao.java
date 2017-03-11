@@ -12,24 +12,6 @@ import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
- ID              interger
- Medicine        string
- Description     string
- CatID string    interger
- ReminderID      interger
- Remind          Bool
- Quantity        interger
- Dosage          interger
- ComsumeQuantity interger
- Threshold       interger
- DateIssued      Date
- ExpireFactor    interger
- */
 public class MedicineDao extends DBDAO {
     
     private static final String WHERE_ID_EQUALS = DatabaseHelper.MEDI_ID + " =?";

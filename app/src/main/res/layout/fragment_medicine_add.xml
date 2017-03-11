@@ -9,73 +9,69 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        >
+        android:layout_marginBottom="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            >
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:id="@+id/medicine_name_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medicine Name"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:paddingLeft="4dp"
-                />
+                android:text="Medicine Name" />
 
             <EditText
                 android:id="@+id/medicine_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_below="@id/medicine_name_label"
-                android:hint="Medicine Name"
-                />
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:hint="Medicine Name" />
 
             <TextView
                 android:id="@+id/medicine_description_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medicine Description"
                 android:layout_below="@id/medicine_name"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="4dp"
-                />
+                android:text="Medicine Description" />
+
             <EditText
                 android:id="@+id/medicine_description"
-                android:inputType="textMultiLine"
                 android:layout_width="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:hint="Medicine Description"
-                android:layout_below="@id/medicine_description_label"
                 android:layout_height="80dp"
-                android:textAlignment="gravity"
-                android:gravity="top|center_vertical" />
+                android:layout_below="@id/medicine_description_label"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:gravity="top|center_vertical"
+                android:hint="Medicine Description"
+                android:inputType="textMultiLine"
+                android:textAlignment="gravity" />
 
             <TextView
                 android:id="@+id/categories_remind_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Category Reminder Setting"
                 android:layout_below="@id/medicine_description"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="4dp"
-                />
+                android:text="Category Reminder Setting" />
 
             <RadioGroup
                 android:id="@+id/categories_remind"
@@ -83,17 +79,17 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/categories_remind_label"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="4dp">
 
                 <RadioButton
                     android:id="@+id/categories_remind_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Yes"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:text="Yes" />
 
                 <RadioButton
                     android:id="@+id/categories_remind_no"
@@ -119,6 +115,5 @@
         android:layout_margin="20dp"
         android:background="@color/colorPrimary"
         android:text="Save"
-        android:textColor="@android:color/white"
-        />
+        android:textColor="@android:color/white" />
 </RelativeLayout>

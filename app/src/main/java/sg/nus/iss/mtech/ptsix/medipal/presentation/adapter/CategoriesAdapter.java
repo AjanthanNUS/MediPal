@@ -37,9 +37,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
         holder.category.setText(category.getCategory().toString());
         holder.description.setText("Description: " + category.getDescription().toString());
         if (category.getRemind() >= 1) {
-            holder.remind.setText("(Reminder On)");
+            holder.remind.setText("(Remind: On)");
         } else {
-            holder.remind.setText("(Reminder Off)");
+            holder.remind.setText("(Remind: Off)");
         }
 
         // Handle edit button
