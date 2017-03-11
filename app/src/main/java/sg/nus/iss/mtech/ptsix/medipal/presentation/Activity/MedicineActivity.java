@@ -1,19 +1,14 @@
-package sg.nus.iss.mtech.ptsix.medipal.presentation.Activity;
+package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.MedicineAddFragment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.MedicineListFragment;
 
@@ -23,12 +18,13 @@ public class MedicineActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
     private int[] tabIcons = {
             android.R.drawable.picture_frame,
             android.R.drawable.ic_menu_add
     };
 
-    private static final String MEDICINE_ADD_TAB_NAME = "Add";
+    private static final String MEDICINE_ADD_TAB_NAME = "Add/Edit";
     private static final String MEDICINE_LIST_TAB_NAME = "Listing";
 
     @Override
@@ -61,32 +57,7 @@ public class MedicineActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
+    public void switchTab(int index) {
+        tabLayout.getTabAt(index).select();
     }
 }
