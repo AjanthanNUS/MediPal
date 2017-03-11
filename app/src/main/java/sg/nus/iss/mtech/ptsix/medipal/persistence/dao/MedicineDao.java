@@ -41,33 +41,33 @@ public class MedicineDao extends DBDAO {
     
     public long save(Medicine medicine) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.MEDI_NAME, medicine.getEventMedicine());
-        values.put(DatabaseHelper.MEDI_DESC, medicine.getEventDescription());
-        values.put(DatabaseHelper.MEDI_CAT_ID, medicine.getEventCatID());
-        values.put(DatabaseHelper.MEDI_REMINDER_ID, medicine.getEventReminderID());
-        values.put(DatabaseHelper.MEDI_REMIND_ENABLED, medicine.getEventRemindEnabled());
-        values.put(DatabaseHelper.MEDI_QUANTITY, medicine.getEventQuantity());
-        values.put(DatabaseHelper.MEDI_DOSAGE, medicine.getEventDosage());
-        values.put(DatabaseHelper.MEDI_CONSUME_QUANTITY, medicine.getEventConsumeQuantity());
-        values.put(DatabaseHelper.MEDI_THRESHOLD, medicine.getEventThreshold());
-        values.put(DatabaseHelper.MEDI_DATE_ISSUED,  formatter.format(medicine.getEventDateIssued()));
-        values.put(DatabaseHelper.MEDI_EXPIRE_FACTOR, medicine.getEventExpireFactor());
+        values.put(DatabaseHelper.MEDI_NAME, medicine.getMedicine());
+        values.put(DatabaseHelper.MEDI_DESC, medicine.getDescription());
+        values.put(DatabaseHelper.MEDI_CAT_ID, medicine.getCatId());
+        values.put(DatabaseHelper.MEDI_REMINDER_ID, medicine.getReminderId());
+        values.put(DatabaseHelper.MEDI_REMIND_ENABLED, medicine.getRemind());
+        values.put(DatabaseHelper.MEDI_QUANTITY, medicine.getQuantity());
+        values.put(DatabaseHelper.MEDI_DOSAGE, medicine.getDosage());
+        values.put(DatabaseHelper.MEDI_CONSUME_QUANTITY, medicine.getConsumeQuantity());
+        values.put(DatabaseHelper.MEDI_THRESHOLD, medicine.getThreshold());
+        values.put(DatabaseHelper.MEDI_DATE_ISSUED,  formatter.format(medicine.getDateIssued()));
+        values.put(DatabaseHelper.MEDI_EXPIRE_FACTOR, medicine.getExpireFactor());
         return database.insert(DatabaseHelper.MEDI_TABLE, null, values);
     }
     
     public long update(Medicine medicine) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.MEDI_NAME, medicine.getEventMedicine());
-        values.put(DatabaseHelper.MEDI_DESC, medicine.getEventDescription());
-        values.put(DatabaseHelper.MEDI_CAT_ID, medicine.getEventCatID());
-        values.put(DatabaseHelper.MEDI_REMINDER_ID, medicine.getEventReminderID());
-        values.put(DatabaseHelper.MEDI_REMIND_ENABLED, medicine.getEventRemindEnabled());
-        values.put(DatabaseHelper.MEDI_QUANTITY, medicine.getEventQuantity());
-        values.put(DatabaseHelper.MEDI_DOSAGE, medicine.getEventDosage());
-        values.put(DatabaseHelper.MEDI_CONSUME_QUANTITY, medicine.getEventConsumeQuantity());
-        values.put(DatabaseHelper.MEDI_THRESHOLD, medicine.getEventThreshold());
-        values.put(DatabaseHelper.MEDI_DATE_ISSUED,  formatter.format(medicine.getEventDateIssued()));
-        values.put(DatabaseHelper.MEDI_EXPIRE_FACTOR, medicine.getEventExpireFactor());
+        values.put(DatabaseHelper.MEDI_NAME, medicine.getMedicine());
+        values.put(DatabaseHelper.MEDI_DESC, medicine.getDescription());
+        values.put(DatabaseHelper.MEDI_CAT_ID, medicine.getCatId());
+        values.put(DatabaseHelper.MEDI_REMINDER_ID, medicine.getReminderId());
+        values.put(DatabaseHelper.MEDI_REMIND_ENABLED, medicine.getRemind());
+        values.put(DatabaseHelper.MEDI_QUANTITY, medicine.getQuantity());
+        values.put(DatabaseHelper.MEDI_DOSAGE, medicine.getDosage());
+        values.put(DatabaseHelper.MEDI_CONSUME_QUANTITY, medicine.getConsumeQuantity());
+        values.put(DatabaseHelper.MEDI_THRESHOLD, medicine.getThreshold());
+        values.put(DatabaseHelper.MEDI_DATE_ISSUED,  formatter.format(medicine.getDateIssued()));
+        values.put(DatabaseHelper.MEDI_EXPIRE_FACTOR, medicine.getExpireFactor());
         
         
         long result = database.update(DatabaseHelper.MEDI_TABLE, values,
@@ -106,21 +106,21 @@ public class MedicineDao extends DBDAO {
         while (cursor.moveToNext()) {
             Medicine medicine = new Medicine();
             medicine.setId(cursor.getInt(0));
-            medicine.setEventMedicine(cursor.getString(1));
-            medicine.setEventDescription(cursor.getString(2));
-            medicine.setEventCatID(cursor.getInt(3));
-            medicine.setEventReminderID(cursor.getInt(4));
-            medicine.setEventRemindEnabled(cursor.getInt(5));
-            medicine.setEventQuantity(cursor.getInt(6));
-            medicine.setEventDosage(cursor.getInt(7));
-            medicine.setEventConsumeQuantity(cursor.getInt(8));
-            medicine.setEventThreshold(cursor.getInt(9));
+            medicine.setMedicine(cursor.getString(1));
+            medicine.setDescription(cursor.getString(2));
+            medicine.setCatId(cursor.getInt(3));
+            medicine.setReminderId(cursor.getInt(4));
+            medicine.setRemind(cursor.getInt(5));
+            medicine.setQuantity(cursor.getInt(6));
+            medicine.setDosage(cursor.getInt(7));
+            medicine.setConsumeQuantity(cursor.getInt(8));
+            medicine.setThreshold(cursor.getInt(9));
             try {
-                medicine.setEventDateIssued(formatter.parse(cursor.getString(10)));
+                medicine.setDateIssued(formatter.parse(cursor.getString(10)));
             } catch (ParseException e) {
-                medicine.setEventDateIssued(null);
+                medicine.setDateIssued(null);
             }
-            medicine.setEventExpireFactor(cursor.getInt(11));
+            medicine.setExpireFactor(cursor.getInt(11));
             medicines.add(medicine);
         }
         return medicines;
@@ -138,21 +138,21 @@ public class MedicineDao extends DBDAO {
         if (cursor.moveToNext()) {
             medicine = new Medicine();
             medicine.setId(cursor.getInt(0));
-            medicine.setEventMedicine(cursor.getString(1));
-            medicine.setEventDescription(cursor.getString(2));
-            medicine.setEventCatID(cursor.getInt(3));
-            medicine.setEventReminderID(cursor.getInt(4));
-            medicine.setEventRemindEnabled(cursor.getInt(5));
-            medicine.setEventQuantity(cursor.getInt(6));
-            medicine.setEventDosage(cursor.getInt(7));
-            medicine.setEventConsumeQuantity(cursor.getInt(8));
-            medicine.setEventThreshold(cursor.getInt(9));
+            medicine.setMedicine(cursor.getString(1));
+            medicine.setDescription(cursor.getString(2));
+            medicine.setCatId(cursor.getInt(3));
+            medicine.setReminderId(cursor.getInt(4));
+            medicine.setRemind(cursor.getInt(5));
+            medicine.setQuantity(cursor.getInt(6));
+            medicine.setDosage(cursor.getInt(7));
+            medicine.setConsumeQuantity(cursor.getInt(8));
+            medicine.setThreshold(cursor.getInt(9));
             try {
-                medicine.setEventDateIssued(formatter.parse(cursor.getString(10)));
+                medicine.setDateIssued(formatter.parse(cursor.getString(10)));
             } catch (ParseException e) {
-                medicine.setEventDateIssued(null);
+                medicine.setDateIssued(null);
             }
-            medicine.setEventExpireFactor(cursor.getInt(11));
+            medicine.setExpireFactor(cursor.getInt(11));
         }
         return medicine;
     }

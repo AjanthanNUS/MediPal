@@ -84,9 +84,9 @@ public class CategoriesAddFragment extends Fragment {
         if (isVisibleToUser) {
             if (id >= 1) {
                 Categories category = this.categoriesDao.getCategories(id);
-                categoryName.setText(category.getEventCategory());
-                categoryCode.setText(category.getEventCode());
-                categoryDescription.setText(category.getEventDescription());
+                categoryName.setText(category.getCategory());
+                categoryCode.setText(category.getCode());
+                categoryDescription.setText(category.getDescription());
             } else {
                 this.resetFields();
             }

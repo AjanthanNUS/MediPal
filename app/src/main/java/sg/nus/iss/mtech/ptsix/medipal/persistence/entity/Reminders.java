@@ -47,8 +47,8 @@ public class Reminders implements Parcelable {
         return mFrequency;
     }
 
-    public void setFrequency(int Frequency) {
-        this.mFrequency = Frequency;
+    public void setFrequency(int frequency) {
+        this.mFrequency = frequency;
     }
 
     public Date getEventStartTime() {
@@ -66,6 +66,7 @@ public class Reminders implements Parcelable {
     public void setInterval(int Interval) {
         this.mInterval = Interval;
     }
+
     @Override
     public String toString() {
         return "HealthBio [id=" + m_id +

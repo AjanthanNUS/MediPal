@@ -17,11 +17,11 @@ Remind          Bool
 
 public class Categories implements Parcelable {
 
-    private int m_id;
-    private String mCategory;
-    private String mCode;
-    private String mDescription;
-    private int mRemind;
+    private int id;
+    private String category;
+    private String code;
+    private String description;
+    private int remind;
 
     public Categories() {
         super();
@@ -29,60 +29,60 @@ public class Categories implements Parcelable {
 
     private Categories(Parcel in) {
         super();
-        this.m_id = in.readInt();
-        this.mCategory = in.readString();
-        this.mCode = in.readString();
-        this.mDescription = in.readString();
-        this.mRemind = in.readInt();
+        this.id = in.readInt();
+        this.category = in.readString();
+        this.code = in.readString();
+        this.description = in.readString();
+        this.remind = in.readInt();
     }
 
     public int getId() {
-        return m_id;
+        return id;
     }
 
     public void setId(int id) {
-        this.m_id = id;
+        this.id = id;
     }
 
-    public String getEventCategory() {
-        return mCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setEventCategory(String category) {
-        this.mCategory = category;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getEventCode() {
-        return mCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setEventCode(String Code) {
-        this.mCode = Code;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public void setEventDescription(String Description) {
-        this.mDescription = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getEventDescription() {
-        return mDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEventRemind(int mRemind) {
-        this.mRemind = mRemind;
+    public void setRemind(int remind) {
+        this.remind = remind;
     }
 
-    public int getEventRemind() {
-        return mRemind;
+    public int getRemind() {
+        return remind;
     }
 
     @Override
     public String toString() {
-        return "Categories [id=" + m_id +
-                ", Category=" + mCategory +
-                ", Code=" + mCode +
-                ", Description=" + mDescription +
-                ", Remind=" + mRemind +
+        return "Categories [id=" + id +
+                ", Category=" + category +
+                ", Code=" + code +
+                ", Description=" + description +
+                ", Remind=" + remind +
                 "]";
     }
 
@@ -93,11 +93,10 @@ public class Categories implements Parcelable {
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(getId());
-        dest.writeString(getEventCategory());
-        dest.writeString(getEventCode());
-        dest.writeString(getEventDescription());
-        dest.writeInt(getEventRemind());
-
+        dest.writeString(getCategory());
+        dest.writeString(getCode());
+        dest.writeString(getDescription());
+        dest.writeInt(getRemind());
     }
 
     public static final Parcelable.Creator<Categories> CREATOR = new Parcelable.Creator<Categories>() {
@@ -109,5 +108,4 @@ public class Categories implements Parcelable {
             return new Categories[size];
         }
     };
-
 }

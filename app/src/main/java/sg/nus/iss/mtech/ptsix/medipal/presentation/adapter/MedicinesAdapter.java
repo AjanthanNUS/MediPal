@@ -37,24 +37,24 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder>  
     @Override
     public void onBindViewHolder(MedicineViewHolder holder, final int position) {
         Medicine medicine = medicinesList.get(position);
-        holder.medicine.setText(medicine.getEventMedicine());
-        Categories category = this.categoriesDao.getCategories(medicine.getEventCatID());
+        holder.medicine.setText(medicine.getMedicine());
+        Categories category = this.categoriesDao.getCategories(medicine.getCatId());
 
-        holder.category.setText(category.getEventCategory());
-        holder.description.setText("Description: " + medicine.getEventDescription());
-        holder.remind.setText("Remind: " + medicine.getEventRemindEnabled());
+        holder.category.setText(category.getCategory());
+        holder.description.setText("Description: " + medicine.getDescription());
+        holder.remind.setText("Remind: " + medicine.getRemind());
         holder.frequency.setText("Frequency: 3 times/day" );
-        holder.quantity.setText("Quantity: " + medicine.getEventQuantity() + " issued");
-        holder.dosage.setText("Dosage: " + medicine.getEventDosage());
-        holder.consumeQuantity.setText("Consume Quantity: " + medicine.getEventConsumeQuantity() + " each time");
-        if (category.getEventCode().equals("CHR")) {
-            holder.threshold.setText("Threshold: If falls below " + medicine.getEventThreshold());
+        holder.quantity.setText("Quantity: " + medicine.getQuantity() + " issued");
+        holder.dosage.setText("Dosage: " + medicine.getDosage());
+        holder.consumeQuantity.setText("Consume Quantity: " + medicine.getConsumeQuantity() + " each time");
+        if (category.getCode().equals("CHR")) {
+            holder.threshold.setText("Threshold: If falls below " + medicine.getThreshold());
         }
         else {
             holder.threshold.setText("Threshold: Not required");
         }
-        holder.dateIssued.setText("Date Issued: " + medicine.getEventDateIssued());
-        holder.expireFactor.setText("Expire in: " + medicine.getEventExpireFactor() + " months");
+        holder.dateIssued.setText("Date Issued: " + medicine.getDateIssued());
+        holder.expireFactor.setText("Expire in: " + medicine.getExpireFactor() + " months");
 
 
         // Handle edit button

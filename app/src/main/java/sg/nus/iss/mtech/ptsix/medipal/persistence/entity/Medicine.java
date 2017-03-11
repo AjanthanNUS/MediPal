@@ -27,18 +27,18 @@ ExpireFactor    interger
  */
 public class Medicine implements Parcelable {
 
-    private int m_id;
-    private String  mMedicine;
-    private String  mDesc;
-    private int mCatID;
-    private int mReminderID;
-    private int mRemindEnabled;
-    private int mQuantity;
-    private int mDosage;
-    private int mConsumeQuantity;
-    private int mThreshold;
-    private Date mDateIssued;
-    private int mExpireFactor;
+    private int id;
+    private String medicine;
+    private String description;
+    private int catId;
+    private int reminderId;
+    private int remind;
+    private int quantity;
+    private int dosage;
+    private int consumeQuantity;
+    private int threshold;
+    private Date dateIssued;
+    private int expireFactor;
 
     public Medicine() {
         super();
@@ -46,115 +46,130 @@ public class Medicine implements Parcelable {
 
     private Medicine(Parcel in) {
         super();
-        this.m_id = in.readInt();
-        this.mMedicine = in.readString();
-        this.mDesc = in.readString();
-        this.mCatID = in.readInt();
-        this.mReminderID = in.readInt();
-        this.mRemindEnabled = in.readInt();
-        this.mQuantity = in.readInt();
-        this.mDosage = in.readInt();
-        this.mConsumeQuantity = in.readInt();
-        this.mThreshold = in.readInt();
-        this.mDateIssued = new Date(in.readLong());
-        this.mExpireFactor = in.readInt();
+        this.id = in.readInt();
+        this.medicine = in.readString();
+        this.description = in.readString();
+        this.catId = in.readInt();
+        this.reminderId = in.readInt();
+        this.remind = in.readInt();
+        this.quantity = in.readInt();
+        this.dosage = in.readInt();
+        this.consumeQuantity = in.readInt();
+        this.threshold = in.readInt();
+        this.dateIssued = new Date(in.readLong());
+        this.expireFactor = in.readInt();
     }
 
     public int getId() {
-        return m_id;
+        return id;
     }
+
     public void setId(int id) {
-        this.m_id = id;
+        this.id = id;
     }
 
-    public String getEventMedicine() {
-        return mMedicine;
+    public String getMedicine() {
+        return medicine;
     }
 
-    public void setEventMedicine(String medicine) {
-        this.mMedicine = medicine;
+    public void setMedicine(String medicine) {
+        this.medicine = medicine;
     }
 
-    public String getEventDescription() {
-        return mDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEventDescription(String Description) {
-        this.mDesc = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getEventCatID() {
-        return mCatID;
-    }
-    public void setEventCatID (int CatID ) {
-        this.mCatID = CatID ;
-    }
-    public int getEventReminderID() {
-        return mReminderID;
-    }
-    public void setEventReminderID (int ReminderID ) {
-        this.mReminderID = ReminderID ;
-    }
-    public int getEventRemindEnabled() {
-        return mRemindEnabled;
-    }
-    public void setEventRemindEnabled (int RemindEnabled ) {
-        this.mRemindEnabled = RemindEnabled ;
-    }
-    public int getEventQuantity() {
-        return mQuantity;
-    }
-    public void setEventQuantity (int Quantity ) {
-        this.mQuantity = Quantity ;
+    public int getCatId() {
+        return catId;
     }
 
-    public int getEventDosage() {
-        return mDosage;
-    }
-    public void setEventDosage (int Dosage ) {
-        this.mDosage = Dosage ;
-    }
-    public int getEventConsumeQuantity() {
-        return mConsumeQuantity;
-    }
-    public void setEventConsumeQuantity (int ConsumeQuantity ) {
-        this.mConsumeQuantity = ConsumeQuantity ;
-    }
-    public int getEventThreshold() {
-        return mThreshold;
-    }
-    public void setEventThreshold (int Threshold ) {
-        this.mThreshold = Threshold ;
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
-    public Date getEventDateIssued() {
-        return mDateIssued;
+    public int getReminderId() {
+        return reminderId;
     }
 
-    public void setEventDateIssued(Date date) {
-        this.mDateIssued = date;
+    public void setReminderId(int reminderId) {
+        this.reminderId = reminderId;
     }
-    public int getEventExpireFactor() {
-        return mExpireFactor;
+
+    public int getRemind() {
+        return remind;
     }
-    public void setEventExpireFactor (int ExpireFactor ) {
-        this.mExpireFactor = ExpireFactor ;
+
+    public void setRemind(int remind) {
+        this.remind = remind;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getDosage() {
+        return dosage;
+    }
+
+    public void setDosage(int dosage) {
+        this.dosage = dosage;
+    }
+
+    public int getConsumeQuantity() {
+        return consumeQuantity;
+    }
+
+    public void setConsumeQuantity(int consumeQuantity) {
+        this.consumeQuantity = consumeQuantity;
+    }
+
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
+    public Date getDateIssued() {
+        return dateIssued;
+    }
+
+    public void setDateIssued(Date date) {
+        this.dateIssued = date;
+    }
+
+    public int getExpireFactor() {
+        return expireFactor;
+    }
+
+    public void setExpireFactor(int expireFactor) {
+        this.expireFactor = expireFactor;
     }
 
     @Override
     public String toString() {
-        return "Medicine [id=" + m_id +
-                ", Medicine=" + mMedicine +
-                ", Description=" + mDesc +
-                ", CatID=" + mCatID +
-                ", ReminderID=" + mReminderID +
-                ", Remind=" + mRemindEnabled +
-                ", Quantity=" + mQuantity +
-                ", Dosage=" + mDosage +
-                ", ComsumeQuantity=" + mConsumeQuantity +
-                ", Threshold=" + mThreshold +
-                ", DateIssued=" + mDateIssued +
-                ", ExpireFactor=" + mExpireFactor +
+        return "Medicine [id=" + id +
+                ", Medicine=" + medicine +
+                ", Description=" + description +
+                ", CatID=" + catId +
+                ", ReminderID=" + reminderId +
+                ", Remind=" + remind +
+                ", Quantity=" + quantity +
+                ", Dosage=" + dosage +
+                ", ComsumeQuantity=" + consumeQuantity +
+                ", Threshold=" + threshold +
+                ", DateIssued=" + dateIssued +
+                ", ExpireFactor=" + expireFactor +
                 "]";
     }
 
@@ -165,17 +180,17 @@ public class Medicine implements Parcelable {
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(getId());
-        dest.writeString(getEventMedicine());
-        dest.writeString(getEventDescription());
-        dest.writeInt(getEventCatID());
-        dest.writeInt(getEventReminderID());
-        dest.writeInt(getEventRemindEnabled());
-        dest.writeInt(getEventQuantity());
-        dest.writeInt(getEventDosage());
-        dest.writeInt(getEventConsumeQuantity());
-        dest.writeInt(getEventThreshold());
-        dest.writeLong(getEventDateIssued().getDate());
-        dest.writeInt(getEventExpireFactor());
+        dest.writeString(getMedicine());
+        dest.writeString(getDescription());
+        dest.writeInt(getCatId());
+        dest.writeInt(getReminderId());
+        dest.writeInt(getRemind());
+        dest.writeInt(getQuantity());
+        dest.writeInt(getDosage());
+        dest.writeInt(getConsumeQuantity());
+        dest.writeInt(getThreshold());
+        dest.writeLong(getDateIssued().getDate());
+        dest.writeInt(getExpireFactor());
     }
 
     public static final Parcelable.Creator<Medicine> CREATOR = new Parcelable.Creator<Medicine>() {
@@ -187,5 +202,4 @@ public class Medicine implements Parcelable {
             return new Medicine[size];
         }
     };
-
 }
