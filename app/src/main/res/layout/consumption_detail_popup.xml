@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:paddingBottom="1dp"
+    android:paddingLeft="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:textColor="@android:color/darker_gray">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:text="@string/medicineName" />
+
+            <TextView
+                android:id="@+id/popup_medicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:text="@string/consumedOn" />
+
+            <TextView
+                android:id="@+id/popup_consumed_on"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:text="@string/quantity" />
+
+
+            <TextView
+                android:id="@+id/popup_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:text="@string/description" />
+
+            <TextView
+                android:id="@+id/popup_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2sp" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

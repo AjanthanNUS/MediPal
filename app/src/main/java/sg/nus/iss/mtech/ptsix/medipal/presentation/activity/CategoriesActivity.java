@@ -36,8 +36,8 @@ public class CategoriesActivity extends AppCompatActivity {
         categoriesListFragment = new CategoriesListFragment();
         categoriesAddFragment = new CategoriesAddFragment();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

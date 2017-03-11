@@ -11,6 +11,9 @@ public class DBDAO {
     protected SQLiteDatabase database;
     private DatabaseHelper databaseHelper;
     private Context context;
+    public Context getContext() {
+        return this.context;
+    }
 
     public DBDAO(Context context) {
         this.context = context;
