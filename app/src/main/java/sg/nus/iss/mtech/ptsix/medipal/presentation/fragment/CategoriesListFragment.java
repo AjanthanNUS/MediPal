@@ -61,12 +61,20 @@ public class CategoriesListFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+//        categoriesList = this.categoriesDao.getCategories();
+////        if (isVisibleToUser) {
+////            getCategoriesList();
+////        }
+    }
+
     private void getCategoriesList() {
         categoriesList = this.categoriesDao.getCategories();
     }
 
-    private Boolean checkValidCategory () {
-
+    private Boolean checkValidCategory() {
 
 
         return false;
