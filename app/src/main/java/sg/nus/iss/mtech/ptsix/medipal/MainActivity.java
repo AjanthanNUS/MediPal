@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +23,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void openMedicine(View view) {
+        Intent myIntent = new Intent(MainActivity.this, MedicineActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void openCategories(View view) {
+        Intent myIntent = new Intent(MainActivity.this, CategoriesActivity.class);
+        startActivity(myIntent);
+    }
 
     public void openAppointment(View view) {
         Intent myIntent = new Intent(MainActivity.this, AppointmentActivity.class);

@@ -35,7 +35,7 @@ public class AppointmentServiceTest {
 
         AppointmentDAO appointmentDAO = new AppointmentDAO(context);
         appointmentDAO.open();
-        appointmentDAO.truncateAllAppointments();
+        //appointmentDAO.truncateAllAppointments();
         appointmentDAO.close();
 
     }

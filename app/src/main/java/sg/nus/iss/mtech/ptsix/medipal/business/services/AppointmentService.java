@@ -23,9 +23,10 @@ public class AppointmentService {
         long result = 0;
         appointmentDAO.open();
 
+        /*
         try {
-            if (appointmentDAO.getAppointmentByDateTime(appointment.getAppointmentDate()) != null) {
-                throw new AppointmentExistException();
+            //if (appointmentDAO.getAppointmentByDateTime(appointment.getAppointmentDate()) != null) {
+             //   throw new AppointmentExistException();
             }
 
             result = appointmentDAO.save(appointment);
@@ -39,6 +40,7 @@ public class AppointmentService {
         } finally {
             appointmentDAO.close();
         }
+        */
 
         return result;
     }

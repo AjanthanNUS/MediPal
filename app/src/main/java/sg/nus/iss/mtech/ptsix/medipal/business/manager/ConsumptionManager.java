@@ -11,13 +11,12 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
 
 public class ConsumptionManager {
     private ConsumptionDao consumptionDao;
-
+/*
     public ConsumptionManager() {
-        consumptionDao = new ConsumptionDao();
+        consumptionDao = new ConsumptionDao(this);
     }
-
-
+*/
     public List<Consumption> getAllConsumptionList() {
-        return consumptionDao.getConsumptionList(null, null);
+        return consumptionDao.getConsumptions();
     }
 }

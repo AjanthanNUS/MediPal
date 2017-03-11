@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -12,36 +11,52 @@
     tools:context="sg.nus.iss.mtech.ptsix.medipal.MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <Button
-            android:text="Button"
+            android:id="@+id/PersonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/PersonalButton"
+            android:text="Button"
             tools:text="PersonalBio" />
 
         <Button
+            android:id="@+id/ConsumableButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ConsumableButton"
             android:onClick="openConsumables"
             android:text="Consumables" />
 
         <Button
+            android:id="@+id/btnAppointment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/appointment"
-            android:id="@+id/btnAppointment"
-            android:onClick="openAppointment"/>
+            android:onClick="openAppointment"
+            android:text="@string/appointment" />
 
         <Button
-            android:text="Button"
+            android:id="@+id/btnCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button4" />
+            android:onClick="openCategories"
+            android:text="Open Categories View" />
+
+        <Button
+            android:id="@+id/btnMedicines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openMedicine"
+            android:text="Open Medicine View" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+
     </LinearLayout>
 </RelativeLayout>

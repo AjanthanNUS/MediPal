@@ -24,6 +24,8 @@
            
         </activity>
         <activity android:name=".presentation.activity.ConsumptionActivity"/>
+        <activity android:name=".presentation.activity.MedicineActivity"></activity>
+        <activity android:name=".presentation.activity.CategoriesActivity"></activity>
         <activity android:name=".presentation.activity.AppointmentDetailActivity"
                   android:parentActivityName=".presentation.activity.AppointmentActivity">
         </activity>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/categories_name_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/categories_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/category_add_name" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/categories_code_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/categories_name_label"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/categories_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/category_add_code"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="3" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/categories_description_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/categories_code_label"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/categories_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|center_vertical"
+                    android:hint="@string/category_add_description"
+                    android:inputType="textMultiLine"
+                    android:textAlignment="gravity" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/categories_remind_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/categories_description_label"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/category_add_remind_default"
+                android:textSize="12sp" />
+
+            <RadioGroup
+                android:id="@+id/categories_remind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categories_remind_label"
+                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="4dp">
+
+                <RadioButton
+                    android:id="@+id/categories_remind_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/category_add_remind_default_yes" />
+
+                <RadioButton
+                    android:id="@+id/categories_remind_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_add_remind_default_no" />
+
+                <RadioButton
+                    android:id="@+id/categories_remind_optional"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/category_add_remind_default_op" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/btns"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/categories_remind">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/category_add_cancel"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/category_add_save"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
