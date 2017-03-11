@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MediPal</string>
+    <string name="generic_error">Sorry something went wrong! We\'re looking into it!</string>
+    <string name="appointment">Appointment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+
 </resources>
