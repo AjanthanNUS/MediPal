@@ -10,4 +10,8 @@
     <string name="quantity">Quantity : </string>
     <string name="action_filter">Filter</string>
     <string name="description">Description : </string>
+
+    <string name="appointment_reminder_title">Coming Appointment</string>
+    <string name="appointment_parceable">appointment</string>
+
 </resources>

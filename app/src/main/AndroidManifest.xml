@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="sg.nus.iss.mtech.ptsix.medipal">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -23,12 +23,12 @@
         <activity android:name=".presentation.activity.AppointmentActivity">
            
         </activity>
-        <activity android:name=".presentation.activity.ConsumptionActivity"></activity>
+        <activity android:name=".presentation.activity.ConsumptionActivity"/>
         <activity android:name=".presentation.activity.AppointmentDetailActivity"
                   android:parentActivityName=".presentation.activity.AppointmentActivity">
         </activity>
         <receiver android:name=".business.services.AppointmentAlarmReceiver"/>
-        <service android:name=".business.services.AppointmentReminder"></service>
+        <service android:name=".business.services.AppointmentReminder"/>
     </application>
 
 </manifest>

@@ -29,6 +29,9 @@ public class AppointmentService {
             }
 
             result = appointmentDAO.save(appointment);
+            appointment.setId((int)result);
+
+            AppointmentAlarmReceiver.setAlarm(context, appointment);
         } catch (AppointmentExistException aex) {
             throw aex;
         } catch (Exception e) {

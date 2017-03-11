@@ -9,6 +9,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentDetailActivity;
 
 /**
@@ -16,7 +18,8 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentDetailAct
  */
 
 public class AppointmentReminder extends IntentService {
-    private NotificationManager mNotificationManger;
+    private static final String TAG = AppointmentReminder.class.getSimpleName();
+    private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
     public static final int NOTIFICATION_ID = 1;
     public AppointmentReminder() {
@@ -25,27 +28,39 @@ public class AppointmentReminder extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        sendNotification("Appointment 1");
+        Log.w(TAG, "On Handle Intent");
+
+        if (intent != null && intent.hasExtra(getResources().getResourceName(R.string.appointment_parceable))) {
+            Appointment appointment = intent.getParcelableExtra(getResources().getResourceName(R.string.appointment_parceable));
+
+            sendNotification(appointment);
+            AppointmentAlarmReceiver.completeWakefulIntent(intent);
+            Log.w(TAG, "Call Appointment Alarm Receiver");
+        }
+
+        sendNotification(new Appointment());
         AppointmentAlarmReceiver.completeWakefulIntent(intent);
     }
 
-    private void sendNotification(String msg) {
-        Log.w("INFO", "SEND NOTI");
-        mNotificationManger = (NotificationManager)
+    private void sendNotification(Appointment appointment) {
+        Log.w(TAG, "SEND APPOINTMENT NOTI");
+        mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, AppointmentDetailActivity.class), 0);
+        int requestID = NotificationID.APPOINTMENT + appointment.getId();
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, new Intent(this, AppointmentDetailActivity.class), 0);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Appointment Alert")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-                .setContentText(msg);
+                .setContentTitle(getResources().getText(R.string.appointment_reminder_title))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(appointment.getDescription()))
+                .setContentText(appointment.getLocation());
 
         mBuilder.setContentIntent(contentIntent);
-        mNotificationManger.notify(NOTIFICATION_ID, mBuilder.build());
-        Log.w("INFO", "END NOTI");
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        Log.w(TAG, "END APPOINTMENT NOTI");
 
     }
 }

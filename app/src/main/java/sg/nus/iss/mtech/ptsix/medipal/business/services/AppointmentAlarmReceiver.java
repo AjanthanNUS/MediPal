@@ -9,38 +9,44 @@ import android.util.Log;
 
 import java.util.Calendar;
 
+import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
+
 /**
  * Created by win on 11/3/17.
  */
 
 public class AppointmentAlarmReceiver extends WakefulBroadcastReceiver {
+    public static final String TAG = AppointmentAlarmReceiver.class.getSimpleName();
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.w("INFO", "START RECEIVE");
+        Log.w(TAG, "START APPOINTMENT RECEIVE");
         Intent service = new Intent(context, AppointmentReminder.class);
         startWakefulService(context, service);
-        Log.w("INFO", "END RECEIVE");
-
+        Log.w(TAG, "END APPOINTMENT RECEIVE");
     }
 
-    public void setAlarm(Context context) {
+    public static void setAlarm(Context context, Appointment appointment) {
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AppointmentAlarmReceiver.class);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        Intent intent = new Intent(context, AppointmentAlarmReceiver.class);
+        intent.putExtra(context.getResources().getResourceName(R.string.appointment_parceable), appointment);
+
+        int requestID = NotificationID.APPOINTMENT + appointment.getId();
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestID, intent, 0);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        // Set the alarm's trigger time to 8:30 a.m.
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 33);
+        calendar.setTime(appointment.getAppointmentDate());
 
-
+        Log.w(TAG, calendar.getTime().toString());
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
-        Log.w("INFO", "SET ALARM");
-
+        Log.w(TAG, "APPOINTMENT REMINDER SET");
     }
 }
