@@ -40,9 +40,9 @@ public class MyConsumptionRecyclerViewAdapter extends RecyclerView.Adapter<MyCon
         Consumption cItem = mValues.get(position);
         holder.consumptionItem = cItem;
 
-        holder.consumedOnDateView.setText(CommonUtil.formatCalender(cItem.getConsumedOn()));
-        holder.medicineNameView.setText(cItem.getMedicine().getName());
-        holder.consumedQuantityView.setText(cItem.getQuantity().toString());
+        //holder.consumedOnDateView.setText(CommonUtil.formatCalender(cItem.getConsumedOn()));
+        //holder.medicineNameView.setText(cItem.getMedicine().getName());
+        //holder.consumedQuantityView.setText(cItem.getQuantity().toString());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

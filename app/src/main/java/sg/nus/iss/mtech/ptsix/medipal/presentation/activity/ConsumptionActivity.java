@@ -70,10 +70,10 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
             TextView quantity = (TextView) customView.findViewById(R.id.popup_quantity);
             TextView description = (TextView) customView.findViewById(R.id.popup_description);
 
-            medicine.setText(consumption.getMedicine().getName());
-            consumedOn.setText(CommonUtil.formatCalender(consumption.getConsumedOn()));
-            quantity.setText(consumption.getQuantity().toString());
-            description.setText(consumption.getMedicine().getName() + "Sample description");
+            medicine.setText(consumption.getEventMedicineID());
+            //consumedOn.setText(CommonUtil.formatCalender(consumption.getEventConsumedOn());
+            quantity.setText(consumption.getEventQuantity());
+            description.setText(consumption.getEventMedicineID() + "Sample description");
 
             mPopupWindow = new PopupWindow(
                     customView,

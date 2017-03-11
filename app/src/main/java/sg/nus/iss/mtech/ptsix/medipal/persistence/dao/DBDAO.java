@@ -1,39 +1,34 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.dao;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 
 /**
- * Created by win on 28/2/17.
+ * Created by WONG_CH on 05-Mar-17.
  */
+import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 
 public class DBDAO {
     protected SQLiteDatabase database;
-    private DatabaseHelper databaseHelper;
-    private Context context;
-    public Context getContext() {
-        return this.context;
-    }
+    private DatabaseHelper dbHelper;
+    private Context mContext;
 
     public DBDAO(Context context) {
-        this.context = context;
-        databaseHelper = DatabaseHelper.getHelper(context);
-        database = databaseHelper.getWritableDatabase();
+        this.mContext = context;
+        dbHelper = DatabaseHelper.getHelper(mContext);
         open();
+
     }
 
-    public void open() {
-        if (databaseHelper == null) {
-            databaseHelper = DatabaseHelper.getHelper(context);
-            database = databaseHelper.getWritableDatabase();
-        }
+    public void open() throws SQLException {
+        if(dbHelper == null)
+            dbHelper = DatabaseHelper.getHelper(mContext);
+        database = dbHelper.getWritableDatabase();
     }
 
     public void close() {
-        databaseHelper.close();
+        dbHelper.close();
         database = null;
     }
-
-
-
 }
+
