@@ -131,35 +131,36 @@
                     android:text="Optional" />
             </RadioGroup>
 
+            <LinearLayout
+                android:id="@+id/btns"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_below="@+id/categories_remind">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="20dp"
+                    android:text="Cancel">
+                </Button>
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="20dp"
+                    android:text="Save">
+                </Button>
+            </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/LinearLayout02"
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="20dp"
-            android:text="Cancel">
-        </Button>
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="20dp"
-            android:text="Save">
-        </Button>
-    </LinearLayout>
 </RelativeLayout>
