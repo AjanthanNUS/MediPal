@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.activity.AppointmentActivity">
+           
         </activity>
+        <activity android:name=".presentation.activity.ConsumptionActivity"></activity>
         <activity android:name=".presentation.activity.ConsumablesActivity"/>
         <activity
             android:name=".presentation.activity.Main2Activity"

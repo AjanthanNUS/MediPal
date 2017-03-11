@@ -7,16 +7,17 @@ import java.util.Calendar;
  */
 
 public class Consumption {
+    private Integer id;
     private Medicine medicine;
     private Integer quantity;
     private Calendar consumedOn;
 
-    public Calendar getConsumedOn() {
-        return consumedOn;
+    public Integer getId() {
+        return id;
     }
 
-    public void setConsumedOn(Calendar consumedOn) {
-        this.consumedOn = consumedOn;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Medicine getMedicine() {
@@ -33,5 +34,13 @@ public class Consumption {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Calendar getConsumedOn() {
+        return consumedOn;
+    }
+
+    public void setConsumedOn(Calendar consumedOn) {
+        this.consumedOn = consumedOn;
     }
 }

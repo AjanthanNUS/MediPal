@@ -4,12 +4,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Calendar;
 
 /**
  * Created by win on 5/3/17.
  */
 
-public class CommonUtil {
+public  class CommonUtil {
+    public static String formatCalender(Calendar calendar) {
+        String formattedDate;
+
+        calendar.add(Calendar.DATE, 1);
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        formattedDate = format1.format(calendar.getTime());
+        return formattedDate;
+    }
 
     public static String date2ddMMMYYYY(Date d) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
