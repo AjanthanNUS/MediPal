@@ -55,7 +55,7 @@ public class CategoriesListFragment extends Fragment {
         addActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((CategoriesActivity) getActivity()).switchTab(1);
+                ((CategoriesActivity) getActivity()).switchTab(1, -1);
             }
         });
         return rootView;

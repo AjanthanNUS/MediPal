@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/medicine"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/category"
                 android:layout_marginTop="20dp"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/description"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/remind"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/frequency"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/quantity"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/dosage"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -113,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consume_quantity"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -122,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/threshold"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
             <TextView
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/date_issued"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 />
 
         </RelativeLayout>

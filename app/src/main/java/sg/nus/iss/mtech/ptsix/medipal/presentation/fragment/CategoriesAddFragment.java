@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDAO;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 
 public class CategoriesAddFragment extends Fragment {
@@ -21,8 +22,8 @@ public class CategoriesAddFragment extends Fragment {
     private RadioGroup categoriesRemind;
     private EditText categoryName, categoryCode, categoryDescription;
     private Boolean categoryRemind = true;
-    private Button btnSave;
-    private CategoriesDAO CategoriesDAO;
+    private Button btnSave, btnCancel;
+    private CategoriesDAO categoriesDAO;
 
     public CategoriesAddFragment() {
     }
@@ -30,7 +31,7 @@ public class CategoriesAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CategoriesDAO = new CategoriesDAO(this.getContext());
+        categoriesDAO = new CategoriesDAO(this.getContext());
     }
 
     @Nullable
@@ -48,10 +49,20 @@ public class CategoriesAddFragment extends Fragment {
             public void onClick(View v) {
                 if (isValid()) {
                     // Save the Category
-                    Toast.makeText(getActivity(), "Save completed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Saving completed", Toast.LENGTH_SHORT).show();
                     resetFields();
-                    ((CategoriesActivity) getActivity()).switchTab(0);
+                    ((CategoriesActivity) getActivity()).switchTab(0, -1);
                 }
+            }
+        });
+
+        btnCancel = (Button) rootView.findViewById(R.id.btn_cancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cancel the Category
+                resetFields();
+                ((CategoriesActivity) getActivity()).switchTab(0, -1);
             }
         });
 
@@ -64,6 +75,22 @@ public class CategoriesAddFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        int id = getArguments().getInt("id");
+        if (isVisibleToUser) {
+            if (id >= 1) {
+                Categories category = this.categoriesDAO.getCategoriesById(id);
+                categoryName.setText(category.getCategory());
+                categoryCode.setText(category.getCode());
+                categoryDescription.setText(category.getDescription());
+            } else {
+                this.resetFields();
+            }
+        }
     }
 
     private void categoriesRemindButtonClicked(int checkedId) {
@@ -114,7 +141,7 @@ public class CategoriesAddFragment extends Fragment {
 
         // Category code duplicate required check
         // May have performance issue
-        if (CategoriesDAO.getCategoriesByCode(categoryCode.getText().toString().trim()).size() > 0) {
+        if (categoriesDAO.getCategoriesByCode(categoryCode.getText().toString().trim()).size() > 0) {
             categoryCode.setError("This category code already exist. Please use another.");
             isValid = false;
         }
@@ -130,7 +157,6 @@ public class CategoriesAddFragment extends Fragment {
             categoryDescription.setError("Please fill in a description below 255 characters.");
             isValid = false;
         }
-
 
         return isValid;
     }

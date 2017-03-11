@@ -31,8 +31,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
     }
 
     @Override
-    public void onBindViewHolder(CategoriesViewHolder holder, final int position) {
-        Categories category = categoriesList.get(position);
+    public void onBindViewHolder(final CategoriesViewHolder holder, final int position) {
+        final Categories category = categoriesList.get(position);
         holder.code.setText(category.getCode().toString());
         holder.category.setText(category.getCategory().toString());
         holder.description.setText("Description: " + category.getDescription().toString());
@@ -47,7 +47,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
             @Override
             public void onClick(View v) {
                 if(mContext instanceof CategoriesActivity){
-                    ((CategoriesActivity)mContext).switchTab(1);
+                    ((CategoriesActivity)mContext).switchTab(1, category.getId());
                 }
             }
         });
