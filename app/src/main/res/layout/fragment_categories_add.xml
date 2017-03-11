@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity">
+    tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,45 +22,66 @@
             >
 
             <TextView
-                android:id="@+id/medicine_name_label"
+                android:id="@+id/categories_name_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medicine Name"
+                android:text="Category Name"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:paddingLeft="4dp"
                 />
-
             <EditText
-                android:id="@+id/medicine_name"
+                android:id="@+id/categories_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_below="@id/medicine_name_label"
-                android:hint="Medicine Name"
+                android:layout_below="@id/categories_name_label"
+                android:hint="Category Name"
                 />
 
             <TextView
-                android:id="@+id/medicine_description_label"
+                android:id="@+id/categories_code_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medicine Description"
-                android:layout_below="@id/medicine_name"
+                android:text="Category Code"
+                android:layout_below="@id/categories_name"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:paddingLeft="4dp"
                 />
             <EditText
-                android:id="@+id/medicine_description"
+                android:id="@+id/categories_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:inputType="textCapCharacters"
+                android:hint="Category Code"
+                android:maxLength="3"
+                android:layout_below="@id/categories_code_label" />
+
+            <TextView
+                android:id="@+id/categories_description_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category Description"
+                android:layout_below="@id/categories_code"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:paddingLeft="4dp"
+                />
+            <EditText
+                android:id="@+id/categories_description"
                 android:inputType="textMultiLine"
                 android:layout_width="match_parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:hint="Medicine Description"
-                android:layout_below="@id/medicine_description_label"
+                android:hint="Category Description"
+                android:layout_below="@id/categories_description_label"
                 android:layout_height="80dp"
                 android:textAlignment="gravity"
                 android:gravity="top|center_vertical" />
@@ -70,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Category Reminder Setting"
-                android:layout_below="@id/medicine_description"
+                android:layout_below="@id/categories_description"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"

@@ -13,7 +13,7 @@ public class Medicine {
 
     private Integer catId;
 
-    private Integer reminderID;
+    private Integer reminderId;
 
     private Boolean remind;
 
@@ -61,12 +61,12 @@ public class Medicine {
         this.catId = catId;
     }
 
-    public Integer getReminderID() {
-        return reminderID;
+    public Integer getReminderId() {
+        return reminderId;
     }
 
-    public void setReminderID(Integer reminderID) {
-        this.reminderID = reminderID;
+    public void setReminderId(Integer reminderId) {
+        this.reminderId = reminderId;
     }
 
     public Boolean getRemind() {

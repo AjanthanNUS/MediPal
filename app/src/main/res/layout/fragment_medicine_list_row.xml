@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:focusable="true"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/medicine"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="Edit"
+                android:layout_alignParentRight="true"
+                android:textColor="@android:color/white"
+                />
+
+            <TextView
+                android:id="@+id/category"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/medicine"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/description"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/category"
+                android:layout_marginTop="20dp"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/remind"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/description"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/frequency"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/remind"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/quantity"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/frequency"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/dosage"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quantity"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/consume_quantity"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dosage"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/threshold"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/consume_quantity"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/date_issued"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/threshold"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/expire_factor"
+                android:textColor="@color/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/date_issued"
+                android:textSize="12sp"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

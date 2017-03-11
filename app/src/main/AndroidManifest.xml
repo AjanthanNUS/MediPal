@@ -19,6 +19,13 @@
            
         </activity>
         <activity android:name=".presentation.activity.ConsumablesActivity"></activity>
+        <activity android:name=".presentation.activity.MedicineActivity"></activity>
+        <activity android:name=".presentation.activity.CategoriesActivity"></activity>
+
+        <service
+            android:name=".business.services.MedicineReplenishService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

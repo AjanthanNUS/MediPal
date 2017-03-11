@@ -13,8 +13,6 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
 public class MedicineAddFragment extends Fragment {
 
     public MedicineAddFragment() {
-
-
     }
 
     @Override
@@ -25,8 +23,6 @@ public class MedicineAddFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
-
         return inflater.inflate(R.layout.fragment_medicine_add, container, false);
     }
 }

@@ -15,54 +15,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDAO;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.MedicinesAdapter;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDAO;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.CategoriesAdapter;
 
-public class MedicineListFragment extends Fragment {
+public class CategoriesListFragment extends Fragment {
 
-    private List<Medicine> medicinesList = new ArrayList<>();
+    private List<Categories> categoriesList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private MedicinesAdapter mAdapter;
-    private MedicineDAO medicineDAO;
+    private CategoriesAdapter mAdapter;
+    private CategoriesDAO categoriesDAO;
     private FloatingActionButton addActionButton;
 
-    public MedicineListFragment() {
+    public CategoriesListFragment() {
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.medicineDAO = new MedicineDAO(this.getContext());
-        this.getMedicinesList();
+        this.categoriesDAO = new CategoriesDAO(this.getContext());
+        this.getCategoriesList();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_medicine_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_categories_list, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
-        mAdapter = new MedicinesAdapter(medicinesList, getActivity());
+        mAdapter = new CategoriesAdapter(categoriesList, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        addActionButton = (FloatingActionButton) rootView.findViewById(R.id.fragment_medicine_list_add);
+        addActionButton = (FloatingActionButton) rootView.findViewById(R.id.fragment_categories_list_add);
         addActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MedicineActivity)getActivity()).switchTab(1);
+                ((CategoriesActivity) getActivity()).switchTab(1);
             }
         });
-
         return rootView;
     }
 
-    private void getMedicinesList() {
-        medicinesList = this.medicineDAO.getMedicines();
+    private void getCategoriesList() {
+        categoriesList = this.categoriesDAO.getCategories();
+    }
+
+    private Boolean checkValidCategory () {
+
+
+
+        return false;
     }
 }
