@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDAO;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
@@ -19,12 +19,12 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder>  
 
     private List<Medicine> medicinesList;
     private int mExpandedPosition = -1;
-    private CategoriesDAO categoriesDAO;
+    private CategoriesDao categoriesDao;
     private Context mContext;
 
     public MedicinesAdapter(List<Medicine> medicinesList, Context context) {
         this.medicinesList = medicinesList;
-        this.categoriesDAO = new CategoriesDAO(context);
+        this.categoriesDao = new CategoriesDao(context);
         this.mContext = context;
     }
 
@@ -37,24 +37,24 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder>  
     @Override
     public void onBindViewHolder(MedicineViewHolder holder, final int position) {
         Medicine medicine = medicinesList.get(position);
-        holder.medicine.setText(medicine.getMedicine());
-        Categories category = this.categoriesDAO.getCategoriesById(medicine.getCatId());
+        holder.medicine.setText(medicine.getEventMedicine());
+        Categories category = this.categoriesDao.getCategories(medicine.getEventCatID());
 
-        holder.category.setText(category.getCategory());
-        holder.description.setText("Description: " + medicine.getDescription());
-        holder.remind.setText("Remind: " + medicine.getRemind().toString());
+        holder.category.setText(category.getEventCategory());
+        holder.description.setText("Description: " + medicine.getEventDescription());
+        holder.remind.setText("Remind: " + medicine.getEventRemindEnabled());
         holder.frequency.setText("Frequency: 3 times/day" );
-        holder.quantity.setText("Quantity: " + medicine.getQuantity() + " issued");
-        holder.dosage.setText("Dosage: " + medicine.getDosage());
-        holder.consumeQuantity.setText("Consume Quantity: " + medicine.getConsumeQuantity() + " each time");
-        if (category.getCode().equals("CHR")) {
-            holder.threshold.setText("Threshold: If falls below " + medicine.getThreshold());
+        holder.quantity.setText("Quantity: " + medicine.getEventQuantity() + " issued");
+        holder.dosage.setText("Dosage: " + medicine.getEventDosage());
+        holder.consumeQuantity.setText("Consume Quantity: " + medicine.getEventConsumeQuantity() + " each time");
+        if (category.getEventCode().equals("CHR")) {
+            holder.threshold.setText("Threshold: If falls below " + medicine.getEventThreshold());
         }
         else {
             holder.threshold.setText("Threshold: Not required");
         }
-        holder.dateIssued.setText("Date Issued: " + medicine.getDateIssue());
-        holder.expireFactor.setText("Expire in: " + medicine.getExpireFactor() + " months");
+        holder.dateIssued.setText("Date Issued: " + medicine.getEventDateIssued());
+        holder.expireFactor.setText("Expire in: " + medicine.getEventExpireFactor() + " months");
 
 
         // Handle edit button

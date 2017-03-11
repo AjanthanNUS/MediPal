@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDAO;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 
@@ -23,7 +23,7 @@ public class CategoriesAddFragment extends Fragment {
     private EditText categoryName, categoryCode, categoryDescription;
     private Boolean categoryRemind = true;
     private Button btnSave, btnCancel;
-    private CategoriesDAO categoriesDAO;
+    private CategoriesDao categoriesDao;
 
     public CategoriesAddFragment() {
     }
@@ -31,7 +31,7 @@ public class CategoriesAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        categoriesDAO = new CategoriesDAO(this.getContext());
+        categoriesDao = new CategoriesDao(this.getContext());
     }
 
     @Nullable
@@ -83,10 +83,10 @@ public class CategoriesAddFragment extends Fragment {
         int id = getArguments().getInt("id");
         if (isVisibleToUser) {
             if (id >= 1) {
-                Categories category = this.categoriesDAO.getCategoriesById(id);
-                categoryName.setText(category.getCategory());
-                categoryCode.setText(category.getCode());
-                categoryDescription.setText(category.getDescription());
+                Categories category = this.categoriesDao.getCategories(id);
+                categoryName.setText(category.getEventCategory());
+                categoryCode.setText(category.getEventCode());
+                categoryDescription.setText(category.getEventDescription());
             } else {
                 this.resetFields();
             }
@@ -141,10 +141,11 @@ public class CategoriesAddFragment extends Fragment {
 
         // Category code duplicate required check
         // May have performance issue
-        if (categoriesDAO.getCategoriesByCode(categoryCode.getText().toString().trim()).size() > 0) {
-            categoryCode.setError("This category code already exist. Please use another.");
-            isValid = false;
-        }
+        // // TODO: 11/3/17
+        //if (categoriesDao.get.getCategoriesByCode(categoryCode.getText().toString().trim()).size() > 0) {
+        //    categoryCode.setError("This category code already exist. Please use another.");
+        //    isValid = false;
+        //}
 
         // Category description required check
         if (TextUtils.isEmpty(categoryDescription.getText().toString().trim())) {

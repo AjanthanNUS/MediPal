@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.CategoriesAddFragment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.CategoriesListFragment;
@@ -19,6 +20,7 @@ public class CategoriesActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private CategoriesListFragment categoriesListFragment;
     private CategoriesAddFragment categoriesAddFragment;
+    private CategoriesDao categoriesDao;
 
     private int[] tabIcons = {
             android.R.drawable.picture_frame,
@@ -32,6 +34,8 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+
+        categoriesDao = new CategoriesDao(this);
 
         categoriesListFragment = new CategoriesListFragment();
         categoriesAddFragment = new CategoriesAddFragment();

@@ -1,46 +1,100 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
-import java.util.Calendar;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.Date;
 
 /**
- * Created by Ajanthan on 3/4/2017.
+ * Created by WongCheeVui on 3/6/2017.
  */
+/*
+ID              interger
+MedicineID      interger
+Quantity        interger
+ConsumedOn      Date
 
-public class Consumption {
-    private Integer id;
-    private Medicine medicine;
-    private Integer quantity;
-    private Calendar consumedOn;
+ */
+public class Consumption  implements Parcelable {
 
-    public Integer getId() {
-        return id;
+    private int m_id;
+    private int mMedicineID;
+    private int mQuantity;
+    private Date mConsumedOn;
+
+    public Consumption() {
+        super();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    private Consumption(Parcel in) {
+        super();
+        this.m_id = in.readInt();
+        this.mMedicineID = in.readInt();
+        this.mQuantity = in.readInt();
+        this.mConsumedOn = new Date(in.readLong());
     }
 
-    public Medicine getMedicine() {
-        return medicine;
+    public int getId() {
+        return m_id;
     }
 
-    public void setMedicine(Medicine medicine) {
-        this.medicine = medicine;
+    public void setId(int id) {
+        this.m_id = id;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public int getEventMedicineID() {
+        return mMedicineID;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setEventMedicineID(int medicineID) {
+        this.mMedicineID = medicineID;
     }
 
-    public Calendar getConsumedOn() {
-        return consumedOn;
+    public int getEventQuantity() {
+        return mQuantity;
     }
 
-    public void setConsumedOn(Calendar consumedOn) {
-        this.consumedOn = consumedOn;
+    public void setEventQuantity(int Quantity) {
+        this.mQuantity = Quantity;
     }
+
+    public Date getEventConsumedOn() {
+        return mConsumedOn;
+    }
+    public void setEventConsumedOn(Date date) {
+        this.mConsumedOn = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Consumption [id=" + m_id +
+                ", MedicineID=" + mMedicineID +
+                ", Quantity=" + mQuantity +
+                ", ConsumedOn=" + mConsumedOn +
+                "]";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(getId());
+        dest.writeInt(getEventMedicineID());
+        dest.writeInt(getEventQuantity());
+        dest.writeLong(getEventConsumedOn().getDate());
+    }
+
+    public static final Parcelable.Creator<Consumption> CREATOR = new Parcelable.Creator<Consumption>() {
+        public Consumption createFromParcel(Parcel in) {
+            return new Consumption(in);
+        }
+
+        public Consumption[] newArray(int size) {
+            return new Consumption[size];
+        }
+    };
+
 }
+

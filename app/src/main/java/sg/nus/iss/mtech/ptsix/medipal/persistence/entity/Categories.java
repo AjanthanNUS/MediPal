@@ -1,54 +1,113 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
-public class Categories {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private Integer id;
+/**
+ * Created by WongCheeVui on 3/6/2017.
+ */
 
-    private String category;
+/*
+ID              interger
+Category        string
+Code            string
+Description     string
+Remind          Bool
+ */
 
-    private String code;
+public class Categories implements Parcelable {
 
-    private String description;
+    private int m_id;
+    private String mCategory;
+    private String mCode;
+    private String mDescription;
+    private int mRemind;
 
-    private boolean remind;
-
-    public Integer getId() {
-        return id;
+    public Categories() {
+        super();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    private Categories(Parcel in) {
+        super();
+        this.m_id = in.readInt();
+        this.mCategory = in.readString();
+        this.mCode = in.readString();
+        this.mDescription = in.readString();
+        this.mRemind = in.readInt();
     }
 
-    public String getCategory() {
-        return category;
+    public int getId() {
+        return m_id;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setId(int id) {
+        this.m_id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getEventCategory() {
+        return mCategory;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setEventCategory(String category) {
+        this.mCategory = category;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEventCode() {
+        return mCode;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEventCode(String Code) {
+        this.mCode = Code;
     }
 
-    public boolean isRemind() {
-        return remind;
+    public void setEventDescription(String Description) {
+        this.mDescription = Description;
     }
 
-    public void setRemind(boolean remind) {
-        this.remind = remind;
+    public String getEventDescription() {
+        return mDescription;
     }
+
+    public void setEventRemind(int mRemind) {
+        this.mRemind = mRemind;
+    }
+
+    public int getEventRemind() {
+        return mRemind;
+    }
+
+    @Override
+    public String toString() {
+        return "Categories [id=" + m_id +
+                ", Category=" + mCategory +
+                ", Code=" + mCode +
+                ", Description=" + mDescription +
+                ", Remind=" + mRemind +
+                "]";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(getId());
+        dest.writeString(getEventCategory());
+        dest.writeString(getEventCode());
+        dest.writeString(getEventDescription());
+        dest.writeInt(getEventRemind());
+
+    }
+
+    public static final Parcelable.Creator<Categories> CREATOR = new Parcelable.Creator<Categories>() {
+        public Categories createFromParcel(Parcel in) {
+            return new Categories(in);
+        }
+
+        public Categories[] newArray(int size) {
+            return new Categories[size];
+        }
+    };
+
 }

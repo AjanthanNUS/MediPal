@@ -33,10 +33,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
     @Override
     public void onBindViewHolder(final CategoriesViewHolder holder, final int position) {
         final Categories category = categoriesList.get(position);
-        holder.code.setText(category.getCode().toString());
-        holder.category.setText(category.getCategory().toString());
-        holder.description.setText("Description: " + category.getDescription().toString());
-        if (category.isRemind()) {
+        holder.code.setText(category.getEventCode().toString());
+        holder.category.setText(category.getEventCategory().toString());
+        holder.description.setText("Description: " + category.getEventDescription().toString());
+        if (category.getEventRemind() >= 1) {
             holder.remind.setText("(Reminder On)");
         } else {
             holder.remind.setText("(Reminder Off)");

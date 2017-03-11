@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDAO;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.CategoriesAdapter;
@@ -25,7 +25,7 @@ public class CategoriesListFragment extends Fragment {
     private List<Categories> categoriesList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CategoriesAdapter mAdapter;
-    private CategoriesDAO categoriesDAO;
+    private CategoriesDao categoriesDao;
     private FloatingActionButton addActionButton;
 
     public CategoriesListFragment() {
@@ -34,7 +34,7 @@ public class CategoriesListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.categoriesDAO = new CategoriesDAO(this.getContext());
+        this.categoriesDao = new CategoriesDao(this.getContext());
         this.getCategoriesList();
     }
 
@@ -62,7 +62,7 @@ public class CategoriesListFragment extends Fragment {
     }
 
     private void getCategoriesList() {
-        categoriesList = this.categoriesDAO.getCategories();
+        categoriesList = this.categoriesDao.getCategories();
     }
 
     private Boolean checkValidCategory () {
