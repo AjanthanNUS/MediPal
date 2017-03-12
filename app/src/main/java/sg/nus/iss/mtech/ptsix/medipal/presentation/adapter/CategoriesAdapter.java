@@ -36,8 +36,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
         holder.code.setText(category.getCode().toString());
         holder.category.setText(category.getCategory().toString());
         holder.description.setText("Description: " + category.getDescription().toString());
-        if (category.getRemind() >= 1) {
+        if (category.getRemind() == 2) {
+            holder.remind.setText("(Remind: Op)");
+            // Use icon instead of On off text
+        } else if (category.getRemind() == 1) {
             holder.remind.setText("(Remind: On)");
+            // Use icon instead of On off text
         } else {
             holder.remind.setText("(Remind: Off)");
         }
@@ -68,5 +72,11 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
     @Override
     public int getItemCount() {
         return categoriesList.size();
+    }
+
+    public void updateDataSet(List<Categories> categoriesList) {
+        this.categoriesList.clear();
+        this.categoriesList.addAll(categoriesList);
+        notifyDataSetChanged();
     }
 }

@@ -20,8 +20,11 @@
     <string name="category_add_remind_default_op">Optional</string>
     <string name="category_add_save">Save</string>
     <string name="category_add_cancel">Cancel</string>
+    <string name="category_add_save_completed">Campaign is created successfully.</string>
+    <string name="category_add_update_completed">Campaign is updated successfully.</string>
 
     <string name="category_list_edit">Edit</string>
+
     <string name="medicine_list_edit">Edit</string>
 
     <string name="appointment_reminder_title">Coming Appointment</string>

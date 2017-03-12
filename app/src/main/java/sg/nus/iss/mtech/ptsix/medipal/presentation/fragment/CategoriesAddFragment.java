@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -16,11 +17,13 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 public class CategoriesAddFragment extends Fragment {
 
     private RadioGroup categoriesRemind;
     private EditText categoryName, categoryCode, categoryDescription;
+    private RadioButton categoriesRemindYes, categoriesRemindNo, categoriesRemindOp;
     private Boolean categoryRemind = true;
     private Button btnSave, btnCancel;
     private CategoriesDao categoriesDao;
@@ -42,26 +45,29 @@ public class CategoriesAddFragment extends Fragment {
         categoryName = (EditText) rootView.findViewById(R.id.categories_name);
         categoryCode = (EditText) rootView.findViewById(R.id.categories_code);
         categoryDescription = (EditText) rootView.findViewById(R.id.categories_description);
+        categoriesRemindYes = (RadioButton) rootView.findViewById(R.id.categories_remind_yes);
+        categoriesRemindNo = (RadioButton) rootView.findViewById(R.id.categories_remind_no);
+        categoriesRemindOp = (RadioButton) rootView.findViewById(R.id.categories_remind_optional);
 
         btnSave = (Button) rootView.findViewById(R.id.btn_save);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getArguments().getInt("id") == -1) {
+                if (getArguments().getInt("id") == Constant.CATEGORY_ADD_INVALID_ID) {
                     // Add new
                     if (isCommonValid() && isNewValid()) {
-                        categoriesDao.save(createCategoryFromInput());
-                        Toast.makeText(getActivity(), "Saving new category completed", Toast.LENGTH_SHORT).show();
+                        saveCategories();
+                        Toast.makeText(getActivity(), R.string.category_add_save_completed, Toast.LENGTH_SHORT).show();
                         resetFields();
-                        ((CategoriesActivity) getActivity()).switchTab(0, -1);
+                        ((CategoriesActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_LIST_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
                     }
                 } else {
                     // Update
                     if (isCommonValid() && isUpdateValid()) {
-                        categoriesDao.save(createCategoryFromInput());
-                        Toast.makeText(getActivity(), "Updating category completed", Toast.LENGTH_SHORT).show();
+                        updateCategories();
+                        Toast.makeText(getActivity(), R.string.category_add_update_completed, Toast.LENGTH_SHORT).show();
                         resetFields();
-                        ((CategoriesActivity) getActivity()).switchTab(0, -1);
+                        ((CategoriesActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_LIST_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
                     }
                 }
             }
@@ -73,7 +79,7 @@ public class CategoriesAddFragment extends Fragment {
             public void onClick(View v) {
                 // Cancel the Category
                 resetFields();
-                ((CategoriesActivity) getActivity()).switchTab(0, -1);
+                ((CategoriesActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_LIST_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
             }
         });
 
@@ -94,11 +100,9 @@ public class CategoriesAddFragment extends Fragment {
         int id = getArguments().getInt("id");
         if (getView() != null) {
             if (isVisibleToUser) {
-                if (id >= 1) {
+                if (id > Constant.CATEGORY_ADD_INVALID_ID) {
                     Categories category = this.categoriesDao.getCategories(id);
-                    categoryName.setText(category.getCategory());
-                    categoryCode.setText(category.getCode());
-                    categoryDescription.setText(category.getDescription());
+                    setInputFromCategory(category);
                 } else {
                     this.resetFields();
                 }
@@ -124,14 +128,47 @@ public class CategoriesAddFragment extends Fragment {
         }
     }
 
+    private long updateCategories() {
+        Categories category = createCategoryFromInput();
+        category.setId(getArguments().getInt("id"));
+        return categoriesDao.update(category);
+    }
+
+    private long saveCategories() {
+        Categories category = createCategoryFromInput();
+        return categoriesDao.save(category);
+    }
+
     private Categories createCategoryFromInput() {
         Categories category = new Categories();
-        category.setCategory("ABC");
-        category.setCode("ABC");
-        category.setDescription("Temp");
-        category.setRemind(1);
+        category.setCategory(categoryName.getText().toString());
+        category.setCode(categoryCode.getText().toString());
+        category.setDescription(categoryDescription.getText().toString());
+        if (categoryRemind == null) {
+            category.setRemind(2);
+        } else if (categoryRemind) {
+            category.setRemind(1);
+        } else {
+            category.setRemind(0);
+        }
 
         return category;
+    }
+
+    private void setInputFromCategory (Categories category) {
+        categoryName.setText(category.getCategory());
+        categoryCode.setText(category.getCode());
+        categoryDescription.setText(category.getDescription());
+        if(category.getRemind() == 1) {
+            categoriesRemindYes.setChecked(true);
+            categoryRemind = true;
+        } else if (category.getRemind() == 0) {
+            categoriesRemindNo.setChecked(true);
+            categoryRemind = false;
+        } else {
+            categoriesRemindOp.setChecked(true);
+            categoryRemind = null;
+        }
     }
 
     private void resetFields() {
@@ -140,6 +177,7 @@ public class CategoriesAddFragment extends Fragment {
         this.categoryCode.setText("");
         this.categoryDescription.setText("");
         this.categoryRemind = true;
+        this.categoriesRemindYes.setChecked(true);
     }
 
     private boolean isCommonValid() {
@@ -198,6 +236,8 @@ public class CategoriesAddFragment extends Fragment {
 
     private boolean isUpdateValid() {
         boolean isValid = true;
+
+        // Check that code is not same as others
 
 
         return isValid;
