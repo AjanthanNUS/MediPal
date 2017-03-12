@@ -2,22 +2,25 @@ package sg.nus.iss.mtech.ptsix.medipal.common.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Calendar;
 
 /**
  * Created by win on 5/3/17.
  */
 
-public  class CommonUtil {
+public class CommonUtil {
     public static String formatCalender(Calendar calendar) {
         String formattedDate;
-
-        calendar.add(Calendar.DATE, 1);
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         formattedDate = format1.format(calendar.getTime());
         return formattedDate;
+    }
+
+    public static String formatDateStandart(Date date) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return dateFormatter.format(date.getTime());
     }
 
     public static String date2ddMMMYYYY(Date d) {
@@ -40,5 +43,8 @@ public  class CommonUtil {
         return timeFormatter.format(d);
     }
 
+    public static boolean isNullOrEmpty(String string) {
+        return string == null || string.isEmpty();
+    }
 
 }

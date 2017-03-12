@@ -1,15 +1,12 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,9 +15,8 @@ import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.MyConsumptionRecyclerViewAdapter;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.DividerItemDecorator;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ConsumptionViewAdapter;
 
 /**
  * @author Ajanthan
@@ -30,8 +26,8 @@ public class ConsumptionListFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
-    private List<Consumption> consumptionList;
+    private ConsumptionViewAdapter consumptionViewAdapter;
+    private List<ConsumptionVO> consumptionList;
 
     public ConsumptionListFragment() {
     }
@@ -71,10 +67,12 @@ public class ConsumptionListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyConsumptionRecyclerViewAdapter(consumptionList, mListener));
-            Drawable dividerDrawable = ContextCompat.getDrawable(container.getContext(), R.drawable.divider_horizontal);
-            RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecorator(dividerDrawable);
-            recyclerView.addItemDecoration(dividerItemDecoration);
+
+            consumptionViewAdapter = new ConsumptionViewAdapter(consumptionList, mListener);
+            recyclerView.setAdapter(consumptionViewAdapter);
+            //   Drawable dividerDrawable = ContextCompat.getDrawable(container.getContext(), R.drawable.divider_horizontal);
+            //   RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecorator(dividerDrawable);
+            //   recyclerView.addItemDecoration(dividerItemDecoration);
         }
         return view;
     }
@@ -97,6 +95,10 @@ public class ConsumptionListFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Consumption consumption);
+        void onListFragmentInteraction(ConsumptionVO consumption);
+    }
+
+    public ConsumptionViewAdapter getConsumptionViewAdapter() {
+        return consumptionViewAdapter;
     }
 }

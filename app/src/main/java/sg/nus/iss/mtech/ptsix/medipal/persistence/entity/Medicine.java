@@ -3,6 +3,7 @@ package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -27,9 +28,18 @@ ExpireFactor    interger
  */
 public class Medicine implements Parcelable {
 
+    public static final Parcelable.Creator<Medicine> CREATOR = new Parcelable.Creator<Medicine>() {
+        public Medicine createFromParcel(Parcel in) {
+            return new Medicine(in);
+        }
+
+        public Medicine[] newArray(int size) {
+            return new Medicine[size];
+        }
+    };
     private int m_id;
-    private String  mMedicine;
-    private String  mDesc;
+    private String mMedicine;
+    private String mDesc;
     private int mCatID;
     private int mReminderID;
     private int mRemindEnabled;
@@ -63,6 +73,7 @@ public class Medicine implements Parcelable {
     public int getId() {
         return m_id;
     }
+
     public void setId(int id) {
         this.m_id = id;
     }
@@ -76,7 +87,7 @@ public class Medicine implements Parcelable {
     }
 
     public String getEventDescription() {
-        return mDesc;
+        return "Sample description " + Calendar.getInstance().toString();//mDesc;
     }
 
     public void setEventDescription(String Description) {
@@ -86,45 +97,57 @@ public class Medicine implements Parcelable {
     public int getEventCatID() {
         return mCatID;
     }
-    public void setEventCatID (int CatID ) {
-        this.mCatID = CatID ;
+
+    public void setEventCatID(int CatID) {
+        this.mCatID = CatID;
     }
+
     public int getEventReminderID() {
         return mReminderID;
     }
-    public void setEventReminderID (int ReminderID ) {
-        this.mReminderID = ReminderID ;
+
+    public void setEventReminderID(int ReminderID) {
+        this.mReminderID = ReminderID;
     }
+
     public int getEventRemindEnabled() {
         return mRemindEnabled;
     }
-    public void setEventRemindEnabled (int RemindEnabled ) {
-        this.mRemindEnabled = RemindEnabled ;
+
+    public void setEventRemindEnabled(int RemindEnabled) {
+        this.mRemindEnabled = RemindEnabled;
     }
+
     public int getEventQuantity() {
         return mQuantity;
     }
-    public void setEventQuantity (int Quantity ) {
-        this.mQuantity = Quantity ;
+
+    public void setEventQuantity(int Quantity) {
+        this.mQuantity = Quantity;
     }
 
     public int getEventDosage() {
         return mDosage;
     }
-    public void setEventDosage (int Dosage ) {
-        this.mDosage = Dosage ;
+
+    public void setEventDosage(int Dosage) {
+        this.mDosage = Dosage;
     }
+
     public int getEventConsumeQuantity() {
         return mConsumeQuantity;
     }
-    public void setEventConsumeQuantity (int ConsumeQuantity ) {
-        this.mConsumeQuantity = ConsumeQuantity ;
+
+    public void setEventConsumeQuantity(int ConsumeQuantity) {
+        this.mConsumeQuantity = ConsumeQuantity;
     }
+
     public int getEventThreshold() {
         return mThreshold;
     }
-    public void setEventThreshold (int Threshold ) {
-        this.mThreshold = Threshold ;
+
+    public void setEventThreshold(int Threshold) {
+        this.mThreshold = Threshold;
     }
 
     public Date getEventDateIssued() {
@@ -134,11 +157,13 @@ public class Medicine implements Parcelable {
     public void setEventDateIssued(Date date) {
         this.mDateIssued = date;
     }
+
     public int getEventExpireFactor() {
         return mExpireFactor;
     }
-    public void setEventExpireFactor (int ExpireFactor ) {
-        this.mExpireFactor = ExpireFactor ;
+
+    public void setEventExpireFactor(int ExpireFactor) {
+        this.mExpireFactor = ExpireFactor;
     }
 
     @Override
@@ -177,15 +202,5 @@ public class Medicine implements Parcelable {
         dest.writeLong(getEventDateIssued().getDate());
         dest.writeInt(getEventExpireFactor());
     }
-
-    public static final Parcelable.Creator<Medicine> CREATOR = new Parcelable.Creator<Medicine>() {
-        public Medicine createFromParcel(Parcel in) {
-            return new Medicine(in);
-        }
-
-        public Medicine[] newArray(int size) {
-            return new Medicine[size];
-        }
-    };
 
 }
