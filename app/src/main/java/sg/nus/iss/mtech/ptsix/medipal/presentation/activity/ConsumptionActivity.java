@@ -1,23 +1,18 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
@@ -29,21 +24,35 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ConsumptionListFragm
 
 public class ConsumptionActivity extends AppCompatActivity implements ConsumptionListFragment.OnListFragmentInteractionListener {
     private final int DATE_DIALOG_ID = 999;
-    private PopupWindow mPopupWindow;
-    private FrameLayout consumptionFragmentHolder;
-    private ConsumptionListFragment consumptionListFragment;
-    private ViewPager viewPager;
 
+
+    private ConsumptionListFragment consumptionListFragment;
+
+
+    private final String MEDICINE_TAG = "MED";
+    private final String CATEGORY_TAG = "CAT";
+    private final String YEAR_TAG = "YEAR";
+    private final String MONTH_TAG = "MON";
+    private final String WEEK_TAG = "WEEK";
+    private final String DAY_TAG = "DAY";
+    private ArrayList<ConsumptionVO> fullConsumptionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consumption);
 
-        consumptionListFragment = ConsumptionListFragment.newInstance(1);
+        fullConsumptionList = new ArrayList<>();
+        ConsumptionManager consumptionManager = new ConsumptionManager();
+        fullConsumptionList.addAll(consumptionManager.getAllConsumptionList());
+
+
+        consumptionListFragment = ConsumptionListFragment.newInstance();
+        ArrayList<ConsumptionVO> initConList = new ArrayList<>();
+        initConList.addAll(fullConsumptionList);
+        consumptionListFragment.setConsumptionList(initConList);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
         fragmentTransaction.add(R.id.consumptionFragmentHolder, consumptionListFragment);
         fragmentTransaction.commit();
     }
@@ -80,9 +89,25 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
 
                 EditText medicineET = (EditText) filterLayout.findViewById(R.id.filter_medicine);
                 EditText categoryET = (EditText) filterLayout.findViewById(R.id.filter_category);
-                final String searchMedicine = medicineET.getText().toString();
-                final String searchCategory = categoryET.getText().toString();
-                filterConsumptionHistory(searchMedicine, searchCategory);
+                EditText fromYearsET = (EditText) filterLayout.findViewById(R.id.filter_year);
+                EditText fromMonthsET = (EditText) filterLayout.findViewById(R.id.filter_month);
+                EditText fromWeeksET = (EditText) filterLayout.findViewById(R.id.filter_week);
+                EditText fromDaysET = (EditText) filterLayout.findViewById(R.id.filter_day);
+
+                String searchMedicine = medicineET.getText().toString();
+                String searchCategory = categoryET.getText().toString();
+                String searchYear = fromYearsET.getText().toString();
+                String searchMonth = fromMonthsET.getText().toString();
+                String searchWeek = fromWeeksET.getText().toString();
+                String searchDays = fromDaysET.getText().toString();
+                Bundle searchBundle = new Bundle();
+                searchBundle.putString(MEDICINE_TAG, searchMedicine);
+                searchBundle.putString(CATEGORY_TAG, searchCategory);
+                searchBundle.putString(YEAR_TAG, searchYear);
+                searchBundle.putString(MONTH_TAG, searchMonth);
+                searchBundle.putString(WEEK_TAG, searchWeek);
+                searchBundle.putString(DAY_TAG, searchDays);
+                filterConsumptionHistory(searchBundle);
             }
         });
 
@@ -93,30 +118,60 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
                 filterLayout.setVisibility(View.GONE);
                 EditText medicineET = (EditText) filterLayout.findViewById(R.id.filter_medicine);
                 EditText categoryET = (EditText) filterLayout.findViewById(R.id.filter_category);
+                EditText fromYearsET = (EditText) filterLayout.findViewById(R.id.filter_year);
+                EditText fromMonthsET = (EditText) filterLayout.findViewById(R.id.filter_month);
+                EditText fromWeeksET = (EditText) filterLayout.findViewById(R.id.filter_week);
+                EditText fromDaysET = (EditText) filterLayout.findViewById(R.id.filter_day);
                 medicineET.getText().clear();
                 categoryET.getText().clear();
-                filterConsumptionHistory(null, null);
+                fromYearsET.getText().clear();
+                fromMonthsET.getText().clear();
+                fromWeeksET.getText().clear();
+                fromDaysET.getText().clear();
+                Bundle resetBundle = new Bundle();
+                resetBundle.putString(MEDICINE_TAG, "");
+                resetBundle.putString(CATEGORY_TAG, "");
+                resetBundle.putString(YEAR_TAG, "");
+                resetBundle.putString(MONTH_TAG, "");
+                resetBundle.putString(WEEK_TAG, "");
+                resetBundle.putString(DAY_TAG, "");
+                filterConsumptionHistory(resetBundle);
             }
         });
     }
 
-    private void filterConsumptionHistory(String searchMedicine, String searchCategory) {
+    private void filterConsumptionHistory(Bundle searchBundle) {
+
+        String searchMedicine = searchBundle.getString(MEDICINE_TAG);
+        String searchCategory = searchBundle.getString(CATEGORY_TAG);
+        String searchYear = searchBundle.getString(YEAR_TAG);
+        String searchMonth = searchBundle.getString(MONTH_TAG);
+        String searchWeek = searchBundle.getString(WEEK_TAG);
+        String searchDays = searchBundle.getString(DAY_TAG);
+
         ConsumptionViewAdapter viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
-        List<ConsumptionVO> consumptionList = viewAdapter.getmConsumptionList();
-        if (searchMedicine == null && searchCategory == null) {
-            consumptionList = new ArrayList<>();
+
+        List<ConsumptionVO> allConsumptionList = new ArrayList<>();
+        allConsumptionList.addAll(fullConsumptionList);
+
+        if (CommonUtil.isNullOrEmpty(searchMedicine) && CommonUtil.isNullOrEmpty(searchCategory) &&
+                CommonUtil.isNullOrEmpty(searchYear) && CommonUtil.isNullOrEmpty(searchMonth) &&
+                CommonUtil.isNullOrEmpty(searchWeek) && CommonUtil.isNullOrEmpty(searchDays)) {
+
+            allConsumptionList = new ArrayList<>();
             ConsumptionManager consumptionManager = new ConsumptionManager();
-            consumptionList.addAll(consumptionManager.getAllConsumptionList());
+            allConsumptionList.addAll(consumptionManager.getAllConsumptionList());
             viewAdapter.getmConsumptionList().clear();
-            viewAdapter.getmConsumptionList().addAll(consumptionList);
+            viewAdapter.getmConsumptionList().addAll(allConsumptionList);
             viewAdapter.notifyDataSetChanged();
         } else {
             List<ConsumptionVO> filterList = new ArrayList<>();
 
-            for (ConsumptionVO vo : consumptionList) {
+            for (ConsumptionVO vo : allConsumptionList) {
                 if (CommonUtil.isNullOrEmpty(searchMedicine) || (vo.getMedicine() != null && vo.getMedicine().getEventMedicine().contains(searchMedicine))) {
                     if (CommonUtil.isNullOrEmpty(searchCategory) || (vo.getCategories() != null && vo.getCategories().getEventCategory().contains(searchCategory))) {
-                        filterList.add(vo);
+                        if (isValidForFilter(vo, searchBundle))
+                            filterList.add(vo);
                     }
                 }
             }
@@ -124,6 +179,37 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
             viewAdapter.getmConsumptionList().addAll(filterList);
             viewAdapter.notifyDataSetChanged();
         }
+    }
+
+    private boolean isValidForFilter(ConsumptionVO c, Bundle searchBundle) {
+        boolean valid = true;
+        String searchYear = searchBundle.getString(YEAR_TAG);
+        String searchMonth = searchBundle.getString(MONTH_TAG);
+        String searchWeek = searchBundle.getString(WEEK_TAG);
+        String searchDays = searchBundle.getString(DAY_TAG);
+        long consumedAgo = Calendar.getInstance().getTimeInMillis() - c.getEventConsumedOn().getTime();
+
+
+        if (!CommonUtil.isNullOrEmpty(searchDays) && consumedAgo > CommonUtil.getMilliSeconds(0, 0, Integer.valueOf(searchDays))) {
+            valid = false;
+        } else {
+            searchDays = "0";
+        }
+        if (valid && !CommonUtil.isNullOrEmpty(searchWeek) && consumedAgo > CommonUtil.getMilliSeconds(0, 0, Integer.valueOf(searchDays) + Integer.valueOf(searchWeek) * 7)) {
+            valid = false;
+        } else {
+            searchWeek = "0";
+        }
+
+        if (valid && !CommonUtil.isNullOrEmpty(searchMonth) && consumedAgo > CommonUtil.getMilliSeconds(0, Integer.valueOf(searchMonth), Integer.valueOf(searchDays) + Integer.valueOf(searchWeek) * 7)) {
+            valid = false;
+        } else {
+            searchMonth = "0";
+        }
+        if (valid && !CommonUtil.isNullOrEmpty(searchYear) && consumedAgo > CommonUtil.getMilliSeconds(Integer.valueOf(searchYear), Integer.valueOf(searchMonth), Integer.valueOf(searchDays) + Integer.valueOf(searchWeek) * 7)) {
+            valid = false;
+        }
+        return valid;
     }
 
     @Override

@@ -19,4 +19,8 @@
     <string name="go">Go</string>
     <string name="reset">Reset</string>
     <string name="advanced">Advanced</string>
+    <string name="yearsFrom">Years from</string>
+    <string name="monthsFrom">Months from</string>
+    <string name="weeksFrom">Weeks from</string>
+    <string name="daysFrom">Days from</string>
 </resources>

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ConsumptionViewAdapter;
 
@@ -33,24 +32,20 @@ public class ConsumptionListFragment extends Fragment {
     }
 
     @SuppressWarnings("unused")
-    public static ConsumptionListFragment newInstance(int columnCount) {
+    public static ConsumptionListFragment newInstance() {
         ConsumptionListFragment fragment = new ConsumptionListFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_COLUMN_COUNT, 1);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        consumptionList = new ArrayList<>();
-        ConsumptionManager consumptionManager = new ConsumptionManager();
-        consumptionList.addAll(consumptionManager.getAllConsumptionList());
     }
 
     @Override
@@ -92,6 +87,14 @@ public class ConsumptionListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public List<ConsumptionVO> getConsumptionList() {
+        return consumptionList;
+    }
+
+    public void setConsumptionList(List<ConsumptionVO> consumptionList) {
+        this.consumptionList = consumptionList;
     }
 
     public interface OnListFragmentInteractionListener {
