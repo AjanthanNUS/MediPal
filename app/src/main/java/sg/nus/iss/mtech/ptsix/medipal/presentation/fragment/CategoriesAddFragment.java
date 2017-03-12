@@ -47,12 +47,22 @@ public class CategoriesAddFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isValid()) {
-                    // Save the Category
-                    categoriesDao.save(createCategoryFromInput());
-                    Toast.makeText(getActivity(), "Saving completed", Toast.LENGTH_SHORT).show();
-                    resetFields();
-                    ((CategoriesActivity) getActivity()).switchTab(0, -1);
+                if (getArguments().getInt("id") == -1) {
+                    // Add new
+                    if (isCommonValid() && isNewValid()) {
+                        categoriesDao.save(createCategoryFromInput());
+                        Toast.makeText(getActivity(), "Saving new category completed", Toast.LENGTH_SHORT).show();
+                        resetFields();
+                        ((CategoriesActivity) getActivity()).switchTab(0, -1);
+                    }
+                } else {
+                    // Update
+                    if (isCommonValid() && isUpdateValid()) {
+                        categoriesDao.save(createCategoryFromInput());
+                        Toast.makeText(getActivity(), "Updating category completed", Toast.LENGTH_SHORT).show();
+                        resetFields();
+                        ((CategoriesActivity) getActivity()).switchTab(0, -1);
+                    }
                 }
             }
         });
@@ -82,12 +92,16 @@ public class CategoriesAddFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         int id = getArguments().getInt("id");
-        if (isVisibleToUser) {
-            if (id >= 1) {
-                Categories category = this.categoriesDao.getCategories(id);
-                categoryName.setText(category.getCategory());
-                categoryCode.setText(category.getCode());
-                categoryDescription.setText(category.getDescription());
+        if (getView() != null) {
+            if (isVisibleToUser) {
+                if (id >= 1) {
+                    Categories category = this.categoriesDao.getCategories(id);
+                    categoryName.setText(category.getCategory());
+                    categoryCode.setText(category.getCode());
+                    categoryDescription.setText(category.getDescription());
+                } else {
+                    this.resetFields();
+                }
             } else {
                 this.resetFields();
             }
@@ -121,13 +135,14 @@ public class CategoriesAddFragment extends Fragment {
     }
 
     private void resetFields() {
+        this.getArguments().putInt("id", -1);
         this.categoryName.setText("");
         this.categoryCode.setText("");
         this.categoryDescription.setText("");
         this.categoryRemind = true;
     }
 
-    private boolean isValid() {
+    private boolean isCommonValid() {
         boolean isValid = true;
 
         // Category name required check
@@ -154,14 +169,6 @@ public class CategoriesAddFragment extends Fragment {
             isValid = false;
         }
 
-        // Category code duplicate required check
-        // May have performance issue
-        // // TODO: 11/3/17
-        //if (categoriesDao.get.getCategoriesByCode(categoryCode.getText().toString().trim()).size() > 0) {
-        //    categoryCode.setError("This category code already exist. Please use another.");
-        //    isValid = false;
-        //}
-
         // Category description required check
         if (TextUtils.isEmpty(categoryDescription.getText().toString().trim())) {
             categoryDescription.setError("Please fill in some text for description.");
@@ -173,6 +180,25 @@ public class CategoriesAddFragment extends Fragment {
             categoryDescription.setError("Please fill in a description below 255 characters.");
             isValid = false;
         }
+
+        return isValid;
+    }
+
+    private boolean isNewValid() {
+        boolean isValid = true;
+
+        // Category code duplicate required check
+        if (categoriesDao.getCategoriesByCode(categoryCode.getText().toString().trim()) != null) {
+            categoryCode.setError("This category code already exist. Please use another.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private boolean isUpdateValid() {
+        boolean isValid = true;
+
 
         return isValid;
     }

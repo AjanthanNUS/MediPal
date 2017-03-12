@@ -94,4 +94,25 @@ public class CategoriesDao extends DBDAO {
         }
         return categories;
     }
+
+    //USING query() method
+    public Categories getCategoriesByCode(String code) {
+        Categories categories = null;
+
+        String sql = "SELECT * FROM " + DatabaseHelper.CATS_TABLE
+                + " WHERE " + DatabaseHelper.CATS_CODE + " = ?";
+
+        Cursor cursor = database.rawQuery(sql, new String[] { code });
+
+        if (cursor.moveToNext()) {
+            categories = new Categories();
+            categories.setId(cursor.getInt(0));
+            categories.setId(cursor.getInt(0));
+            categories.setCategory(cursor.getString(1));
+            categories.setCode(cursor.getString(2));
+            categories.setDescription(cursor.getString(3));
+            categories.setRemind(cursor.getInt(4));
+        }
+        return categories;
+    }
 }
