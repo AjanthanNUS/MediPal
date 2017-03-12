@@ -23,8 +23,8 @@ public class CategoriesActivity extends AppCompatActivity {
     private CategoriesDao categoriesDao;
 
     private int[] tabIcons = {
-            android.R.drawable.picture_frame,
-            android.R.drawable.ic_menu_add
+            R.drawable.ic_view_list_white,
+            R.drawable.ic_edit_white
     };
 
     private static final String CATEGORIES_ADD_TAB_NAME = "Add/Edit";
