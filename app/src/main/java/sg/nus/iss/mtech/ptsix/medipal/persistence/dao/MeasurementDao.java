@@ -31,7 +31,7 @@ MeasureOn       DateTime
 public class MeasurementDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.MEAS_ID + " =?";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
     public MeasurementDao(Context context) {
         super(context);
@@ -45,6 +45,7 @@ public class MeasurementDao extends DBDAO {
         values.put(DatabaseHelper.MEAS_TEMPERATURE, measurement.getEventTemperature());
         values.put(DatabaseHelper.MEAS_WEIGHT, measurement.getEventWeight());
         values.put(DatabaseHelper.MEAS_MEASURED_ON,  formatter.format(measurement.getEventMeasureOn()));
+        values.put(DatabaseHelper.MEAS_MEASURED_COMMENT, measurement.getComment());
         return database.insert(DatabaseHelper.MEAS_TABLE, null, values);
     }
 
@@ -56,7 +57,7 @@ public class MeasurementDao extends DBDAO {
         values.put(DatabaseHelper.MEAS_TEMPERATURE, measurement.getEventTemperature());
         values.put(DatabaseHelper.MEAS_WEIGHT, measurement.getEventWeight());
         values.put(DatabaseHelper.MEAS_MEASURED_ON,  formatter.format(measurement.getEventMeasureOn()));
-
+        values.put(DatabaseHelper.MEAS_MEASURED_COMMENT, measurement.getComment());
 
         long result = database.update(DatabaseHelper.MEAS_TABLE, values,
                 WHERE_ID_EQUALS,
@@ -82,6 +83,7 @@ public class MeasurementDao extends DBDAO {
                         DatabaseHelper.MEAS_TEMPERATURE,
                         DatabaseHelper.MEAS_WEIGHT,
                         DatabaseHelper.MEAS_MEASURED_ON,
+                        DatabaseHelper.MEAS_MEASURED_COMMENT,
                 }, null, null, null,
                 null, null);
 
@@ -98,6 +100,7 @@ public class MeasurementDao extends DBDAO {
             } catch (ParseException e) {
                 measurement.setEventMeasureOn(null);
             }
+            measurement.setComment(cursor.getString(7));
             measurements.add(measurement);
         }
         return measurements;
@@ -124,6 +127,7 @@ public class MeasurementDao extends DBDAO {
             } catch (ParseException e) {
                 measurement.setEventMeasureOn(null);
             }
+            measurement.setComment(cursor.getString(7));
         }
         return measurement;
     }
