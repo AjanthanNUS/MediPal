@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class MeasurementListFragment extends Fragment {
     private MeasurementAdapter mAdapter;
     private MeasurementDao measurementDao;
     private FloatingActionButton addActionButton;
-
+    private Button btnShow5, btnShow3;
     public MeasurementListFragment() {
     }
 
@@ -34,7 +35,8 @@ public class MeasurementListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.measurementDao = new MeasurementDao(this.getContext());
-        this.getCategoriesList();
+        measurementList = this.measurementDao.getMeasurements();
+
     }
 
     @Nullable
@@ -50,10 +52,29 @@ public class MeasurementListFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        btnShow3 = (Button) rootView.findViewById(R.id.btn_show_3);
+        btnShow3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                measurementList = measurementDao.getMeasurements(3);
+                Updatelist();
+            }
+        });
+
+        btnShow5 = (Button) rootView.findViewById(R.id.btn_show_5);
+        btnShow5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                measurementList = measurementDao.getMeasurements(5);
+                Updatelist();
+            }
+        });
+
         addActionButton = (FloatingActionButton) rootView.findViewById(R.id.fragment_measurement_list_add);
         addActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ((MeasurementActivity) getActivity()).switchTab(1, -1);
             }
         });
@@ -63,20 +84,21 @@ public class MeasurementListFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-//        categoriesList = this.categoriesDao.getCategories();
-////        if (isVisibleToUser) {
-////            getCategoriesList();
-////        }
+        if(isVisibleToUser ==true)
+        {
+            if(measurementDao!=null) {
+                measurementList = measurementDao.getMeasurements();
+                Updatelist();
+            }
+        }
+
     }
 
-    private void getCategoriesList() {
-        measurementList = this.measurementDao.getMeasurements();
+    private void Updatelist(){
+        mAdapter = new MeasurementAdapter(measurementList, getActivity());
+        recyclerView.setAdapter(mAdapter);
     }
 
-    private Boolean checkValidCategory() {
 
-
-        return false;
-    }
 }
 

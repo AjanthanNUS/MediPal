@@ -105,6 +105,44 @@ public class MeasurementDao extends DBDAO {
         }
         return measurements;
     }
+    public ArrayList<Measurement> getMeasurements(int amount) {
+        ArrayList<Measurement> measurements = new ArrayList<Measurement>();
+        int i=0;
+        Cursor cursor = database.query(DatabaseHelper.MEAS_TABLE,
+                new String[] { DatabaseHelper.MEAS_ID,
+                        DatabaseHelper.MEAS_SYSTOLIC,
+                        DatabaseHelper.MEAS_DIASTOLIC,
+                        DatabaseHelper.MEAS_PULSE,
+                        DatabaseHelper.MEAS_TEMPERATURE,
+                        DatabaseHelper.MEAS_WEIGHT,
+                        DatabaseHelper.MEAS_MEASURED_ON,
+                        DatabaseHelper.MEAS_MEASURED_COMMENT,
+                }, null, null, null,
+                null, null);
+
+        int count = cursor.getCount();
+        if (count > amount) {
+            cursor.moveToPosition(count - amount -1);
+        }
+        while (cursor.moveToNext()) {
+            i++;
+            Measurement measurement = new Measurement();
+            measurement.setId(cursor.getInt(0));
+            measurement.setEventSystolic(cursor.getInt(1));
+            measurement.setEventDiastolic(cursor.getInt(2));
+            measurement.setEventPulse(cursor.getInt(3));
+            measurement.setEventTemperature(cursor.getFloat(4));
+            measurement.setEventWeight(cursor.getInt(5));
+            try {
+                measurement.setEventMeasureOn(formatter.parse(cursor.getString(6)));
+            } catch (ParseException e) {
+                measurement.setEventMeasureOn(null);
+            }
+            measurement.setComment(cursor.getString(7));
+            measurements.add(measurement);
+        }
+        return measurements;
+    }
     //Retrieves a single reminder record with the given id
     public Measurement getMeasurement(long id) {
         Measurement measurement = null;

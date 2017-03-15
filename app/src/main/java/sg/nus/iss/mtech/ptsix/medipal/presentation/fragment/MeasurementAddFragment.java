@@ -87,23 +87,11 @@ public class MeasurementAddFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getArguments().getInt("id") == -1) {
-                    // Add new
-                    if (true) {
                         measurementDao.save(createMeasurementFromInput());
                         Toast.makeText(getActivity(), "Saving new category completed", Toast.LENGTH_SHORT).show();
                         resetFields();
                         ((MeasurementActivity) getActivity()).switchTab(0, -1);
-                    }
-                } else {
-                    // Update
-                    if (true) {
-                        measurementDao.save(createMeasurementFromInput());
-                        Toast.makeText(getActivity(), "Updating category completed", Toast.LENGTH_SHORT).show();
-                        resetFields();
-                        ((MeasurementActivity) getActivity()).switchTab(0, -1);
-                    }
-                }
+
             }
         });
 

@@ -23,4 +23,27 @@
         app:layout_anchor="@id/recycler_view"
         app:layout_anchorGravity="bottom|right|end" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="false">
+
+        <Button
+            android:text="Show 3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_show_3"
+            android:layout_weight="1"
+            android:layout_margin="20dp" />
+
+        <Button
+            android:text="Show 5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_show_5"
+            android:layout_weight="1"
+            android:layout_margin="20dp" />
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
