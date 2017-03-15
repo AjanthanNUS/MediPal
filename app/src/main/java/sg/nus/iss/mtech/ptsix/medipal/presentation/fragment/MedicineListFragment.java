@@ -19,6 +19,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.MedicinesAdapter;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 public class MedicineListFragment extends Fragment {
 
@@ -55,11 +56,19 @@ public class MedicineListFragment extends Fragment {
         addActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MedicineActivity)getActivity()).switchTab(1);
+                ((MedicineActivity)getActivity()).switchTab(Constant.MEDICINE_TAB_ADD_INDEX, Constant.MEDICINE_ADD_INVALID_ID);
             }
         });
-
         return rootView;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getView() != null && isVisibleToUser) {
+            getMedicinesList();
+            mAdapter.updateDataSet(medicinesList);
+        }
     }
 
     private void getMedicinesList() {

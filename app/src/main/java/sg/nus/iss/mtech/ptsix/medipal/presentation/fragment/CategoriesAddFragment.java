@@ -34,7 +34,7 @@ public class CategoriesAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        categoriesDao = new CategoriesDao(this.getContext());
+        this.categoriesDao = new CategoriesDao(this.getContext());
     }
 
     @Nullable
@@ -115,15 +115,15 @@ public class CategoriesAddFragment extends Fragment {
     private void categoriesRemindButtonClicked(int checkedId) {
         switch (checkedId) {
             case R.id.categories_remind_yes:
-                categoryRemind = true;
+                this.categoryRemind = true;
                 break;
 
             case R.id.categories_remind_no:
-                categoryRemind = false;
+                this.categoryRemind = false;
                 break;
 
             case R.id.categories_remind_optional:
-                categoryRemind = null;
+                this.categoryRemind = null;
                 break;
         }
     }
@@ -141,12 +141,12 @@ public class CategoriesAddFragment extends Fragment {
 
     private Categories createCategoryFromInput() {
         Categories category = new Categories();
-        category.setCategory(categoryName.getText().toString());
-        category.setCode(categoryCode.getText().toString());
-        category.setDescription(categoryDescription.getText().toString());
-        if (categoryRemind == null) {
-            category.setRemind(2);
-        } else if (categoryRemind) {
+        category.setCategory(this.categoryName.getText().toString());
+        category.setCode(this.categoryCode.getText().toString());
+        category.setDescription(this.categoryDescription.getText().toString());
+        if (this.categoryRemind == null) {
+            category.setRemind(-1);
+        } else if (this.categoryRemind) {
             category.setRemind(1);
         } else {
             category.setRemind(0);
@@ -156,23 +156,23 @@ public class CategoriesAddFragment extends Fragment {
     }
 
     private void setInputFromCategory (Categories category) {
-        categoryName.setText(category.getCategory());
-        categoryCode.setText(category.getCode());
-        categoryDescription.setText(category.getDescription());
+        this.categoryName.setText(category.getCategory());
+        this.categoryCode.setText(category.getCode());
+        this.categoryDescription.setText(category.getDescription());
         if(category.getRemind() == 1) {
-            categoriesRemindYes.setChecked(true);
-            categoryRemind = true;
+            this.categoriesRemindYes.setChecked(true);
+            this.categoryRemind = true;
         } else if (category.getRemind() == 0) {
-            categoriesRemindNo.setChecked(true);
-            categoryRemind = false;
+            this.categoriesRemindNo.setChecked(true);
+            this.categoryRemind = false;
         } else {
-            categoriesRemindOp.setChecked(true);
-            categoryRemind = null;
+            this.categoriesRemindOp.setChecked(true);
+            this.categoryRemind = null;
         }
     }
 
     private void resetFields() {
-        this.getArguments().putInt("id", -1);
+        this.getArguments().putInt("id", Constant.CATEGORY_ADD_INVALID_ID);
         this.categoryName.setText("");
         this.categoryCode.setText("");
         this.categoryDescription.setText("");

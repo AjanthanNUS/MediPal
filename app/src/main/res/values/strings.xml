@@ -24,8 +24,33 @@
     <string name="category_add_update_completed">Campaign is updated successfully.</string>
 
     <string name="category_list_edit">Edit</string>
+    <string name="category_list_description">Description: %1$s</string>
+    <string name="category_list_category">Category: %1$s</string>
+    <string name="category_list_remind_on">(Remind: On)</string>
+    <string name="category_list_remind_off">(Remind: Off)</string>
+    <string name="category_list_remind_op">(Remind: Optional)</string>
 
     <string name="medicine_list_edit">Edit</string>
+    <string name="medicine_list_description">Description: %1$s</string>
+    <string name="medicine_list_category">Category: %1$s</string>
+    <string name="medicine_list_remind_on">Remind: On</string>
+    <string name="medicine_list_remind_off">Remind: Off</string>
+    <string name="medicine_list_frequency">Frequency: %1$d times/day</string>
+    <string name="medicine_list_quantity_left">Quantity Left: %1$d </string>
+    <string name="medicine_list_dosage">Dosage: %1$d </string>
+    <string name="medicine_list_consume_quantity">Consume Quantity: %1$d each time</string>
+    <string name="medicine_list_threshold_required">Remind if quantity falls below: %1$d </string>
+    <string name="medicine_list_threshold_required_not">Remind if quantity falls below: Not required</string>
+    <string name="medicine_list_date_issued">Date issued: </string>
+    <string name="medicine_list_date_expired">Date expired: </string>
+
+    <string name="medicine_add_name">Medicine Name</string>
+    <string name="medicine_add_description">Medicine Description</string>
+    <string name="medicine_add_category">Medicine Category</string>
+    <string name="medicine_add_threshold">Thresold to remind if quantity falls below</string>
+    <string name="medicine_add_quantity">Quantity</string>
+    <string name="medicine_add_dosage">Dosage</string>
+    <string name="medicine_add_consume_quantity">Consume Quantity (each time)</string>
 
     <string name="appointment_reminder_title">Coming Appointment</string>
     <string name="appointment_parceable">appointment</string>
