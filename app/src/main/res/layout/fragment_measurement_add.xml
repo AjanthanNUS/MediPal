@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity">
+
+    <EditText
+        android:id="@+id/eSystolic"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Systolic"
+        android:inputType="number"
+        android:selectAllOnFocus="false" />
+
+    <EditText
+        android:id="@+id/eDiastolic"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/eSystolic"
+        android:layout_below="@+id/eSystolic"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Diastolic"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/ePulse"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/eDiastolic"
+        android:layout_below="@+id/eDiastolic"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Pulse"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/eTemperature"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/eSystolic"
+        android:layout_alignBottom="@+id/eSystolic"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="31dp"
+        android:ems="10"
+        android:hint="Temperture"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/eWeight"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/eTemperature"
+        android:layout_below="@+id/eTemperature"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Weight"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/eMeasuredOn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/eWeight"
+        android:layout_below="@+id/eWeight"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="Measured On"
+        android:inputType="datetime" />
+
+    <EditText
+        android:id="@+id/eComment"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Comment"
+        android:inputType="text"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/ePulse" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:text="Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_ok"
+            android:layout_weight="1"
+            android:layout_margin="20dp" />
+
+        <Button
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_cancel"
+            android:layout_weight="1"
+            android:layout_margin="20dp" />
+    </LinearLayout>
+
+</RelativeLayout>

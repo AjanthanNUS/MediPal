@@ -13,11 +13,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.util.List;
+
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 public class CategoriesAddFragment extends Fragment {
 
@@ -34,7 +36,7 @@ public class CategoriesAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        categoriesDao = new CategoriesDao(this.getContext());
+        this.categoriesDao = new CategoriesDao(this.getContext());
     }
 
     @Nullable
@@ -115,15 +117,15 @@ public class CategoriesAddFragment extends Fragment {
     private void categoriesRemindButtonClicked(int checkedId) {
         switch (checkedId) {
             case R.id.categories_remind_yes:
-                categoryRemind = true;
+                this.categoryRemind = true;
                 break;
 
             case R.id.categories_remind_no:
-                categoryRemind = false;
+                this.categoryRemind = false;
                 break;
 
             case R.id.categories_remind_optional:
-                categoryRemind = null;
+                this.categoryRemind = null;
                 break;
         }
     }
@@ -141,12 +143,12 @@ public class CategoriesAddFragment extends Fragment {
 
     private Categories createCategoryFromInput() {
         Categories category = new Categories();
-        category.setCategory(categoryName.getText().toString());
-        category.setCode(categoryCode.getText().toString());
-        category.setDescription(categoryDescription.getText().toString());
-        if (categoryRemind == null) {
-            category.setRemind(2);
-        } else if (categoryRemind) {
+        category.setCategory(this.categoryName.getText().toString());
+        category.setCode(this.categoryCode.getText().toString());
+        category.setDescription(this.categoryDescription.getText().toString());
+        if (this.categoryRemind == null) {
+            category.setRemind(-1);
+        } else if (this.categoryRemind) {
             category.setRemind(1);
         } else {
             category.setRemind(0);
@@ -155,24 +157,24 @@ public class CategoriesAddFragment extends Fragment {
         return category;
     }
 
-    private void setInputFromCategory (Categories category) {
-        categoryName.setText(category.getCategory());
-        categoryCode.setText(category.getCode());
-        categoryDescription.setText(category.getDescription());
-        if(category.getRemind() == 1) {
-            categoriesRemindYes.setChecked(true);
-            categoryRemind = true;
+    private void setInputFromCategory(Categories category) {
+        this.categoryName.setText(category.getCategory());
+        this.categoryCode.setText(category.getCode());
+        this.categoryDescription.setText(category.getDescription());
+        if (category.getRemind() == 1) {
+            this.categoriesRemindYes.setChecked(true);
+            this.categoryRemind = true;
         } else if (category.getRemind() == 0) {
-            categoriesRemindNo.setChecked(true);
-            categoryRemind = false;
+            this.categoriesRemindNo.setChecked(true);
+            this.categoryRemind = false;
         } else {
-            categoriesRemindOp.setChecked(true);
-            categoryRemind = null;
+            this.categoriesRemindOp.setChecked(true);
+            this.categoryRemind = null;
         }
     }
 
     private void resetFields() {
-        this.getArguments().putInt("id", -1);
+        this.getArguments().putInt("id", Constant.CATEGORY_ADD_INVALID_ID);
         this.categoryName.setText("");
         this.categoryCode.setText("");
         this.categoryDescription.setText("");
@@ -183,39 +185,33 @@ public class CategoriesAddFragment extends Fragment {
     private boolean isCommonValid() {
         boolean isValid = true;
 
-        // Category name required check
         if (TextUtils.isEmpty(categoryName.getText().toString().trim())) {
-            categoryName.setError("Please fill in a category name.");
+            categoryName.setError(getResources().getString(R.string.category_add_error_category_name_empty));
             isValid = false;
         }
 
-        // Category name number of character check
         if (categoryName.getText().toString().trim().length() > 50) {
-            categoryName.setError("Please fill in a name below 50 characters.");
+            categoryName.setError(getResources().getString(R.string.category_add_error_category_name_length));
             isValid = false;
         }
 
-        // Category code required check
         if (TextUtils.isEmpty(categoryCode.getText().toString().trim()) || categoryCode.getText().toString().trim().length() != 3) {
-            categoryCode.setError("Please fill in a 3 character code.");
+            categoryCode.setError(getResources().getString(R.string.category_add_error_category_code_length));
             isValid = false;
         }
 
-        //Check code only have character
         if (!categoryCode.getText().toString().trim().matches("[a-zA-Z]+")) {
-            categoryCode.setError("Please fill in only using characters.");
+            categoryCode.setError(getResources().getString(R.string.category_add_error_category_code_chara));
             isValid = false;
         }
 
-        // Category description required check
         if (TextUtils.isEmpty(categoryDescription.getText().toString().trim())) {
-            categoryDescription.setError("Please fill in some text for description.");
+            categoryDescription.setError(getResources().getString(R.string.category_add_error_description_name_empty));
             isValid = false;
         }
 
-        // Category description number of character check
         if (categoryDescription.getText().toString().trim().length() > 255) {
-            categoryDescription.setError("Please fill in a description below 255 characters.");
+            categoryDescription.setError(getResources().getString(R.string.category_add_error_description_name_length));
             isValid = false;
         }
 
@@ -225,9 +221,8 @@ public class CategoriesAddFragment extends Fragment {
     private boolean isNewValid() {
         boolean isValid = true;
 
-        // Category code duplicate required check
-        if (categoriesDao.getCategoriesByCode(categoryCode.getText().toString().trim()) != null) {
-            categoryCode.setError("This category code already exist. Please use another.");
+        if (categoriesDao.getCategoriesByCode(categoryCode.getText().toString().trim()).size() > 0) {
+            categoryCode.setError(getResources().getString(R.string.category_add_error_category_code_duplicated));
             isValid = false;
         }
 
@@ -237,8 +232,16 @@ public class CategoriesAddFragment extends Fragment {
     private boolean isUpdateValid() {
         boolean isValid = true;
 
-        // Check that code is not same as others
-
+        List<Categories> categoriesList = categoriesDao.getCategoriesByCode(categoryCode.getText().toString().trim());
+        if (categoriesList.size() > 0) {
+            for (int i = 0; i < categoriesList.size(); i++) {
+                Categories categories = categoriesList.get(i);
+                if (getArguments().getInt("id") != categories.getId()) {
+                    categoryCode.setError(getResources().getString(R.string.category_add_error_category_code_duplicated));
+                    isValid = false;
+                }
+            }
+        }
 
         return isValid;
     }

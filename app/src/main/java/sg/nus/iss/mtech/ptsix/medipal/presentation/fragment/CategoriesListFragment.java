@@ -19,7 +19,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.CategoriesAdapter;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 
 public class CategoriesListFragment extends Fragment {
 

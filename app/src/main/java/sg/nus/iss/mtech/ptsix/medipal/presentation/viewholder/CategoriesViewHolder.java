@@ -14,10 +14,11 @@ public class CategoriesViewHolder extends RecyclerView.ViewHolder {
 
     public CategoriesViewHolder(View view) {
         super(view);
-        code = (TextView) view.findViewById(R.id.code);
-        category = (TextView) view.findViewById(R.id.category);
-        remind = (TextView) view.findViewById(R.id.remind);
-        description = (TextView) view.findViewById(R.id.description);
-        btnEdit = (Button) view.findViewById(R.id.btn_edit);
+        this.code = (TextView) view.findViewById(R.id.code);
+        this.category = (TextView) view.findViewById(R.id.category);
+        this.remind = (TextView) view.findViewById(R.id.remind);
+        this.description = (TextView) view.findViewById(R.id.description);
+
+        this.btnEdit = (Button) view.findViewById(R.id.btn_edit);
     }
 }
