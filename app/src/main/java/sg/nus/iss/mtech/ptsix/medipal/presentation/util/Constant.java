@@ -7,4 +7,8 @@ public final class Constant {
 
     public static final int CATEGORY_ADD_INVALID_ID = -1;
 
+    public static final int APPOINTMENT_TAB_LIST_INDEX = 0;
+    public static final int APPOINTMENT_TAB_ADD_INDEX = 1;
+    public static final int APPOINTMENT_ADD_INVALID_ID = -1;
+
 }

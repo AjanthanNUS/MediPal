@@ -20,8 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.activity.AppointmentActivity">
-           
+        <activity android:name=".presentation.activity.AppointmentActivity"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity android:name=".presentation.activity.ConsumptionActivity"/>
         <activity android:name=".presentation.activity.MedicineActivity"></activity>
