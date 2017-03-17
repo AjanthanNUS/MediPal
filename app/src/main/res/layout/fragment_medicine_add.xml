@@ -112,7 +112,8 @@
                     android:id="@+id/medicine_frequency_interval"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Interval" />
+                    android:hint="Interval"
+                    android:inputType="number"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -151,7 +152,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:hint="@string/medicine_add_quantity" />
+                        android:hint="@string/medicine_add_quantity"
+                        android:inputType="number"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <Spinner
@@ -176,7 +178,8 @@
                     android:id="@+id/medicine_consume_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/medicine_add_consume_quantity" />
+                    android:hint="@string/medicine_add_consume_quantity"
+                    android:inputType="number"/>
             </android.support.design.widget.TextInputLayout>
 
 
@@ -193,14 +196,48 @@
                     android:id="@+id/medicine_threshold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Threshold Number" />
+                    android:hint="Threshold Number"
+                    android:inputType="number"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/medicine_date_issue_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/medicine_threshold_label"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/medicine_date_issue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Date Issued" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/medicine_expire_factor_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/medicine_date_issue_label"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/medicine_expire_factor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Expire factor"
+                    android:inputType="number"/>
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:id="@+id/btns"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/medicine_threshold_label">
+                android:layout_below="@+id/medicine_expire_factor_label">
 
                 <Button
                     android:id="@+id/btn_cancel"

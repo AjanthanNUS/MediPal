@@ -9,7 +9,7 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
 
 public class MedicineViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView medicine, remind, category, description, frequency, quantity, dosage, consumeQuantity, threshold, dateIssued, expireFactor;
+    public TextView medicine, remind, category, description, frequency, frequencyInterval, frequencyStartTime, quantity, dosage, consumeQuantity, threshold, dateIssued, expireFactor;
     public Button btnEdit;
 
     public MedicineViewHolder(View view) {
@@ -19,6 +19,8 @@ public class MedicineViewHolder extends RecyclerView.ViewHolder {
         category = (TextView) view.findViewById(R.id.category);
         description = (TextView) view.findViewById(R.id.description);
         frequency = (TextView) view.findViewById(R.id.frequency);
+        frequencyInterval = (TextView) view.findViewById(R.id.frequency_interval);
+        frequencyStartTime = (TextView) view.findViewById(R.id.frequency_start_time);
         quantity = (TextView) view.findViewById(R.id.quantity);
         dosage = (TextView) view.findViewById(R.id.dosage);
         consumeQuantity = (TextView) view.findViewById(R.id.consume_quantity);

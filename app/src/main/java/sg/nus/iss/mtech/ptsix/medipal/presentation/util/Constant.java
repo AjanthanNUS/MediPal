@@ -12,5 +12,7 @@ public final class Constant {
 
     public static final int MEDICINE_ADD_INVALID_ID = -1;
 
+    public static final String DATE_FORMAT = "dd MMM yyyy";
+
 
 }

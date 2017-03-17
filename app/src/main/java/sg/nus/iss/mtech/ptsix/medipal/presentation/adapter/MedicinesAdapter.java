@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
@@ -18,8 +20,9 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.MedicineViewHolder;
 
-public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder>  {
+public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
 
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
     private List<Medicine> medicinesList;
     private int mExpandedPosition = -1;
     private CategoriesDao categoriesDao;
@@ -50,51 +53,57 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder>  
         holder.description.setText(this.mContext.getResources().getString(R.string.medicine_list_description, medicine.getDescription()));
         if (medicine.getRemind() == 1) {
             holder.remind.setText(R.string.medicine_list_remind_on);
-        }
-        else if (medicine.getRemind() == 0) {
+            holder.frequency.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency, reminder.getFrequency()));
+            holder.frequencyInterval.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency_interval, reminder.getInterval()));
+            holder.frequencyStartTime.setText("Start Date:" + dateFormatter.format(reminder.getEventStartTime()).toString());
+        } else if (medicine.getRemind() == 0) {
             holder.remind.setText(R.string.medicine_list_remind_off);
+            holder.frequency.setVisibility(View.GONE);
+            holder.frequencyInterval.setVisibility(View.GONE);
+            holder.frequencyStartTime.setVisibility(View.GONE);
         }
 
-        holder.frequency.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency, reminder.getFrequency()));
         holder.quantity.setText(this.mContext.getResources().getString(R.string.medicine_list_quantity_left, medicine.getQuantity()));
         holder.dosage.setText(this.mContext.getResources().getString(R.string.medicine_list_dosage, medicine.getDosage()));
         holder.consumeQuantity.setText(this.mContext.getResources().getString(R.string.medicine_list_consume_quantity, medicine.getConsumeQuantity()));
-        if (category.getCode().equals("CHR")) {
+        if (medicine.getThreshold() > 0) {
             holder.threshold.setText(this.mContext.getResources().getString(R.string.medicine_list_threshold_required, medicine.getThreshold()));
-        }
-        else {
+        } else {
             holder.threshold.setText(this.mContext.getResources().getString(R.string.medicine_list_threshold_required_not));
         }
-        holder.dateIssued.setText("Date Issued: " + medicine.getDateIssued());
+        holder.dateIssued.setText("Date Issued: " + dateFormatter.format(medicine.getDateIssued()));
         holder.expireFactor.setText("Expire in: " + medicine.getExpireFactor() + " months");
 
-
         // Handle edit button
-        holder.btnEdit.setOnClickListener(new View.OnClickListener(){
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mContext instanceof MedicineActivity){
-                    ((MedicineActivity)mContext).switchTab(Constant.MEDICINE_TAB_ADD_INDEX, medicine.getId());
+                if (mContext instanceof MedicineActivity) {
+                    ((MedicineActivity) mContext).switchTab(Constant.MEDICINE_TAB_ADD_INDEX, medicine.getId());
                 }
             }
         });
 
         // Expandable part
         final boolean isExpanded = position == mExpandedPosition;
-        holder.description.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.remind.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.frequency.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.quantity.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.dosage.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.consumeQuantity.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.threshold.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.dateIssued.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.expireFactor.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        holder.description.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.remind.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.quantity.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.dosage.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.consumeQuantity.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.threshold.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.dateIssued.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.expireFactor.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
+        if(medicine.getRemind() == 1) {
+            holder.frequency.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+            holder.frequencyInterval.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+            holder.frequencyStartTime.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mExpandedPosition = isExpanded ? - 1: position;
+                mExpandedPosition = isExpanded ? -1 : position;
                 notifyDataSetChanged();
             }
         });

@@ -256,51 +256,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_MEAS_TABLE);
         db.execSQL(CREATE_REMINDERS_TABLE);
 
-
-        cat_str = "INSERT INTO " + MEDI_TABLE + " ("
-                + MEDI_NAME + ", "
-                + MEDI_DESC + ", "
-                + MEDI_CAT_ID + ", "
-                + MEDI_REMINDER_ID + ", "
-                + MEDI_REMIND_ENABLED + ", "
-                + MEDI_QUANTITY + ", "
-                + MEDI_DOSAGE + ", "
-                + MEDI_CONSUME_QUANTITY + ", "
-                + MEDI_THRESHOLD + ", "
-                + MEDI_DATE_ISSUED + ", "
-                + MEDI_EXPIRE_FACTOR +
-                ") Values ('Med Name 1', 'This is a very long text', 1, 1, 1, 10, 1, 3, 3, '2017-01-01', 20)";
-        db.execSQL(cat_str);
-
-        cat_str = "INSERT INTO " + MEDI_TABLE + " ("
-                + MEDI_NAME + ", "
-                + MEDI_DESC + ", "
-                + MEDI_CAT_ID + ", "
-                + MEDI_REMINDER_ID + ", "
-                + MEDI_REMIND_ENABLED + ", "
-                + MEDI_QUANTITY + ", "
-                + MEDI_DOSAGE + ", "
-                + MEDI_CONSUME_QUANTITY + ", "
-                + MEDI_THRESHOLD + ", "
-                + MEDI_DATE_ISSUED + ", "
-                + MEDI_EXPIRE_FACTOR +
-                ") Values ('Med Name 2', 'This is a very long text This is a very long text This is a very long text This is a very long text This is a very long text This is a very long text This is a very long text This is a very long text', 2, 2, 1, 100, 2, 3, 10, '2017-03-04', 20)";
-        db.execSQL(cat_str);
-
-        cat_str = "INSERT INTO " + REMINDERS_TABLE + " ("
-                + REMINDERS_FREQ + ", "
-                + REMINDERS_START_TIME + ", "
-                + REMINDERS_INTERVAL +
-                ") Values (3, '2017-03-04', 4)";
-        db.execSQL(cat_str);
-
-        cat_str = "INSERT INTO " + REMINDERS_TABLE + " ("
-                + REMINDERS_FREQ + ", "
-                + REMINDERS_START_TIME + ", "
-                + REMINDERS_INTERVAL +
-                ") Values (6, '2017-03-01', 4)";
-        db.execSQL(cat_str);
-
     }
 
     @Override
