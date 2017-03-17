@@ -37,7 +37,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 
 public class MedicineAddFragment extends Fragment {
 
@@ -104,7 +104,6 @@ public class MedicineAddFragment extends Fragment {
         dosageList.add(10, "teaspoon");
         dosageList.add(11, "tablespoon");
         dosageList.add(12, "patch");
-
 
         ArrayAdapter<String> dosageAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, dosageList);
         this.medicineDosage.setAdapter(dosageAdapter);

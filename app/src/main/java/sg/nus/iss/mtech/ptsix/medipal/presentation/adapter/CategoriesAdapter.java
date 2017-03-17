@@ -11,7 +11,7 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.CategoriesViewHolder;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder> {

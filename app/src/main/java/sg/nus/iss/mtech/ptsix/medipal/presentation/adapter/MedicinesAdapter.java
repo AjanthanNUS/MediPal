@@ -17,7 +17,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.MedicineViewHolder;
 
 public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {

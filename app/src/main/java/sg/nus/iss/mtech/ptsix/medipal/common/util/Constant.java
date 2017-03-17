@@ -1,4 +1,4 @@
-package sg.nus.iss.mtech.ptsix.medipal.presentation.util;
+package sg.nus.iss.mtech.ptsix.medipal.common.util;
 
 public final class Constant {
 

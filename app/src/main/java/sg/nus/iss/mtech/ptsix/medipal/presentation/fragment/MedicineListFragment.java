@@ -19,7 +19,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.MedicinesAdapter;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 
 public class MedicineListFragment extends Fragment {
 
