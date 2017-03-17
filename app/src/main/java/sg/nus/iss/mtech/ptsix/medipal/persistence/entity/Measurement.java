@@ -27,6 +27,7 @@ public class Measurement implements Parcelable {
     private float mTemperature;
     private int mWeight;
     private Date mMeasureOn;
+    private String mComment;
 
     public Measurement() {
         super();
@@ -41,6 +42,7 @@ public class Measurement implements Parcelable {
         this.mTemperature = in.readInt();
         this.mWeight = in.readInt();
         this.mMeasureOn = new Date(in.readLong());
+        this.mComment = in.readString();
     }
 
     public int getId() {
@@ -96,6 +98,13 @@ public class Measurement implements Parcelable {
         this.mMeasureOn = date;
     }
 
+    public String getComment() {
+        return mComment;
+    }
+
+    public void setComment(String comment) {
+        this.mComment = comment;
+    }
     @Override
     public String toString() {
         return "Measurement [id=" + m_id +
@@ -105,6 +114,7 @@ public class Measurement implements Parcelable {
                 ", Temperature=" + mTemperature +
                 ", Weight=" + mWeight +
                 ", MeasureOn=" + mMeasureOn +
+                ", Comment=" + mComment +
                 "]";
     }
 
@@ -121,6 +131,7 @@ public class Measurement implements Parcelable {
         dest.writeFloat(getEventTemperature());
         dest.writeInt(getEventWeight());
         dest.writeLong(getEventMeasureOn().getDate());
+        dest.writeString(getComment());
     }
 
     public static final Parcelable.Creator<Measurement> CREATOR = new Parcelable.Creator<Measurement>() {
