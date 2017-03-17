@@ -30,27 +30,13 @@
                   android:parentActivityName=".presentation.activity.AppointmentActivity">
         </activity>
 
-        <activity android:name=".presentation.activity.AppointmentActivity"></activity>
-        <activity android:name=".presentation.activity.ConsumptionActivity" />
-        <activity android:name=".presentation.activity.MedicineActivity" />
-        <activity android:name=".presentation.activity.CategoriesActivity" />
-        <activity
-            android:name=".presentation.activity.AppointmentDetailActivity"
-            android:parentActivityName=".presentation.activity.AppointmentActivity"></activity>
-
-        <receiver android:name=".business.services.AppointmentAlarmReceiver" />
-
-        <service android:name=".business.services.AppointmentReminder" />
-
         <receiver android:name=".business.services.AppointmentAlarmReceiver"/>
         <service android:name=".business.services.AppointmentReminder"/>
 
         <receiver android:name=".business.services.ConsumptionAlarmReceiver" />
-
         <service android:name=".business.services.ConsumptionReminder" />
 
         <receiver android:name=".business.services.MedicineReplenishAlarmReceiver" />
-
         <service android:name=".business.services.MedicineReplenishReminder" />
 
         <activity android:name=".presentation.activity.MeasurementActivity"></activity>
