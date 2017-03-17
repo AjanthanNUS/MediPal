@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.RemindersDao;
@@ -37,7 +39,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
-import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 
 public class MedicineAddFragment extends Fragment {
 
@@ -125,10 +126,7 @@ public class MedicineAddFragment extends Fragment {
                 if (position == 0) {
                     medicineRemindSwitch.setEnabled(false);
                     medicineRemindSwitch.setChecked(false);
-                    //medicineThresholdLabel.setVisibility(View.GONE);
-                    //medicineThresholdSwitch.setEnabled(false);
                 } else {
-
                     Categories cat = categoriesList.get(position - 1);
                     if (cat.getRemind() == 0) {
                         medicineRemindSwitch.setEnabled(false);
@@ -140,19 +138,12 @@ public class MedicineAddFragment extends Fragment {
                         medicineRemindSwitch.setEnabled(true);
                         medicineRemindSwitch.setChecked(true);
                     }
-
-//                    if (cat.getCode().equals("CHR")) {
-//                        medicineThresholdLabel.setVisibility(View.VISIBLE);
-//                    } else {
-//                        medicineThresholdLabel.setVisibility(View.GONE);
-//                    }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 medicineRemindSwitch.setEnabled(false);
-                //medicineThresholdSwitch.setEnabled(false);
             }
         });
 
@@ -462,7 +453,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (this.medicineFrequency.isShown() && !medicineFrequencyString.equals("") && Integer.parseInt(medicineFrequencyString) < 0 && Integer.parseInt(medicineFrequencyString) > 1000) {
+        if (this.medicineFrequency.isShown() && !medicineFrequencyString.equals("") && (Integer.parseInt(medicineFrequencyString) < 0 || Integer.parseInt(medicineFrequencyString) > 1000)) {
             this.medicineFrequency.setError(getResources().getString(R.string.medicine_add_error_frequency_length));
             isValid = false;
         }
@@ -472,7 +463,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (this.medicineFrequencyInterval.isShown() && !medicineFrequencyIntervalString.equals("") && Integer.parseInt(medicineFrequencyIntervalString) < 0 && Integer.parseInt(medicineFrequencyIntervalString) > 1000) {
+        if (this.medicineFrequencyInterval.isShown() && !medicineFrequencyIntervalString.equals("") && (Integer.parseInt(medicineFrequencyIntervalString) < 0 || Integer.parseInt(medicineFrequencyIntervalString) > 1000)) {
             this.medicineFrequencyInterval.setError(getResources().getString(R.string.medicine_add_error_frequency_interval_length));
             isValid = false;
         }
@@ -494,7 +485,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (!medicineQuantityString.equals("") && Integer.parseInt(medicineQuantityString) < 1 && Integer.parseInt(medicineQuantityString) > 1000) {
+        if (!medicineQuantityString.equals("") && (Integer.parseInt(medicineQuantityString) < 1 || Integer.parseInt(medicineQuantityString) > 1000)) {
             this.medicineQuantity.setError(getResources().getString(R.string.medicine_add_error_quantity_length));
             isValid = false;
         }
@@ -509,7 +500,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (!medicineConsumeQuantityString.equals("") && Integer.parseInt(medicineConsumeQuantityString) < 1 && Integer.parseInt(medicineConsumeQuantityString) > 1000) {
+        if (!medicineConsumeQuantityString.equals("") && (Integer.parseInt(medicineConsumeQuantityString) < 1 || Integer.parseInt(medicineConsumeQuantityString) > 1000)) {
             this.medicineConsumeQuantity.setError(getResources().getString(R.string.medicine_add_error_consume_quantity_length));
             isValid = false;
         }
@@ -519,7 +510,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && Integer.parseInt(medicineThresholdString) < 0 && Integer.parseInt(medicineThresholdString) > 1000) {
+        if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && (Integer.parseInt(medicineThresholdString) < 0 || Integer.parseInt(medicineThresholdString) > 1000)) {
             this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_length));
             isValid = false;
         }
@@ -541,7 +532,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (!medicineExpireFactorString.equals("") && Integer.parseInt(medicineExpireFactorString) < 1 && Integer.parseInt(medicineExpireFactorString) > 24) {
+        if (!medicineExpireFactorString.equals("") && (Integer.parseInt(medicineExpireFactorString) < 1 || Integer.parseInt(medicineExpireFactorString) > 24)) {
             this.medicineExpireFactor.setError(getResources().getString(R.string.medicine_add_error_expire_factor_length));
             isValid = false;
         }
@@ -549,24 +540,53 @@ public class MedicineAddFragment extends Fragment {
         return isValid;
     }
 
-    private boolean isUpdateValid() {
-        boolean isValid = true;
-
-        // valida name not duplicate
-
-
-        return isValid;
-    }
-
     private boolean isNewValid() {
         boolean isValid = true;
 
-        // Valid name no duplicate
+        if (medicineDao.getMedicineByName(this.medicineName.getText().toString().trim()).size() > 0) {
+            this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
+            isValid = false;
+        }
 
-        //Valid start date after today
+        String medicineFrequencyStartTimeString = this.medicineFrequencyStartTime.getText().toString().trim();
+        if (this.medicineFrequencyStartTime.isShown() && !TextUtils.isEmpty(medicineFrequencyStartTimeString)) {
+            try {
+                if (CommonUtil.checkDateBeforeToday(dateFormatter.parse(medicineFrequencyStartTimeString))) {
+                    this.medicineFrequencyStartTime.setError(getResources().getString(R.string.medicine_add_error_start_time_before_today));
+                    isValid = false;
+                }
+            } catch (ParseException ex) {
 
-        //Valid date issue after today
+            }
+        }
 
+        String medicineDateIssueString = this.medicineDateIssue.getText().toString().trim();
+        if (this.medicineDateIssue.isShown() && !TextUtils.isEmpty(medicineDateIssueString)) {
+            try {
+                if (CommonUtil.checkDateBeforeToday(dateFormatter.parse(medicineDateIssueString))) {
+                    this.medicineDateIssue.setError(getResources().getString(R.string.medicine_add_error_date_issue_before_today));
+                    isValid = false;
+                }
+            } catch (ParseException ex) {
+
+            }
+        }
+        return isValid;
+    }
+
+    private boolean isUpdateValid() {
+        boolean isValid = true;
+
+        List<Medicine> medicineList = medicineDao.getMedicineByName(this.medicineName.getText().toString().trim());
+        if (medicineList.size() > 0) {
+            for (int i = 0; i < medicineList.size(); i++) {
+                Medicine medicine = medicineList.get(i);
+                if (getArguments().getInt("id") != medicine.getId()) {
+                    this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
+                    isValid = false;
+                }
+            }
+        }
 
         return isValid;
     }

@@ -2,15 +2,15 @@ package sg.nus.iss.mtech.ptsix.medipal.common.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Calendar;
 
 /**
  * Created by win on 5/3/17.
  */
 
-public  class CommonUtil {
+public class CommonUtil {
     public static String formatCalender(Calendar calendar) {
         String formattedDate;
 
@@ -38,6 +38,25 @@ public  class CommonUtil {
     public static String getFormattedTime(Date d) {
         SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
         return timeFormatter.format(d);
+    }
+
+    public static boolean checkDateBeforeToday(Date date) {
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date todayDate = cal.getTime();
+
+        // // TODO: 17/3/17 Fix this to allow today onwards 
+        
+        if (date.before(todayDate)) {
+            return true;
+        }
+
+        return false;
     }
 
 

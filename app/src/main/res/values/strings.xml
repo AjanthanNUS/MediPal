@@ -22,6 +22,13 @@
     <string name="category_add_cancel">Cancel</string>
     <string name="category_add_save_completed">Campaign is created successfully.</string>
     <string name="category_add_update_completed">Campaign is updated successfully.</string>
+    <string name="category_add_error_category_name_empty">Please fill in a category name.</string>
+    <string name="category_add_error_category_name_length">Please fill in a name below 50 characters.</string>
+    <string name="category_add_error_category_code_length">Please fill in a 3 character code.</string>
+    <string name="category_add_error_category_code_chara">Please fill in only using characters.</string>
+    <string name="category_add_error_category_code_duplicated">This category code already exist. Please use another.</string>
+    <string name="category_add_error_description_name_empty">Please fill in some text for description.</string>
+    <string name="category_add_error_description_name_length">Please fill in a description below 255 characters.</string>
 
     <string name="category_list_edit">Edit</string>
     <string name="category_list_description">Description: %1$s</string>
@@ -56,6 +63,7 @@
     <string name="medicine_add_save_completed">Medicine is created successfully.</string>
     <string name="medicine_add_update_completed">Medicine is updated successfully.</string>
     <string name="medicine_add_error_name_empty">Please fill in a medicine name.</string>
+    <string name="medicine_add_error_name_duplicated">This medicine name already exist. Please use another.</string>
     <string name="medicine_add_error_name_length">Please fill in a name below 50 characters.</string>
     <string name="medicine_add_error_description_empty">"Please fill in a medicine description."</string>
     <string name="medicine_add_error_description_length">Please fill in a description below 255 characters.</string>
@@ -65,6 +73,7 @@
     <string name="medicine_add_error_frequency_interval_empty">Please fill in a frequency interval name.</string>
     <string name="medicine_add_error_frequency_interval_length">Please fill in a frequency interval between 0 to 1000.</string>
     <string name="medicine_add_error_start_time_empty">Please fill in a  start time.</string>
+    <string name="medicine_add_error_start_time_before_today">Please fill in a date after today.</string>
     <string name="medicine_add_error_start_time_format">Please fill in correct frequency start date format.</string>
     <string name="medicine_add_error_quantity_empty">Please fill in a medicine quantity.</string>
     <string name="medicine_add_error_quantity_length">Please fill in a quantity between 1 to 1000.</string>
@@ -74,6 +83,7 @@
     <string name="medicine_add_error_threshold_empty">Please fill in a threshold.</string>
     <string name="medicine_add_error_threshold_length">Please fill in a threshold between 0 to 1000.</string>
     <string name="medicine_add_error_date_issue_empty">Please fill in a issue date.</string>
+    <string name="medicine_add_error_date_issue_before_today">Please fill in a date after today.</string>
     <string name="medicine_add_error_date_issue_format">Please fill in correct issue date format.</string>
     <string name="medicine_add_error_expire_factor_empty">Please fill in a expire factor.</string>
     <string name="medicine_add_error_expire_factor_length">Please fill in a expire factor between 1 to 24.</string>
