@@ -23,6 +23,7 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.MedicineViewHolder
 public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
     private List<Medicine> medicinesList;
     private int mExpandedPosition = -1;
     private CategoriesDao categoriesDao;
@@ -55,7 +56,7 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
             holder.remind.setText(R.string.medicine_list_remind_on);
             holder.frequency.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency, reminder.getFrequency()));
             holder.frequencyInterval.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency_interval, reminder.getInterval()));
-            holder.frequencyStartTime.setText("Start Date:" + dateFormatter.format(reminder.getEventStartTime()).toString());
+            holder.frequencyStartTime.setText("Start Time:" + timeFormatter.format(reminder.getEventStartTime()).toString());
         } else if (medicine.getRemind() == 0) {
             holder.remind.setText(R.string.medicine_list_remind_off);
             holder.frequency.setVisibility(View.GONE);

@@ -56,6 +56,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="openMeasurement"
-            android:text="Measurement" />
+            android:text="Measurement"/>
+
+        <Button
+            android:id="@+id/btnIceContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openICEContact"
+            android:text="ICE Contacts" />
+
+        <Button
+            android:id="@+id/btnHealthBio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openHealthBio"
+            android:text="HealthBio" />
     </LinearLayout>
 </RelativeLayout>

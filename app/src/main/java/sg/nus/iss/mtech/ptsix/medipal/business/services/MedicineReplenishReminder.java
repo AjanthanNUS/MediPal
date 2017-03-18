@@ -13,9 +13,6 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentDetailActivity;
 
-/**
- * Created by win on 12/3/17.
- */
 
 public class MedicineReplenishReminder extends IntentService {
     public static final String TAG = ConsumptionReminder.class.getSimpleName();
@@ -45,7 +42,7 @@ public class MedicineReplenishReminder extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int requestID = NotificationID.CONSUMPTION + medicine.getId();
+        int requestID = Integer.parseInt(NotificationID.CONSUMPTION + "" +medicine.getId());
 
         // TODO Replace your medicine replenish activities here
         PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, new Intent(this, AppointmentDetailActivity.class), 0);

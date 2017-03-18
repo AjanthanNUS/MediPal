@@ -36,7 +36,8 @@ public class MedicineReplenishAlarmReceiver extends WakefulBroadcastReceiver {
         Intent intent = new Intent(context, AppointmentAlarmReceiver.class);
         intent.putExtra(context.getResources().getResourceName(R.string.appointment_parceable), appointment);
 
-        int requestID = NotificationID.APPOINTMENT + appointment.getId();
+        int requestID = Integer.parseInt(NotificationID.REPLENISH + "" + appointment.getId());
+
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestID, intent, 0);
 

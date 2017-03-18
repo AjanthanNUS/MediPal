@@ -1,11 +1,13 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -43,6 +46,7 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 public class MedicineAddFragment extends Fragment {
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
     private Spinner medicineCategory, medicineDosage;
     private EditText medicineName, medicineDescription, medicineFrequency, medicineFrequencyInterval, medicineFrequencyStartTime, medicineThreshold, medicineQuantity, medicineConsumeQuantity, medicineDateIssue, medicineExpireFactor;
     private Switch medicineRemindSwitch;
@@ -53,6 +57,7 @@ public class MedicineAddFragment extends Fragment {
     private Button btnSave, btnCancel, btnDelete;
     Calendar currentCal = Calendar.getInstance();
     Calendar shownDate = Calendar.getInstance();
+    Calendar issueDate = Calendar.getInstance();
     private Boolean reminderSwitchValue = false;
 
     private List<Categories> categoriesList = null;
@@ -91,20 +96,7 @@ public class MedicineAddFragment extends Fragment {
         this.medicineDateIssue = (EditText) rootView.findViewById(R.id.medicine_date_issue);
         this.medicineExpireFactor = (EditText) rootView.findViewById(R.id.medicine_expire_factor);
 
-        List<String> dosageList = new ArrayList<>();
-        dosageList.add("<Select Dosage>");
-        dosageList.add(1, "pills");
-        dosageList.add(2, "cc");
-        dosageList.add(3, "ml");
-        dosageList.add(4, "gr");
-        dosageList.add(5, "mg");
-        dosageList.add(6, "drops");
-        dosageList.add(7, "pieces");
-        dosageList.add(8, "puffs");
-        dosageList.add(9, "units");
-        dosageList.add(10, "teaspoon");
-        dosageList.add(11, "tablespoon");
-        dosageList.add(12, "patch");
+        List<String> dosageList = CommonUtil.getDosageList();
 
         ArrayAdapter<String> dosageAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, dosageList);
         this.medicineDosage.setAdapter(dosageAdapter);
@@ -165,8 +157,8 @@ public class MedicineAddFragment extends Fragment {
             }
         });
 
-        this.medicineFrequencyStartTime.setText(dateFormatter.format(shownDate.getTime()));
-        this.medicineFrequencyStartTime.setOnClickListener(new View.OnClickListener() {
+        this.medicineDateIssue.setText(dateFormatter.format(issueDate.getTime()));
+        this.medicineDateIssue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog.OnDateSetListener onDateSetListener =
@@ -175,8 +167,8 @@ public class MedicineAddFragment extends Fragment {
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.set(year, monthOfYear, dayOfMonth);
-                                shownDate = calendar;
-                                medicineFrequencyStartTime.setText(dateFormatter.format(calendar.getTime()));
+                                issueDate = calendar;
+                                medicineDateIssue.setText(dateFormatter.format(calendar.getTime()));
                             }
                         };
                 DatePickerDialog datePickerDialog =
@@ -184,6 +176,32 @@ public class MedicineAddFragment extends Fragment {
                                 currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH),
                                 currentCal.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
+            }
+        });
+
+        this.medicineFrequencyStartTime.setText(timeFormatter.format(shownDate.getTime()));
+        this.medicineFrequencyStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText editText = (EditText) v;
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH), hourOfDay, minute);
+                        editText.setText(timeFormatter.format(calendar.getTime()));
+                    }
+                };
+                Calendar timeCalendar = Calendar.getInstance();
+                try {
+                    timeCalendar.setTime(timeFormatter.parse(editText.getText().toString()));
+                } catch (ParseException e) {
+                    Toast.makeText(getActivity(), R.string.generic_error, Toast.LENGTH_SHORT).show();
+                }
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), timeSetListener,
+                        timeCalendar.get(Calendar.HOUR_OF_DAY), timeCalendar.get(Calendar.MINUTE), false);
+                timePickerDialog.show();
             }
         });
 
@@ -315,6 +333,7 @@ public class MedicineAddFragment extends Fragment {
             medicine.setRemind(0);
         }
         medicine.setQuantity(Integer.parseInt(this.medicineQuantity.getText().toString().trim()));
+        Log.d(this.medicineDosage.getSelectedItemPosition() + "", this.medicineDosage.getSelectedItemPosition() + "");
         medicine.setDosage(this.medicineDosage.getSelectedItemPosition());
         medicine.setConsumeQuantity(Integer.parseInt(this.medicineConsumeQuantity.getText().toString().trim()));
         try {
@@ -330,7 +349,7 @@ public class MedicineAddFragment extends Fragment {
     private Reminders createReminderFromInput() {
         Reminders reminder = new Reminders();
         try {
-            reminder.setEventStartTime(dateFormatter.parse(this.medicineFrequencyStartTime.getText().toString().trim()));
+            reminder.setEventStartTime(timeFormatter.parse(this.medicineFrequencyStartTime.getText().toString().trim()));
         } catch (ParseException ex) {
             // no need to handle
         }
@@ -350,7 +369,7 @@ public class MedicineAddFragment extends Fragment {
 
             this.medicineFrequency.setText(reminder.getFrequency() + "");
             this.medicineFrequencyInterval.setText(reminder.getInterval() + "");
-            this.medicineFrequencyStartTime.setText(dateFormatter.format(reminder.getEventStartTime()));
+            this.medicineFrequencyStartTime.setText(timeFormatter.format(reminder.getEventStartTime()));
         } else {
             this.medicineRemindSwitch.setChecked(false);
         }
@@ -387,6 +406,7 @@ public class MedicineAddFragment extends Fragment {
         this.medicineFrequencyIntervalLabel.setVisibility(View.GONE);
         this.medicineFrequencyInterval.setError(null);
         this.medicineFrequencyStartTimeLabel.setVisibility(View.GONE);
+        this.medicineFrequencyStartTime.setText(timeFormatter.format(currentCal.getTime()));
         this.medicineFrequencyStartTime.setError(null);
         this.medicineThresholdLabel.setVisibility(View.VISIBLE);
         this.medicineThreshold.setError(null);
@@ -394,8 +414,6 @@ public class MedicineAddFragment extends Fragment {
         this.medicineFrequency.setError(null);
         this.medicineFrequencyInterval.setText("");
         this.medicineFrequencyInterval.setError(null);
-        this.medicineFrequencyStartTime.setText(dateFormatter.format(currentCal.getTime()));
-        this.medicineFrequencyStartTime.setError(null);
         this.medicineQuantity.setText("");
         this.medicineQuantity.setError(null);
         this.medicineConsumeQuantity.setText("");
@@ -473,7 +491,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         } else {
             try {
-                dateFormatter.parse(medicineFrequencyStartTimeString);
+                timeFormatter.parse(medicineFrequencyStartTimeString);
             } catch (ParseException ex) {
                 this.medicineFrequencyStartTime.setError(getResources().getString(R.string.medicine_add_error_start_time_format));
                 isValid = false;
@@ -546,18 +564,6 @@ public class MedicineAddFragment extends Fragment {
         if (medicineDao.getMedicineByName(this.medicineName.getText().toString().trim()).size() > 0) {
             this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
             isValid = false;
-        }
-
-        String medicineFrequencyStartTimeString = this.medicineFrequencyStartTime.getText().toString().trim();
-        if (this.medicineFrequencyStartTime.isShown() && !TextUtils.isEmpty(medicineFrequencyStartTimeString)) {
-            try {
-                if (CommonUtil.checkDateBeforeToday(dateFormatter.parse(medicineFrequencyStartTimeString))) {
-                    this.medicineFrequencyStartTime.setError(getResources().getString(R.string.medicine_add_error_start_time_before_today));
-                    isValid = false;
-                }
-            } catch (ParseException ex) {
-
-            }
         }
 
         String medicineDateIssueString = this.medicineDateIssue.getText().toString().trim();
