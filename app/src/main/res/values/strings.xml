@@ -47,7 +47,7 @@
     <string name="medicine_list_frequency">Frequency: %1$d times/day</string>
     <string name="medicine_list_frequency_interval">Interval: %1$d hours</string>
     <string name="medicine_list_quantity_left">Quantity Left: %1$d </string>
-    <string name="medicine_list_dosage">Dosage: %1$d </string>
+    <string name="medicine_list_dosage">Dosage: %1$s </string>
     <string name="medicine_list_consume_quantity">Consume Quantity: %1$d each time</string>
     <string name="medicine_list_threshold_required">Remind if quantity falls below: %1$d </string>
     <string name="medicine_list_threshold_required_not">Remind if quantity falls below: Not required</string>

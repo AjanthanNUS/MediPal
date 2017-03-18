@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -333,7 +332,6 @@ public class MedicineAddFragment extends Fragment {
             medicine.setRemind(0);
         }
         medicine.setQuantity(Integer.parseInt(this.medicineQuantity.getText().toString().trim()));
-        Log.d(this.medicineDosage.getSelectedItemPosition() + "", this.medicineDosage.getSelectedItemPosition() + "");
         medicine.setDosage(this.medicineDosage.getSelectedItemPosition());
         medicine.setConsumeQuantity(Integer.parseInt(this.medicineConsumeQuantity.getText().toString().trim()));
         try {
@@ -342,7 +340,12 @@ public class MedicineAddFragment extends Fragment {
             // no need to handle
         }
         medicine.setExpireFactor(Integer.parseInt(this.medicineExpireFactor.getText().toString().trim()));
-        medicine.setThreshold(Integer.parseInt(this.medicineThreshold.getText().toString().trim()));
+        if (this.medicineThreshold.getText().toString().trim().length() != 0) {
+            medicine.setThreshold(Integer.parseInt(this.medicineThreshold.getText().toString().trim()));
+        } else {
+            medicine.setThreshold(-1);
+        }
+
         return medicine;
     }
 
@@ -374,10 +377,10 @@ public class MedicineAddFragment extends Fragment {
             this.medicineRemindSwitch.setChecked(false);
         }
 
-        if (medicine.getThreshold() > 0) {
+        if (medicine.getThreshold() >= 0) {
             this.medicineThreshold.setText(medicine.getThreshold() + "");
         } else {
-            this.medicineThreshold.setText("0");
+            this.medicineThreshold.setText("");
         }
         this.medicineQuantity.setText(medicine.getQuantity() + "");
         this.medicineConsumeQuantity.setText(medicine.getConsumeQuantity() + "");
@@ -523,10 +526,10 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (this.medicineThreshold.isShown() && TextUtils.isEmpty(medicineThresholdString)) {
-            this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_empty));
-            isValid = false;
-        }
+//        if (this.medicineThreshold.isShown() && TextUtils.isEmpty(medicineThresholdString)) {
+//            this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_empty));
+//            isValid = false;
+//        }
 
         if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && (Integer.parseInt(medicineThresholdString) < 0 || Integer.parseInt(medicineThresholdString) > 1000)) {
             this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_length));

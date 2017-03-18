@@ -3,28 +3,28 @@ package sg.nus.iss.mtech.ptsix.medipal.common.enums;
 
 public enum DosageEnums {
 
-    PILLS("pills", 1),
-    CC("cc", 2),
-    ML("ml", 3),
-    GR("gr", 4),
-    MG("mg", 5),
-    DROPS("drops", 6),
-    PIECES("pieces", 7),
-    PUFFS("puffs", 8),
-    UNITS("units", 9),
-    TEASPOON("teaspoon", 10),
-    TABLESPOON("tablespoon", 11),
-    PATCH("patch", 12),
-    MCG("mcg", 13),
-    L("l", 14),
-    MEQ("meq", 15),
-    SPRAY("spray", 16);
+    PILLS(1, "pills"),
+    CC(2, "cc"),
+    ML(3, "ml"),
+    GR(4, "gr"),
+    MG(5, "mg"),
+    DROPS(6, "drops"),
+    PIECES(7, "pieces"),
+    PUFFS(8, "puffs"),
+    UNITS(9, "units"),
+    TEASPOON(10, "teaspoon"),
+    TABLESPOON(11, "tablespoon"),
+    PATCH(12, "patch"),
+    MCG(13, "mcg"),
+    L(14, "l"),
+    MEQ(15, "meq"),
+    SPRAY(16, "spray");
 
 
     private String stringValue;
     private int intValue;
 
-    private DosageEnums(String toString, int value) {
+    private DosageEnums(int value, String toString) {
         stringValue = toString;
         intValue = value;
     }
@@ -40,5 +40,12 @@ public enum DosageEnums {
 
     public String getStringValue() {
         return stringValue;
+    }
+
+    public static String getDosageFromIntValue(int intValue) {
+        for (DosageEnums f : values()) {
+            if (f.intValue == intValue) return f.stringValue;
+        }
+        throw new IllegalArgumentException();
     }
 }
