@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
@@ -37,40 +39,18 @@ public class MeasurementAdapter extends RecyclerView.Adapter<MeasurementViewHold
     public void onBindViewHolder(final MeasurementViewHolder holder, final int position) {
         final Measurement measurement = measurementList.get(position);
 
-        holder.MeaID.setText("ID " + measurement.getId() + "");
-        holder.MeaSystolic.setText("Systolic "+String.valueOf(measurement.getEventSystolic())+" mm Hg");
-        holder.MeaDiastolic.setText("Diastolic "+String.valueOf(measurement.getEventDiastolic())+" mm Hg");
-        holder.MeaPulse.setText("Pulse "+String.valueOf(measurement.getEventPulse())+" BPM");
-        holder.MeaTemperature.setText("Temp "+String.valueOf(measurement.getEventTemperature())+" C");
+        Date date = measurement.getEventMeasureOn();
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+        String date_string=sdf.format(date.getTime());
+
+        holder.MeaID.setText("No " + measurement.getId() + ",");
+        holder.MeaSystolic.setText("Systolic "+String.valueOf(measurement.getEventSystolic())+" mm Hg,");
+        holder.MeaDiastolic.setText("Diastolic "+String.valueOf(measurement.getEventDiastolic())+" mm Hg,");
+        holder.MeaPulse.setText("Pulse "+String.valueOf(measurement.getEventPulse())+" BPM,");
+        holder.MeaTemperature.setText("Temp "+String.valueOf(measurement.getEventTemperature())+" C,");
         holder.MeaWeight.setText("Weight "+String.valueOf(measurement.getEventWeight())+ " Kg");
-        holder.MeaMeasureOn.setText(String.valueOf(measurement.getEventMeasureOn()));
-        holder.MeaComment.setText(String.valueOf(measurement.getComment()));
-        // Handle edit button
-        /*
-        holder.btnEdit.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(mContext instanceof CategoriesActivity){
-                    ((CategoriesActivity)mContext).switchTab(1, category.getId());
-                }
-            }
-        });
-        */
-
-        // Expandable part
-        /*
-        final boolean isExpanded = position == mExpandedPosition;
-        holder.description.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.itemView.setActivated(isExpanded);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mExpandedPosition = isExpanded ? - 1: position;
-                notifyDataSetChanged();
-            }
-        });
-        */
-
+        holder.MeaMeasureOn.setText("Measured on "+date_string);
+        holder.MeaComment.setText("-- "+String.valueOf(measurement.getComment()));
     }
 
     @Override
