@@ -29,7 +29,7 @@
         <activity android:name=".presentation.activity.AppointmentDetailActivity"
                   android:parentActivityName=".presentation.activity.AppointmentActivity">
         </activity>
-jjjj
+
         <receiver android:name=".business.services.AppointmentAlarmReceiver"/>
         <service android:name=".business.services.AppointmentReminder"/>
 
