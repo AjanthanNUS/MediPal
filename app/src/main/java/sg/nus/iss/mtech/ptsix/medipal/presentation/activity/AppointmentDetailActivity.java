@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.AppointmentAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.AppointmentAlarmReceiver;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
@@ -125,12 +126,11 @@ public class AppointmentDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AppointmentAlarmReceiver alarmReceiver = new AppointmentAlarmReceiver();
-                alarmReceiver.setAlarm(getApplicationContext());
-                Log.w("INFO", "CLICK");
-//                Appointment appointment = prepareAppointment();
-//                AppointmentAsyncTask appointmentAsyncTask = new AppointmentAsyncTask(getApplicationContext());
-//                appointmentAsyncTask.execute(appointment);
-//                Toast.makeText(getApplicationContext(), "Saved Successfully", Toast.LENGTH_SHORT).show();
+                Appointment appointment = prepareAppointment();
+
+                AppointmentAsyncTask appointmentAsyncTask = new AppointmentAsyncTask(getApplicationContext());
+                appointmentAsyncTask.execute(appointment);
+                Toast.makeText(getApplicationContext(), "Saved Successfully", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -159,7 +159,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
 
         try {
             String dbDateTime = etDate.getText().toString().trim() + " " + etTime.getText().toString().trim();
-            mAppointment.setAppointmentDate(dbDateFormatter.parse(etDate.getText().toString()));
+            mAppointment.setAppointmentDate(dbDateFormatter.parse(dbDateTime));
         } catch(Exception e) {
             Log.w(AppointmentDetailActivity.class.getName(), e);
         }

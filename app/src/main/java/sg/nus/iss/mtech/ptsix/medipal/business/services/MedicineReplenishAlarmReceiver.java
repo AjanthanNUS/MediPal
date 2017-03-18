@@ -14,18 +14,18 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
 /**
- * Created by win on 11/3/17.
+ * Created by win on 12/3/17.
  */
 
-public class AppointmentAlarmReceiver extends WakefulBroadcastReceiver {
+public class MedicineReplenishAlarmReceiver extends WakefulBroadcastReceiver {
     public static final String TAG = AppointmentAlarmReceiver.class.getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.w(TAG, "START APPOINTMENT RECEIVE");
-        Intent service = new Intent(context, AppointmentReminder.class);
+        Log.w(TAG, "START MEDICINE REPLENISH RECEIVE");
+        Intent service = new Intent(context, MedicineReplenishReminder.class);
         startWakefulService(context, service);
-        Log.w(TAG, "END APPOINTMENT RECEIVE");
+        Log.w(TAG, "END MEDICINE REPLENISH RECEIVE");
     }
 
     public static void setAlarm(Context context, Appointment appointment) {

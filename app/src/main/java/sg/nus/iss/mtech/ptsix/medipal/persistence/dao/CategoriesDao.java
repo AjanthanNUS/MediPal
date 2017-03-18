@@ -11,25 +11,6 @@ import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-
-/*
-ID              interger
-Category        string
-Code            string
-Description     string
-Remind          Bool
- */
-
-//Supplement
-//Chronic
-//Incidental
-//Complete course
-//Self apply
-
 public class CategoriesDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.CATS_ID + " =?";

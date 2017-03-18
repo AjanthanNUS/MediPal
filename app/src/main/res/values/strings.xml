@@ -11,6 +11,27 @@
     <string name="description">Description : </string>
     <string name="action_filter">Filter</string>
     <string name="skipped">Medicine Skipped</string>
+    <string name="category_add_name">Category Name</string>
+    <string name="category_add_code">Category Code</string>
+    <string name="category_add_description">Category Description</string>
+    <string name="category_add_remind_default">Category Default Reminder Setting</string>
+    <string name="category_add_remind_default_yes">Yes</string>
+    <string name="category_add_remind_default_no">No</string>
+    <string name="category_add_remind_default_op">Optional</string>
+    <string name="category_add_save">Save</string>
+    <string name="category_add_cancel">Cancel</string>
+    <string name="category_add_save_completed">Campaign is created successfully.</string>
+    <string name="category_add_update_completed">Campaign is updated successfully.</string>
+
+    <string name="category_list_edit">Edit</string>
+
+    <string name="medicine_list_edit">Edit</string>
+
+    <string name="appointment_reminder_title">Coming Appointment</string>
+    <string name="appointment_parceable">appointment</string>
+    <string name="consumption_parceable">consumption</string>
+    <string name="replenish_parceable">replenish</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -23,4 +44,9 @@
     <string name="monthsFrom">Months from</string>
     <string name="weeksFrom">Weeks from</string>
     <string name="daysFrom">Days from</string>
+    <string name="alarm_service_label">Consumption Alarm</string>
+    <string name="frequency_per_day">Frequency/Day : </string>
+    <string name="start_time">Start Time : </string>
+    <string name="interval">Interval(Hr) : </string>
+    <string name="save">Save</string>
 </resources>

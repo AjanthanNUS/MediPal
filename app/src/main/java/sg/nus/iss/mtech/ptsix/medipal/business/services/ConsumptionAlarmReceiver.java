@@ -11,42 +11,44 @@ import java.util.Calendar;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
+
 
 /**
- * Created by win on 11/3/17.
+ * Created by win on 12/3/17.
  */
 
-public class AppointmentAlarmReceiver extends WakefulBroadcastReceiver {
-    public static final String TAG = AppointmentAlarmReceiver.class.getSimpleName();
+public class ConsumptionAlarmReceiver extends WakefulBroadcastReceiver {
+    public static final String TAG = ConsumptionAlarmReceiver.class.getSimpleName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.w(TAG, "START APPOINTMENT RECEIVE");
-        Intent service = new Intent(context, AppointmentReminder.class);
+        Log.w(TAG, "START CONSUMPTION RECEIVE");
+        Intent service = new Intent(context, ConsumptionReminder.class);
         startWakefulService(context, service);
-        Log.w(TAG, "END APPOINTMENT RECEIVE");
+        Log.w(TAG, "END CONSUMPTION RECEIVE");
     }
 
-    public static void setAlarm(Context context, Appointment appointment) {
+    public static void setAlarm(Context context, Consumption consumption) {
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
 
-        Intent intent = new Intent(context, AppointmentAlarmReceiver.class);
-        intent.putExtra(context.getResources().getResourceName(R.string.appointment_parceable), appointment);
+        Intent intent = new Intent(context, ConsumptionAlarmReceiver.class);
+        intent.putExtra(context.getResources().getResourceName(R.string.consumption_parceable), consumption);
 
-        int requestID = NotificationID.APPOINTMENT + appointment.getId();
-
+        int requestID = NotificationID.CONSUMPTION + consumption.getId();
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestID, intent, 0);
 
+        // TODO Need to replace with your logic
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(appointment.getAppointmentDate());
+        calendar.setTime(consumption.getEventConsumedOn());
+        //
 
         Log.w(TAG, calendar.getTime().toString());
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
-        Log.w(TAG, "APPOINTMENT REMINDER SET");
+        Log.w(TAG, "CONSUMPTION REMINDER SET");
     }
 }

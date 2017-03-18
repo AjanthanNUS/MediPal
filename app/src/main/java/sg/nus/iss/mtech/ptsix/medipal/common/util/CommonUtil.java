@@ -18,7 +18,7 @@ public class CommonUtil {
         return formattedDate;
     }
 
-    public static String formatDateStandart(Date date) {
+    public static String formatDateStandard(Date date) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return dateFormatter.format(date.getTime());
     }

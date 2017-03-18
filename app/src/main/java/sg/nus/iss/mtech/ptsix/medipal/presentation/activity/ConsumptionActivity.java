@@ -1,8 +1,12 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +21,7 @@ import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.ConsumptionBroadcastReceiver;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ConsumptionViewAdapter;
@@ -24,17 +29,13 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ConsumptionListFragm
 
 public class ConsumptionActivity extends AppCompatActivity implements ConsumptionListFragment.OnListFragmentInteractionListener {
     private final int DATE_DIALOG_ID = 999;
-
-
-    private ConsumptionListFragment consumptionListFragment;
-
-
     private final String MEDICINE_TAG = "MED";
     private final String CATEGORY_TAG = "CAT";
     private final String YEAR_TAG = "YEAR";
     private final String MONTH_TAG = "MON";
     private final String WEEK_TAG = "WEEK";
     private final String DAY_TAG = "DAY";
+    private ConsumptionListFragment consumptionListFragment;
     private ArrayList<ConsumptionVO> fullConsumptionList;
 
     @Override
@@ -43,7 +44,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         setContentView(R.layout.activity_consumption);
 
         fullConsumptionList = new ArrayList<>();
-        ConsumptionManager consumptionManager = new ConsumptionManager();
+        ConsumptionManager consumptionManager = new ConsumptionManager(this);
         fullConsumptionList.addAll(consumptionManager.getAllConsumptionList());
 
 
@@ -75,12 +76,34 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         return true;
     }
 
+    private void setupAlarm(int seconds) {
+
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(getBaseContext(), ConsumptionBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Log.d("TAG1", "Setup the alarm");
+
+        // Getting current time and add the seconds in it
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, seconds);
+        long interval = 10 * 1000;
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), interval, pendingIntent);
+
+        // Finish the currently running activity
+        // this.finish();
+
+
+    }
+
+
     private void showHistoryFilterPopUp() {
+        setupAlarm(10);
         final LinearLayout filterLayout = (LinearLayout) findViewById(R.id.filter_bar);
         filterLayout.setActivated(true);
         filterLayout.setVisibility(View.VISIBLE);
-
-
         Button goButton = (Button) filterLayout.findViewById(R.id.filter_go_btn);
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,9 +181,9 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
                 CommonUtil.isNullOrEmpty(searchYear) && CommonUtil.isNullOrEmpty(searchMonth) &&
                 CommonUtil.isNullOrEmpty(searchWeek) && CommonUtil.isNullOrEmpty(searchDays)) {
 
-            allConsumptionList = new ArrayList<>();
-            ConsumptionManager consumptionManager = new ConsumptionManager();
-            allConsumptionList.addAll(consumptionManager.getAllConsumptionList());
+            allConsumptionList.clear();
+            allConsumptionList.addAll(fullConsumptionList);
+
             viewAdapter.getmConsumptionList().clear();
             viewAdapter.getmConsumptionList().addAll(allConsumptionList);
             viewAdapter.notifyDataSetChanged();
@@ -228,7 +251,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
 //            TextView description = (TextView) customView.findViewById(R.id.popup_description);
 //
 //            medicine.setText(consumption.getMedicine().getEventMedicine());
-//            consumedOn.setText(CommonUtil.formatDateStandart(consumption.getEventConsumedOn()));
+//            consumedOn.setText(CommonUtil.formatDateStandard(consumption.getEventConsumedOn()));
 //            quantity.setText(String.valueOf(consumption.getEventQuantity()));
 //            description.setText(consumption.getMedicine().getEventDescription() + "Sample description");
 //

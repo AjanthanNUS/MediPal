@@ -49,7 +49,7 @@ public class ConsumptionDao extends DBDAO {
 
         long result = database.update(DatabaseHelper.CONSUMPTION_TABLE, values,
                 WHERE_ID_EQUALS,
-                new String[] { String.valueOf(consumption.getId()) });
+                new String[]{String.valueOf(consumption.getId())});
         Log.d("Update Result:", "=" + result);
         return result;
 
@@ -57,7 +57,7 @@ public class ConsumptionDao extends DBDAO {
 
     public int delete(Consumption consumption) {
         return database.delete(DatabaseHelper.CONSUMPTION_TABLE, WHERE_ID_EQUALS,
-                new String[] { consumption.getId() + "" });
+                new String[]{consumption.getId() + ""});
     }
 
     //USING query() method
@@ -65,7 +65,7 @@ public class ConsumptionDao extends DBDAO {
         ArrayList<Consumption> consumptions = new ArrayList<Consumption>();
 
         Cursor cursor = database.query(DatabaseHelper.CONSUMPTION_TABLE,
-                new String[] { DatabaseHelper.CON_ID,
+                new String[]{DatabaseHelper.CON_ID,
                         DatabaseHelper.CON_MEDICINE_ID,
                         DatabaseHelper.CON_QUANTITY,
                         DatabaseHelper.CON_CONSUMED_ON,
@@ -86,6 +86,7 @@ public class ConsumptionDao extends DBDAO {
         }
         return consumptions;
     }
+
     //Retrieves a single reminder record with the given id
     public Consumption getConsumption(long id) {
         Consumption consumption = null;
@@ -93,7 +94,7 @@ public class ConsumptionDao extends DBDAO {
         String sql = "SELECT * FROM " + DatabaseHelper.CONSUMPTION_TABLE
                 + " WHERE " + DatabaseHelper.CON_ID + " = ?";
 
-        Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
+        Cursor cursor = database.rawQuery(sql, new String[]{id + ""});
 
         if (cursor.moveToNext()) {
             consumption = new Consumption();

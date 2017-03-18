@@ -25,7 +25,8 @@ import static junit.framework.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public class AppointmentServiceTest {
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("d-MMM-yyyy H:mm", Locale.ENGLISH);
+  //  private static final SimpleDateFormat formatter = new SimpleDateFormat("d-MMM-yyyy H:mm", Locale.ENGLISH);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
     private Context context;
 
 
@@ -35,14 +36,14 @@ public class AppointmentServiceTest {
 
         AppointmentDAO appointmentDAO = new AppointmentDAO(context);
         appointmentDAO.open();
-        //appointmentDAO.truncateAllAppointments();
+        appointmentDAO.truncateAllAppointments();
         appointmentDAO.close();
 
     }
 
     @Test
     public void makeAppointment() throws Exception {
-        String appointmentDateStr = "2-MAR-2017 2:30";
+        String appointmentDateStr = "02 MAR 2017 2:30 PM";
         Date appointmentDate = formatter.parse(appointmentDateStr);
 
         Appointment appointment = new Appointment("University Health Centre", "Medical Check Up", appointmentDate);
@@ -67,7 +68,7 @@ public class AppointmentServiceTest {
 
     @Test
     public void deleteAppointment() throws Exception {
-        String appointmentDateStr = "2-MAR-2017 2:30";
+        String appointmentDateStr = "02 MAR 2017 2:30 PM";
         Date appointmentDate = formatter.parse(appointmentDateStr);
 
         Appointment appointment = new Appointment("University Health Centre", "Medical Check Up", appointmentDate);
@@ -85,7 +86,7 @@ public class AppointmentServiceTest {
 
     @Test
     public void getAppointment() throws Exception {
-        String appointmentDateStr = "2-MAR-2017 2:30";
+        String appointmentDateStr = "02 MAR 2017 2:30 PM";
         Date appointmentDate = formatter.parse(appointmentDateStr);
 
         Appointment appointment = new Appointment("University Health Centre", "Medical Check Up", appointmentDate);
@@ -99,7 +100,7 @@ public class AppointmentServiceTest {
 
     @Test
     public void updateAppointment() throws Exception {
-        String appointmentDateStr = "2-MAR-2017 2:30";
+        String appointmentDateStr = "02 MAR 2017 2:30 PM";
         Date appointmentDate = formatter.parse(appointmentDateStr);
 
         Appointment appointment = new Appointment("University Health Centre", "Medical Check Up", appointmentDate);

@@ -165,8 +165,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + MEDI_THRESHOLD + " INTEGER, "
             + MEDI_DATE_ISSUED + " DATE, "
             + MEDI_EXPIRE_FACTOR + " INTEGER, "
-            + "FOREIGN KEY(" + MEDI_CAT_ID + ") REFERENCES "+ CATS_TABLE + "(cats_id), "
-            + "FOREIGN KEY(" + MEDI_REMINDER_ID + ") REFERENCES "+ REMINDERS_TABLE + "(reminders_id) "
+            + "FOREIGN KEY(" + MEDI_CAT_ID + ") REFERENCES " + CATS_TABLE + "(cats_id), "
+            + "FOREIGN KEY(" + MEDI_REMINDER_ID + ") REFERENCES " + REMINDERS_TABLE + "(reminders_id) "
             + ")";
 
     public static final String CONSUMPTION_TABLE = "Consumption";
@@ -182,7 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + CON_MEDICINE_ID + " INTEGER, "
             + CON_QUANTITY + " INTEGER, "
             + CON_CONSUMED_ON + " DATE, "
-            + "FOREIGN KEY(" + CON_MEDICINE_ID + ") REFERENCES "+ MEDI_TABLE + "(medi_id) "
+            + "FOREIGN KEY(" + CON_MEDICINE_ID + ") REFERENCES " + MEDI_TABLE + "(medi_id) "
             + ")";
 
     private static DatabaseHelper instance;
@@ -216,7 +216,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + CATS_CODE + ", "
                 + CATS_DESC + ", "
                 + CATS_REMINDERS_ENABLED +
-                ") Values ('Chronic', 'CHR', 'catDesc', '1')";
+                ") Values ('Supplement', 'SUP', 'User may opt to set reminder for consumption of supplement.', '0')";
         db.execSQL(cat_str);
 
         cat_str = "INSERT INTO " + CATS_TABLE + " ("
@@ -224,7 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + CATS_CODE + ", "
                 + CATS_DESC + ", "
                 + CATS_REMINDERS_ENABLED +
-                ") Values ('Supplement', 'SUP', 'catDesc', '0')";
+                ") Values ('Chronic', 'CHR', 'This is to categorise medication for long-term/life-time consumption for diseases, i.e. diabetes, hypertension, heart regulation, etc.', '1')";
         db.execSQL(cat_str);
 
         cat_str = "INSERT INTO " + CATS_TABLE + " ("
@@ -232,7 +232,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + CATS_CODE + ", "
                 + CATS_DESC + ", "
                 + CATS_REMINDERS_ENABLED +
-                ") Values ('Incidental', 'INC', 'catDesc', '1')";
+                ") Values ('Incidental', 'INC', 'For common cold, flu or symptoms happen to be unplanned or subordinate conjunction with something and prescription from general practitioners.', '1')";
         db.execSQL(cat_str);
 
         cat_str = "INSERT INTO " + CATS_TABLE + " ("
@@ -240,7 +240,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + CATS_CODE + ", "
                 + CATS_DESC + ", "
                 + CATS_REMINDERS_ENABLED +
-                ") Values ('Complete Course', 'COM', 'catDesc', '1')";
+                ") Values ('Complete Course', 'COM', 'This may applies to medication like antibiotics for sinus infection, pneumonia, bronchitis, acne, strep throat, cellulitis, etc.', '1')";
         db.execSQL(cat_str);
 
         cat_str = "INSERT INTO " + CATS_TABLE + " ("
@@ -248,7 +248,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + CATS_CODE + ", "
                 + CATS_DESC + ", "
                 + CATS_REMINDERS_ENABLED +
-                ") Values ('Self Apply', 'SEL', 'catDesc', '0')";
+                ") Values ('Self Apply', 'SEL', 'To note down any self-prescribed or consume medication, i.e. applying band aids, balms, etc.', '0')";
         db.execSQL(cat_str);
 
         db.execSQL(CREATE_MEDI_TABLE);

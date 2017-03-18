@@ -23,8 +23,8 @@ public class CategoriesActivity extends AppCompatActivity {
     private CategoriesDao categoriesDao;
 
     private int[] tabIcons = {
-            android.R.drawable.picture_frame,
-            android.R.drawable.ic_menu_add
+            R.drawable.ic_view_list_white,
+            R.drawable.ic_edit_white
     };
 
     private static final String CATEGORIES_ADD_TAB_NAME = "Add/Edit";
@@ -45,7 +45,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);

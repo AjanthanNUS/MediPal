@@ -16,18 +16,18 @@ StartTime   date
 Interval    interger
 
  */
-public class Reminders implements Parcelable {
+public class Reminder implements Parcelable {
 
     private int m_id;
     private int mFrequency;
     private Date mStartTime;
     private int mInterval;
 
-    public Reminders() {
+    public Reminder() {
         super();
     }
 
-    private Reminders(Parcel in) {
+    private Reminder(Parcel in) {
         super();
         this.m_id = in.readInt();
         this.mFrequency = in.readInt();
@@ -47,15 +47,15 @@ public class Reminders implements Parcelable {
         return mFrequency;
     }
 
-    public void setFrequency(int Frequency) {
-        this.mFrequency = Frequency;
+    public void setFrequency(int frequency) {
+        this.mFrequency = frequency;
     }
 
-    public Date getEventStartTime() {
+    public Date getStartTime() {
         return mStartTime;
     }
 
-    public void setEventStartTime(Date date) {
+    public void setStartTime(Date date) {
         this.mStartTime = date;
     }
 
@@ -66,9 +66,10 @@ public class Reminders implements Parcelable {
     public void setInterval(int Interval) {
         this.mInterval = Interval;
     }
+
     @Override
     public String toString() {
-        return "HealthBio [id=" + m_id +
+        return "Reminder [id=" + m_id +
                 ", Frequency=" + mFrequency +
                 ", StartTime=" + mStartTime +
                 ", Interval=" + mInterval +
@@ -83,17 +84,17 @@ public class Reminders implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(getId());
         dest.writeInt(getFrequency());
-        dest.writeLong(getEventStartTime().getDate());
+        dest.writeLong(getStartTime().getDate());
         dest.writeInt(getInterval());
     }
 
-    public static final Parcelable.Creator<Reminders> CREATOR = new Parcelable.Creator<Reminders>() {
-        public Reminders createFromParcel(Parcel in) {
-            return new Reminders(in);
+    public static final Parcelable.Creator<Reminder> CREATOR = new Parcelable.Creator<Reminder>() {
+        public Reminder createFromParcel(Parcel in) {
+            return new Reminder(in);
         }
 
-        public Reminders[] newArray(int size) {
-            return new Reminders[size];
+        public Reminder[] newArray(int size) {
+            return new Reminder[size];
         }
     };
 

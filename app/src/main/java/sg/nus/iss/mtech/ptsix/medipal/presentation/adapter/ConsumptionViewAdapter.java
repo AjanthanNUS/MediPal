@@ -46,7 +46,7 @@ public class ConsumptionViewAdapter extends RecyclerView.Adapter<ConsumptionView
         ConsumptionVO cItem = mConsumptionList.get(position);
         holder.consumptionItem = cItem;
 
-        holder.consumedOnDateView.setText(CommonUtil.formatDateStandart(cItem.getEventConsumedOn()));
+        holder.consumedOnDateView.setText(CommonUtil.formatDateStandard(cItem.getEventConsumedOn()));
         holder.medicineNameView.setText(cItem.getMedicine().getEventMedicine());
         holder.consumedQuantityView.setText((cItem.getEventQuantity() == 0) ? context.getResources().getString(R.string.skipped) :
                 String.valueOf(cItem.getEventQuantity()));
