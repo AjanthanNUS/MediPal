@@ -31,11 +31,11 @@ import java.util.List;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineService;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.RemindersService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.RemindersDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
@@ -50,9 +50,6 @@ public class MedicineAddFragment extends Fragment {
     private EditText medicineName, medicineDescription, medicineFrequency, medicineFrequencyInterval, medicineFrequencyStartTime, medicineThreshold, medicineQuantity, medicineConsumeQuantity, medicineDateIssue, medicineExpireFactor;
     private Switch medicineRemindSwitch;
     private TextInputLayout medicineFrequencyLabel, medicineFrequencyIntervalLabel, medicineFrequencyStartTimeLabel, medicineThresholdLabel;
-    private MedicineDao medicineDao;
-    private CategoriesDao categoriesDao;
-    private RemindersDao remindersDao;
     private Button btnSave, btnCancel, btnDelete;
     Calendar currentCal = Calendar.getInstance();
     Calendar shownDate = Calendar.getInstance();
@@ -61,15 +58,19 @@ public class MedicineAddFragment extends Fragment {
 
     private List<Categories> categoriesList = null;
 
+    private MedicineService medicineService;
+    private RemindersService remindersService;
+    private CategoriesService categoriesService;
+
     public MedicineAddFragment() {
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.medicineDao = new MedicineDao(this.getContext());
-        this.categoriesDao = new CategoriesDao(this.getContext());
-        this.remindersDao = new RemindersDao(this.getContext());
+        this.medicineService = new MedicineService(this.getContext());
+        this.remindersService = new RemindersService(this.getContext());
+        this.categoriesService = new CategoriesService(this.getContext());
     }
 
     @Nullable
@@ -100,7 +101,7 @@ public class MedicineAddFragment extends Fragment {
         ArrayAdapter<String> dosageAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, dosageList);
         this.medicineDosage.setAdapter(dosageAdapter);
 
-        this.categoriesList = this.categoriesDao.getCategories();
+        this.categoriesList = this.categoriesService.getCategories();
         List<String> categoryCodes = new ArrayList<>();
         categoryCodes.add("<Select Category>");
         for (Categories category : categoriesList) {
@@ -258,7 +259,7 @@ public class MedicineAddFragment extends Fragment {
         if (getView() != null) {
             if (isVisibleToUser) {
                 if (id > Constant.MEDICINE_ADD_INVALID_ID) {
-                    Medicine medicine = this.medicineDao.getMedicine(id);
+                    Medicine medicine = this.medicineService.getMedicine(id);
                     setInputFromMedicine(medicine);
                 } else {
                     this.resetFields();
@@ -270,7 +271,7 @@ public class MedicineAddFragment extends Fragment {
     }
 
     private long updateMedicines() {
-        Medicine databaseMedicine = medicineDao.getMedicine(getArguments().getInt("id"));
+        Medicine databaseMedicine = medicineService.getMedicine(getArguments().getInt("id"));
         Medicine newMedicine = createMedicineFromInput();
         newMedicine.setId(databaseMedicine.getId());
         newMedicine.setReminderId(databaseMedicine.getReminderId());
@@ -279,19 +280,19 @@ public class MedicineAddFragment extends Fragment {
 
         if (newMedicine.getRemind() == 1) {
             // Set reminder table
-            mediResult = medicineDao.update(newMedicine);
+            mediResult = medicineService.updateMedicine(newMedicine);
             Reminders reminder = createReminderFromInput();
             reminder.setId(databaseMedicine.getReminderId());
-            remindResult = remindersDao.update(reminder);
+            remindResult = remindersService.updateReminders(reminder);
         } else {
             // Clear reminder column data
-            mediResult = medicineDao.update(newMedicine);
+            mediResult = medicineService.updateMedicine(newMedicine);
             Reminders reminder = new Reminders();
             reminder.setId(databaseMedicine.getReminderId());
             reminder.setInterval(0);
             reminder.setFrequency(0);
             reminder.setEventStartTime(new Date());
-            remindResult = remindersDao.update(reminder);
+            remindResult = remindersService.updateReminders(reminder);
         }
 
         return 1;
@@ -305,18 +306,18 @@ public class MedicineAddFragment extends Fragment {
         if (newMedicine.getRemind() == 1) {
             // Set reminder table
             Reminders reminder = createReminderFromInput();
-            remindResult = remindersDao.save(reminder);
+            remindResult = remindersService.makeReminders(reminder);
             newMedicine.setReminderId(remindResult.intValue());
-            mediResult = medicineDao.save(newMedicine);
+            mediResult = medicineService.makeMedicine(newMedicine);
         } else {
             // Clear reminder column data
             Reminders reminder = new Reminders();
             reminder.setInterval(0);
             reminder.setFrequency(0);
             reminder.setEventStartTime(new Date());
-            remindResult = remindersDao.save(reminder);
+            remindResult = remindersService.makeReminders(reminder);
             newMedicine.setReminderId(remindResult.intValue());
-            mediResult = medicineDao.save(newMedicine);
+            mediResult = medicineService.makeMedicine(newMedicine);
         }
         return 1;
     }
@@ -368,7 +369,7 @@ public class MedicineAddFragment extends Fragment {
         if (medicine.getRemind() == 1) {
             this.medicineRemindSwitch.setChecked(true);
 
-            Reminders reminder = this.remindersDao.getReminders(medicine.getReminderId());
+            Reminders reminder = this.remindersService.getReminders(medicine.getReminderId());
 
             this.medicineFrequency.setText(reminder.getFrequency() + "");
             this.medicineFrequencyInterval.setText(reminder.getInterval() + "");
@@ -526,11 +527,6 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-//        if (this.medicineThreshold.isShown() && TextUtils.isEmpty(medicineThresholdString)) {
-//            this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_empty));
-//            isValid = false;
-//        }
-
         if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && (Integer.parseInt(medicineThresholdString) < 0 || Integer.parseInt(medicineThresholdString) > 1000)) {
             this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_length));
             isValid = false;
@@ -564,7 +560,7 @@ public class MedicineAddFragment extends Fragment {
     private boolean isNewValid() {
         boolean isValid = true;
 
-        if (medicineDao.getMedicineByName(this.medicineName.getText().toString().trim()).size() > 0) {
+        if (medicineService.getMedicineByName(this.medicineName.getText().toString().trim()).size() > 0) {
             this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
             isValid = false;
         }
@@ -586,15 +582,9 @@ public class MedicineAddFragment extends Fragment {
     private boolean isUpdateValid() {
         boolean isValid = true;
 
-        List<Medicine> medicineList = medicineDao.getMedicineByName(this.medicineName.getText().toString().trim());
-        if (medicineList.size() > 0) {
-            for (int i = 0; i < medicineList.size(); i++) {
-                Medicine medicine = medicineList.get(i);
-                if (getArguments().getInt("id") != medicine.getId()) {
-                    this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
-                    isValid = false;
-                }
-            }
+        if (!medicineService.validCheckEditNameDuplicate(getArguments().getInt("id"), this.medicineName.getText().toString().trim())) {
+            this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
+            isValid = false;
         }
 
         return isValid;

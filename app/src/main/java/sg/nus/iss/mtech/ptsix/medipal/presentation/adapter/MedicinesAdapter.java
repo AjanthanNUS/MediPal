@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.RemindersService;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.DosageEnums;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.RemindersDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
@@ -27,14 +27,14 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
     private SimpleDateFormat timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
     private List<Medicine> medicinesList;
     private int mExpandedPosition = -1;
-    private CategoriesDao categoriesDao;
-    private RemindersDao remindersDao;
+    private CategoriesService categoriesService;
+    private RemindersService remindersService;
     private Context mContext;
 
     public MedicinesAdapter(List<Medicine> medicinesList, Context context) {
         this.medicinesList = medicinesList;
-        this.categoriesDao = new CategoriesDao(context);
-        this.remindersDao = new RemindersDao(context);
+        this.categoriesService = new CategoriesService(context);
+        this.remindersService = new RemindersService(context);
         this.mContext = context;
     }
 
@@ -47,8 +47,8 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
     @Override
     public void onBindViewHolder(MedicineViewHolder holder, final int position) {
         final Medicine medicine = medicinesList.get(position);
-        final Categories category = this.categoriesDao.getCategories(medicine.getCatId());
-        final Reminders reminder = this.remindersDao.getReminders(medicine.getReminderId());
+        final Categories category = this.categoriesService.getCategories(medicine.getCatId());
+        final Reminders reminder = this.remindersService.getReminders(medicine.getReminderId());
 
         holder.medicine.setText(medicine.getMedicine());
         holder.category.setText(this.mContext.getResources().getString(R.string.medicine_list_category, category.getCategory()));

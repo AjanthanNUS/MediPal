@@ -15,18 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDao;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineService;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.MedicinesAdapter;
-import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 
 public class MedicineListFragment extends Fragment {
 
     private List<Medicine> medicinesList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MedicinesAdapter mAdapter;
-    private MedicineDao medicineDAO;
+    private MedicineService medicineService;
     private FloatingActionButton addActionButton;
 
     public MedicineListFragment() {
@@ -35,7 +35,7 @@ public class MedicineListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.medicineDAO = new MedicineDao(this.getContext());
+        this.medicineService = new MedicineService(this.getContext());
         this.getMedicinesList();
     }
 
@@ -72,6 +72,6 @@ public class MedicineListFragment extends Fragment {
     }
 
     private void getMedicinesList() {
-        medicinesList = this.medicineDAO.getMedicines();
+        medicinesList = this.medicineService.getMedicine();
     }
 }
