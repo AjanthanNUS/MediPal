@@ -39,7 +39,7 @@ public class AppointmentAlarmReceiver extends WakefulBroadcastReceiver {
         Intent intent = new Intent(context, AppointmentAlarmReceiver.class);
         intent.putExtra("appointment", appointment);
 
-        int requestID = NotificationID.APPOINTMENT + appointment.getId();
+        int requestID = Integer.parseInt(NotificationID.APPOINTMENT + "" + appointment.getId());
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestID, intent, 0);
 

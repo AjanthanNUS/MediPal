@@ -42,7 +42,7 @@ public class MedicineReplenishReminder extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int requestID = NotificationID.CONSUMPTION + medicine.getId();
+        int requestID = Integer.parseInt(NotificationID.CONSUMPTION + "" +medicine.getId());
 
         // TODO Replace your medicine replenish activities here
         PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, new Intent(this, AppointmentDetailActivity.class), 0);

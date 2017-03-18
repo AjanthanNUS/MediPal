@@ -2,8 +2,6 @@ package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 /**
  * Created by WongCheeVui on 3/6/2017.
  */
@@ -19,12 +17,12 @@ Sequence        interger
  */
 public class ICE implements Parcelable {
 
-    private int m_id;
-    private String mName;
-    private String mContactNo;
-    private int mContactType;
-    private String mDescription;
-    private int mSequence;
+    private int id;
+    private String name;
+    private String contactNo;
+    private int iceContactType;
+    private String description;
+    private int sequence;
 
     public ICE() {
         super();
@@ -32,70 +30,70 @@ public class ICE implements Parcelable {
 
     private ICE(Parcel in) {
         super();
-        this.m_id = in.readInt();
-        this.mName = in.readString();
-        this.mContactNo = in.readString();
-        this.mContactType = in.readInt();
-        this.mDescription = in.readString();
-        this.mSequence = in.readInt();
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.contactNo = in.readString();
+        this.iceContactType = in.readInt();
+        this.description = in.readString();
+        this.sequence = in.readInt();
     }
 
     public int getId() {
-        return m_id;
+        return id;
     }
 
     public void setId(int id) {
-        this.m_id = id;
+        this.id = id;
     }
 
-    public String getEventName() {
-        return mName;
+    public String getName() {
+        return name;
     }
 
-    public void setEventName(String Name) {
-        this.mName = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEventContactNo() {
-        return mContactNo;
+    public String getContactNo() {
+        return contactNo;
     }
 
-    public void setEventContactNo(String ContactNo) {
-        this.mContactNo = ContactNo;
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
-    public int getContactType() {
-        return mContactType;
+    public int getIceContactType() {
+        return iceContactType;
     }
 
-    public void setContactType(int ContactType) {
-        this.mContactType = ContactType;
+    public void setIceContactType(int iceContactType) {
+        this.iceContactType = iceContactType;
     }
 
-    public String getEventDescription() {
-        return mDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEventDescription(String Description) {
-        this.mDescription = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getSequence() {
-        return mSequence;
+        return sequence;
     }
 
-    public void setSequence(int Sequence) {
-        this.mSequence = Sequence;
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
     }
 
     @Override
     public String toString() {
-        return "HealthBio [id=" + m_id +
-                ", Name=" + mName +
-                ", ContactNo=" + mContactNo +
-                ", ContactType=" + mContactType +
-                ", Description=" + mDescription +
-                ", Sequence=" + mSequence +
+        return "HealthBio [id=" + id +
+                ", Name=" + name +
+                ", ContactNo=" + contactNo +
+                ", ContactType=" + iceContactType +
+                ", Description=" + description +
+                ", Sequence=" + sequence +
                 "]";
     }
 
@@ -106,10 +104,10 @@ public class ICE implements Parcelable {
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(getId());
-        dest.writeString(getEventName());
-        dest.writeString(getEventContactNo());
-        dest.writeInt(getContactType());
-        dest.writeString(getEventDescription());
+        dest.writeString(getName());
+        dest.writeString(getContactNo());
+        dest.writeInt(getIceContactType());
+        dest.writeString(getDescription());
         dest.writeInt(getSequence());
     }
 

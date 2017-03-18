@@ -13,6 +13,10 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
+/**
+ * Created by win on 12/3/17.
+ */
+
 public class MedicineReplenishAlarmReceiver extends WakefulBroadcastReceiver {
     public static final String TAG = AppointmentAlarmReceiver.class.getSimpleName();
 
@@ -32,7 +36,8 @@ public class MedicineReplenishAlarmReceiver extends WakefulBroadcastReceiver {
         Intent intent = new Intent(context, AppointmentAlarmReceiver.class);
         intent.putExtra(context.getResources().getResourceName(R.string.appointment_parceable), appointment);
 
-        int requestID = NotificationID.REPLENISH + appointment.getId();
+        int requestID = Integer.parseInt(NotificationID.REPLENISH + "" + appointment.getId());
+
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestID, intent, 0);
 
@@ -41,7 +46,8 @@ public class MedicineReplenishAlarmReceiver extends WakefulBroadcastReceiver {
 
         Log.w(TAG, calendar.getTime().toString());
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
         Log.w(TAG, "MEDICINE REMINDER SET");
     }
 }

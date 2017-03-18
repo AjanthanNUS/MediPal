@@ -37,7 +37,7 @@ public class ConsumptionAlarmReceiver extends WakefulBroadcastReceiver {
         Intent intent = new Intent(context, ConsumptionAlarmReceiver.class);
         intent.putExtra(context.getResources().getResourceName(R.string.consumption_parceable), consumption);
 
-        int requestID = NotificationID.CONSUMPTION + consumption.getId();
+        int requestID = Integer.parseInt(NotificationID.CONSUMPTION + "" +consumption.getId());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestID, intent, 0);
 
         // TODO Need to replace with your logic

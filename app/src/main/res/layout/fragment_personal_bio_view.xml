@@ -1,0 +1,121 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.PersonalBioViewFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/personalBioTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:text="Personal Bio"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/userNameViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/personalBioTextView"
+            android:text="Full Name" />
+
+        <TextView
+            android:id="@+id/userNameViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userNameViewLabel"
+            android:layout_marginLeft="75dp" />
+
+        <TextView
+            android:id="@+id/userIDNoViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userNameViewText"
+            android:text="ID No" />
+
+        <TextView
+            android:id="@+id/userIDNoViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userIDNoViewLabel"
+            android:layout_marginLeft="75dp" />
+
+        <TextView
+            android:id="@+id/userDOBViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userIDNoViewText"
+            android:text="Date Of Brith" />
+
+        <TextView
+            android:id="@+id/userDOBViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userDOBViewLabel"
+            android:layout_marginLeft="75dp" />
+
+        <TextView
+            android:id="@+id/addressViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userDOBViewText"
+            android:text="Adress" />
+
+        <TextView
+            android:id="@+id/addressViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addressViewLabel"
+            android:layout_marginLeft="75dp" />
+
+        <TextView
+            android:id="@+id/postalCodeViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addressViewText"
+            android:layout_marginLeft="75dp" />
+
+        <TextView
+            android:id="@+id/heightViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/postalCodeViewText"
+            android:text="Height" />
+
+        <TextView
+            android:id="@+id/heightViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/heightViewLabel"
+            android:layout_marginLeft="75dp" />
+
+        <TextView
+            android:id="@+id/bloodTypeViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/heightViewText"
+            android:text="Blood Type" />
+
+        <TextView
+            android:id="@+id/bloodTypeViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bloodTypeViewLabel"
+            android:layout_marginLeft="75dp" />
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fabUpdatePersonalBio"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/fab_margin" />
+
+</FrameLayout>

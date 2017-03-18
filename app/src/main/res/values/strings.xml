@@ -3,6 +3,8 @@
     <string name="generic_error">Sorry something went wrong! We\'re looking into it!</string>
     <string name="appointment">Appointment</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
 
     <string name="consumedOn">Consumed On : </string>
@@ -92,7 +94,9 @@
     <string name="appointment_parceable">appointment</string>
     <string name="consumption_parceable">consumption</string>
     <string name="replenish_parceable">replenish</string>
+    <string name="title_activity_personal">Personal Bio</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="appointment_add_date">Appointment Date</string>
     <string name="appointment_add_time">Appointment Time</string>
     <string name="appointment_add_description">Appointment Description</string>
@@ -106,7 +110,37 @@
     <!-- Date format [CHAR LIMIT=NONE] -->
     <string name="format_full_friendly_date"><xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g>, <xliff:g id="time">%2$s</xliff:g></string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ice_name">Name</string>
+    <string name="ice_contact_no">98765432</string>
+    <string name="ice_contact_type">1</string>
+    <string name="ice_description">123</string>
+    <string name="ice_sequence_no">2e4</string>
+    <string name="ice_add_name">Enter Your Name</string>
+    <string name="ice_add_contact_no">Contact Number</string>
+    <string name="ice_add_description">Description</string>
+    <string name="health_condition">Health Condition</string>
+    <string name="health_startdate">Date</string>
+    <string name="health_start_date">Date</string>
+
+    <string-array name="ice_contact_types">
+        <item>Doctor</item>
+        <item>Next of Kin</item>
+        <item>Emergency Contact</item>
+    </string-array>
+
+    <string-array name="ice_contact_sequence">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="health_condition_type">
+        <item>a</item>
+        <item>c</item>
+    </string-array>
+
+
+
+
 
 </resources>

@@ -5,7 +5,7 @@ package sg.nus.iss.mtech.ptsix.medipal.common.util;
  */
 
 public class NotificationID {
-    public static final int APPOINTMENT = 10000;
-    public static final int REPLENISH = 20000;
-    public static final int CONSUMPTION = 30000;
+    public static final String APPOINTMENT = "1000";
+    public static final String REPLENISH = "2000";
+    public static final String CONSUMPTION = "3000";
 }
