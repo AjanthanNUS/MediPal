@@ -40,6 +40,8 @@
         <service android:name=".business.services.MedicineReplenishReminder" />
 
         <activity android:name=".presentation.activity.MeasurementActivity"></activity>
+
+        <activity android:name=".presentation.activity.PersonalActivity"></activity>
     </application>
 
 </manifest>

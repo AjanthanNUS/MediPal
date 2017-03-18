@@ -1,5 +1,6 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.Date;
@@ -11,13 +12,13 @@ import java.util.Date;
 public class PersonalBio implements Parcelable {
 
     private int id;
-    private String eventName;
-    private Date eventDOB;
-    private String eventIDno;
-    private String eventAddress;
-    private String eventPostalcode;
-    private int eventHeight;
-    private String eventBloodtype;
+    private String userName;
+    private Date userDOB;
+    private String userIDNo;
+    private String address;
+    private String postalcode;
+    private int height;
+    private String bloodtype;
 
 
     public PersonalBio() {
@@ -27,13 +28,13 @@ public class PersonalBio implements Parcelable {
     private PersonalBio(Parcel in) {
         super();
         this.id = in.readInt();
-        this.eventName = in.readString();
-        this.eventDOB = new Date(in.readLong());
-        this.eventIDno = in.readString();
-        this.eventAddress = in.readString();
-        this.eventPostalcode = in.readString();
-        this.eventHeight = in.readInt();
-        this.eventBloodtype = in.readString();
+        this.userName = in.readString();
+        this.userDOB = new Date(in.readLong());
+        this.userIDNo = in.readString();
+        this.address = in.readString();
+        this.postalcode = in.readString();
+        this.height = in.readInt();
+        this.bloodtype = in.readString();
 
     }
 
@@ -45,65 +46,72 @@ public class PersonalBio implements Parcelable {
         this.id = id;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setEventName(String name) {
-        this.eventName = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Date getEventDOB() {
-        return eventDOB;
-    }
-    public void setEventDOB(Date date) {
-        this.eventDOB = date;
+    public Date getUserDOB() {
+        return userDOB;
     }
 
-    public String getEventIDNo() {
-        return eventIDno;
-    }
-    public void setEventIDNo(String id) {
-        this.eventIDno = id;
+    public void setUserDOB(Date userDOB) {
+        this.userDOB = userDOB;
     }
 
-    public String getEventAddress() {
-        return eventAddress;
-    }
-    public void setEventAddress(String addr) {
-        this.eventAddress = addr;
+    public String getUserIDNo() {
+        return userIDNo;
     }
 
-    public String getEventPostalCode() {
-        return eventPostalcode;
-    }
-    public void setEventPostalCode(String code) {
-        this.eventPostalcode = code;
+    public void setUserIDNo(String userIDNo) {
+        this.userIDNo = userIDNo;
     }
 
-    public int getEventHeight() {
-        return eventHeight;
-    }
-    public void setEventHeight(int height) {
-        this.eventHeight = height;
+    public String getAddress() {
+        return address;
     }
 
-    public String getEventBloodType() {
-        return eventBloodtype;
+    public void setAddress(String address) {
+        this.address = address;
     }
-    public void setEventBloodType(String type) {
-        this.eventBloodtype = type;
+
+    public String getPostalcode() {
+        return postalcode;
     }
+
+    public void setPostalcode(String postalcode) {
+        this.postalcode = postalcode;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public String getBloodType() {
+        return bloodtype;
+    }
+
+    public void setBloodType(String bloodtype) {
+        this.bloodtype = bloodtype;
+    }
+
     @Override
     public String toString() {
         return "PersonalBio [id=" + id +
-                ", name=" + eventName +
-                ", date=" + eventDOB +
-                ", id=" + eventIDno +
-                ", addr=" + eventAddress +
-                ", code=" + eventPostalcode +
-                ", height=" + eventHeight +
-                ", type=" + eventBloodtype +
+                ", name=" + userName +
+                ", date=" + userDOB +
+                ", userIDNo=" + userIDNo +
+                ", address=" + address +
+                ", postalcode=" + postalcode +
+                ", height=" + height +
+                ", bloodtype=" + bloodtype +
                 "]";
     }
 
@@ -114,13 +122,13 @@ public class PersonalBio implements Parcelable {
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(getId());
-        dest.writeString(getEventName());
-        dest.writeLong(getEventDOB().getDate());
-        dest.writeString(getEventIDNo());
-        dest.writeString(getEventAddress());
-        dest.writeString(getEventPostalCode());
-        dest.writeInt(getEventHeight());
-        dest.writeString(getEventBloodType());
+        dest.writeString(getUserName());
+        dest.writeString(getUserDOB().toString());
+        dest.writeString(getUserIDNo());
+        dest.writeString(getAddress());
+        dest.writeString(getPostalcode());
+        dest.writeInt(getHeight());
+        dest.writeString(getBloodType());
     }
 
     public static final Parcelable.Creator<PersonalBio> CREATOR = new Parcelable.Creator<PersonalBio>() {
