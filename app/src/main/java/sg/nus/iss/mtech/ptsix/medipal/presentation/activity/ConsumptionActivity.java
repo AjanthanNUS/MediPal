@@ -191,8 +191,8 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
             List<ConsumptionVO> filterList = new ArrayList<>();
 
             for (ConsumptionVO vo : allConsumptionList) {
-                if (CommonUtil.isNullOrEmpty(searchMedicine) || (vo.getMedicine() != null && vo.getMedicine().getEventMedicine().contains(searchMedicine))) {
-                    if (CommonUtil.isNullOrEmpty(searchCategory) || (vo.getCategories() != null && vo.getCategories().getEventCategory().contains(searchCategory))) {
+                if (CommonUtil.isNullOrEmpty(searchMedicine) || (vo.getMedicine() != null && vo.getMedicine().getMedicine().contains(searchMedicine))) {
+                    if (CommonUtil.isNullOrEmpty(searchCategory) || (vo.getCategories() != null && vo.getCategories().getCategory().contains(searchCategory))) {
                         if (isValidForFilter(vo, searchBundle))
                             filterList.add(vo);
                     }

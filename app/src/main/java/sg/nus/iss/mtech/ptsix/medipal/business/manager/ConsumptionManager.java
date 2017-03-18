@@ -36,7 +36,7 @@ public class ConsumptionManager {
             vo.setEventConsumedOn(new Date());
             vo.setEventQuantity(i * 2);
             Medicine medicine = new Medicine();
-            medicine.setEventMedicine("Paracetamol-" + i);
+            medicine.setMedicine("Paracetamol-" + i);
             medicine.setId(i);
             vo.setMedicine(medicine);
             vo.setEventMedicineID(medicine.getId());

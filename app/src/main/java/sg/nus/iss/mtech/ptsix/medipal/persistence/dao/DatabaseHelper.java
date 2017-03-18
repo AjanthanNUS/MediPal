@@ -94,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String MEAS_TEMPERATURE = "meas_id_temperature";
     public static final String MEAS_WEIGHT = "meas_id_weight";
     public static final String MEAS_MEASURED_ON = "meas_id_measured_on";
-
+    public static final String MEAS_MEASURED_COMMENT = "meas_comment";
 
     public static final String CREATE_MEAS_TABLE = "CREATE TABLE "
             + MEAS_TABLE + "("
@@ -104,7 +104,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + MEAS_PULSE + " INTEGER, "
             + MEAS_TEMPERATURE + " NUMERIC, "
             + MEAS_WEIGHT + " INTEGER, "
-            + MEAS_MEASURED_ON + " DATE "
+            + MEAS_MEASURED_ON + " DATE, "
+            + MEAS_MEASURED_COMMENT + " TEXT "
             + ")";
 
     public static final String CATS_TABLE = "cats_table";
@@ -248,13 +249,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + CATS_CODE + ", "
                 + CATS_DESC + ", "
                 + CATS_REMINDERS_ENABLED +
-                ") Values ('Self Apply', 'SEL', 'To note down any self-prescribed or consume medication, i.e. applying band aids, balms, etc.', '0')";
+                ") Values ('Self Apply', 'SEL', 'To note down any self-prescribed or consume medication, i.e. applying band aids, balms, etc.', '-1')";
         db.execSQL(cat_str);
 
         db.execSQL(CREATE_MEDI_TABLE);
         db.execSQL(CREATE_ICE_TABLE);
         db.execSQL(CREATE_MEAS_TABLE);
         db.execSQL(CREATE_REMINDERS_TABLE);
+
     }
 
     @Override

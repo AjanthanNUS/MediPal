@@ -6,25 +6,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.RemindersDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.MedicineViewHolder;
 
-public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder>  {
+public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
 
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
     private List<Medicine> medicinesList;
     private int mExpandedPosition = -1;
     private CategoriesDao categoriesDao;
+    private RemindersDao remindersDao;
     private Context mContext;
 
     public MedicinesAdapter(List<Medicine> medicinesList, Context context) {
         this.medicinesList = medicinesList;
         this.categoriesDao = new CategoriesDao(context);
+        this.remindersDao = new RemindersDao(context);
         this.mContext = context;
     }
 
@@ -36,53 +44,66 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder>  
 
     @Override
     public void onBindViewHolder(MedicineViewHolder holder, final int position) {
-        Medicine medicine = medicinesList.get(position);
-        holder.medicine.setText(medicine.getEventMedicine());
-        Categories category = this.categoriesDao.getCategories(medicine.getEventCatID());
+        final Medicine medicine = medicinesList.get(position);
+        final Categories category = this.categoriesDao.getCategories(medicine.getCatId());
+        final Reminders reminder = this.remindersDao.getReminders(medicine.getReminderId());
 
-        holder.category.setText(category.getEventCategory());
-        holder.description.setText("Description: " + medicine.getEventDescription());
-        holder.remind.setText("Remind: " + medicine.getEventRemindEnabled());
-        holder.frequency.setText("Frequency: 3 times/day" );
-        holder.quantity.setText("Quantity: " + medicine.getEventQuantity() + " issued");
-        holder.dosage.setText("Dosage: " + medicine.getEventDosage());
-        holder.consumeQuantity.setText("Consume Quantity: " + medicine.getEventConsumeQuantity() + " each time");
-        if (category.getEventCode().equals("CHR")) {
-            holder.threshold.setText("Threshold: If falls below " + medicine.getEventThreshold());
+        holder.medicine.setText(medicine.getMedicine());
+        holder.category.setText(this.mContext.getResources().getString(R.string.medicine_list_category, category.getCategory()));
+        holder.description.setText(this.mContext.getResources().getString(R.string.medicine_list_description, medicine.getDescription()));
+        if (medicine.getRemind() == 1) {
+            holder.remind.setText(R.string.medicine_list_remind_on);
+            holder.frequency.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency, reminder.getFrequency()));
+            holder.frequencyInterval.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency_interval, reminder.getInterval()));
+            holder.frequencyStartTime.setText("Start Date:" + dateFormatter.format(reminder.getStartTime()).toString());
+        } else if (medicine.getRemind() == 0) {
+            holder.remind.setText(R.string.medicine_list_remind_off);
+            holder.frequency.setVisibility(View.GONE);
+            holder.frequencyInterval.setVisibility(View.GONE);
+            holder.frequencyStartTime.setVisibility(View.GONE);
         }
-        else {
-            holder.threshold.setText("Threshold: Not required");
-        }
-        holder.dateIssued.setText("Date Issued: " + medicine.getEventDateIssued());
-        holder.expireFactor.setText("Expire in: " + medicine.getEventExpireFactor() + " months");
 
+        holder.quantity.setText(this.mContext.getResources().getString(R.string.medicine_list_quantity_left, medicine.getQuantity()));
+        holder.dosage.setText(this.mContext.getResources().getString(R.string.medicine_list_dosage, medicine.getDosage()));
+        holder.consumeQuantity.setText(this.mContext.getResources().getString(R.string.medicine_list_consume_quantity, medicine.getConsumeQuantity()));
+        if (medicine.getThreshold() > 0) {
+            holder.threshold.setText(this.mContext.getResources().getString(R.string.medicine_list_threshold_required, medicine.getThreshold()));
+        } else {
+            holder.threshold.setText(this.mContext.getResources().getString(R.string.medicine_list_threshold_required_not));
+        }
+        holder.dateIssued.setText("Date Issued: " + dateFormatter.format(medicine.getDateIssued()));
+        holder.expireFactor.setText("Expire in: " + medicine.getExpireFactor() + " months");
 
         // Handle edit button
-        holder.btnEdit.setOnClickListener(new View.OnClickListener(){
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mContext instanceof MedicineActivity){
-                    ((MedicineActivity)mContext).switchTab(1);
+                if (mContext instanceof MedicineActivity) {
+                    ((MedicineActivity) mContext).switchTab(Constant.MEDICINE_TAB_ADD_INDEX, medicine.getId());
                 }
             }
         });
 
         // Expandable part
         final boolean isExpanded = position == mExpandedPosition;
-        holder.description.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.remind.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.frequency.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.quantity.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.dosage.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.consumeQuantity.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.threshold.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.dateIssued.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.expireFactor.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        holder.description.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.remind.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.quantity.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.dosage.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.consumeQuantity.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.threshold.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.dateIssued.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.expireFactor.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
+        if(medicine.getRemind() == 1) {
+            holder.frequency.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+            holder.frequencyInterval.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+            holder.frequencyStartTime.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mExpandedPosition = isExpanded ? - 1: position;
+                mExpandedPosition = isExpanded ? -1 : position;
                 notifyDataSetChanged();
             }
         });
@@ -91,5 +112,11 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder>  
     @Override
     public int getItemCount() {
         return medicinesList.size();
+    }
+
+    public void updateDataSet(List<Medicine> medicinesList) {
+        this.medicinesList.clear();
+        this.medicinesList.addAll(medicinesList);
+        notifyDataSetChanged();
     }
 }

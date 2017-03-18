@@ -6,13 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminder;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ReminderActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.UIConstants;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,13 +42,17 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent = new Intent(MainActivity.this, AppointmentActivity.class);
         startActivity(myIntent);
     }
+    public void openMeasurement(View view) {
+        Intent myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
+        startActivity(myIntent);
+    }
 
     public void reminderEdit(View view) {
         ReminderManager reminderManager = new ReminderManager(this);
-        Reminder reminder = reminderManager.getAllReminders().get(1);
+        Reminders reminders = reminderManager.getAllReminders().get(1);
 
         Intent myIntent = new Intent(MainActivity.this, ReminderActivity.class);
-        myIntent.putExtra(UIConstants.REMINDER, reminder);
+        myIntent.putExtra(Constant.REMINDER, reminders);
         startActivity(myIntent);
     }
 }

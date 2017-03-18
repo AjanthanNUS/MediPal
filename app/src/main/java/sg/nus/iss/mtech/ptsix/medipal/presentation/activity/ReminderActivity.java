@@ -9,10 +9,10 @@ import android.widget.EditText;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminder;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ReminderTimePickerFragment;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.UIConstants;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 public class ReminderActivity extends AppCompatActivity {
     public static final String TIME_PICKER = "REMINDER_TIME_PICKER";
@@ -28,10 +28,10 @@ public class ReminderActivity extends AppCompatActivity {
         viewHolder = new ViewHolder();
         reminderManager = new ReminderManager(this);
 
-        Reminder reminder = getIntent().getExtras().getParcelable(UIConstants.REMINDER);
-        if (reminder != null) {
+        Reminders reminders = getIntent().getExtras().getParcelable(Constant.REMINDER);
+        if (reminders != null) {
 
-            ReminderVO reminderVO = reminderManager.castToReminderVo(reminder);
+            ReminderVO reminderVO = reminderManager.castToReminderVo(reminders);
             //viewHolder.startTimeView.setText(reminderVO.getStartTime());
             viewHolder.frequencyView.setText(String.valueOf(reminderVO.getFrequency()));
             viewHolder.intervalView.setText(String.valueOf(reminderVO.getInterval()));

@@ -16,18 +16,18 @@ StartTime   date
 Interval    interger
 
  */
-public class Reminder implements Parcelable {
+public class Reminders implements Parcelable {
 
     private int m_id;
     private int mFrequency;
     private Date mStartTime;
     private int mInterval;
 
-    public Reminder() {
+    public Reminders() {
         super();
     }
 
-    private Reminder(Parcel in) {
+    private Reminders(Parcel in) {
         super();
         this.m_id = in.readInt();
         this.mFrequency = in.readInt();
@@ -69,7 +69,7 @@ public class Reminder implements Parcelable {
 
     @Override
     public String toString() {
-        return "Reminder [id=" + m_id +
+        return "Reminders [id=" + m_id +
                 ", Frequency=" + mFrequency +
                 ", StartTime=" + mStartTime +
                 ", Interval=" + mInterval +
@@ -88,13 +88,13 @@ public class Reminder implements Parcelable {
         dest.writeInt(getInterval());
     }
 
-    public static final Parcelable.Creator<Reminder> CREATOR = new Parcelable.Creator<Reminder>() {
-        public Reminder createFromParcel(Parcel in) {
-            return new Reminder(in);
+    public static final Parcelable.Creator<Reminders> CREATOR = new Parcelable.Creator<Reminders>() {
+        public Reminders createFromParcel(Parcel in) {
+            return new Reminders(in);
         }
 
-        public Reminder[] newArray(int size) {
-            return new Reminder[size];
+        public Reminders[] newArray(int size) {
+            return new Reminders[size];
         }
     };
 

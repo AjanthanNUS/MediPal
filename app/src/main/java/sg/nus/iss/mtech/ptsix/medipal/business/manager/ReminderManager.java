@@ -10,7 +10,7 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.RemindersDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminder;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
 
 /**
@@ -30,14 +30,14 @@ public class ReminderManager {
         Medicine medicine = new Medicine();
         Categories categories = new Categories();
         categories.setId(1);
-        categories.setEventCategory("CATtegory one");
-        categories.setEventRemind(1);
-        categories.setEventDescription("Sample category description");
-        categories.setEventCode("CAT");
+        categories.setCategory("CATtegory one");
+        categories.setRemind(1);
+        categories.setDescription("Sample category description");
+        categories.setCode("CAT");
         medicine.setId(001);
-        medicine.setEventCatID(categories.getId());
-        medicine.setEventMedicine("Paracitamole");
-        medicine.setEventRemindEnabled(1);
+        medicine.setCatId(categories.getId());
+        medicine.setMedicine("Paracitamole");
+        medicine.setRemind(1);
 
         for (int i = 0; i < 10; i++) {
             ReminderVO reminder = new ReminderVO();
@@ -54,15 +54,15 @@ public class ReminderManager {
         return reminders;
     }
 
-    public ReminderVO castToReminderVo(Reminder reminder) {
+    public ReminderVO castToReminderVo(Reminders reminders) {
         ReminderVO reminderVO = new ReminderVO();
-        if (reminder instanceof ReminderVO) {
-            reminderVO = (ReminderVO) reminder;
+        if (reminders instanceof ReminderVO) {
+            reminderVO = (ReminderVO) reminders;
         } else {
-            reminderVO.setId(reminder.getId());
-            reminderVO.setFrequency(reminder.getFrequency());
-            reminderVO.setStartTime(reminder.getStartTime());
-            reminderVO.setInterval(reminder.getInterval());
+            reminderVO.setId(reminders.getId());
+            reminderVO.setFrequency(reminders.getFrequency());
+            reminderVO.setStartTime(reminders.getStartTime());
+            reminderVO.setInterval(reminders.getInterval());
 
             //TODO Get medicine , category from DB
             reminderVO.setMedicine(null);

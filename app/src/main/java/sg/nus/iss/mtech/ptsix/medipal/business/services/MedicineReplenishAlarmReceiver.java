@@ -47,6 +47,6 @@ public class MedicineReplenishAlarmReceiver extends WakefulBroadcastReceiver {
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
-        Log.w(TAG, "APPOINTMENT REMINDER SET");
+        Log.w(TAG, "MEDICINE REMINDER SET");
     }
 }

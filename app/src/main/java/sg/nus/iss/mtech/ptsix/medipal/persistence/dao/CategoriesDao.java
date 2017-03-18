@@ -22,24 +22,24 @@ public class CategoriesDao extends DBDAO {
 
     public long save(Categories categories) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.CATS_CATEGORIES, categories.getEventCategory());
-        values.put(DatabaseHelper.CATS_CODE, categories.getEventCode());
-        values.put(DatabaseHelper.CATS_DESC, categories.getEventDescription());
-        values.put(DatabaseHelper.CATS_REMINDERS_ENABLED, categories.getEventRemind());
+        values.put(DatabaseHelper.CATS_CATEGORIES, categories.getCategory());
+        values.put(DatabaseHelper.CATS_CODE, categories.getCode());
+        values.put(DatabaseHelper.CATS_DESC, categories.getDescription());
+        values.put(DatabaseHelper.CATS_REMINDERS_ENABLED, categories.getRemind());
         return database.insert(DatabaseHelper.CATS_TABLE, null, values);
     }
 
     public long update(Categories categories) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.CATS_CATEGORIES, categories.getEventCategory());
-        values.put(DatabaseHelper.CATS_CODE, categories.getEventCode());
-        values.put(DatabaseHelper.CATS_DESC, categories.getEventDescription());
-        values.put(DatabaseHelper.CATS_REMINDERS_ENABLED, categories.getEventRemind());
+        values.put(DatabaseHelper.CATS_CATEGORIES, categories.getCategory());
+        values.put(DatabaseHelper.CATS_CODE, categories.getCode());
+        values.put(DatabaseHelper.CATS_DESC, categories.getDescription());
+        values.put(DatabaseHelper.CATS_REMINDERS_ENABLED, categories.getRemind());
 
 
         long result = database.update(DatabaseHelper.CATS_TABLE, values,
                 WHERE_ID_EQUALS,
-                new String[] { String.valueOf(categories.getId()) });
+                new String[]{String.valueOf(categories.getId())});
         Log.d("Update Result:", "=" + result);
         return result;
 
@@ -47,7 +47,7 @@ public class CategoriesDao extends DBDAO {
 
     public int delete(Categories categories) {
         return database.delete(DatabaseHelper.CATS_TABLE, WHERE_ID_EQUALS,
-                new String[] { categories.getId() + "" });
+                new String[]{categories.getId() + ""});
     }
 
     //USING query() method
@@ -55,7 +55,7 @@ public class CategoriesDao extends DBDAO {
         ArrayList<Categories> categories_array = new ArrayList<Categories>();
 
         Cursor cursor = database.query(DatabaseHelper.CATS_TABLE,
-                new String[] { DatabaseHelper.CATS_ID,
+                new String[]{DatabaseHelper.CATS_ID,
                         DatabaseHelper.CATS_CATEGORIES,
                         DatabaseHelper.CATS_CODE,
                         DatabaseHelper.CATS_DESC,
@@ -66,14 +66,15 @@ public class CategoriesDao extends DBDAO {
         while (cursor.moveToNext()) {
             Categories categories = new Categories();
             categories.setId(cursor.getInt(0));
-            categories.setEventCategory(cursor.getString(1));
-            categories.setEventCode(cursor.getString(2));
-            categories.setEventDescription(cursor.getString(3));
-            categories.setEventRemind(cursor.getInt(4));
+            categories.setCategory(cursor.getString(1));
+            categories.setCode(cursor.getString(2));
+            categories.setDescription(cursor.getString(3));
+            categories.setRemind(cursor.getInt(4));
             categories_array.add(categories);
         }
         return categories_array;
     }
+
     //Retrieves a single reminder record with the given id
     public Categories getCategories(long id) {
         Categories categories = null;
@@ -81,16 +82,37 @@ public class CategoriesDao extends DBDAO {
         String sql = "SELECT * FROM " + DatabaseHelper.CATS_TABLE
                 + " WHERE " + DatabaseHelper.CATS_ID + " = ?";
 
-        Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
+        Cursor cursor = database.rawQuery(sql, new String[]{id + ""});
 
         if (cursor.moveToNext()) {
             categories = new Categories();
             categories.setId(cursor.getInt(0));
-            categories.setEventCategory(cursor.getString(1));
-            categories.setEventCode(cursor.getString(2));
-            categories.setEventDescription(cursor.getString(3));
-            categories.setEventRemind(cursor.getInt(4));
+            categories.setCategory(cursor.getString(1));
+            categories.setCode(cursor.getString(2));
+            categories.setDescription(cursor.getString(3));
+            categories.setRemind(cursor.getInt(4));
         }
         return categories;
+    }
+
+    //USING query() method
+    public ArrayList<Categories> getCategoriesByCode(String code) {
+        ArrayList<Categories> categories_array = new ArrayList<Categories>();
+
+        String sql = "SELECT * FROM " + DatabaseHelper.CATS_TABLE
+                + " WHERE " + DatabaseHelper.CATS_CODE + " = ?";
+
+        Cursor cursor = database.rawQuery(sql, new String[] { code });
+
+        while (cursor.moveToNext()) {
+            Categories categories = new Categories();
+            categories.setId(cursor.getInt(0));
+            categories.setCategory(cursor.getString(1));
+            categories.setCode(cursor.getString(2));
+            categories.setDescription(cursor.getString(3));
+            categories.setRemind(cursor.getInt(4));
+            categories_array.add(categories);
+        }
+        return categories_array;
     }
 }

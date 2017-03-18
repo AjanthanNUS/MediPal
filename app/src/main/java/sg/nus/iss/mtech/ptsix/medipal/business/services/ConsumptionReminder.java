@@ -25,7 +25,7 @@ public class ConsumptionReminder extends IntentService {
     NotificationCompat.Builder builder;
     public static final int NOTIFICATION_ID = 1;
     public ConsumptionReminder() {
-        super("Consumption Reminder");
+        super("Consumption Reminders");
     }
 
     @Override

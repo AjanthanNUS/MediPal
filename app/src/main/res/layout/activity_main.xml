@@ -57,6 +57,12 @@
             android:layout_height="wrap_content"     android:onClick="reminderEdit"
             android:text="Reminder Edit" />
 
+        <Button
+            android:id="@+id/btnMeasurement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openMeasurement"
+            android:text="Measurement" />
 
     </LinearLayout>
 </RelativeLayout>

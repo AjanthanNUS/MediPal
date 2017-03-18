@@ -10,7 +10,7 @@ private static final String DAILY_REMINDER_RECEIVER = "[DAILY REMIND RECEIVER]";
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(DAILY_REMINDER_RECEIVER, "Daily Broadcast Receiver received.");
-        Log.i(DAILY_REMINDER_RECEIVER, "Starting the Service to set Reminder for the day...");
+        Log.i(DAILY_REMINDER_RECEIVER, "Starting the Service to set Reminders for the day...");
 
         Intent i = new Intent(context, ConsumptionReminder.class);
         context.startService(i);

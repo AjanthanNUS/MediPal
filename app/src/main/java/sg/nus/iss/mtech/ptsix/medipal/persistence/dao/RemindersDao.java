@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminder;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 
 /**
  * Created by WongCheeVui on 3/6/2017.
@@ -33,35 +33,35 @@ public class RemindersDao  extends DBDAO {
         super(context);
     }
 
-    public long save(Reminder reminder) {
+    public long save(Reminders reminders) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.REMINDERS_FREQ, reminder.getFrequency());
-        values.put(DatabaseHelper.REMINDERS_START_TIME, formatter.format(reminder.getStartTime()));
-        values.put(DatabaseHelper.REMINDERS_INTERVAL, reminder.getInterval());
+        values.put(DatabaseHelper.REMINDERS_FREQ, reminders.getFrequency());
+        values.put(DatabaseHelper.REMINDERS_START_TIME, formatter.format(reminders.getStartTime()));
+        values.put(DatabaseHelper.REMINDERS_INTERVAL, reminders.getInterval());
         return database.insert(DatabaseHelper.REMINDERS_TABLE, null, values);
     }
 
-    public long update(Reminder reminder) {
+    public long update(Reminders reminders) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.REMINDERS_FREQ, reminder.getFrequency());
-        values.put(DatabaseHelper.REMINDERS_START_TIME, formatter.format(reminder.getStartTime()));
-        values.put(DatabaseHelper.REMINDERS_INTERVAL, reminder.getInterval());
+        values.put(DatabaseHelper.REMINDERS_FREQ, reminders.getFrequency());
+        values.put(DatabaseHelper.REMINDERS_START_TIME, formatter.format(reminders.getStartTime()));
+        values.put(DatabaseHelper.REMINDERS_INTERVAL, reminders.getInterval());
 
         long result = database.update(DatabaseHelper.REMINDERS_TABLE, values,
                 WHERE_ID_EQUALS,
-                new String[] { String.valueOf(reminder.getId()) });
+                new String[] { String.valueOf(reminders.getId()) });
         Log.d("Update Result:", "=" + result);
         return result;
 
     }
 
-    public int delete(Reminder reminder) {
+    public int delete(Reminders reminders) {
         return database.delete(DatabaseHelper.REMINDERS_TABLE, WHERE_ID_EQUALS,
-                new String[] { reminder.getId() + "" });
+                new String[] { reminders.getId() + "" });
     }
     //USING query() method
-    public ArrayList<Reminder> getReminders() {
-        ArrayList<Reminder> reminder_array = new ArrayList<Reminder>();
+    public ArrayList<Reminders> getReminders() {
+        ArrayList<Reminders> reminders_array = new ArrayList<Reminders>();
 
         Cursor cursor = database.query(DatabaseHelper.REMINDERS_TABLE,
                 new String[] { DatabaseHelper.REMINDERS_ID,
@@ -72,22 +72,22 @@ public class RemindersDao  extends DBDAO {
                 null, null);
 
         while (cursor.moveToNext()) {
-            Reminder reminder = new Reminder();
-            reminder.setId(cursor.getInt(0));
-            reminder.setFrequency(cursor.getInt(1));
+            Reminders reminders = new Reminders();
+            reminders.setId(cursor.getInt(0));
+            reminders.setFrequency(cursor.getInt(1));
             try {
-                reminder.setStartTime(formatter.parse(cursor.getString(2)));
+                reminders.setStartTime(formatter.parse(cursor.getString(2)));
             } catch (ParseException e) {
-                reminder.setStartTime(null);
+                reminders.setStartTime(null);
             }
-            reminder.setInterval(cursor.getInt(3));
-            reminder_array.add(reminder);
+            reminders.setInterval(cursor.getInt(3));
+            reminders_array.add(reminders);
         }
-        return reminder_array;
+        return reminders_array;
     }
     //Retrieves a single reminder record with the given id
-    public Reminder getReminders(long id) {
-        Reminder reminder = null;
+    public Reminders getReminders(long id) {
+        Reminders reminders = null;
 
         String sql = "SELECT * FROM " + DatabaseHelper.REMINDERS_TABLE
                 + " WHERE " + DatabaseHelper.REMINDERS_ID + " = ?";
@@ -95,17 +95,17 @@ public class RemindersDao  extends DBDAO {
         Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
 
         if (cursor.moveToNext()) {
-            reminder = new Reminder();
-            reminder.setId(cursor.getInt(0));
-            reminder.setFrequency(cursor.getInt(1));
+            reminders = new Reminders();
+            reminders.setId(cursor.getInt(0));
+            reminders.setFrequency(cursor.getInt(1));
             try {
-                reminder.setStartTime(formatter.parse(cursor.getString(2)));
+                reminders.setStartTime(formatter.parse(cursor.getString(2)));
             } catch (ParseException e) {
-                reminder.setStartTime(null);
+                reminders.setStartTime(null);
             }
-            reminder.setInterval(cursor.getInt(3));
+            reminders.setInterval(cursor.getInt(3));
         }
-        return reminder;
+        return reminders;
     }
 }
 
