@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-}
+
 
     public void openPersonalBio(View view) {
 
