@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +28,8 @@
         <activity android:name=".presentation.activity.ConsumptionActivity"/>
         <activity android:name=".presentation.activity.MedicineActivity"></activity>
         <activity android:name=".presentation.activity.CategoriesActivity"></activity>
+        <activity android:name=".presentation.activity.HealthBioActivity"></activity>
+        <activity android:name=".presentation.activity.ICEContactActivity"></activity>
         <activity android:name=".presentation.activity.AppointmentDetailActivity"
                   android:parentActivityName=".presentation.activity.AppointmentActivity">
         </activity>

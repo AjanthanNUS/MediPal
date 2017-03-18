@@ -8,6 +8,8 @@ import android.view.View;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,5 +40,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void openICEContact(View view) {
+        Intent myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void openHealthBio(View view) {
+        Intent myIntent = new Intent(MainActivity.this, HealthBioActivity.class);
+        startActivity(myIntent);
+    }
 
 }

@@ -52,11 +52,18 @@
             android:text="Open Medicine View" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btnIceContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:onClick="openICEContact"
+            android:text="ICE Contacts" />
 
+        <Button
+            android:id="@+id/btnHealthBio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openHealthBio"
+            android:text="HealthBio" />
 
     </LinearLayout>
 </RelativeLayout>
