@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-}
-
     public void openPersonalBio(View view) {
 
         Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
