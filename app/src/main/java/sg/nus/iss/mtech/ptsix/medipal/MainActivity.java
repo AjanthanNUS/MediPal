@@ -9,6 +9,7 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,4 +40,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void openPersonalBio(View view) {
+
+        Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
+        startActivity(personalBioIntent);
+    }
 }
