@@ -8,6 +8,7 @@ import android.view.View;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
 
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void openMeasurement(View view) {
+        Intent myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
+        startActivity(myIntent);
+    }
 
     public void openPersonalBio(View view) {
 

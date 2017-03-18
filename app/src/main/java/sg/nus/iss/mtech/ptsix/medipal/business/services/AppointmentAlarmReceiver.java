@@ -9,7 +9,6 @@ import android.util.Log;
 
 import java.util.Calendar;
 
-import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
@@ -24,6 +23,10 @@ public class AppointmentAlarmReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.w(TAG, "START APPOINTMENT RECEIVE");
         Intent service = new Intent(context, AppointmentReminder.class);
+
+        Appointment appointment = intent.getParcelableExtra("appointment");
+        service.putExtra("appointment", appointment);
+
         startWakefulService(context, service);
         Log.w(TAG, "END APPOINTMENT RECEIVE");
     }
@@ -34,7 +37,7 @@ public class AppointmentAlarmReceiver extends WakefulBroadcastReceiver {
 
 
         Intent intent = new Intent(context, AppointmentAlarmReceiver.class);
-        intent.putExtra(context.getResources().getResourceName(R.string.appointment_parceable), appointment);
+        intent.putExtra("appointment", appointment);
 
         int requestID = NotificationID.APPOINTMENT + appointment.getId();
 

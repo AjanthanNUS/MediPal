@@ -69,7 +69,7 @@ public class Appointment implements Persistable, Parcelable {
     }
 
     public Appointment() {
-
+        clearProperty();
     }
 
     public Appointment(String location, String description, Date appointmentDate) {
@@ -114,5 +114,16 @@ public class Appointment implements Persistable, Parcelable {
         dest.writeString(getDescription());
         dest.writeLong(getAppointmentDate().getTime());
     }
+
+
+    private void clearProperty() {
+        this.location = "";
+        this.description = "";
+        this.appointmentDate = new Date();
+    }
+
+
+
+
 
 }

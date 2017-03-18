@@ -11,6 +11,7 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.CategoriesViewHolder;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder> {
@@ -33,13 +34,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
     @Override
     public void onBindViewHolder(final CategoriesViewHolder holder, final int position) {
         final Categories category = categoriesList.get(position);
-        holder.code.setText(category.getCode().toString());
-        holder.category.setText(category.getCategory().toString());
-        holder.description.setText("Description: " + category.getDescription().toString());
-        if (category.getRemind() >= 1) {
-            holder.remind.setText("(Remind: On)");
-        } else {
-            holder.remind.setText("(Remind: Off)");
+        holder.code.setText(category.getCode());
+        holder.category.setText(this.mContext.getResources().getString(R.string.category_list_category, category.getCategory()));
+        holder.description.setText(this.mContext.getResources().getString(R.string.category_list_description, category.getDescription()));
+        if (category.getRemind() == -1) {
+            holder.remind.setText(R.string.category_list_remind_op);
+        } else if (category.getRemind() == 1) {
+            holder.remind.setText(R.string.category_list_remind_on);
+        } else if (category.getRemind() == 0) {
+            holder.remind.setText(R.string.category_list_remind_off);
         }
 
         // Handle edit button
@@ -47,7 +50,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
             @Override
             public void onClick(View v) {
                 if(mContext instanceof CategoriesActivity){
-                    ((CategoriesActivity)mContext).switchTab(1, category.getId());
+                    ((CategoriesActivity)mContext).switchTab(Constant.CATEGORY_TAB_ADD_INDEX, category.getId());
                 }
             }
         });
@@ -68,5 +71,11 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
     @Override
     public int getItemCount() {
         return categoriesList.size();
+    }
+
+    public void updateDataSet(List<Categories> categoriesList) {
+        this.categoriesList.clear();
+        this.categoriesList.addAll(categoriesList);
+        notifyDataSetChanged();
     }
 }

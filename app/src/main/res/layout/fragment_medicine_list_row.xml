@@ -75,10 +75,26 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/quantity"
+                android:id="@+id/frequency_interval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/frequency"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/frequency_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/frequency_interval"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/frequency_start_time"
                 android:textColor="@color/title"
                 android:textSize="14sp" />
 

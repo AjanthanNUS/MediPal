@@ -36,7 +36,7 @@
                 android:id="@+id/remind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
+                android:layout_marginLeft="66dp"
                 android:textColor="@color/title"
                 android:textSize="24sp" />
 

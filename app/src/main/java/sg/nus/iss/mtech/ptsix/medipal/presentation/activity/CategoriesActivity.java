@@ -35,50 +35,34 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-        categoriesDao = new CategoriesDao(this);
+        this.categoriesDao = new CategoriesDao(this);
 
-        categoriesListFragment = new CategoriesListFragment();
-        categoriesAddFragment = new CategoriesAddFragment();
+        this.categoriesListFragment = new CategoriesListFragment();
+        this.categoriesAddFragment = new CategoriesAddFragment();
 
         //toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        this.viewPager = (ViewPager) findViewById(R.id.view_pager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//               Log.d("aaaaaaaaa", "aaaaaaaaaaaaa");
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//                // called when tab unselected
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//                // called when a tab is reselected
-//            }
-//        });
+        this.tabLayout = (TabLayout) findViewById(R.id.tabs);
+        this.tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
     }
 
     private void setupTabIcons() {
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        this.tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        this.tabLayout.getTabAt(1).setIcon(tabIcons[1]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         Bundle bundle = new Bundle();
         bundle.putInt("id", -1);
-        categoriesAddFragment.setArguments(bundle);
+        this.categoriesAddFragment.setArguments(bundle);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(categoriesListFragment, CATEGORIES_LIST_TAB_NAME);
@@ -86,8 +70,8 @@ public class CategoriesActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    public void switchTab(int index, int catId) {
-        categoriesAddFragment.getArguments().putInt("id", catId);
+    public void switchTab(int index, int categoriesId) {
+        categoriesAddFragment.getArguments().putInt("id", categoriesId);
         tabLayout.getTabAt(index).select();
     }
 }
