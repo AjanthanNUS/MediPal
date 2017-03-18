@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminder;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ReminderActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.util.UIConstants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,5 +42,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void reminderEdit(View view) {
+        ReminderManager reminderManager = new ReminderManager(this);
+        Reminder reminder = reminderManager.getAllReminders().get(1);
 
+        Intent myIntent = new Intent(MainActivity.this, ReminderActivity.class);
+        myIntent.putExtra(UIConstants.REMINDER, reminder);
+        startActivity(myIntent);
+    }
 }
