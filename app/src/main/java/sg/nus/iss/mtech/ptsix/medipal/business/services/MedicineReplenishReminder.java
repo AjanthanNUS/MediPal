@@ -13,9 +13,6 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentDetailActivity;
 
-/**
- * Created by win on 12/3/17.
- */
 
 public class MedicineReplenishReminder extends IntentService {
     public static final String TAG = ConsumptionReminder.class.getSimpleName();

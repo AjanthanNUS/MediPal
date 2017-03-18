@@ -2,14 +2,18 @@ package sg.nus.iss.mtech.ptsix.medipal.common.util;
 
 import android.content.Context;
 import android.text.format.Time;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.enums.DosageEnums;
 
 /**
  * Created by win on 5/3/17.
@@ -48,6 +52,14 @@ public class CommonUtil {
     public static boolean checkDateBeforeToday(Date date) {
 
         Calendar cal = Calendar.getInstance();
+
+        cal.setTime(date);
+        cal.set(Calendar.HOUR, 12);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        date = cal.getTime();
+
         cal.setTime(new Date());
         cal.set(Calendar.HOUR, 0);
         cal.set(Calendar.MINUTE, 0);
@@ -55,9 +67,8 @@ public class CommonUtil {
         cal.set(Calendar.MILLISECOND, 0);
         Date todayDate = cal.getTime();
 
-        // // TODO: 17/3/17 Fix this to allow today onwards
-
         if (date.before(todayDate)) {
+            Log.d(date + "", todayDate + "");
             return true;
         }
 
@@ -82,9 +93,9 @@ public class CommonUtil {
         if (julianDay == currentJulianDay) {
             String today = context.getString(R.string.today);
 
-           return today + " at " + getFormattedTime(new Date(dateInMillis));
+            return today + " at " + getFormattedTime(new Date(dateInMillis));
 //
-        } else if ( julianDay < currentJulianDay + 7 ) {
+        } else if (julianDay < currentJulianDay + 7) {
             // If the input date is less than a week in the future, just return the day name.
             return getDayName(context, dateInMillis) + " at " + getFormattedTime(new Date(dateInMillis));
         } else {
@@ -116,7 +127,7 @@ public class CommonUtil {
         int currentJulianDay = Time.getJulianDay(System.currentTimeMillis(), t.gmtoff);
         if (julianDay == currentJulianDay) {
             return context.getString(R.string.today);
-        } else if ( julianDay == currentJulianDay +1 ) {
+        } else if (julianDay == currentJulianDay + 1) {
             return context.getString(R.string.tomorrow);
         } else {
             Time time = new Time();
@@ -127,5 +138,28 @@ public class CommonUtil {
         }
     }
 
+    public static List<String> getDosageList() {
+        List<String> dosageList = new ArrayList<>();
+
+        dosageList.add("<Select Dosage>");
+        dosageList.add(DosageEnums.PILLS.getValue(), DosageEnums.PILLS.getStringValue());
+        dosageList.add(DosageEnums.CC.getValue(), DosageEnums.CC.getStringValue());
+        dosageList.add(DosageEnums.ML.getValue(), DosageEnums.ML.getStringValue());
+        dosageList.add(DosageEnums.GR.getValue(), DosageEnums.GR.getStringValue());
+        dosageList.add(DosageEnums.MG.getValue(), DosageEnums.MG.getStringValue());
+        dosageList.add(DosageEnums.DROPS.getValue(), DosageEnums.DROPS.getStringValue());
+        dosageList.add(DosageEnums.PIECES.getValue(), DosageEnums.PIECES.getStringValue());
+        dosageList.add(DosageEnums.PUFFS.getValue(), DosageEnums.PUFFS.getStringValue());
+        dosageList.add(DosageEnums.UNITS.getValue(), DosageEnums.UNITS.getStringValue());
+        dosageList.add(DosageEnums.TEASPOON.getValue(), DosageEnums.TEASPOON.getStringValue());
+        dosageList.add(DosageEnums.TABLESPOON.getValue(), DosageEnums.TABLESPOON.getStringValue());
+        dosageList.add(DosageEnums.PATCH.getValue(), DosageEnums.PATCH.getStringValue());
+        dosageList.add(DosageEnums.MCG.getValue(), DosageEnums.MCG.getStringValue());
+        dosageList.add(DosageEnums.L.getValue(), DosageEnums.L.getStringValue());
+        dosageList.add(DosageEnums.MEQ.getValue(), DosageEnums.MEQ.getStringValue());
+        dosageList.add(DosageEnums.SPRAY.getValue(), DosageEnums.SPRAY.getStringValue());
+
+        return dosageList;
+    }
 
 }

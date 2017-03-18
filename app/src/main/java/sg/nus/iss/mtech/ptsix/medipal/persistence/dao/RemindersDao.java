@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 
 /**
@@ -27,7 +28,7 @@ Interval    interger
 public class RemindersDao  extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.REMINDERS_ID + " =?";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.ENGLISH);
 
     public RemindersDao(Context context) {
         super(context);

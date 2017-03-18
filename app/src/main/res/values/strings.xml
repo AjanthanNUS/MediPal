@@ -20,8 +20,8 @@
     <string name="category_add_remind_default_op">Optional</string>
     <string name="category_add_save">Save</string>
     <string name="category_add_cancel">Cancel</string>
-    <string name="category_add_save_completed">Campaign is created successfully.</string>
-    <string name="category_add_update_completed">Campaign is updated successfully.</string>
+    <string name="category_add_save_completed">Category is created successfully.</string>
+    <string name="category_add_update_completed">Category is updated successfully.</string>
     <string name="category_add_error_category_name_empty">Please fill in a category name.</string>
     <string name="category_add_error_category_name_length">Please fill in a name below 50 characters.</string>
     <string name="category_add_error_category_code_length">Please fill in a 3 character code.</string>
