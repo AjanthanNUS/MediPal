@@ -11,30 +11,28 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
  * Created by win on 5/3/17.
  */
 
-public class AppointmentAsyncTask extends AsyncTask <Appointment, Void, Long> {
+public class AppointmentAsyncTask extends AsyncTask <Appointment, Void, Object> {
 
     private AppointmentService appointmentService;
 
     public AppointmentAsyncTask(Context context) {
         appointmentService = new AppointmentService(context);
-
-
     }
 
     @Override
-    protected Long doInBackground(Appointment... params) {
-        long result = 0;
+    protected Object doInBackground(Appointment... params) {
+        Object result = 0;
         try {
             result = appointmentService.makeAppointment(params[0]);
         } catch (AppointmentExistException e) {
-
+            result = e;
         }
         return result;
     }
 
     @Override
-    protected void onPostExecute(Long aLong) {
-        super.onPostExecute(aLong);
+    protected void onPostExecute(Object aObject) {
+        super.onPostExecute(aObject);
 
     }
 }

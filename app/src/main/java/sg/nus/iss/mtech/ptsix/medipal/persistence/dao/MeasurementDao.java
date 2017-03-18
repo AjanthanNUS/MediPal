@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.text.ParseException;
 
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.BloodPressure;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 
 /**
@@ -31,7 +32,7 @@ MeasureOn       DateTime
 public class MeasurementDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.MEAS_ID + " =?";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
     public MeasurementDao(Context context) {
         super(context);
@@ -45,6 +46,15 @@ public class MeasurementDao extends DBDAO {
         values.put(DatabaseHelper.MEAS_TEMPERATURE, measurement.getEventTemperature());
         values.put(DatabaseHelper.MEAS_WEIGHT, measurement.getEventWeight());
         values.put(DatabaseHelper.MEAS_MEASURED_ON,  formatter.format(measurement.getEventMeasureOn()));
+        values.put(DatabaseHelper.MEAS_MEASURED_COMMENT, measurement.getComment());
+        return database.insert(DatabaseHelper.MEAS_TABLE, null, values);
+    }
+
+    public long saveBloodPressure(BloodPressure bloodPressure) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.MEAS_SYSTOLIC, bloodPressure.getEventSystolic());
+        values.put(DatabaseHelper.MEAS_DIASTOLIC, bloodPressure.getEventDiastolic());
+
         return database.insert(DatabaseHelper.MEAS_TABLE, null, values);
     }
 
@@ -56,7 +66,7 @@ public class MeasurementDao extends DBDAO {
         values.put(DatabaseHelper.MEAS_TEMPERATURE, measurement.getEventTemperature());
         values.put(DatabaseHelper.MEAS_WEIGHT, measurement.getEventWeight());
         values.put(DatabaseHelper.MEAS_MEASURED_ON,  formatter.format(measurement.getEventMeasureOn()));
-
+        values.put(DatabaseHelper.MEAS_MEASURED_COMMENT, measurement.getComment());
 
         long result = database.update(DatabaseHelper.MEAS_TABLE, values,
                 WHERE_ID_EQUALS,
@@ -82,6 +92,7 @@ public class MeasurementDao extends DBDAO {
                         DatabaseHelper.MEAS_TEMPERATURE,
                         DatabaseHelper.MEAS_WEIGHT,
                         DatabaseHelper.MEAS_MEASURED_ON,
+                        DatabaseHelper.MEAS_MEASURED_COMMENT,
                 }, null, null, null,
                 null, null);
 
@@ -98,6 +109,45 @@ public class MeasurementDao extends DBDAO {
             } catch (ParseException e) {
                 measurement.setEventMeasureOn(null);
             }
+            measurement.setComment(cursor.getString(7));
+            measurements.add(measurement);
+        }
+        return measurements;
+    }
+    public ArrayList<Measurement> getMeasurements(int amount) {
+        ArrayList<Measurement> measurements = new ArrayList<Measurement>();
+        int i=0;
+        Cursor cursor = database.query(DatabaseHelper.MEAS_TABLE,
+                new String[] { DatabaseHelper.MEAS_ID,
+                        DatabaseHelper.MEAS_SYSTOLIC,
+                        DatabaseHelper.MEAS_DIASTOLIC,
+                        DatabaseHelper.MEAS_PULSE,
+                        DatabaseHelper.MEAS_TEMPERATURE,
+                        DatabaseHelper.MEAS_WEIGHT,
+                        DatabaseHelper.MEAS_MEASURED_ON,
+                        DatabaseHelper.MEAS_MEASURED_COMMENT,
+                }, null, null, null,
+                null, null);
+
+        int count = cursor.getCount();
+        if (count > amount) {
+            cursor.moveToPosition(count - amount -1);
+        }
+        while (cursor.moveToNext()) {
+            i++;
+            Measurement measurement = new Measurement();
+            measurement.setId(cursor.getInt(0));
+            measurement.setEventSystolic(cursor.getInt(1));
+            measurement.setEventDiastolic(cursor.getInt(2));
+            measurement.setEventPulse(cursor.getInt(3));
+            measurement.setEventTemperature(cursor.getFloat(4));
+            measurement.setEventWeight(cursor.getInt(5));
+            try {
+                measurement.setEventMeasureOn(formatter.parse(cursor.getString(6)));
+            } catch (ParseException e) {
+                measurement.setEventMeasureOn(null);
+            }
+            measurement.setComment(cursor.getString(7));
             measurements.add(measurement);
         }
         return measurements;
@@ -124,6 +174,7 @@ public class MeasurementDao extends DBDAO {
             } catch (ParseException e) {
                 measurement.setEventMeasureOn(null);
             }
+            measurement.setComment(cursor.getString(7));
         }
         return measurement;
     }

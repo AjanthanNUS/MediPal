@@ -23,4 +23,5 @@
         app:layout_anchor="@id/recycler_view"
         app:layout_anchorGravity="bottom|right|end" />
 
+
 </android.support.design.widget.CoordinatorLayout>

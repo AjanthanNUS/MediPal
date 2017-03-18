@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="4dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="4dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="10dp">
+
+            <TextView
+                android:text="MeaID"
+                android:id="@+id/MeaID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+            <TextView
+                android:text="Syst"
+                android:id="@+id/MeaSystolic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/MeaID"
+                android:paddingLeft="10dp"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+            <TextView
+                android:text="Dias"
+                android:id="@+id/MeaDiastolic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/MeaSystolic"
+                android:paddingLeft="10dp"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+            <TextView
+                android:text="Pulse"
+                android:id="@+id/MeaPulse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/MeaID"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+            <TextView
+                android:text="Temp"
+                android:id="@+id/MeaTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/MeaID"
+                android:layout_toRightOf="@+id/MeaPulse"
+                android:paddingLeft="10dp"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+            <TextView
+                android:text="Weight"
+                android:id="@+id/MeaWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/MeaID"
+                android:layout_toRightOf="@+id/MeaTemperature"
+                android:paddingLeft="10dp"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+            <TextView
+                android:text="MeaMeasureOn"
+                android:id="@+id/MeaMeasureOn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/MeaPulse"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+            <TextView
+                android:text="MeaComment"
+                android:id="@+id/MeaComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/MeaMeasureOn"
+                android:textColor="@color/title"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

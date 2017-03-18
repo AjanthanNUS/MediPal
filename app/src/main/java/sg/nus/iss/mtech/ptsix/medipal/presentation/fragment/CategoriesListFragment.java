@@ -19,6 +19,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.CategoriesAdapter;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 
 public class CategoriesListFragment extends Fragment {
 
@@ -55,7 +56,7 @@ public class CategoriesListFragment extends Fragment {
         addActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((CategoriesActivity) getActivity()).switchTab(1, -1);
+                ((CategoriesActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_ADD_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
             }
         });
         return rootView;
@@ -64,19 +65,13 @@ public class CategoriesListFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-//        categoriesList = this.categoriesDao.getCategories();
-////        if (isVisibleToUser) {
-////            getCategoriesList();
-////        }
+        if (getView() != null && isVisibleToUser) {
+            getCategoriesList();
+            mAdapter.updateDataSet(categoriesList);
+        }
     }
 
     private void getCategoriesList() {
         categoriesList = this.categoriesDao.getCategories();
-    }
-
-    private Boolean checkValidCategory() {
-
-
-        return false;
     }
 }

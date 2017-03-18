@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="sg.nus.iss.mtech.ptsix.medipal">
+    package="sg.nus.iss.mtech.ptsix.medipal">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE"/>
@@ -17,13 +18,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.activity.AppointmentActivity">
-           
+        <activity android:name=".presentation.activity.AppointmentActivity"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity android:name=".presentation.activity.ConsumptionActivity"/>
         <activity android:name=".presentation.activity.MedicineActivity"></activity>
@@ -33,14 +34,19 @@
         <activity android:name=".presentation.activity.AppointmentDetailActivity"
                   android:parentActivityName=".presentation.activity.AppointmentActivity">
         </activity>
+
         <receiver android:name=".business.services.AppointmentAlarmReceiver"/>
         <service android:name=".business.services.AppointmentReminder"/>
 
-        <receiver android:name=".business.services.ConsumptionAlarmReceiver"/>
-        <service android:name=".business.services.ConsumptionReminder"/>
+        <receiver android:name=".business.services.ConsumptionAlarmReceiver" />
+        <service android:name=".business.services.ConsumptionReminder" />
 
-        <receiver android:name=".business.services.MedicineReplenishAlarmReceiver"/>
-        <service android:name=".business.services.MedicineReplenishReminder"/>
+        <receiver android:name=".business.services.MedicineReplenishAlarmReceiver" />
+        <service android:name=".business.services.MedicineReplenishReminder" />
+
+        <activity android:name=".presentation.activity.MeasurementActivity"></activity>
+
+        <activity android:name=".presentation.activity.PersonalActivity"></activity>
     </application>
 
 </manifest>

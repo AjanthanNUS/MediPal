@@ -8,9 +8,11 @@ import android.view.View;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    public void openMeasurement(View view) {
+        Intent myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
+        startActivity(myIntent);
+    }
     public void openICEContact(View view) {
         Intent myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
         startActivity(myIntent);
@@ -50,4 +56,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+}
+
+    public void openPersonalBio(View view) {
+
+        Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
+        startActivity(personalBioIntent);
+    }
 }
