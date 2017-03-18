@@ -7,10 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.business.services.AppointmentService;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.AppointmentAddFragment;
-
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.AppointmentListFragment;
 
 public class AppointmentActivity extends AppCompatActivity {
@@ -20,8 +18,6 @@ public class AppointmentActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private AppointmentListFragment appointmentListFragment;
     private AppointmentAddFragment appointmentAddFragment;
-    private AppointmentService mAppointmentService;
-
 
     private int[] tabIcons = {
             R.drawable.ic_view_list_white,
@@ -35,8 +31,6 @@ public class AppointmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment);
-
-        mAppointmentService = new AppointmentService(this);
 
         appointmentListFragment = new AppointmentListFragment();
         appointmentAddFragment = new AppointmentAddFragment();

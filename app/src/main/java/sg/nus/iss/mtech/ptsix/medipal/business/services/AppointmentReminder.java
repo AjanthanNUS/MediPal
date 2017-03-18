@@ -47,7 +47,7 @@ public class AppointmentReminder extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int requestID = NotificationID.APPOINTMENT + appointment.getId();
+        int requestID = Integer.parseInt(NotificationID.APPOINTMENT + "" +appointment.getId());
 
         Intent appointmentIntent = new Intent(this, AppointmentActivity.class);
         appointmentIntent.putExtra("id", appointment.getId());
