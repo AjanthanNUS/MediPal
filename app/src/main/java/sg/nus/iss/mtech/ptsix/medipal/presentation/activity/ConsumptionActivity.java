@@ -1,12 +1,8 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,14 +17,13 @@ import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
-import sg.nus.iss.mtech.ptsix.medipal.business.services.ConsumptionBroadcastReceiver;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ConsumptionViewAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ConsumptionListFragment;
 
 public class ConsumptionActivity extends AppCompatActivity implements ConsumptionListFragment.OnListFragmentInteractionListener {
-    private final int DATE_DIALOG_ID = 999;
+    private final String TAG = "[CONSUMPTION ACTIVITY]";
     private final String MEDICINE_TAG = "MED";
     private final String CATEGORY_TAG = "CAT";
     private final String YEAR_TAG = "YEAR";
@@ -45,7 +40,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
 
         fullConsumptionList = new ArrayList<>();
         ConsumptionManager consumptionManager = new ConsumptionManager(this);
-        fullConsumptionList.addAll(consumptionManager.getAllConsumptionList());
+        fullConsumptionList.addAll(consumptionManager.getAllConsumptionVOList());
 
 
         consumptionListFragment = ConsumptionListFragment.newInstance();
@@ -76,31 +71,8 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         return true;
     }
 
-    private void setupAlarm(int seconds) {
-
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(getBaseContext(), ConsumptionBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Log.d("TAG1", "Setup the alarm");
-
-        // Getting current time and add the seconds in it
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, seconds);
-        long interval = 10 * 1000;
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), interval, pendingIntent);
-
-        // Finish the currently running activity
-        // this.finish();
-
-
-    }
-
 
     private void showHistoryFilterPopUp() {
-        setupAlarm(10);
         final LinearLayout filterLayout = (LinearLayout) findViewById(R.id.filter_bar);
         filterLayout.setActivated(true);
         filterLayout.setVisibility(View.VISIBLE);
@@ -210,7 +182,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         String searchMonth = searchBundle.getString(MONTH_TAG);
         String searchWeek = searchBundle.getString(WEEK_TAG);
         String searchDays = searchBundle.getString(DAY_TAG);
-        long consumedAgo = Calendar.getInstance().getTimeInMillis() - c.getEventConsumedOn().getTime();
+        long consumedAgo = Calendar.getInstance().getTimeInMillis() - c.getConsumedOn().getTime();
 
 
         if (!CommonUtil.isNullOrEmpty(searchDays) && consumedAgo > CommonUtil.getMilliSeconds(0, 0, Integer.valueOf(searchDays))) {
@@ -246,12 +218,12 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
 //            View customView = inflater.inflate(R.layout.consumption_filter_popup, null);
 //
 //            TextView medicine = (TextView) customView.findViewById(R.id.popup_medicine);
-//            TextView consumedOn = (TextView) customView.findViewById(R.id.popup_consumed_on);
+//            TextView consumedTimeView = (TextView) customView.findViewById(R.id.popup_consumed_on);
 //            TextView quantity = (TextView) customView.findViewById(R.id.popup_quantity);
 //            TextView description = (TextView) customView.findViewById(R.id.popup_description);
 //
 //            medicine.setText(consumption.getMedicine().getEventMedicine());
-//            consumedOn.setText(CommonUtil.formatDateStandard(consumption.getEventConsumedOn()));
+//            consumedTimeView.setText(CommonUtil.formatDateStandard(consumption.getEventConsumedOn()));
 //            quantity.setText(String.valueOf(consumption.getEventQuantity()));
 //            description.setText(consumption.getMedicine().getEventDescription() + "Sample description");
 //

@@ -12,21 +12,10 @@ import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
-ID              interger
-MedicineID      interger
-Quantity        interger
-ConsumedOn      Date
-
- */
 public class ConsumptionDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.CON_ID + " =?";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.ENGLISH);
 
     public ConsumptionDao(Context context) {
         super(context);
@@ -34,17 +23,17 @@ public class ConsumptionDao extends DBDAO {
 
     public long save(Consumption consumption) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.CON_MEDICINE_ID, consumption.getEventMedicineID());
-        values.put(DatabaseHelper.CON_QUANTITY, consumption.getEventQuantity());
-        values.put(DatabaseHelper.CON_CONSUMED_ON, formatter.format(consumption.getEventConsumedOn()));
+        values.put(DatabaseHelper.CON_MEDICINE_ID, consumption.getMedicineID());
+        values.put(DatabaseHelper.CON_QUANTITY, consumption.getQuantity());
+        values.put(DatabaseHelper.CON_CONSUMED_ON, formatter.format(consumption.getConsumedOn()));
         return database.insert(DatabaseHelper.CONSUMPTION_TABLE, null, values);
     }
 
     public long update(Consumption consumption) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.CON_MEDICINE_ID, consumption.getEventMedicineID());
-        values.put(DatabaseHelper.CON_QUANTITY, consumption.getEventQuantity());
-        values.put(DatabaseHelper.CON_CONSUMED_ON, formatter.format(consumption.getEventConsumedOn()));
+        values.put(DatabaseHelper.CON_MEDICINE_ID, consumption.getMedicineID());
+        values.put(DatabaseHelper.CON_QUANTITY, consumption.getQuantity());
+        values.put(DatabaseHelper.CON_CONSUMED_ON, formatter.format(consumption.getConsumedOn()));
 
 
         long result = database.update(DatabaseHelper.CONSUMPTION_TABLE, values,
@@ -75,12 +64,12 @@ public class ConsumptionDao extends DBDAO {
         while (cursor.moveToNext()) {
             Consumption consumption = new Consumption();
             consumption.setId(cursor.getInt(0));
-            consumption.setEventMedicineID(cursor.getInt(1));
-            consumption.setEventQuantity(cursor.getInt(2));
+            consumption.setMedicineID(cursor.getInt(1));
+            consumption.setQuantity(cursor.getInt(2));
             try {
-                consumption.setEventConsumedOn(formatter.parse(cursor.getString(3)));
+                consumption.setConsumedOn(formatter.parse(cursor.getString(3)));
             } catch (ParseException e) {
-                consumption.setEventConsumedOn(null);
+                consumption.setConsumedOn(null);
             }
             consumptions.add(consumption);
         }
@@ -99,12 +88,34 @@ public class ConsumptionDao extends DBDAO {
         if (cursor.moveToNext()) {
             consumption = new Consumption();
             consumption.setId(cursor.getInt(0));
-            consumption.setEventMedicineID(cursor.getInt(1));
-            consumption.setEventQuantity(cursor.getInt(2));
+            consumption.setMedicineID(cursor.getInt(1));
+            consumption.setQuantity(cursor.getInt(2));
             try {
-                consumption.setEventConsumedOn(formatter.parse(cursor.getString(3)));
+                consumption.setConsumedOn(formatter.parse(cursor.getString(3)));
             } catch (ParseException e) {
-                consumption.setEventConsumedOn(null);
+                consumption.setConsumedOn(null);
+            }
+        }
+        return consumption;
+    }
+
+    public Consumption getConsumptionByRowID(long rowId) {
+        Consumption consumption = null;
+
+        String sql = "SELECT * FROM " + "( SELECT rowid, * FROM " + DatabaseHelper.CONSUMPTION_TABLE + " ) "
+                + " WHERE  rowid = ?";
+
+        Cursor cursor = database.rawQuery(sql, new String[]{rowId + ""});
+
+        if (cursor.moveToNext()) {
+            consumption = new Consumption();
+            consumption.setId(1);
+            consumption.setMedicineID(cursor.getInt(2));
+            consumption.setQuantity(cursor.getInt(3));
+            try {
+                consumption.setConsumedOn(formatter.parse(cursor.getString(4)));
+            } catch (ParseException e) {
+                consumption.setConsumedOn(null);
             }
         }
         return consumption;

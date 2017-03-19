@@ -20,7 +20,7 @@ public class OnBootReceiver extends BroadcastReceiver {
         }
     }
 
-    public void setDailyAlarm(Context context) {
+    private void setDailyAlarm(Context context) {
         Log.i(ON_BOOT_RECEIVER, "Daily checking Alarm set started...");
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -38,7 +38,7 @@ public class OnBootReceiver extends BroadcastReceiver {
 
         long oneDayInterval = 24 * 60 * 60 * 1000;
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), oneDayInterval, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), oneDayInterval, pendingIntent);
         Log.i(ON_BOOT_RECEIVER, "Daily checking Alarm set successful!");
     }
 }

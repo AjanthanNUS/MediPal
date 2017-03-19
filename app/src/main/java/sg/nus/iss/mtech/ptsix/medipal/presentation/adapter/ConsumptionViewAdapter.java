@@ -46,12 +46,12 @@ public class ConsumptionViewAdapter extends RecyclerView.Adapter<ConsumptionView
         ConsumptionVO cItem = mConsumptionList.get(position);
         holder.consumptionItem = cItem;
 
-        holder.consumedOnDateView.setText(CommonUtil.formatDateStandard(cItem.getEventConsumedOn()));
+        holder.consumedOnDateView.setText(CommonUtil.formatDateStandard(cItem.getConsumedOn()));
         holder.medicineNameView.setText(cItem.getMedicine().getMedicine());
-        holder.consumedQuantityView.setText((cItem.getEventQuantity() == 0) ? context.getResources().getString(R.string.skipped) :
-                String.valueOf(cItem.getEventQuantity()));
+        holder.consumedQuantityView.setText((cItem.getQuantity() == 0) ? context.getResources().getString(R.string.skipped) :
+                String.valueOf(cItem.getQuantity()));
         holder.description.setText(cItem.getMedicine().getDescription());
-        holder.smileyImage.setImageResource((cItem.getEventQuantity() == 0) ? R.drawable.ic_action_sad : R.drawable.ic_action_happy);
+        holder.smileyImage.setImageResource((cItem.getQuantity() == 0) ? R.drawable.ic_action_sad : R.drawable.ic_action_happy);
 
         final boolean isExpanded = position == mExpandedPosition;
         holder.descriptionHolder.setVisibility(isExpanded ? View.VISIBLE : View.GONE);

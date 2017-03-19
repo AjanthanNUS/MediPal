@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16sp"
-    tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ReminderActivity">
+    tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AddConsumptionActivity">
 
 
     <TextView
@@ -14,30 +14,40 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="30dp"
-        android:text="@string/start_time" />
+        android:text="@string/consumedOn" />
 
     <EditText
-        android:id="@+id/et_start_time"
+        android:id="@+id/et_consumed_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
         android:layout_alignBaseline="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/et_consumed_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:focusable="true"
-        android:inputType="time" />
+        android:inputType="time"
+        android:layout_below="@+id/et_consumed_date"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/et_start_time"
+        android:layout_below="@+id/et_consumed_time"
         android:layout_marginTop="30dp"
-        android:text="@string/frequency_per_day" />
+        android:text="@string/medicineName" />
 
     <EditText
-        android:id="@+id/et_frequency"
+        android:id="@+id/et_medicine_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView3"
@@ -51,29 +61,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/et_frequency"
+        android:layout_below="@+id/et_medicine_name"
         android:layout_marginTop="30dp"
-        android:text="@string/interval" />
+        android:text="@string/quantity" />
 
     <EditText
-        android:id="@+id/et_interval"
+        android:id="@+id/et_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView4"
         android:layout_alignBottom="@+id/textView4"
-        android:layout_alignStart="@+id/et_frequency"
+        android:layout_alignStart="@+id/et_medicine_name"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="number" />
 
     <Button
-        android:id="@+id/btn_reminder_save"
+        android:id="@+id/btn_consumption_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/et_interval"
-        android:layout_below="@+id/et_interval"
+        android:layout_alignStart="@+id/et_quantity"
+        android:layout_below="@+id/et_quantity"
         android:layout_marginStart="63dp"
         android:layout_marginTop="27dp"
         android:text="@string/save" />
+
+    <Button
+        android:id="@+id/btn_consumption_missed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_consumption_save"
+        android:layout_toStartOf="@+id/btn_consumption_save"
+        android:text="@string/missed" />
 
 
 </RelativeLayout>

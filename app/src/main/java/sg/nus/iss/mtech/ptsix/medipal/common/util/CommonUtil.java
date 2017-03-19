@@ -16,6 +16,12 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
  */
 
 public class CommonUtil {
+
+    public static Calendar dateToCalendar(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
     public static String formatCalender(Calendar calendar) {
         String formattedDate;
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");

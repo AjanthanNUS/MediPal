@@ -104,7 +104,11 @@
     <string name="tomorrow">Tomorrow</string>
 
     <!-- Date format [CHAR LIMIT=NONE] -->
-    <string name="format_full_friendly_date"><xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g>, <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="format_full_friendly_date">
+        <xliff:g id="month">%1$s</xliff:g>,
+        <xliff:g id="day">%2$s</xliff:g>,
+        <xliff:g id="time">%2$s</xliff:g>
+    </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -118,8 +122,9 @@
     <string name="weeksFrom">Weeks from</string>
     <string name="daysFrom">Days from</string>
     <string name="alarm_service_label">Consumption Alarm</string>
-    <string name="frequency_per_day">Frequency/Day : </string>
-    <string name="start_time">Start Time : </string>
-    <string name="interval">Interval(Hr) : </string>
     <string name="save">Save</string>
+    <string name="consumption_reminder_title">Time to get some medicine!</string>
+    <string name="missed">missed</string>
+    <string name="medi_consume_missed">Medicine consumption missed!</string>
+    <string name="medi_consume_saved">Medicine consumption saved.</string>
 </resources>

@@ -2,49 +2,87 @@ package sg.nus.iss.mtech.ptsix.medipal.business.services;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-import sg.nus.iss.mtech.ptsix.medipal.MainActivity;
-import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
+import java.util.Calendar;
+import java.util.Date;
 
-public class ConsumptionBroadcastReceiver extends BroadcastReceiver {
-    public static final int mId = 1;
+import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
+import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AddConsumptionActivity;
+
+public class ConsumptionBroadcastReceiver extends WakefulBroadcastReceiver {
+    private final String TAG = "[CONSUMPTION RECEIVER]";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("TAG1", "BroadcastReceiver, in onReceive:");
+        Log.i(TAG, "BroadcastReceiver, in onReceive: Start notification");
 
+        ReminderManager reminderManager = new ReminderManager(context);
+        Reminders reminder = intent.getParcelableExtra(Constant.REMINDER_BUNDLE);
+        ReminderVO reminderVO = reminderManager.castToReminderVo(reminder);
 
-        Intent i = new Intent(context, ConsumptionReminder.class);
-        context.startService(i);
+        Consumption consumption = new Consumption();
+        consumption.setConsumedOn(new Date());
+        consumption.setMedicineID(reminderVO.getMedicine().getId());
+        consumption.setQuantity(0);
 
+        ConsumptionManager consumptionManager = new ConsumptionManager(context);
+        //Set the consumption entry for missed consumption
+        consumption = consumptionManager.insertConsumption(consumption);
+        //set the consume quantity to show the user
+        consumption.setQuantity(reminderVO.getMedicine().getConsumeQuantity());
 
+        //TODO get the Dosage from commonUtil
+        String notificationText = reminderVO.getMedicine().getConsumeQuantity() + " " + "pill" /*reminderVO.getMedicine().getDosage() */ + " of " + reminderVO.getMedicine().getMedicine();
+
+        int requestCode = intent.getIntExtra(Constant.REQUEST_CODE, 0);
+        Calendar currentTime = Calendar.getInstance();
+        currentTime.set(Calendar.YEAR, 0);
+        currentTime.set(Calendar.MONTH, 0);
+        currentTime.set(Calendar.DAY_OF_MONTH, 0);
+        int timeStamp = (int) currentTime.getTimeInMillis();
+        int notificationId = NotificationID.CONSUMPTION + timeStamp;
+
+        // Intent i = new Intent(context, ConsumptionDailyService.class);
+        //context.startService(i);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_action_happy)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
-        Intent resultIntent = new Intent(context, ConsumptionActivity.class);
+                        .setContentTitle(context.getResources().getText(R.string.consumption_reminder_title))
+                        .setContentText(notificationText)
+                        .setAutoCancel(true)
+                        /*.setStyle(new NotificationCompat.BigTextStyle().bigText(reminderVO.getMedicine().getDescription()))*/;
+
+        Intent resultIntent = new Intent(context, AddConsumptionActivity.class);
+        resultIntent.putExtra(Constant.CONSUMPTION_BUNDLE, consumption);
+        resultIntent.putExtra(Constant.NOTIFICATION_ID, notificationId);
+
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-
-        stackBuilder.addParentStack(ConsumptionActivity.class);
-
+        stackBuilder.addParentStack(AddConsumptionActivity.class);
         stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-        mNotificationManager.notify(mId, mBuilder.build());
 
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(requestCode, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(notificationId, mBuilder.build());
+
+        Log.i(TAG, "Broadcast receiver finished Notification");
     }
 }

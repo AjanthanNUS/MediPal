@@ -3,10 +3,10 @@ package sg.nus.iss.mtech.ptsix.medipal.business.manager;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.RemindersDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
@@ -20,56 +20,49 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
 public class ReminderManager {
 
     private RemindersDao remindersDao;
+    private MedicineDao medicineDao;
+    private CategoriesDao categoriesDao;
 
     public ReminderManager(Context context) {
         remindersDao = new RemindersDao(context);
+        medicineDao = new MedicineDao(context);
+        categoriesDao = new CategoriesDao(context);
     }
 
     public List<ReminderVO> getAllReminders() {
-        List<ReminderVO> reminders = new ArrayList<>();
-        Medicine medicine = new Medicine();
-        Categories categories = new Categories();
-        categories.setId(1);
-        categories.setCategory("CATtegory one");
-        categories.setRemind(1);
-        categories.setDescription("Sample category description");
-        categories.setCode("CAT");
-        medicine.setId(001);
-        medicine.setCatId(categories.getId());
-        medicine.setMedicine("Paracitamole");
-        medicine.setRemind(1);
+        List<ReminderVO> reminderVOs = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            ReminderVO reminder = new ReminderVO();
-            reminder.setId(i);
-            reminder.setStartTime(new Date(Calendar.getInstance().getTimeInMillis()));
-            reminder.setFrequency(i);
-            reminder.setInterval(i * 10000);
-            reminder.setMedicine(medicine);
-            reminder.setCategories(categories);
+        reminderVOs.addAll(remindersDao.getReminderVOs());
 
-            reminders.add(reminder);
-        }
-
-        return reminders;
+        return reminderVOs;
     }
 
-    public ReminderVO castToReminderVo(Reminders reminders) {
+    public ReminderVO castToReminderVo(Reminders reminder) {
         ReminderVO reminderVO = new ReminderVO();
-        if (reminders instanceof ReminderVO) {
-            reminderVO = (ReminderVO) reminders;
-        } else {
-            reminderVO.setId(reminders.getId());
-            reminderVO.setFrequency(reminders.getFrequency());
-            reminderVO.setStartTime(reminders.getStartTime());
-            reminderVO.setInterval(reminders.getInterval());
-
-            //TODO Get medicine , category from DB
-            reminderVO.setMedicine(null);
-            reminderVO.setCategories(null);
+        if (reminder == null) {
+            return null;
         }
+        if (reminder instanceof ReminderVO) {
+            reminderVO = (ReminderVO) reminder;
+        } else {
+            reminderVO.setId(reminder.getId());
+            reminderVO.setFrequency(reminder.getFrequency());
+            reminderVO.setStartTime(reminder.getStartTime());
+            reminderVO.setInterval(reminder.getInterval());
 
+            List<Medicine> medicines = medicineDao.getMedicines();
+            for (Medicine medicine : medicines) {
+                if (reminder.getId() == medicine.getReminderId()) {
+                    reminderVO.setMedicine(medicine);
+                    Categories category = categoriesDao.getCategories(medicine.getCatId());
 
+                    reminderVO.setCategory(category);
+
+                    break;
+                }
+
+            }
+        }
         return reminderVO;
     }
 }

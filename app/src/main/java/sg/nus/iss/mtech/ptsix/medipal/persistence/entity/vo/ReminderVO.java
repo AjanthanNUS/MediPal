@@ -10,7 +10,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 
 public class ReminderVO extends Reminders {
     private Medicine medicine;
-    private Categories categories;
+    private Categories category;
 
     public Medicine getMedicine() {
         return medicine;
@@ -20,12 +20,12 @@ public class ReminderVO extends Reminders {
         this.medicine = medicine;
     }
 
-    public Categories getCategories() {
-        return categories;
+    public Categories getCategory() {
+        return category;
     }
 
-    public void setCategories(Categories categories) {
-        this.categories = categories;
+    public void setCategory(Categories category) {
+        this.category = category;
     }
 
 }

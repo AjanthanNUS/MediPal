@@ -20,26 +20,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.activity.AppointmentActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
-        <activity android:name=".presentation.activity.ConsumptionActivity"/>
-        <activity android:name=".presentation.activity.MedicineActivity"></activity>
-        <activity android:name=".presentation.activity.CategoriesActivity"></activity>
-        <activity android:name=".presentation.activity.AppointmentDetailActivity"
-                  android:parentActivityName=".presentation.activity.AppointmentActivity">
-        </activity>
+        <activity
+            android:name=".presentation.activity.AppointmentActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".presentation.activity.ConsumptionActivity" />
+        <activity android:name=".presentation.activity.MedicineActivity" />
+        <activity android:name=".presentation.activity.CategoriesActivity" />
+        <activity
+            android:name=".presentation.activity.AppointmentDetailActivity"
+            android:parentActivityName=".presentation.activity.AppointmentActivity" />
 
-        <receiver android:name=".business.services.AppointmentAlarmReceiver"/>
-        <service android:name=".business.services.AppointmentReminder"/>
+        <receiver android:name=".business.services.AppointmentAlarmReceiver" />
 
-        <receiver android:name=".business.services.ConsumptionAlarmReceiver"/>
-        <service android:name=".business.services.ConsumptionReminder"/>
+        <service android:name=".business.services.AppointmentReminder" />
 
-        <receiver android:name=".business.services.MedicineReplenishAlarmReceiver"/>
-        <service android:name=".business.services.MedicineReplenishReminder"/>
+        <receiver android:name=".business.services.ConsumptionAlarmReceiver" />
 
-        <activity android:name=".presentation.activity.MeasurementActivity"></activity>
+        <service android:name=".business.services.ConsumptionDailyService" />
+
+        <receiver android:name=".business.services.MedicineReplenishAlarmReceiver" />
+
+        <service android:name=".business.services.MedicineReplenishReminder" />
+
+        <activity android:name=".presentation.activity.MeasurementActivity" />
+
         <receiver
             android:name=".business.services.ConsumptionBroadcastReceiver"
             android:enabled="true"
@@ -47,7 +51,7 @@
         <receiver
             android:name=".business.services.OnBootReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -55,9 +59,21 @@
         <receiver
             android:name=".business.services.DailyReminderBroadcastReceiver"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false">
 
-        <activity android:name=".presentation.activity.ReminderActivity"></activity>
+        </receiver>
+
+        <activity android:name=".presentation.activity.AddConsumptionActivity" />
+
+        <receiver
+            android:name=".business.services.AppStartBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="sg.nus.iss.mtech.ptsix.medipal.MainActivity" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

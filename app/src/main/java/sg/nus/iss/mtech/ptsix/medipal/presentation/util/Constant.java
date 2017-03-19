@@ -13,4 +13,5 @@ public final class Constant {
 
     public static final String REMINDER = "REMINDER";
     public static final String REMINDER_VIEW_HOLDER = "REMINDER_VIEW_HOLER";
+    public static final String REMINDER_ALARM = "[REMINDER ALARM]";
 }
