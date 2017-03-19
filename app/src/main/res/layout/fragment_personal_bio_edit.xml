@@ -19,15 +19,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--<TextView-->
-            <!--android:id="@+id/PersonalBioTextView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="10dp"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--android:text="Personal Bio"-->
-            <!--android:textColor="@color/colorPrimaryDark"-->
-            <!--android:textSize="25sp" />-->
+            <TextView
+            android:id="@+id/PersonalBioTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:text="Personal Bio"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp" />
 
             <!--<ScrollView-->
             <!--android:layout_width="match_parent"-->
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="20dp"
+                android:layout_margin="30dp"
                 android:orientation="vertical"
                 android:scrollbars="vertical">
 
@@ -67,7 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Date Of Birth"
-                        android:inputType="date"  />
+                        android:inputType="date" />
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
@@ -104,8 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Postal Code"
-                        android:inputType="textPostalAddress"
-                        android:singleLine="true" />
+                        android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -117,23 +116,33 @@
                         android:id="@+id/heightText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Height"
-                        android:singleLine="true" />
+                        android:hint="@string/height"
+                        android:inputType="none|number" />
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/bloodTypeLabel"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
 
-                    <EditText
-                        android:id="@+id/bloodTypeText"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:hint="Blood Type"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:ellipsize="marquee" />
+
+                    <Spinner
+                        android:id="@+id/bloodTypeSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Blood Type"
-                        android:singleLine="true" />
-                </android.support.design.widget.TextInputLayout>
-                <!--suppress AndroidMissingOnClickHandler -->
+                        android:layout_marginTop="20dp"
+                        android:ellipsize="marquee"
+                        android:spinnerMode="dropdown"
+                        />
+
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/saveButton"
                     android:layout_width="wrap_content"

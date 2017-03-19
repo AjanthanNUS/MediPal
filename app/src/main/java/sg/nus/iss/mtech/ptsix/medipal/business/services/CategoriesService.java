@@ -95,4 +95,20 @@ public class CategoriesService {
 
         return ret;
     }
+
+    public ArrayList<Categories> getCategoriesByCode(String categoriesCode) {
+        CategoriesDao categoriesDao = new CategoriesDao(context);
+        ArrayList<Categories> ret = new ArrayList<>();
+
+        categoriesDao.open();
+        try {
+            ret = categoriesDao.getCategoriesByCode(categoriesCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            categoriesDao.close();
+        }
+
+        return ret;
+    }
 }

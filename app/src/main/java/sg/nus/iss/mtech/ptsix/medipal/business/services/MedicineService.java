@@ -3,6 +3,7 @@ package sg.nus.iss.mtech.ptsix.medipal.business.services;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
@@ -93,5 +94,37 @@ public class MedicineService {
         }
 
         return ret;
+    }
+
+    public ArrayList<Medicine> getMedicineByName(String name) {
+        MedicineDao medicineDao = new MedicineDao(context);
+        ArrayList<Medicine> ret = new ArrayList<>();
+
+        medicineDao.open();
+        try {
+            ret = medicineDao.getMedicineByName(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            medicineDao.close();
+        }
+
+        return ret;
+    }
+
+    public boolean validCheckEditNameDuplicate(int id, String name) {
+        Boolean isValid = true;
+
+        List<Medicine> medicineList = this.getMedicineByName(name);
+        if (medicineList.size() > 0) {
+            for (int i = 0; i < medicineList.size(); i++) {
+                Medicine medicine = medicineList.get(i);
+                if (id != medicine.getId()) {
+                    isValid = false;
+                }
+            }
+        }
+
+        return isValid;
     }
 }

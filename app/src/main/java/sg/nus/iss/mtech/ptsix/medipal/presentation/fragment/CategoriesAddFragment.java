@@ -16,8 +16,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 
@@ -28,7 +28,7 @@ public class CategoriesAddFragment extends Fragment {
     private RadioButton categoriesRemindYes, categoriesRemindNo, categoriesRemindOp;
     private Boolean categoryRemind = true;
     private Button btnSave, btnCancel;
-    private CategoriesDao categoriesDao;
+    private CategoriesService categoriesService;
 
     public CategoriesAddFragment() {
     }
@@ -36,7 +36,7 @@ public class CategoriesAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.categoriesDao = new CategoriesDao(this.getContext());
+        this.categoriesService = new CategoriesService(this.getContext());
     }
 
     @Nullable
@@ -103,7 +103,7 @@ public class CategoriesAddFragment extends Fragment {
         if (getView() != null) {
             if (isVisibleToUser) {
                 if (id > Constant.CATEGORY_ADD_INVALID_ID) {
-                    Categories category = this.categoriesDao.getCategories(id);
+                    Categories category = this.categoriesService.getCategories(id);
                     setInputFromCategory(category);
                 } else {
                     this.resetFields();
@@ -133,12 +133,12 @@ public class CategoriesAddFragment extends Fragment {
     private long updateCategories() {
         Categories category = createCategoryFromInput();
         category.setId(getArguments().getInt("id"));
-        return categoriesDao.update(category);
+        return categoriesService.updateCategories(category);
     }
 
     private long saveCategories() {
         Categories category = createCategoryFromInput();
-        return categoriesDao.save(category);
+        return categoriesService.makeCategories(category);
     }
 
     private Categories createCategoryFromInput() {
@@ -176,8 +176,11 @@ public class CategoriesAddFragment extends Fragment {
     private void resetFields() {
         this.getArguments().putInt("id", Constant.CATEGORY_ADD_INVALID_ID);
         this.categoryName.setText("");
+        this.categoryName.setError(null);
         this.categoryCode.setText("");
+        this.categoryCode.setError(null);
         this.categoryDescription.setText("");
+        this.categoryDescription.setError(null);
         this.categoryRemind = true;
         this.categoriesRemindYes.setChecked(true);
     }
@@ -221,7 +224,7 @@ public class CategoriesAddFragment extends Fragment {
     private boolean isNewValid() {
         boolean isValid = true;
 
-        if (categoriesDao.getCategoriesByCode(categoryCode.getText().toString().trim()).size() > 0) {
+        if (categoriesService.getCategoriesByCode(categoryCode.getText().toString().trim()).size() > 0) {
             categoryCode.setError(getResources().getString(R.string.category_add_error_category_code_duplicated));
             isValid = false;
         }
@@ -232,7 +235,7 @@ public class CategoriesAddFragment extends Fragment {
     private boolean isUpdateValid() {
         boolean isValid = true;
 
-        List<Categories> categoriesList = categoriesDao.getCategoriesByCode(categoryCode.getText().toString().trim());
+        List<Categories> categoriesList = categoriesService.getCategoriesByCode(categoryCode.getText().toString().trim());
         if (categoriesList.size() > 0) {
             for (int i = 0; i < categoriesList.size(); i++) {
                 Categories categories = categoriesList.get(i);

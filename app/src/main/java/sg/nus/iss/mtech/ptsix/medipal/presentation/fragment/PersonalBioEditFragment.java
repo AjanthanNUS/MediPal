@@ -1,25 +1,33 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
-import android.content.Intent;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.enums.ICEContactTypeEnums;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.PersonalBioDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
 
@@ -28,26 +36,20 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
  */
 public class PersonalBioEditFragment extends Fragment {
 
-    private EditText uesrName = null;
-    private EditText dob = null;
+    private int yearOfDate, monthOfDate, dayofDate;
+    private EditText uesrName, dob, address, postalCode, height;
     private TextView userIDNo = null;
-    private EditText address = null;
-    private EditText postalCode = null;
-    private EditText height = null;
-    private EditText bloodType = null;
+    private Spinner bloodType = null;
     private Button saveButton = null;
     private boolean validationStatus = true;
-    private boolean isEdit = false;
     private PersonalBio personalBio = null;
     private PersonalBioDao personalBioDao = null;
-    public static final String TITLE = "Personal Bio";
-    private static final String USERID = "UserId";
-    private static final String EMPTY_VALUE = "";
-    private static final int USERID_DEFAULT = 1;
+    ArrayAdapter<String> bloodTypeAdapter = null;
+    private DatePickerDialog datePickerDialog;
+    private Calendar calendar = null;
+    private static final int USERID_DEFAULT = 0;
     private static final String USERIDNo_BASE = "MPT600";
-    private static final String SUCCESS_MESSAGE = "Saved Successfully";
-    private static final String FAILED_MESSAGE = "Unable to save, please try again...";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +72,8 @@ public class PersonalBioEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_personal_bio_edit, container, false);
 
-        initializeComponents(rootView);
         getPersonalBioInfo();
+        initializeComponents(rootView);
         loadPersonalBioEditView();
         updatePersonalBioInfo(rootView);
 
@@ -85,8 +87,70 @@ public class PersonalBioEditFragment extends Fragment {
         address = (EditText) rootView.findViewById(R.id.addressText);
         postalCode = (EditText) rootView.findViewById(R.id.postalCodeText);
         height = (EditText) rootView.findViewById(R.id.heightText);
-        bloodType = (EditText) rootView.findViewById(R.id.bloodTypeText);
+        bloodType = (Spinner) rootView.findViewById(R.id.bloodTypeSpinner);
         saveButton = (Button) rootView.findViewById(R.id.saveButton);
+
+        InitializeCalendar();
+        setDatePickerDialog();
+        setUserDOBListener(rootView);
+        InitializeBloodType();
+    }
+
+    private void InitializeBloodType() {
+        bloodTypeAdapter = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.bloodType_items));
+        bloodTypeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        bloodType.setAdapter(bloodTypeAdapter);
+    }
+
+    private void InitializeCalendar() {
+        calendar = Calendar.getInstance();
+        if (personalBio != null && personalBio.getUserDOB() != null) {
+            calendar.setTime((Date)personalBio.getUserDOB());
+        } else {
+            yearOfDate = calendar.get(Calendar.YEAR);
+            monthOfDate = calendar.get(Calendar.MONTH);
+            dayofDate = calendar.get(Calendar.DAY_OF_MONTH);
+
+            calendar.set(yearOfDate, monthOfDate, dayofDate);
+        }
+
+    }
+
+    private void setDatePickerDialog() {
+        DatePickerDialog.OnDateSetListener dpListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                yearOfDate = year;
+                monthOfDate = month;
+                dayofDate = day;
+
+                calendar.set(yearOfDate, monthOfDate, dayofDate);
+                dob.setText(dateFormatter.format(calendar.getTime()));
+            }
+        };
+        datePickerDialog = new DatePickerDialog(getActivity(), dpListener, yearOfDate, monthOfDate, dayofDate);
+    }
+
+    private void setUserDOBListener(View rootView) {
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog.show();
+            }
+        });
+        dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                                         @Override
+                                         public void onFocusChange(View v, boolean hasFocus) {
+                                             if (hasFocus) {
+                                                 datePickerDialog.show();
+                                             } else {
+                                                 datePickerDialog.hide();
+                                             }
+                                         }
+                                     }
+        );
     }
 
     public void getPersonalBioInfo() {
@@ -97,25 +161,59 @@ public class PersonalBioEditFragment extends Fragment {
 
     private void loadPersonalBioEditView() {
         if (personalBio != null) {
+            Date userDOBField = personalBio.getUserDOB();
+            String userIDNoField = personalBio.getUserIDNo();
+            String addressField = personalBio.getAddress();
+            String postalCodeField = personalBio.getPostalcode();
+            int heightField = personalBio.getHeight();
+            String bloodTypeField = personalBio.getBloodType();
+
             uesrName.setText(personalBio.getUserName());
             userIDNo.setText(personalBio.getUserIDNo());
-            dob.setText(personalBio.getUserDOB().toString());
-            address.setText(personalBio.getAddress());
-            postalCode.setText(personalBio.getPostalcode());
-            height.setText(personalBio.getHeight());
-            bloodType.setText(personalBio.getBloodType());
+            if (userDOBField != null) {
+                dob.setText(CommonUtil.date2ddMMMYYYY(userDOBField));
+            }
+            if (addressField != null) {
+                address.setText(addressField);
+            } else {
+                address.setText(Constant.EMPTY_VALUE);
+            }
+            if (postalCodeField != null) {
+                postalCode.setText(postalCodeField);
+            } else {
+                postalCode.setText(Constant.EMPTY_VALUE);
+            }
+            if (heightField > 0) {
+                height.setText(String.valueOf(heightField));
+            }
+            if (bloodTypeField != null) {
+                bloodType.setSelection(getIndex(bloodType, bloodTypeField));
+            }
         } else {
-            uesrName.setText(EMPTY_VALUE);
+            uesrName.setText(Constant.EMPTY_VALUE);
             userIDNo.setText(generateUserIDNo());
-            dob.setText(EMPTY_VALUE);
-            address.setText(EMPTY_VALUE);
-            postalCode.setText(EMPTY_VALUE);
-            height.setText(EMPTY_VALUE);
-            bloodType.setText(EMPTY_VALUE);
+            dob.setText(Constant.EMPTY_VALUE);
+            address.setText(Constant.EMPTY_VALUE);
+            postalCode.setText(Constant.EMPTY_VALUE);
+            height.setText(Constant.EMPTY_VALUE);
+            bloodType.setSelection(getIndex(bloodType, Constant.EMPTY_VALUE));
         }
     }
 
+    private int getIndex(Spinner spinner, String myString) {
+        int index = 0;
+
+        for (int position = 0; position < spinner.getCount(); position++) {
+            if (spinner.getItemAtPosition(position).toString().equalsIgnoreCase(myString)) {
+                index = position;
+                break;
+            }
+        }
+        return index;
+    }
+
     private String generateUserIDNo() {
+
         return USERIDNo_BASE + String.valueOf(USERID_DEFAULT);
     }
 
@@ -134,9 +232,11 @@ public class PersonalBioEditFragment extends Fragment {
             uesrName.setError("Please enter your name.");
             validationStatus = false;
         }
-        if (TextUtils.isEmpty(bloodType.getText().toString().trim())) {
-            bloodType.setError("Please enter your blood type.");
+        if (dob.getText() == null || TextUtils.isEmpty(dob.getText().toString().trim())) {
+            dob.setError("Please enter your date of birth.");
             validationStatus = false;
+
+            // date  before validaton???
         }
         if (TextUtils.isEmpty(height.getText().toString().trim())) {
             height.setError("Please enter your height.");
@@ -148,10 +248,15 @@ public class PersonalBioEditFragment extends Fragment {
         if (validationStatus) {
             getUpdatedPersonalBioInfo();
             personalBioDao = new PersonalBioDao(this.getContext());
-            personalBioDao.savePersonalBio(personalBio);
-            Toast.makeText(this.getContext(), SUCCESS_MESSAGE, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this.getContext(), FAILED_MESSAGE, Toast.LENGTH_SHORT).show();
+            if (personalBioDao.savePersonalBio(personalBio) > 0) {
+                PersonalBioViewFragment personalBioViewFragment = new PersonalBioViewFragment();
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.container_frame, personalBioViewFragment, personalBioViewFragment.getTag()).commit();
+
+                Toast.makeText(this.getContext(), Constant.SAVE_SUCCEED_MESSAGE, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this.getContext(), Constant.SAVE_FAILED_MESSAGE, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -166,7 +271,8 @@ public class PersonalBioEditFragment extends Fragment {
         personalBio.setUserIDNo(userIDNo.getText().toString());
         personalBio.setUserName(uesrName.getText().toString());
         try {
-            personalBio.setUserDOB(formatter.parse(dob.getText().toString()));
+            personalBio.setUserDOB(dateFormatter.parse(this.dob.getText().toString().trim()));
+
         } catch (ParseException e) {
             personalBio.setUserDOB(null);
         }
@@ -179,8 +285,8 @@ public class PersonalBioEditFragment extends Fragment {
         if (height.getText() != null) {
             personalBio.setHeight(Integer.parseInt(height.getText().toString()));
         }
-        if (bloodType.getText() != null) {
-            personalBio.setBloodType(bloodType.getText().toString());
+        if (bloodType.getSelectedItem() != null) {
+            personalBio.setBloodType(bloodType.getSelectedItem().toString());
         }
     }
 

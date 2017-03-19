@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_weight="1"
-                    android:text="Reminder"
+                    android:text="@string/medicine_add_remind"
                     android:textStyle="bold" />
 
                 <Switch
@@ -95,7 +95,7 @@
                     android:id="@+id/medicine_frequency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Frequency"
+                    android:hint="@string/medicine_add_frequency"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
@@ -112,8 +112,8 @@
                     android:id="@+id/medicine_frequency_interval"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Interval"
-                    android:inputType="number"/>
+                    android:hint="@string/medicine_add_frequency_interval"
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -129,7 +129,7 @@
                     android:id="@+id/medicine_frequency_start_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Start Time" />
+                    android:hint="@string/medicine_add_frequency_start_time" />
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
@@ -153,7 +153,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:hint="@string/medicine_add_quantity"
-                        android:inputType="number"/>
+                        android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
 
                 <Spinner
@@ -163,7 +163,6 @@
                     android:layout_weight="1" />
 
             </LinearLayout>
-
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/medicine_consume_quantity_label"
@@ -179,9 +178,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/medicine_add_consume_quantity"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
-
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/medicine_threshold_label"
@@ -196,8 +194,8 @@
                     android:id="@+id/medicine_threshold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Threshold Number"
-                    android:inputType="number"/>
+                    android:hint="@string/medicine_add_threshold"
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -213,7 +211,7 @@
                     android:id="@+id/medicine_date_issue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date Issued" />
+                    android:hint="@string/medicine_add_date_issue" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -229,8 +227,8 @@
                     android:id="@+id/medicine_expire_factor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Expire factor"
-                    android:inputType="number"/>
+                    android:hint="@string/medicine_add_expire_factor"
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
@@ -246,7 +244,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
-                    android:text="@string/category_add_cancel"
+                    android:text="@string/medicine_add_cancel"
                     android:textColor="@android:color/white" />
 
                 <Button
@@ -256,7 +254,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
-                    android:text="@string/category_add_save"
+                    android:text="@string/medicine_add_save"
                     android:textColor="@android:color/white" />
 
                 <Button
@@ -266,7 +264,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
-                    android:text="Delete"
+                    android:text="@string/medicine_add_delete"
                     android:textColor="@android:color/white" />
             </LinearLayout>
         </RelativeLayout>
