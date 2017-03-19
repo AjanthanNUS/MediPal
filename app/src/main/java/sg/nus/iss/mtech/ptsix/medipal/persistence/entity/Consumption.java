@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-
 public class Consumption implements Parcelable {
 
     private int m_id;
@@ -87,6 +86,5 @@ public class Consumption implements Parcelable {
             return new Consumption[size];
         }
     };
-
 }
 

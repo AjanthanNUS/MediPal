@@ -5,26 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-
-/*
-ID              interger
-Medicine        string
-Description     string
-CatID string    interger
-ReminderID      interger
-Remind          Bool
-Quantity        interger
-Dosage          interger
-ComsumeQuantity interger
-Threshold       interger
-DateIssued      Date
-ExpireFactor    interger
-
- */
 public class Medicine implements Parcelable {
 
     private int id;

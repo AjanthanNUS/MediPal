@@ -5,17 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
-ID          interger
-Frequency   interger
-StartTime   date
-Interval    interger
-
- */
 public class Reminders implements Parcelable {
 
     private int m_id;
@@ -97,5 +86,4 @@ public class Reminders implements Parcelable {
             return new Reminders[size];
         }
     };
-
 }

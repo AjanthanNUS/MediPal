@@ -5,17 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
-ID              interger
-Condition       String
-StartDate       Date
-ConditionType   String
-
- */
 public class HealthBio implements Parcelable {
 
     private int m_id;
@@ -98,7 +87,6 @@ public class HealthBio implements Parcelable {
             return new HealthBio[size];
         }
     };
-
 }
 
 
