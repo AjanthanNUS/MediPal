@@ -24,7 +24,7 @@ public class ConsumptionAlarmReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.w(TAG, "START CONSUMPTION RECEIVE");
-        Intent service = new Intent(context, ConsumptionReminder.class);
+        Intent service = new Intent(context, ConsumptionDailyService.class);
         startWakefulService(context, service);
         Log.w(TAG, "END CONSUMPTION RECEIVE");
     }
@@ -42,7 +42,7 @@ public class ConsumptionAlarmReceiver extends WakefulBroadcastReceiver {
 
         // TODO Need to replace with your logic
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(consumption.getEventConsumedOn());
+        calendar.setTime(consumption.getConsumedOn());
         //
 
         Log.w(TAG, calendar.getTime().toString());

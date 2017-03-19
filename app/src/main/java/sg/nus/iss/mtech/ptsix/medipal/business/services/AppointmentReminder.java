@@ -23,7 +23,7 @@ public class AppointmentReminder extends IntentService {
     NotificationCompat.Builder builder;
     public static final int NOTIFICATION_ID = 1;
     public AppointmentReminder() {
-        super("Appointment Reminder");
+        super("Appointment Reminders");
     }
 
     @Override

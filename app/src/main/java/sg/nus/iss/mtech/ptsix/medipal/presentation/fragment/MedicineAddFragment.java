@@ -301,7 +301,7 @@ public class MedicineAddFragment extends Fragment {
             reminder.setId(databaseMedicine.getReminderId());
             reminder.setInterval(0);
             reminder.setFrequency(0);
-            reminder.setEventStartTime(new Date());
+            reminder.setStartTime(new Date());
             remindResult = remindersService.updateReminders(reminder);
         }
 
@@ -324,7 +324,7 @@ public class MedicineAddFragment extends Fragment {
             Reminders reminder = new Reminders();
             reminder.setInterval(0);
             reminder.setFrequency(0);
-            reminder.setEventStartTime(new Date());
+            reminder.setStartTime(new Date());
             remindResult = remindersService.makeReminders(reminder);
             newMedicine.setReminderId(remindResult.intValue());
             mediResult = medicineService.makeMedicine(newMedicine);
@@ -363,7 +363,7 @@ public class MedicineAddFragment extends Fragment {
     private Reminders createReminderFromInput() {
         Reminders reminder = new Reminders();
         try {
-            reminder.setEventStartTime(timeFormatter.parse(this.medicineFrequencyStartTime.getText().toString().trim()));
+            reminder.setStartTime(timeFormatter.parse(this.medicineFrequencyStartTime.getText().toString().trim()));
         } catch (ParseException ex) {
             // no need to handle
         }
@@ -383,7 +383,7 @@ public class MedicineAddFragment extends Fragment {
 
             this.medicineFrequency.setText(reminder.getFrequency() + "");
             this.medicineFrequencyInterval.setText(reminder.getInterval() + "");
-            this.medicineFrequencyStartTime.setText(timeFormatter.format(reminder.getEventStartTime()));
+            this.medicineFrequencyStartTime.setText(timeFormatter.format(reminder.getStartTime()));
         } else {
             this.medicineRemindSwitch.setChecked(false);
         }

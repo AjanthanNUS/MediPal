@@ -15,7 +15,7 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentDetailAct
 
 
 public class MedicineReplenishReminder extends IntentService {
-    public static final String TAG = ConsumptionReminder.class.getSimpleName();
+    public static final String TAG = ConsumptionDailyService.class.getSimpleName();
 
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;

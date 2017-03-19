@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
@@ -51,7 +50,7 @@
 
         <receiver android:name=".business.services.ConsumptionAlarmReceiver" />
 
-        <service android:name=".business.services.ConsumptionReminder" />
+        <service android:name=".business.services.ConsumptionDailyService" />
 
         <receiver android:name=".business.services.MedicineReplenishAlarmReceiver" />
 
@@ -64,6 +63,37 @@
             android:name=".presentation.activity.PersonalActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".presentation.activity.SettingsActivity"></activity>
+        <receiver
+            android:name=".business.services.ConsumptionBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".business.services.OnBootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".business.services.DailyReminderBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+        </receiver>
+
+        <activity android:name=".presentation.activity.AddConsumptionActivity" />
+
+        <receiver
+            android:name=".business.services.AppStartBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="sg.nus.iss.mtech.ptsix.medipal.MainActivity" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
