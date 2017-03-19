@@ -1,40 +1,32 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
+
 import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-import android.os.AsyncTask;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
-
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementLoadAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementSaveAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
-/**
- * Created by WONG_CH on 12-Mar-17.
- */
+
 public class MeasurementAddFragment extends Fragment {
 
-    private EditText MeaSystolic, MeaDiastolic,MeaPulse,MeaTemperature,MeaWeight,MeaMeasureOn,MeaComment;
+    private EditText MeaSystolic, MeaDiastolic, MeaPulse, MeaTemperature, MeaWeight, MeaMeasureOn, MeaComment;
     private Button btnSave, btnCancel;
     private MeasurementDao measurementDao;
     private MeasurementSaveAsyncTask measurementSaveAsyncTask;
@@ -46,6 +38,7 @@ public class MeasurementAddFragment extends Fragment {
 
     public MeasurementAddFragment() {
     }
+
     private SimpleDateFormat formatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
 
     @Override
@@ -77,7 +70,7 @@ public class MeasurementAddFragment extends Fragment {
         MeaPulse = (EditText) rootView.findViewById(R.id.ePulse);
         MeaTemperature = (EditText) rootView.findViewById(R.id.eTemperature);
         MeaWeight = (EditText) rootView.findViewById(R.id.eWeight);
-        MeaComment =  (EditText) rootView.findViewById(R.id.eComment);
+        MeaComment = (EditText) rootView.findViewById(R.id.eComment);
         MeaMeasureOn = (EditText) rootView.findViewById(R.id.eMeasuredOn);
 
         MeaMeasureOn.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +105,7 @@ public class MeasurementAddFragment extends Fragment {
 
         return rootView;
     }
+
     private Measurement createMeasurementFromInput() {
         Measurement measurement = new Measurement();
 
@@ -119,43 +113,37 @@ public class MeasurementAddFragment extends Fragment {
 
         if (MeaWeight.getText().length() != 0) {
             measurement.setEventWeight(Integer.parseInt(MeaWeight.getText().toString()));
-        }
-        else {
+        } else {
             measurement.setEventWeight(0);
         }
 
         if (MeaTemperature.getText().length() != 0) {
             measurement.setEventTemperature(Float.parseFloat(MeaTemperature.getText().toString()));
-        }
-        else {
+        } else {
             measurement.setEventTemperature(0);
         }
 
         if (MeaPulse.getText().length() != 0) {
             measurement.setEventPulse(Integer.parseInt(MeaPulse.getText().toString()));
-        }
-        else {
+        } else {
             measurement.setEventPulse(0);
         }
 
         if (MeaDiastolic.getText().length() != 0) {
             measurement.setEventDiastolic(Integer.parseInt(MeaDiastolic.getText().toString()));
-        }
-        else {
+        } else {
             measurement.setEventDiastolic(0);
         }
 
         if (MeaSystolic.getText().length() != 0) {
             measurement.setEventSystolic(Integer.parseInt(MeaSystolic.getText().toString()));
-        }
-        else {
+        } else {
             measurement.setEventSystolic(0);
         }
 
-        if (MeaComment.getText().length()!=0) {
+        if (MeaComment.getText().length() != 0) {
             measurement.setComment(MeaComment.getText().toString());
-        }
-        else {
+        } else {
             measurement.setComment("");
         }
 

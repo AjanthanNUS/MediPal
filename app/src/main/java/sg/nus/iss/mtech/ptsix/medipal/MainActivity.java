@@ -7,25 +7,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.ConsumptionBroadcastReceiver;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineReplenishAlarmReceiver;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AddConsumptionActivity;
-import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.SettingsActivity;
@@ -44,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction("sg.nus.iss.mtech.ptsix.medipal.MainActivity");
         sendBroadcast(intent);
 
-       // setupAlarm(10);
+        MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), new Date());
+
+        // setupAlarm(10);
 
         setupToolbar();
         // check the preference is exist or not
@@ -97,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public void openConsumables(View view) {
         Intent myIntent = new Intent(MainActivity.this, ConsumptionActivity.class);
         startActivity(myIntent);
@@ -142,15 +145,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-
     public void openPersonalBio(View view) {
-
         Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
         startActivity(personalBioIntent);
     }
 
     public void openSettings(View view) {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(settingsIntent );
+        startActivity(settingsIntent);
     }
 }

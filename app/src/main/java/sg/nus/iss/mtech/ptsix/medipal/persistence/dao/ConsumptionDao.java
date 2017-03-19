@@ -49,7 +49,6 @@ public class ConsumptionDao extends DBDAO {
                 new String[]{consumption.getId() + ""});
     }
 
-    //USING query() method
     public ArrayList<Consumption> getConsumptions() {
         ArrayList<Consumption> consumptions = new ArrayList<Consumption>();
 
@@ -76,7 +75,6 @@ public class ConsumptionDao extends DBDAO {
         return consumptions;
     }
 
-    //Retrieves a single reminder record with the given id
     public Consumption getConsumption(long id) {
         Consumption consumption = null;
 

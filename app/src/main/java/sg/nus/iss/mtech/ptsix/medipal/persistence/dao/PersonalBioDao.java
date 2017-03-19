@@ -6,18 +6,13 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
 
-
 public class PersonalBioDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.PER_ID + " =?";
-
 
     public PersonalBioDao(Context context) {
         super(context);
@@ -56,7 +51,6 @@ public class PersonalBioDao extends DBDAO {
         values.put(DatabaseHelper.PER_HEIGHT, personalBio.getHeight());
         values.put(DatabaseHelper.PER_BLOOD_TYPE, personalBio.getBloodType());
 
-
         long result = database.update(DatabaseHelper.PERSONAL_BIO_TABLE, values,
                 WHERE_ID_EQUALS,
                 new String[]{String.valueOf(personalBio.getId())});
@@ -64,7 +58,6 @@ public class PersonalBioDao extends DBDAO {
         return result;
 
     }
-
 
     //Retrieves a single reminder record with the given id
     public PersonalBio getPersonalBio() {
@@ -88,7 +81,6 @@ public class PersonalBioDao extends DBDAO {
             personalBio.setPostalcode(cursor.getString(5));
             personalBio.setHeight(cursor.getInt(6));
             personalBio.setBloodType(cursor.getString(7));
-
         }
         return personalBio;
     }

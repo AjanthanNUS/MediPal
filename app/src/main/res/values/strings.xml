@@ -99,7 +99,7 @@
     <string name="medicine_add_error_expire_factor_empty">Please fill in a expire factor.</string>
     <string name="medicine_add_error_expire_factor_length">Please fill in a expire factor between 1 to 24.</string>
 
-    <string name="medicine_replenish_reminder_title">Replenish Medicine</string>
+    <string name="medicine_replenish_reminder_title">Please replenish your medicine!</string>
 
     <string name="appointment_reminder_title">Coming Appointment</string>
     <string name="appointment_parceable">appointment</string>

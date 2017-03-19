@@ -16,18 +16,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-
-/*
-ID          interger
-Frequency   interger
-StartTime   date
-Interval    interger
-
- */
 public class RemindersDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.REMINDERS_ID + " =?";

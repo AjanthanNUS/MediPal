@@ -1,6 +1,7 @@
 package sg.nus.iss.mtech.ptsix.medipal.business.services;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +139,6 @@ public class MedicineService {
                     medicineNameList.add(medicine.getMedicine());
                 }
             }
-
         }
 
         return medicineNameList;

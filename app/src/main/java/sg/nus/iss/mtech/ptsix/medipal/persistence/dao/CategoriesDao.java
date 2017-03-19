@@ -50,7 +50,6 @@ public class CategoriesDao extends DBDAO {
                 new String[]{categories.getId() + ""});
     }
 
-    //USING query() method
     public ArrayList<Categories> getCategories() {
         ArrayList<Categories> categories_array = new ArrayList<Categories>();
 
@@ -75,7 +74,6 @@ public class CategoriesDao extends DBDAO {
         return categories_array;
     }
 
-    //Retrieves a single reminder record with the given id
     public Categories getCategories(long id) {
         Categories categories = null;
 
@@ -95,14 +93,13 @@ public class CategoriesDao extends DBDAO {
         return categories;
     }
 
-    //USING query() method
     public ArrayList<Categories> getCategoriesByCode(String code) {
         ArrayList<Categories> categories_array = new ArrayList<Categories>();
 
         String sql = "SELECT * FROM " + DatabaseHelper.CATS_TABLE
                 + " WHERE " + DatabaseHelper.CATS_CODE + " = ?";
 
-        Cursor cursor = database.rawQuery(sql, new String[] { code });
+        Cursor cursor = database.rawQuery(sql, new String[]{code});
 
         while (cursor.moveToNext()) {
             Categories categories = new Categories();

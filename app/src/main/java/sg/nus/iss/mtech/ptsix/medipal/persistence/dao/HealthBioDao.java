@@ -12,17 +12,6 @@ import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
-ID              interger
-Condition       String
-StartDate       Date
-ConditionType   String
-
- */
 public class HealthBioDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.HEALTH_ID + " =?";
@@ -35,7 +24,7 @@ public class HealthBioDao extends DBDAO {
     public long save(HealthBio healthBio) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.HEALTH_CONDITION, healthBio.getEventCondition());
-        values.put(DatabaseHelper.HEALTH_START_DATE,  formatter.format(healthBio.getEventStartDate()));
+        values.put(DatabaseHelper.HEALTH_START_DATE, formatter.format(healthBio.getEventStartDate()));
         values.put(DatabaseHelper.HEALTH_CONDITION_TYPE, healthBio.getEventConditionType());
         return database.insert(DatabaseHelper.HEALTH_BIO_TABLE, null, values);
     }
@@ -43,13 +32,13 @@ public class HealthBioDao extends DBDAO {
     public long update(HealthBio healthBio) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.HEALTH_CONDITION, healthBio.getEventCondition());
-        values.put(DatabaseHelper.HEALTH_START_DATE,  formatter.format(healthBio.getEventStartDate()));
+        values.put(DatabaseHelper.HEALTH_START_DATE, formatter.format(healthBio.getEventStartDate()));
         values.put(DatabaseHelper.HEALTH_CONDITION_TYPE, healthBio.getEventConditionType());
 
 
         long result = database.update(DatabaseHelper.HEALTH_BIO_TABLE, values,
                 WHERE_ID_EQUALS,
-                new String[] { String.valueOf(healthBio.getId()) });
+                new String[]{String.valueOf(healthBio.getId())});
         Log.d("Update Result:", "=" + result);
         return result;
 
@@ -57,7 +46,7 @@ public class HealthBioDao extends DBDAO {
 
     public int delete(HealthBio healthBio) {
         return database.delete(DatabaseHelper.HEALTH_BIO_TABLE, WHERE_ID_EQUALS,
-                new String[] { healthBio.getId() + "" });
+                new String[]{healthBio.getId() + ""});
     }
 
     //USING query() method
@@ -65,7 +54,7 @@ public class HealthBioDao extends DBDAO {
         ArrayList<HealthBio> healthBios = new ArrayList<HealthBio>();
 
         Cursor cursor = database.query(DatabaseHelper.HEALTH_BIO_TABLE,
-                new String[] { DatabaseHelper.HEALTH_ID,
+                new String[]{DatabaseHelper.HEALTH_ID,
                         DatabaseHelper.HEALTH_CONDITION,
                         DatabaseHelper.HEALTH_START_DATE,
                         DatabaseHelper.HEALTH_CONDITION_TYPE,
@@ -86,6 +75,7 @@ public class HealthBioDao extends DBDAO {
         }
         return healthBios;
     }
+
     //Retrieves a single reminder record with the given id
     public HealthBio getHealthBio(long id) {
         HealthBio healthBio = null;
@@ -93,7 +83,7 @@ public class HealthBioDao extends DBDAO {
         String sql = "SELECT * FROM " + DatabaseHelper.HEALTH_BIO_TABLE
                 + " WHERE " + DatabaseHelper.HEALTH_ID + " = ?";
 
-        Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
+        Cursor cursor = database.rawQuery(sql, new String[]{id + ""});
 
         if (cursor.moveToNext()) {
             healthBio = new HealthBio();

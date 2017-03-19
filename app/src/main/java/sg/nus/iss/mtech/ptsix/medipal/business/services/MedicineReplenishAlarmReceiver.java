@@ -29,21 +29,13 @@ public class MedicineReplenishAlarmReceiver extends WakefulBroadcastReceiver {
 
         Intent intent = new Intent(context, MedicineReplenishAlarmReceiver.class);
 
-        Date ddd = new Date();
-        int requestID = Integer.parseInt(NotificationID.REPLENISH + "" + ddd.getMinutes() + ddd.getSeconds());
+        Calendar calendar = Calendar.getInstance();
+        int requestID = Integer.parseInt(NotificationID.REPLENISH + "" + Integer.toString(calendar.get(Calendar.MINUTE)) + Integer.toString(calendar.get(Calendar.SECOND)));
+        calendar.setTime(dateTime);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestID, intent, 0);
 
-        Calendar calendar = Calendar.getInstance();
-        if(dateTime != null) {
-            calendar.setTime(dateTime);
-        }
-        else {
-            calendar.set(Calendar.HOUR_OF_DAY, 13);
-            calendar.set(Calendar.MINUTE, 10);
-        }
-
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 100, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         Log.w(TAG, "MEDICINE REMINDER SET");
     }
 }
