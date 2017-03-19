@@ -9,14 +9,14 @@
         android:id="@+id/eSystolic"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Systolic"
         android:inputType="number"
-        android:selectAllOnFocus="false" />
+        android:selectAllOnFocus="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/eDiastolic"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/eSystolic"
         android:layout_below="@+id/eSystolic"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Diastolic"
         android:inputType="number" />
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/eDiastolic"
         android:layout_below="@+id/eDiastolic"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Pulse"
         android:inputType="number" />
@@ -44,13 +44,13 @@
         android:id="@+id/eTemperature"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Temperture"
+        android:inputType="numberDecimal"
         android:layout_alignBaseline="@+id/eSystolic"
         android:layout_alignBottom="@+id/eSystolic"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="31dp"
-        android:ems="10"
-        android:hint="Temperture"
-        android:inputType="numberDecimal" />
+        android:layout_marginEnd="25dp" />
 
     <EditText
         android:id="@+id/eWeight"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/eTemperature"
         android:layout_below="@+id/eTemperature"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Weight"
         android:inputType="number" />
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/eWeight"
         android:layout_below="@+id/eWeight"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:focusable="false"
         android:hint="Measured On"
@@ -77,36 +77,42 @@
 
     <EditText
         android:id="@+id/eComment"
-        android:layout_width="320dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Comment"
         android:inputType="text"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/ePulse" />
+        android:layout_below="@+id/ePulse"
+        android:layout_alignStart="@+id/ePulse"
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="100dp"
-        android:layout_alignParentStart="true">
+        android:id="@+id/btns"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eComment"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="150dp">
 
         <Button
-            android:text="Save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_ok"
-            android:layout_weight="1"
-            android:layout_margin="20dp" />
-
-        <Button
-            android:text="Cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:layout_weight="1"
-            android:layout_margin="20dp" />
+            android:background="@color/colorPrimary"
+            android:text="@string/category_add_cancel"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/category_add_save"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </RelativeLayout>
