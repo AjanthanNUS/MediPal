@@ -115,24 +115,15 @@
     <string name="ice_contact_type">1</string>
     <string name="ice_description">123</string>
     <string name="ice_sequence_no">2e4</string>
-    <string name="ice_add_name">Enter Your Name</string>
+    <string name="ice_add_name">Name</string>
     <string name="ice_add_contact_no">Contact Number</string>
     <string name="ice_add_description">Description</string>
     <string name="health_condition">Health Condition</string>
-    <string name="health_startdate">Date</string>
     <string name="health_start_date">Date</string>
 
-    <string-array name="ice_contact_types">
-        <item>Doctor</item>
-        <item>Next of Kin</item>
-        <item>Emergency Contact</item>
-    </string-array>
+    <string name="ice_add_save">Saved New ICE Contact!!!</string>
+    <string name="ice_add_update">Updated ICE Contact!!!</string>
 
-    <string-array name="ice_contact_sequence">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
 
     <string-array name="health_condition_type">
         <item>a</item>

@@ -14,5 +14,9 @@ public final class Constant {
 
     public static final String DATE_FORMAT = "dd MMM yyyy";
 
+    public static final int ICE_TAB_LIST_INDEX = 0;
+    public static final int ICE_TAB_ADD_INDEX = 1;
+
+
 
 }

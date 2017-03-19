@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.ICEContactService;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.ICEContactTypeEnums;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.IceDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 
@@ -32,9 +32,8 @@ public class ICEContactAddFragment extends Fragment {
     private EditText name, iceContactNo, description;
     private Spinner iceContactTYPE, iceSequenceNo;
     private Button btnSave, btnCancel;
-    private IceDao iceDao;
-
-    private ICEContactTypeEnums selectedEnum;
+    private ICEContactService iceContactService;
+    List<ICE> iceList;
 
     public ICEContactAddFragment() {
     }
@@ -42,7 +41,7 @@ public class ICEContactAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iceDao = new IceDao(this.getContext());
+        iceContactService = new ICEContactService(this.getContext());
     }
 
     @Nullable
@@ -58,24 +57,18 @@ public class ICEContactAddFragment extends Fragment {
         iceContactTYPE = (Spinner) rootView.findViewById(R.id.ice_contact_type);
         iceSequenceNo = (Spinner) rootView.findViewById(R.id.ice_sequence);
 
-        IceDao dao = new IceDao(this.getContext());
-        List<ICE> iceList = dao.getICEs();
+        iceList = iceContactService.getAllICEContact();
         totalCount = iceList.size();
         Log.i("", "Sixe : " + totalCount);
 
-        String [] contactTypeValues = ICEContactTypeEnums.getAllContacts();
-        ArrayAdapter<ICEContactTypeEnums> contactTypeAdapter = new ArrayAdapter<ICEContactTypeEnums>(this.getActivity(),
+        ArrayAdapter<ICEContactTypeEnums> contactTypeAdapter = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, ICEContactTypeEnums.getAllICEContactTypeEnums());
         contactTypeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         iceContactTYPE.setAdapter(contactTypeAdapter);
 
-
-        Log.i("iceContactTYPE STR : ", ((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumValue());
-        Log.i("iceContactTYPE INT : ", String.valueOf(((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumCode()));
-
         List<String> list = new ArrayList<>();
-        for(int i = 1; i < totalCount+1; i++) {
+        for(int i = 1; i < totalCount + 1; i++) {
             list.add(String.valueOf(i));
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(),
@@ -83,26 +76,24 @@ public class ICEContactAddFragment extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         iceSequenceNo.setAdapter(dataAdapter);
 
-        btnSave = (Button) rootView.findViewById(R.id.btn_save);
+        btnSave = (Button) rootView.findViewById(R.id.btn_ice_save);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getArguments().getInt("id") == -1) {
-                    // Add new
-                    if (isCommonValid()) {
-                        iceDao.save(createICEContactFromInput());
-                        Toast.makeText(getActivity(), "Saving new category completed", Toast.LENGTH_SHORT).show();
-                        resetFields();
-                        ((ICEContactActivity) getActivity()).switchTab(0, -1);
-                    }
+                Log.i("Save button : ","Clicked");
+                boolean isNewId = isNewValidByID();
+                Log.i("Is New ID : ", String.valueOf(isNewValidByID()));
+                if(isNewId) {
+                    iceContactService.saveICEContact(getICEContactFromInput());
+                    Toast.makeText(getActivity(), "Saved New ICE Contact!!!", Toast.LENGTH_SHORT).show();
+                    resetFields();
+                    ((ICEContactActivity) getActivity()).switchTab(0, -1);
                 } else {
-                    // Update
-                    if (isCommonValid() && isUpdateValid()) {
-                        iceDao.save(createICEContactFromInput());
-                        Toast.makeText(getActivity(), "Updating category completed", Toast.LENGTH_SHORT).show();
-                        resetFields();
-                        ((ICEContactActivity) getActivity()).switchTab(0, -1);
-                    }
+                    populateICESequences();
+                    iceList = iceContactService.getAllICEContact();
+                    Toast.makeText(getActivity(), "Update ICE Contact Info!!!", Toast.LENGTH_SHORT).show();
+                    resetFields();
+                    ((ICEContactActivity) getActivity()).switchTab(0, -1);
                 }
             }
         });
@@ -121,12 +112,15 @@ public class ICEContactAddFragment extends Fragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
+       // Log.i("Show User Info : ", name.getText().toString());
+       // Log.i("Show User Info : ", name.getText().toString());
         super.setUserVisibleHint(isVisibleToUser);
         int id = getArguments().getInt("id");
+        Log.i("ID : ", String.valueOf(id));
         if (getView() != null) {
             if (isVisibleToUser) {
                 if (id >= 1) {
-                    ICE ice = this.iceDao.getICE(id);
+                    ICE ice = this.iceContactService.getICEContactByID(id);
                     name.setText(ice.getName());
                     iceContactNo.setText(ice.getContactNo());
                     selectSpinnerItemByValue(iceContactTYPE, ice.getIceContactType());
@@ -149,18 +143,18 @@ public class ICEContactAddFragment extends Fragment {
                 return;
             }
         }
+    }
 
-}
-
-    private ICE createICEContactFromInput() {
+    private ICE getICEContactFromInput() {
         ICE ice = new ICE();
+        ice.setId(getArguments().getInt("id"));
         ice.setName(name.getText().toString());
         ice.setContactNo(iceContactNo.getText().toString());
         Log.i("iceContactTYPE STR : ", ((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumValue());
         Log.i("iceContactTYPE INT : ", String.valueOf(((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumCode()));
         ice.setIceContactType(((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumCode());
         ice.setDescription(description.getText().toString());
-        ice.setSequence(iceSequenceNo.getSelectedItemPosition());
+        ice.setSequence(iceList.size());
         return ice;
     }
 
@@ -173,12 +167,6 @@ public class ICEContactAddFragment extends Fragment {
         //this.iceSequenceNo.setPromptId(1);
     }
 
-  /*  private void getSpinner() {
-
-        Spinner mySpinner = iceContactTYPE;
-        mySpinner.setAdapter(new ArrayAdapter<ICEContactTypeEnums>(this, android.R., ICEContactTypeEnums.values()));
-    }*/
-
     private boolean isCommonValid() {
         boolean isValid = true;
 
@@ -187,7 +175,6 @@ public class ICEContactAddFragment extends Fragment {
             name.setError("Please fill in a category name.");
             isValid = false;
         }
-
         // ICE name number of character check
         if (iceContactNo.getText().toString().trim().length() > 50) {
             iceContactNo.setError("Please fill in a name below 50 characters.");
@@ -196,40 +183,50 @@ public class ICEContactAddFragment extends Fragment {
 
         return isValid;
     }
-    private boolean isExistingICE(ICE ice) {
-        if(ice.getName().equals(name.getText())) {
+
+    private boolean isNewValid() {
+        if (iceContactService.getICEContactByName(name.getText().toString().trim()) == null) {
+           return true;
+        }
+        return false;
+    }
+
+    private boolean isNewValidByID() {
+        if (iceContactService.getICEContactByID(getArguments().getInt("id")) == null) {
             return true;
         }
         return false;
     }
 
-   /* private boolean isNewValid() {
-        boolean isValid = true;
+    private void populateICESequences() {
+        ICE newICEContact = getICEContactFromInput();
+        int listCount = iceList.size();
+        Log.i("populateICESequences : " , newICEContact.getName());
+        int i = 0;
+        int selectedItem  = (int)iceSequenceNo.getSelectedItemPosition();
+        int k = selectedItem;
+        int l = 0;
+        boolean isSequenceNoChanged = false;
 
-        if (iceDao.getICE(categoryCode.getText().toString().trim()).size() > 0) {
-            categoryCode.setError(getResources().getString(R.string.category_add_error_category_code_duplicated));
-            isValid = false;
+        for(ICE iceContact : iceList) {
+            Log.i(newICEContact.getName()  , iceContact.getName());
+            if(newICEContact.getId() == iceContact.getId() && newICEContact.getSequence() != iceContact.getSequence()) {
+                isSequenceNoChanged = true;
+                Log.i("1. Name : " + newICEContact.getId(), newICEContact.getName());
+                iceContact.setSequence(k);
+                i++;
+                Log.i("After Exchange" + iceContact.getName(), String.valueOf(iceContact.getSequence()));
+                break;
+            }
         }
-
-        return isValid;
-    }
-    */
-      private boolean isUpdateValid() { return true;}
-
-   /* private boolean isUpdateValid() {
-        boolean isValid = true;
-
-        List<Categories> categoriesList = categoriesDao.getCategoriesByCode(categoryCode.getText().toString().trim());
-        if (categoriesList.size() > 0) {
-            for (int i = 0; i < categoriesList.size(); i++) {
-                Categories categories = categoriesList.get(i);
-                if (getArguments().getInt("id") != categories.getId()) {
-                    categoryCode.setError(getResources().getString(R.string.category_add_error_category_code_duplicated));
-                    isValid = false;
+        if(iceList.size() != i) {
+            for (ICE iceContact : iceList) {
+                if (iceContact.getId() != newICEContact.getId()) {
+                    iceContact.setSequence(i);
+                    i++;
                 }
             }
         }
-
-        return isValid;
-    }*/
+        iceContactService.updateICEContactByID(iceList);
+    }
 }
