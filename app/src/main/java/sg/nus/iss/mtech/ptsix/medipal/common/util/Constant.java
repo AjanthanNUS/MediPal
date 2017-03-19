@@ -15,5 +15,9 @@ public final class Constant {
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final String TIME_FORMAT = "hh:mm a";
 
+    public static final String SAVE_SUCCEED_MESSAGE = "Saved Successfully";
+    public static final String SAVE_FAILED_MESSAGE = "Unable to save, please try again...";
+
+    public static final String EMPTY_VALUE = "";
 
 }

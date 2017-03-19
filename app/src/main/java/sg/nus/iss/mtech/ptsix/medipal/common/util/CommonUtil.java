@@ -30,22 +30,42 @@ public class CommonUtil {
     }
 
     public static String date2ddMMMYYYY(Date d) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormatter = null;
+        try {
+            dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         return dateFormatter.format(d);
     }
 
     public static Date ddmmmyyyy2date(String ddmmmyyyy) throws ParseException {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormatter = null;
+        try {
+            dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         return dateFormatter.parse(ddmmmyyyy);
     }
 
     public static String getDBDateTimeFormat(Date d) {
-        SimpleDateFormat dbDateFormatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
+        SimpleDateFormat dbDateFormatter = null;
+        try {
+            dbDateFormatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         return dbDateFormatter.format(d);
     }
 
     public static String getFormattedTime(Date d) {
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+        SimpleDateFormat timeFormatter = null;
+        try {
+            timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
         return timeFormatter.format(d);
     }
 

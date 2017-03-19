@@ -121,7 +121,7 @@
     <string name="health_condition">Health Condition</string>
     <string name="health_startdate">Date</string>
     <string name="health_start_date">Date</string>
-
+    <string name="height">Height (cm)</string>
     <string-array name="ice_contact_types">
         <item>Doctor</item>
         <item>Next of Kin</item>
@@ -139,8 +139,17 @@
         <item>c</item>
     </string-array>
 
-
-
+    <string-array name="bloodType_items">
+        <item></item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>O+</item>
+        <item>O-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </string-array>
 
 
 </resources>

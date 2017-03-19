@@ -56,7 +56,7 @@ public class PersonalBioViewFragment extends Fragment {
             }
         });
 
-        setupComponents(rootView);
+        initializeComponents(rootView);
         getPersonalBio();
         loadPersonalBio();
 
@@ -105,7 +105,10 @@ public class PersonalBioViewFragment extends Fragment {
         String bloodType = personalBio.getBloodType();
 
         userNameTextView.setText(personalBio.getUserName());
-//        userDOBTextView.setText(CommonUtil.date2ddMMMYYYY(personalBio.getUserDOB()));
+        if (userDOB != null) {
+            userDOBTextView.setText(CommonUtil.date2ddMMMYYYY(userDOB));
+        }
+        //Calculate Age
         if (userIDNo != null) {
             userIDNoTextView.setText(userIDNo);
         }
@@ -123,7 +126,7 @@ public class PersonalBioViewFragment extends Fragment {
         }
     }
 
-    public void setupComponents(View rootView) {
+    public void initializeComponents(View rootView) {
         userNameTextView = (TextView) rootView.findViewById(R.id.userNameViewText);
         userDOBTextView = (TextView) rootView.findViewById(R.id.userDOBViewText);
         userIDNoTextView = (TextView) rootView.findViewById(R.id.userIDNoViewText);
