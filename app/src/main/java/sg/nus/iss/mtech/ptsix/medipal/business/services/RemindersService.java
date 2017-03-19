@@ -49,7 +49,7 @@ public class RemindersService {
         return result;
     }
 
-    public long deleteCategories(Reminders reminders) {
+    public long deleteReminders(Reminders reminders) {
         RemindersDao remindersDao = new RemindersDao(context);
         long result = 0;
 

@@ -39,7 +39,6 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 
 public class MedicineAddFragment extends Fragment {
@@ -243,12 +242,13 @@ public class MedicineAddFragment extends Fragment {
         this.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancel the Category
+                // Delete the Category
+                deleteMedicines();
+                Toast.makeText(getActivity(), R.string.medicine_add_delete_completed, Toast.LENGTH_SHORT).show();
                 resetFields();
-                ((CategoriesActivity) getActivity()).switchTab(Constant.MEDICINE_TAB_LIST_INDEX, Constant.MEDICINE_ADD_INVALID_ID);
+                ((MedicineActivity) getActivity()).switchTab(Constant.MEDICINE_TAB_LIST_INDEX, Constant.MEDICINE_ADD_INVALID_ID);
             }
         });
-
         return rootView;
     }
 
@@ -268,6 +268,16 @@ public class MedicineAddFragment extends Fragment {
                 this.resetFields();
             }
         }
+    }
+
+    private long deleteMedicines() {
+        Medicine databaseMedicine = medicineService.getMedicine(getArguments().getInt("id"));
+        Reminders databaseReminder = remindersService.getReminders(databaseMedicine.getReminderId());
+
+        Long mediResult = medicineService.deleteMedicine(databaseMedicine);
+        Long remindResult = remindersService.deleteReminders(databaseReminder);
+
+        return 1;
     }
 
     private long updateMedicines() {
@@ -402,7 +412,6 @@ public class MedicineAddFragment extends Fragment {
         this.medicineDescription.setText("");
         this.medicineDescription.setError(null);
         this.medicineCategory.setSelection(0);
-        ((TextView) this.medicineCategory.getSelectedView()).setError(null);
         this.medicineRemindSwitch.setEnabled(false);
         this.medicineRemindSwitch.setChecked(false);
         this.medicineFrequencyLabel.setVisibility(View.GONE);
@@ -413,6 +422,7 @@ public class MedicineAddFragment extends Fragment {
         this.medicineFrequencyStartTime.setText(timeFormatter.format(currentCal.getTime()));
         this.medicineFrequencyStartTime.setError(null);
         this.medicineThresholdLabel.setVisibility(View.VISIBLE);
+        this.medicineThreshold.setText("");
         this.medicineThreshold.setError(null);
         this.medicineFrequency.setText("");
         this.medicineFrequency.setError(null);
@@ -423,7 +433,10 @@ public class MedicineAddFragment extends Fragment {
         this.medicineConsumeQuantity.setText("");
         this.medicineConsumeQuantity.setError(null);
         this.medicineDosage.setSelection(0);
-        ((TextView) this.medicineDosage.getSelectedView()).setError(null);
+        if ((TextView) this.medicineCategory.getSelectedView() != null) {
+            ((TextView) this.medicineCategory.getSelectedView()).setError(null);
+            ((TextView) this.medicineDosage.getSelectedView()).setError(null);
+        }
         this.medicineDateIssue.setText(dateFormatter.format(currentCal.getTime()));
         this.medicineDateIssue.setError(null);
         this.medicineExpireFactor.setText("");

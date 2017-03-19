@@ -57,13 +57,22 @@
     <string name="medicine_add_name">Medicine Name</string>
     <string name="medicine_add_description">Medicine Description</string>
     <string name="medicine_add_category">Medicine Category</string>
-    <string name="medicine_add_threshold">Thresold to remind if quantity falls below</string>
+    <string name="medicine_add_threshold">Thresold Number</string>
+    <string name="medicine_add_frequency">Consumption Frequency (per day)</string>
+    <string name="medicine_add_frequency_interval">Consumption Interval</string>
+    <string name="medicine_add_frequency_start_time">Consumption Start Time</string>
     <string name="medicine_add_quantity">Quantity</string>
+    <string name="medicine_add_remind">Reminder</string>
+    <string name="medicine_add_expire_factor">Expire Factor</string>
     <string name="medicine_add_dosage">Dosage</string>
     <string name="medicine_add_consume_quantity">Consume Quantity (each time)</string>
+    <string name="medicine_add_date_issue">Date Issue</string>
     <string name="medicine_add_cancel">Cancel</string>
+    <string name="medicine_add_save">Save</string>
+    <string name="medicine_add_delete">Delete</string>
     <string name="medicine_add_save_completed">Medicine is created successfully.</string>
     <string name="medicine_add_update_completed">Medicine is updated successfully.</string>
+    <string name="medicine_add_delete_completed">Medicine is deleted successfully.</string>
     <string name="medicine_add_error_name_empty">Please fill in a medicine name.</string>
     <string name="medicine_add_error_name_duplicated">This medicine name already exist. Please use another.</string>
     <string name="medicine_add_error_name_length">Please fill in a name below 50 characters.</string>
@@ -89,6 +98,8 @@
     <string name="medicine_add_error_date_issue_format">Please fill in correct issue date format.</string>
     <string name="medicine_add_error_expire_factor_empty">Please fill in a expire factor.</string>
     <string name="medicine_add_error_expire_factor_length">Please fill in a expire factor between 1 to 24.</string>
+
+    <string name="medicine_replenish_reminder_title">Replenish Medicine</string>
 
     <string name="appointment_reminder_title">Coming Appointment</string>
     <string name="appointment_parceable">appointment</string>
