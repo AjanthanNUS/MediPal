@@ -35,6 +35,7 @@ public class CommonUtil {
             dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return Constant.EMPTY_VALUE;
         }
         return dateFormatter.format(d);
     }
@@ -45,6 +46,7 @@ public class CommonUtil {
             dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return null;
         }
         return dateFormatter.parse(ddmmmyyyy);
     }
@@ -55,6 +57,7 @@ public class CommonUtil {
             dbDateFormatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return Constant.EMPTY_VALUE;
         }
         return dbDateFormatter.format(d);
     }
@@ -65,6 +68,7 @@ public class CommonUtil {
             timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return Constant.EMPTY_VALUE;
         }
         return timeFormatter.format(d);
     }

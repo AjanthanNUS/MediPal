@@ -106,16 +106,11 @@ public class PersonalBioEditFragment extends Fragment {
 
     private void InitializeCalendar() {
         calendar = Calendar.getInstance();
-        if (personalBio != null && personalBio.getUserDOB() != null) {
-            calendar.setTime((Date)personalBio.getUserDOB());
-        } else {
-            yearOfDate = calendar.get(Calendar.YEAR);
-            monthOfDate = calendar.get(Calendar.MONTH);
-            dayofDate = calendar.get(Calendar.DAY_OF_MONTH);
+        yearOfDate = calendar.get(Calendar.YEAR);
+        monthOfDate = calendar.get(Calendar.MONTH);
+        dayofDate = calendar.get(Calendar.DAY_OF_MONTH);
 
-            calendar.set(yearOfDate, monthOfDate, dayofDate);
-        }
-
+        calendar.set(yearOfDate, monthOfDate, dayofDate);
     }
 
     private void setDatePickerDialog() {
