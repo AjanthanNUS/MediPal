@@ -40,9 +40,6 @@ public class CategoriesActivity extends AppCompatActivity {
         this.categoriesListFragment = new CategoriesListFragment();
         this.categoriesAddFragment = new CategoriesAddFragment();
 
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -51,7 +48,6 @@ public class CategoriesActivity extends AppCompatActivity {
         this.tabLayout = (TabLayout) findViewById(R.id.tabs);
         this.tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-
     }
 
     private void setupTabIcons() {

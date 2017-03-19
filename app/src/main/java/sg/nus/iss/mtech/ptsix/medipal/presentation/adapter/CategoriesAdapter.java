@@ -38,11 +38,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
         holder.category.setText(this.mContext.getResources().getString(R.string.category_list_category, category.getCategory()));
         holder.description.setText(this.mContext.getResources().getString(R.string.category_list_description, category.getDescription()));
         if (category.getRemind() == -1) {
-            holder.remind.setText(R.string.category_list_remind_op);
+            holder.remindOn.setVisibility(View.GONE);
+            holder.remindOff.setVisibility(View.GONE);
         } else if (category.getRemind() == 1) {
-            holder.remind.setText(R.string.category_list_remind_on);
+            holder.remindOn.setVisibility(View.VISIBLE);
+            holder.remindOff.setVisibility(View.GONE);
         } else if (category.getRemind() == 0) {
-            holder.remind.setText(R.string.category_list_remind_off);
+            holder.remindOn.setVisibility(View.GONE);
+            holder.remindOff.setVisibility(View.VISIBLE);
         }
 
         // Handle edit button

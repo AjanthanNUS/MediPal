@@ -42,14 +42,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="openCategories"
-            android:text="Open Categories View" />
+            android:text="Category" />
 
         <Button
             android:id="@+id/btnMedicines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="openMedicine"
-            android:text="Open Medicine View" />
+            android:text="Medicine" />
 
         <Button
             android:id="@+id/btnMeasurement"
