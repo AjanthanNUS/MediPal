@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineReplenishAlarmReceiver;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), null);
     }
 
     public void openConsumables(View view) {
