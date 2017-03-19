@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.common.enums.BloodTypeEnums;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.ICEContactTypeEnums;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
