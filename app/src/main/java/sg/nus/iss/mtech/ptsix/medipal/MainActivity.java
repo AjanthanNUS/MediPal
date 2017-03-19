@@ -11,13 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.ConsumptionBroadcastReceiver;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineReplenishAlarmReceiver;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
@@ -33,9 +36,10 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private final String MAIN_ACTIVITY = "[MAIN ACTIVITY]";
 
+    private final String MAIN_ACTIVITY = "[MAIN ACTIVITY]";
     private Toolbar toolbar = null;
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +50,14 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction("sg.nus.iss.mtech.ptsix.medipal.MainActivity");
         sendBroadcast(intent);
 
-        MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), new Date());
-
         // setupAlarm(10);
-
         setupToolbar();
-        // check the preference is exist or not
         setDefaultPreference();
+        startMedicineReplenishReminder();
     }
 
     private void setDefaultPreference() {
-        SharedPreferences sharedPreferences = getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, false);
@@ -98,6 +99,17 @@ public class MainActivity extends AppCompatActivity {
             cal.add(Calendar.SECOND, seconds);
             long interval = 10 * 1000;
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), interval, pendingIntent);
+        }
+    }
+
+    private void startMedicineReplenishReminder() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+        String dateString = sharedPreferences.getString(Constant.THRESHOLD_TIME_SETTINGS_LABEL, null);
+        Date date = CommonUtil.convertStringToDate(dateString, Constant.TIME_FORMAT);
+        if (date != null) {
+            MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), date);
+        } else {
+            MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), new Date());
         }
     }
 

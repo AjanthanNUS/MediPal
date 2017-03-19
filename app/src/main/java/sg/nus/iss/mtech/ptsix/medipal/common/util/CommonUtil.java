@@ -71,12 +71,23 @@ public class CommonUtil {
     public static String getFormattedTime(Date d) {
         SimpleDateFormat timeFormatter = null;
         try {
-            timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+            timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return Constant.EMPTY_VALUE;
         }
         return timeFormatter.format(d);
+    }
+
+    public static Date convertStringToDate(String dateString, String dateFormatString) {
+        SimpleDateFormat timeFormatter = new SimpleDateFormat(dateFormatString, Locale.getDefault());
+        Date formattedDate = null;
+        try {
+            formattedDate = timeFormatter.parse(dateString);
+        } catch (ParseException e) {
+            return null;
+        }
+        return formattedDate;
     }
 
     public static long getMilliSeconds(int year, int month, int days) {

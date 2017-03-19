@@ -29,7 +29,7 @@ public final class Constant {
     public static final String TUTORIAL_REPEAT_SETTINGS_LABEL = "StartWithTutorialEverytime";
     public static final String USER_CREATED_SETTINGS_LABEL = "UserCreated";
     public static final String THRESHOLD_TIME_SETTINGS_LABEL = "ThresholdNotificationTime";
-    public static final String THRESHOLD_TIME_SETTINGS_DEFAULT = "10 AM";
+    public static final String THRESHOLD_TIME_SETTINGS_DEFAULT = "10:00 AM";
 
     public static  final String APP_TITLE = "Medipal";
     public static  final String APP_SUB_TITLE = "Health Maters";
