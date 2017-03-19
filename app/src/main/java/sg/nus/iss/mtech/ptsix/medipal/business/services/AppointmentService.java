@@ -14,7 +14,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
 public class AppointmentService {
     private Context context;
-
     public AppointmentService(Context context) {
         this.context = context;
     }

@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="5dp"
+        android:longClickable="false"
+        android:minHeight="?attr/actionBarSize"
+        android:title="Medipal"
+        android:titleMargin="@dimen/nav_header_height"
+        android:titleTextColor="@color/cardview_light_background"
+        app:logo="@drawable/ic_app_icon"
+        app:subtitle="Health matters"
+        app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Menu"
+        app:subtitleTextColor="@color/colorPrimary_light"
+        app:title="MediPlal"
+        app:titleMarginStart="@android:dimen/app_icon_size"
+        app:titleTextAppearance="@style/AppExtraLargeText"
+        app:titleTextColor="@color/cardview_light_background">
+
+    </android.support.v7.widget.Toolbar>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar"
+        >
 
         <Button
             android:id="@+id/PersonalButton"
@@ -52,11 +74,17 @@
             android:text="Medicine" />
 
         <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"     android:onClick="reminderEdit"
+            android:text="Reminder Edit" />
+
+        <Button
             android:id="@+id/btnMeasurement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="openMeasurement"
-            android:text="Measurement"/>
+            android:text="Measurement" />
 
         <Button
             android:id="@+id/btnIceContact"
@@ -71,5 +99,12 @@
             android:layout_height="wrap_content"
             android:onClick="openHealthBio"
             android:text="HealthBio" />
+
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openSettings"
+            android:text="Settings" />
     </LinearLayout>
 </RelativeLayout>

@@ -20,13 +20,22 @@ import sg.nus.iss.mtech.ptsix.medipal.common.enums.DosageEnums;
  */
 
 public class CommonUtil {
+
+    public static Calendar dateToCalendar(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
     public static String formatCalender(Calendar calendar) {
         String formattedDate;
-
-        calendar.add(Calendar.DATE, 1);
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         formattedDate = format1.format(calendar.getTime());
         return formattedDate;
+    }
+
+    public static String formatDateStandard(Date date) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return dateFormatter.format(date.getTime());
     }
 
     public static String date2ddMMMYYYY(Date d) {
@@ -35,6 +44,7 @@ public class CommonUtil {
             dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return Constant.EMPTY_VALUE;
         }
         return dateFormatter.format(d);
     }
@@ -45,6 +55,7 @@ public class CommonUtil {
             dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return null;
         }
         return dateFormatter.parse(ddmmmyyyy);
     }
@@ -55,6 +66,7 @@ public class CommonUtil {
             dbDateFormatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return Constant.EMPTY_VALUE;
         }
         return dbDateFormatter.format(d);
     }
@@ -65,8 +77,26 @@ public class CommonUtil {
             timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return Constant.EMPTY_VALUE;
         }
         return timeFormatter.format(d);
+    }
+
+    public static long getMilliSeconds(int year, int month, int days) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, days);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+
+    }
+
+    public static boolean isNullOrEmpty(String string) {
+        return string == null || string.isEmpty();
     }
 
     public static boolean checkDateBeforeToday(Date date) {
@@ -161,7 +191,7 @@ public class CommonUtil {
     public static List<String> getDosageList() {
         List<String> dosageList = new ArrayList<>();
 
-        dosageList.add("<Select Dosage>");
+        dosageList.add("Select Dosage.");
         dosageList.add(DosageEnums.PILLS.getValue(), DosageEnums.PILLS.getStringValue());
         dosageList.add(DosageEnums.CC.getValue(), DosageEnums.CC.getStringValue());
         dosageList.add(DosageEnums.ML.getValue(), DosageEnums.ML.getStringValue());

@@ -57,7 +57,7 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
             holder.remind.setText(R.string.medicine_list_remind_on);
             holder.frequency.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency, reminder.getFrequency()));
             holder.frequencyInterval.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency_interval, reminder.getInterval()));
-            holder.frequencyStartTime.setText("Start Time:" + timeFormatter.format(reminder.getEventStartTime()).toString());
+            holder.frequencyStartTime.setText("Start Date:" + dateFormatter.format(reminder.getStartTime()).toString());
         } else if (medicine.getRemind() == 0) {
             holder.remind.setText(R.string.medicine_list_remind_off);
             holder.frequency.setVisibility(View.GONE);

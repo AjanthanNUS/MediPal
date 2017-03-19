@@ -1,29 +1,102 @@
 package sg.nus.iss.mtech.ptsix.medipal;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineReplenishAlarmReceiver;
+import java.util.Calendar;
+import java.util.List;
+
+import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.ConsumptionBroadcastReceiver;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AddConsumptionActivity;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private final String MAIN_ACTIVITY = "[MAIN ACTIVITY]";
+
+    private Toolbar toolbar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), null);
+        Intent intent = new Intent();
+        intent.setAction("sg.nus.iss.mtech.ptsix.medipal.MainActivity");
+        sendBroadcast(intent);
+
+       // setupAlarm(10);
+
+        setupToolbar();
+        // check the preference is exist or not
+        setDefaultPreference();
     }
+
+    private void setDefaultPreference() {
+        SharedPreferences sharedPreferences = getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, false);
+        editor.putBoolean(Constant.USER_CREATED_SETTINGS_LABEL, false);
+        editor.putString(Constant.THRESHOLD_TIME_SETTINGS_LABEL, Constant.THRESHOLD_TIME_SETTINGS_DEFAULT);
+        editor.apply();
+    }
+
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        getSupportActionBar().hide();
+        toolbar.setTitle(Constant.APP_TITLE);
+        toolbar.setSubtitle(Constant.APP_SUB_TITLE);
+        toolbar.setLogo(R.drawable.ic_app_icon);
+    }
+
+    private void setupAlarm(int seconds) {
+        Log.i(MAIN_ACTIVITY, "Alarm setup from main Activity...");
+        ReminderManager reminderManager = new ReminderManager(this);
+        List<ReminderVO> reminders = reminderManager.getAllReminders();
+
+        if (reminders.size() > 0) {
+            ReminderVO reminderVO = reminders.get(0);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            Intent intent = new Intent(getBaseContext(), ConsumptionBroadcastReceiver.class);
+
+            intent.putExtra(sg.nus.iss.mtech.ptsix.medipal.common.util.Constant.REMINDER_BUNDLE, reminderVO);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            Log.i(MAIN_ACTIVITY, "Setup the alarm");
+
+            // Getting current time and add the seconds in it
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.SECOND, seconds);
+            long interval = 10 * 1000;
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), interval, pendingIntent);
+        }
+    }
+
 
     public void openConsumables(View view) {
         Intent myIntent = new Intent(MainActivity.this, ConsumptionActivity.class);
@@ -49,6 +122,16 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
         startActivity(myIntent);
     }
+
+    public void reminderEdit(View view) {
+        ReminderManager reminderManager = new ReminderManager(this);
+        Reminders reminders = reminderManager.getAllReminders().get(1);
+
+        Intent myIntent = new Intent(MainActivity.this, AddConsumptionActivity.class);
+        myIntent.putExtra(Constant.REMINDER_BUNDLE, reminders);
+        startActivity(myIntent);
+    }
+
     public void openICEContact(View view) {
         Intent myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
         startActivity(myIntent);
@@ -60,10 +143,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void openPersonalBio(View view) {
 
         Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
         startActivity(personalBioIntent);
+    }
+
+    public void openSettings(View view) {
+        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(settingsIntent );
     }
 }

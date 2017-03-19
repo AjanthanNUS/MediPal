@@ -28,7 +28,7 @@ public class MeasurementActivity extends AppCompatActivity {
             R.drawable.ic_edit_white
     };
 
-    private static final String MEASUREMENT_ADD_TAB_NAME = "Add/Edit";
+    private static final String MEASUREMENT_ADD_TAB_NAME = "Add";
     private static final String MEASUREMENT_LIST_TAB_NAME = "Listing";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
