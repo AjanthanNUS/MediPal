@@ -25,6 +25,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementLoadAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementSaveAsyncTask;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
@@ -42,10 +43,10 @@ public class MeasurementAddFragment extends Fragment {
 
     DatePickerDialog datePickerDialog;
     java.util.Calendar dateCalendar;
-    private static final SimpleDateFormat formatter = new SimpleDateFormat(
-            "yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+
     public MeasurementAddFragment() {
     }
+    private SimpleDateFormat formatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
