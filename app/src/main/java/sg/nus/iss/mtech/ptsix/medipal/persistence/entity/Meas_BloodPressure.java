@@ -1,0 +1,28 @@
+package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
+
+/**
+ * Created by WongCheeVui on 3/18/2017.
+ */
+
+public class Meas_BloodPressure extends MeasurementBase {
+
+    Meas_BloodPressure(){mDiastolic=0;}
+
+    private int mDiastolic;
+
+    public int get_Systolic_reading() {
+        return this.get_reading();
+    }
+
+    public void set_Systolic_reading(int Systolic) { this.set_reading(Systolic);
+    }
+
+    public int get_Diastolic_reading() {
+        return mDiastolic;
+    }
+
+    public void set_Diastolic_reading(int Diastolic) {
+        this.mDiastolic = Diastolic;
+    }
+
+}

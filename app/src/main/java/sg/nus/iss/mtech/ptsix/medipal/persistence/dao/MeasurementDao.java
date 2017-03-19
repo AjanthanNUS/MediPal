@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.text.ParseException;
 
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.BloodPressure;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 
 /**
@@ -50,6 +49,7 @@ public class MeasurementDao extends DBDAO {
         return database.insert(DatabaseHelper.MEAS_TABLE, null, values);
     }
 
+    /*
     public long saveBloodPressure(BloodPressure bloodPressure) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.MEAS_SYSTOLIC, bloodPressure.getEventSystolic());
@@ -57,6 +57,7 @@ public class MeasurementDao extends DBDAO {
 
         return database.insert(DatabaseHelper.MEAS_TABLE, null, values);
     }
+    */
 
     public long update(Measurement measurement) {
         ContentValues values = new ContentValues();

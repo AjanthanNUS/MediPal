@@ -20,101 +20,108 @@ MeasureOn       DateTime
  */
 public class Measurement implements Parcelable {
 
-    private int m_id;
-    private int mSystolic;
-    private int mDiastolic;
-    private int mPulse;
-    private float mTemperature;
-    private int mWeight;
-    private Date mMeasureOn;
-    private String mComment;
+    private Meas_Temp mMeas_Temp;
+    private MeasurementBase mMeas_Weight;
+    private MeasurementBase mMeas_Id;
+    private MeasurementBase mMeas_Pulse;
+    private Meas_BloodPressure mMeas_BloodPressure;
+    private Meas_Comment mMeasComment;
+    private Meas_MeasuredOn mMeasMeasuredOn;
 
     public Measurement() {
         super();
+        mMeas_Temp = new Meas_Temp();
+        mMeas_Weight = new MeasurementBase("KG");
+        mMeas_Id = new MeasurementBase();
+        mMeas_Pulse = new MeasurementBase("BMP");
+        mMeas_BloodPressure = new Meas_BloodPressure();
+        mMeasComment = new Meas_Comment();
+        mMeasMeasuredOn = new Meas_MeasuredOn();
     }
 
     private Measurement(Parcel in) {
         super();
-        this.m_id = in.readInt();
-        this.mSystolic = in.readInt();
-        this.mDiastolic = in.readInt();
-        this.mPulse = in.readInt();
-        this.mTemperature = in.readInt();
-        this.mWeight = in.readInt();
-        this.mMeasureOn = new Date(in.readLong());
-        this.mComment = in.readString();
+        this.mMeas_Id.set_reading(in.readInt());
+        this.mMeas_BloodPressure.set_Systolic_reading(in.readInt());
+        this.mMeas_BloodPressure.set_Diastolic_reading(in.readInt());
+        this.mMeas_Pulse.set_reading(in.readInt());
+        this.mMeas_Temp.set_Temp_reading(in.readInt());
+        this.mMeas_Weight.set_reading(in.readInt());
+        this.mMeasMeasuredOn.set_MeasDate(new Date(in.readLong()));
+        this.mMeasComment.set_Comment(in.readString());
     }
 
     public int getId() {
-        return m_id;
+        return mMeas_Id.get_reading();
     }
 
     public void setId(int id) {
-        this.m_id = id;
+        this.mMeas_Id.set_reading(id);
     }
 
     public int getEventSystolic() {
-        return mSystolic;
+        return this.mMeas_BloodPressure.get_Systolic_reading();
     }
 
     public void setEventSystolic(int Systolic) {
-        this.mSystolic = Systolic;
+        this.mMeas_BloodPressure.set_Systolic_reading(Systolic);
     }
 
     public int getEventDiastolic() {
-        return mDiastolic;
-    }
-
-    public void setEventPulse (int Pulse ) {
-        this.mPulse = Pulse ;
-    }
-    public int getEventPulse () {
-        return mPulse;
+        return this.mMeas_BloodPressure.get_Diastolic_reading();
     }
 
     public void setEventDiastolic(int Diastolic) {
-        this.mDiastolic = Diastolic;
+        this.mMeas_BloodPressure.set_Diastolic_reading(Diastolic);
     }
+    public void setEventPulse (int Pulse ) {
+        this.mMeas_Pulse.set_reading(Pulse) ;
+    }
+
+    public int getEventPulse () {
+        return mMeas_Pulse.get_reading();
+    }
+
     public float getEventTemperature() {
-        return mTemperature;
+        return this.mMeas_Temp.get_Temp_reading();
     }
 
     public void setEventTemperature(float Temperature) {
-        this.mTemperature = Temperature;
+        this.mMeas_Temp.set_Temp_reading(Temperature);
     }
 
     public int getEventWeight() {
-        return mWeight;
+        return mMeas_Weight.get_reading();
     }
 
     public void setEventWeight(int Weight) {
-        this.mWeight = Weight;
+        this.mMeas_Weight.set_reading(Weight);
     }
 
     public Date getEventMeasureOn() {
-        return mMeasureOn;
+        return mMeasMeasuredOn.get_MeasDate();
     }
     public void setEventMeasureOn(Date date) {
-        this.mMeasureOn = date;
+        this.mMeasMeasuredOn.set_MeasDate(date);
     }
 
     public String getComment() {
-        return mComment;
+        return mMeasComment.get_Comment();
     }
 
     public void setComment(String comment) {
-        this.mComment = comment;
+        this.mMeasComment.set_Comment(comment);
     }
     @Override
     public String toString() {
-        return "Measurement [id=" + m_id +
-                ", Systolic=" + mSystolic +
-                ", Diastolic=" + mDiastolic +
-                ", Pulse=" + mPulse +
-                ", Temperature=" + mTemperature +
-                ", Weight=" + mWeight +
-                ", MeasureOn=" + mMeasureOn +
-                ", Comment=" + mComment +
+        return "Measurement [id=" + mMeas_Id.get_reading() +
+                ", Systolic=" + mMeas_BloodPressure.get_Systolic_reading() +
+                ", Diastolic=" + mMeas_BloodPressure.get_Diastolic_reading() +
+                ", Pulse=" + mMeas_Pulse.get_reading() +
+                ", Temperature=" + mMeas_Temp.get_Temp_reading() +
+                ", Weight=" + mMeas_Weight.get_reading() +
+                ", MeasureOn=" + mMeasMeasuredOn.get_MeasDate() +
+                ", Comment=" + mMeasComment.get_Comment() +
                 "]";
     }
 
