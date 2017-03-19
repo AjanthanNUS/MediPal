@@ -14,10 +14,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
 
-/**
- * Created by Ajanthan on 3/5/2017.
- */
-
 public class ConsumptionManager {
     private final MedicineDao medicineDao;
     private final CategoriesDao categoriesDao;

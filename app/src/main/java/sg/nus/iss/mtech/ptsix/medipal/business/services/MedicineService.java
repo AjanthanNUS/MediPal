@@ -1,7 +1,6 @@
 package sg.nus.iss.mtech.ptsix.medipal.business.services;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,13 +128,13 @@ public class MedicineService {
         return isValid;
     }
 
-    public List<String> getNamesOfMedicineBelowThreshold () {
+    public List<String> getNamesOfMedicineBelowThreshold() {
         List<Medicine> medicineList = this.getMedicine();
         List<String> medicineNameList = new ArrayList<>();
-        for(Medicine medicine :medicineList) {
+        for (Medicine medicine : medicineList) {
 
-            if(medicine.getThreshold() >= 0) {
-                if(medicine.getQuantity() < medicine.getThreshold()) {
+            if (medicine.getThreshold() >= 0) {
+                if (medicine.getQuantity() < medicine.getThreshold()) {
                     medicineNameList.add(medicine.getMedicine());
                 }
             }

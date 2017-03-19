@@ -3,14 +3,10 @@ package sg.nus.iss.mtech.ptsix.medipal.common.enums;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JOHN on 3/12/2017.
- */
-
 public enum ICEContactTypeEnums {
     EMERGENCY_NUMBER(0, "Emergency number"),
     NEXT_OF_KIN(1, "Next Of Kin"),
-    DOCTORS(2,"Doctor");
+    DOCTORS(2, "Doctor");
 
     private int enumCode;
     private String enumValue;
@@ -37,14 +33,14 @@ public enum ICEContactTypeEnums {
     }
 
     public static String[] getAllContacts() {
-        String iceContactTypeEnums [] = {EMERGENCY_NUMBER.getEnumValue(), NEXT_OF_KIN.getEnumValue()
+        String iceContactTypeEnums[] = {EMERGENCY_NUMBER.getEnumValue(), NEXT_OF_KIN.getEnumValue()
                 , DOCTORS.getEnumValue()};
         return iceContactTypeEnums;
     }
 
     public static ICEContactTypeEnums getICEContactTypeEnumsByCode(int code) {
-        for(ICEContactTypeEnums iceContactTypeEnums : getAllICEContactTypeEnums()) {
-            if(iceContactTypeEnums.getEnumCode() == code) {
+        for (ICEContactTypeEnums iceContactTypeEnums : getAllICEContactTypeEnums()) {
+            if (iceContactTypeEnums.getEnumCode() == code) {
                 return iceContactTypeEnums;
             }
         }

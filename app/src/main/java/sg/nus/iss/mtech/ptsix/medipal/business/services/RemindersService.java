@@ -1,6 +1,5 @@
 package sg.nus.iss.mtech.ptsix.medipal.business.services;
 
-
 import android.content.Context;
 
 import java.util.ArrayList;

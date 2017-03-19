@@ -15,17 +15,14 @@ import java.util.Locale;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.DosageEnums;
 
-/**
- * Created by win on 5/3/17.
- */
-
 public class CommonUtil {
 
-    public static Calendar dateToCalendar(Date date){
+    public static Calendar dateToCalendar(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal;
     }
+
     public static String formatCalender(Calendar calendar) {
         String formattedDate;
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");

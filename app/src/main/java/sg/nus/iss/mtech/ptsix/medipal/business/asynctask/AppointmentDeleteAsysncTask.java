@@ -6,11 +6,7 @@ import android.os.AsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.AppointmentService;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-/**
- * Created by win on 7/3/17.
- */
-
-public class AppointmentDeleteAsysncTask extends AsyncTask<Appointment, Void, Long>  {
+public class AppointmentDeleteAsysncTask extends AsyncTask<Appointment, Void, Long> {
 
     private AppointmentService appointmentService;
 
@@ -21,7 +17,7 @@ public class AppointmentDeleteAsysncTask extends AsyncTask<Appointment, Void, Lo
 
     @Override
     protected Long doInBackground(Appointment... params) {
-        return  appointmentService.deleteAppointment(params[0]);
+        return appointmentService.deleteAppointment(params[0]);
 
     }
 

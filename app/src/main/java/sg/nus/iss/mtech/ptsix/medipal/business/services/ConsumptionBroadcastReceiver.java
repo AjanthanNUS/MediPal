@@ -45,7 +45,7 @@ public class ConsumptionBroadcastReceiver extends WakefulBroadcastReceiver {
         consumption.setQuantity(reminderVO.getMedicine().getConsumeQuantity());
 
         String notificationText = reminderVO.getMedicine().getConsumeQuantity() + " "
-                + CommonUtil.getDosageList().get(reminderVO.getMedicine().getDosage() )+ " of " + reminderVO.getMedicine().getMedicine();
+                + CommonUtil.getDosageList().get(reminderVO.getMedicine().getDosage()) + " of " + reminderVO.getMedicine().getMedicine();
 
         int requestCode = intent.getIntExtra(Constant.REQUEST_CODE, 0);
 

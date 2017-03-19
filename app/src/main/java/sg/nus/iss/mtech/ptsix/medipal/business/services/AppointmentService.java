@@ -8,12 +8,9 @@ import sg.nus.iss.mtech.ptsix.medipal.common.exception.AppointmentExistException
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.AppointmentDAO;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-/**
- * Created by win on 5/3/17.
- */
-
 public class AppointmentService {
     private Context context;
+
     public AppointmentService(Context context) {
         this.context = context;
     }
@@ -29,7 +26,7 @@ public class AppointmentService {
             }
 
             result = appointmentDAO.save(appointment);
-            appointment.setId((int)result);
+            appointment.setId((int) result);
 
             AppointmentAlarmReceiver.setAlarm(context, appointment);
         } catch (AppointmentExistException aex) {

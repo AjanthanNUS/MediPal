@@ -13,10 +13,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
 
-/**
- * Created by Ajanthan on 3/17/2017.
- */
-
 public class ReminderManager {
 
     private RemindersDao remindersDao;

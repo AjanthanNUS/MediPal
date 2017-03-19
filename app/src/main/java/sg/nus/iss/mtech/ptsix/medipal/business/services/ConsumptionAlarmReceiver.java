@@ -13,11 +13,6 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
 
-
-/**
- * Created by win on 12/3/17.
- */
-
 public class ConsumptionAlarmReceiver extends WakefulBroadcastReceiver {
     public static final String TAG = ConsumptionAlarmReceiver.class.getSimpleName();
 
@@ -37,7 +32,7 @@ public class ConsumptionAlarmReceiver extends WakefulBroadcastReceiver {
         Intent intent = new Intent(context, ConsumptionAlarmReceiver.class);
         intent.putExtra(context.getResources().getResourceName(R.string.consumption_parceable), consumption);
 
-        int requestID = Integer.parseInt(NotificationID.CONSUMPTION + "" +consumption.getId());
+        int requestID = Integer.parseInt(NotificationID.CONSUMPTION + "" + consumption.getId());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestID, intent, 0);
 
         // TODO Need to replace with your logic
