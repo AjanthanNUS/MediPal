@@ -90,6 +90,16 @@ public class CommonUtil {
         return formattedDate;
     }
 
+    public static String convertDateToString(Date date, String dateFormatString) {
+        SimpleDateFormat dateString = null;
+        try {
+            dateString = new SimpleDateFormat(dateFormatString, Locale.getDefault());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+        return dateString.format(date);
+    }
+
     public static long getMilliSeconds(int year, int month, int days) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);

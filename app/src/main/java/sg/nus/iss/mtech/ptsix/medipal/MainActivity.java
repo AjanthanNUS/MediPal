@@ -11,11 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.ConsumptionBroadcastReceiver;
@@ -39,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final String MAIN_ACTIVITY = "[MAIN ACTIVITY]";
     private Toolbar toolbar = null;
-    private SimpleDateFormat timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +57,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, false);
-        editor.putBoolean(Constant.USER_CREATED_SETTINGS_LABEL, false);
-        editor.putString(Constant.THRESHOLD_TIME_SETTINGS_LABEL, Constant.THRESHOLD_TIME_SETTINGS_DEFAULT);
+        if(!sharedPreferences.contains(Constant.THRESHOLD_TIME_SETTINGS_LABEL)) {
+            editor.putString(Constant.THRESHOLD_TIME_SETTINGS_LABEL, Constant.THRESHOLD_TIME_SETTINGS_DEFAULT);
+        }
+        if(!sharedPreferences.contains(Constant.USER_CREATED_SETTINGS_LABEL)) {
+            editor.putBoolean(Constant.USER_CREATED_SETTINGS_LABEL, false);
+        }
+        if(!sharedPreferences.contains(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL)) {
+            editor.putBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, false);
+        }
         editor.apply();
     }
 

@@ -145,8 +145,6 @@ public class MedicineAddFragment extends Fragment {
                     medicineFrequencyIntervalLabel.setVisibility(View.VISIBLE);
                     medicineFrequencyStartTimeLabel.setVisibility(View.VISIBLE);
                     reminderSwitchValue = true;
-
-
                 } else {
                     medicineFrequencyLabel.setVisibility(View.GONE);
                     medicineFrequencyIntervalLabel.setVisibility(View.GONE);
