@@ -6,12 +6,10 @@
 
     <item
         android:id="@+id/action_filter"
+        android:icon="@drawable/ic_action_find"
         android:title="@string/action_filter"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_"
-        android:title="@string/action_filter"
-        app:showAsAction="never" />
+
 
 </menu>

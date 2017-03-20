@@ -16,6 +16,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.CategorySaveAsyncTask;
+import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.CategoryUpdateAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
@@ -29,6 +31,8 @@ public class CategoriesAddFragment extends Fragment {
     private Boolean categoryRemind = true;
     private Button btnSave, btnCancel;
     private CategoriesService categoriesService;
+    private CategorySaveAsyncTask categorySaveAsyncTask;
+    private CategoryUpdateAsyncTask categoryUpdateAsyncTask;
 
     public CategoriesAddFragment() {
     }
@@ -37,6 +41,8 @@ public class CategoriesAddFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.categoriesService = new CategoriesService(this.getContext());
+        this.categorySaveAsyncTask = new CategorySaveAsyncTask(getActivity());
+        this.categoryUpdateAsyncTask = new CategoryUpdateAsyncTask(getActivity());
     }
 
     @Nullable
@@ -133,12 +139,16 @@ public class CategoriesAddFragment extends Fragment {
     private long updateCategories() {
         Categories category = createCategoryFromInput();
         category.setId(getArguments().getInt("id"));
-        return categoriesService.updateCategories(category);
+        this.categoryUpdateAsyncTask = new CategoryUpdateAsyncTask(getActivity());
+        this.categoryUpdateAsyncTask.execute(category);
+        return 1;
     }
 
     private long saveCategories() {
         Categories category = createCategoryFromInput();
-        return categoriesService.makeCategories(category);
+        this.categorySaveAsyncTask = new CategorySaveAsyncTask(getActivity());
+        this.categorySaveAsyncTask.execute(category);
+        return 1;
     }
 
     private Categories createCategoryFromInput() {

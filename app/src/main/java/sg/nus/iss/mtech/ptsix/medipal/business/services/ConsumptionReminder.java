@@ -13,17 +13,13 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentDetailActivity;
 
-
-/**
- * Created by win on 12/3/17.
- */
-
 public class ConsumptionReminder extends IntentService {
     public static final String TAG = ConsumptionReminder.class.getSimpleName();
 
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
     public static final int NOTIFICATION_ID = 1;
+
     public ConsumptionReminder() {
         super("Consumption Reminder");
     }
@@ -46,7 +42,7 @@ public class ConsumptionReminder extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int requestID = Integer.parseInt(NotificationID.CONSUMPTION + "" +consumption.getId());
+        int requestID = Integer.parseInt(NotificationID.CONSUMPTION + consumption.getId());
 
         // TODO Replace your consumption activities here
         PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, new Intent(this, AppointmentDetailActivity.class), 0);

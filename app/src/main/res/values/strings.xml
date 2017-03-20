@@ -10,9 +10,9 @@
     <string name="consumedOn">Consumed On : </string>
     <string name="medicineName">Medicine : </string>
     <string name="quantity">Quantity : </string>
-    <string name="action_filter">Filter</string>
     <string name="description">Description : </string>
-
+    <string name="action_filter">Filter</string>
+    <string name="skipped">Medicine Skipped</string>
     <string name="category_add_name">Category Name</string>
     <string name="category_add_code">Category Code</string>
     <string name="category_add_description">Category Description</string>
@@ -99,7 +99,7 @@
     <string name="medicine_add_error_expire_factor_empty">Please fill in a expire factor.</string>
     <string name="medicine_add_error_expire_factor_length">Please fill in a expire factor between 1 to 24.</string>
 
-    <string name="medicine_replenish_reminder_title">Replenish Medicine</string>
+    <string name="medicine_replenish_reminder_title">Please replenish your medicine!</string>
 
     <string name="appointment_reminder_title">Coming Appointment</string>
     <string name="appointment_parceable">appointment</string>
@@ -119,7 +119,11 @@
     <string name="tomorrow">Tomorrow</string>
 
     <!-- Date format [CHAR LIMIT=NONE] -->
-    <string name="format_full_friendly_date"><xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g>, <xliff:g id="time">%2$s</xliff:g></string>
+    <string name="format_full_friendly_date">
+        <xliff:g id="month">%1$s</xliff:g>,
+        <xliff:g id="day">%2$s</xliff:g>,
+        <xliff:g id="time">%2$s</xliff:g>
+    </string>
 
     <string name="ice_name">Name</string>
     <string name="ice_contact_no">98765432</string>
@@ -166,4 +170,21 @@
     <string name="blood_pressure_search">Search</string>
 
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="medicine">Medicine</string>
+    <string name="category">Category</string>
+    <string name="go">Go</string>
+    <string name="reset">Reset</string>
+    <string name="advanced">Advanced</string>
+    <string name="yearsFrom">Years from</string>
+    <string name="monthsFrom">Months from</string>
+    <string name="weeksFrom">Weeks from</string>
+    <string name="daysFrom">Days from</string>
+    <string name="alarm_service_label">Consumption Alarm</string>
+    <string name="save">Save</string>
+    <string name="consumption_reminder_title">Time to get some medicine!</string>
+    <string name="missed">missed</string>
+    <string name="medi_consume_missed">Medicine consumption missed!</string>
+    <string name="medi_consume_saved">Medicine consumption saved.</string>
 </resources>

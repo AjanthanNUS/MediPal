@@ -5,11 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Created by WONG_CH on 05-Mar-17.
- */
-
-
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Medipaldb";
     private static final int DATABASE_VERSION = 1;

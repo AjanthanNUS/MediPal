@@ -1,6 +1,5 @@
 package sg.nus.iss.mtech.ptsix.medipal.common.enums;
 
-
 public enum DosageEnums {
 
     PILLS(1, "pills"),
@@ -19,8 +18,7 @@ public enum DosageEnums {
     L(14, "l"),
     MEQ(15, "meq"),
     SPRAY(16, "spray");
-
-
+    
     private String stringValue;
     private int intValue;
 

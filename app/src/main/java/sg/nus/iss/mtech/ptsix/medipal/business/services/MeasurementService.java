@@ -9,10 +9,6 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 
-/**
- * Created by win on 18/3/17.
- */
-
 public class MeasurementService {
 
     private static final String TAG = MeasurementService.class.getSimpleName();

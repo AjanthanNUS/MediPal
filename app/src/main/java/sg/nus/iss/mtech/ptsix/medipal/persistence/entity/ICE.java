@@ -1,20 +1,8 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
-ID              interger
-Name            string
-ContactNo       string
-ContactType     interger
-Description     string
-Sequence        interger
-
- */
 public class ICE implements Parcelable {
 
     private int id;
@@ -120,5 +108,4 @@ public class ICE implements Parcelable {
             return new ICE[size];
         }
     };
-
 }

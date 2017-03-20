@@ -13,14 +13,14 @@ import java.util.Locale;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 
 public class MedicineDao extends DBDAO {
-    
+
     private static final String WHERE_ID_EQUALS = DatabaseHelper.MEDI_ID + " =?";
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-    
+
     public MedicineDao(Context context) {
         super(context);
     }
-    
+
     public long save(Medicine medicine) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.MEDI_NAME, medicine.getMedicine());
@@ -32,11 +32,11 @@ public class MedicineDao extends DBDAO {
         values.put(DatabaseHelper.MEDI_DOSAGE, medicine.getDosage());
         values.put(DatabaseHelper.MEDI_CONSUME_QUANTITY, medicine.getConsumeQuantity());
         values.put(DatabaseHelper.MEDI_THRESHOLD, medicine.getThreshold());
-        values.put(DatabaseHelper.MEDI_DATE_ISSUED,  formatter.format(medicine.getDateIssued()));
+        values.put(DatabaseHelper.MEDI_DATE_ISSUED, formatter.format(medicine.getDateIssued()));
         values.put(DatabaseHelper.MEDI_EXPIRE_FACTOR, medicine.getExpireFactor());
         return database.insert(DatabaseHelper.MEDI_TABLE, null, values);
     }
-    
+
     public long update(Medicine medicine) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.MEDI_NAME, medicine.getMedicine());
@@ -48,43 +48,43 @@ public class MedicineDao extends DBDAO {
         values.put(DatabaseHelper.MEDI_DOSAGE, medicine.getDosage());
         values.put(DatabaseHelper.MEDI_CONSUME_QUANTITY, medicine.getConsumeQuantity());
         values.put(DatabaseHelper.MEDI_THRESHOLD, medicine.getThreshold());
-        values.put(DatabaseHelper.MEDI_DATE_ISSUED,  formatter.format(medicine.getDateIssued()));
+        values.put(DatabaseHelper.MEDI_DATE_ISSUED, formatter.format(medicine.getDateIssued()));
         values.put(DatabaseHelper.MEDI_EXPIRE_FACTOR, medicine.getExpireFactor());
-        
-        
+
+
         long result = database.update(DatabaseHelper.MEDI_TABLE, values,
-                                      WHERE_ID_EQUALS,
-                                      new String[] { String.valueOf(medicine.getId()) });
+                WHERE_ID_EQUALS,
+                new String[]{String.valueOf(medicine.getId())});
         Log.d("Update Result:", "=" + result);
         return result;
-        
+
     }
-    
+
     public int delete(Medicine medicine) {
         return database.delete(DatabaseHelper.MEDI_TABLE, WHERE_ID_EQUALS,
-                               new String[] { medicine.getId() + "" });
+                new String[]{medicine.getId() + ""});
     }
-    
+
     //USING query() method
     public ArrayList<Medicine> getMedicines() {
         ArrayList<Medicine> medicines = new ArrayList<Medicine>();
-        
+
         Cursor cursor = database.query(DatabaseHelper.MEDI_TABLE,
-                                       new String[] { DatabaseHelper.MEDI_ID,
-                                           DatabaseHelper.MEDI_NAME,
-                                           DatabaseHelper.MEDI_DESC,
-                                           DatabaseHelper.MEDI_CAT_ID,
-                                           DatabaseHelper.MEDI_REMINDER_ID,
-                                           DatabaseHelper.MEDI_REMIND_ENABLED,
-                                           DatabaseHelper.MEDI_QUANTITY,
-                                           DatabaseHelper.MEDI_DOSAGE,
-                                           DatabaseHelper.MEDI_CONSUME_QUANTITY,
-                                           DatabaseHelper.MEDI_THRESHOLD,
-                                           DatabaseHelper.MEDI_DATE_ISSUED,
-                                           DatabaseHelper.MEDI_EXPIRE_FACTOR,
-                                       }, null, null, null,
-                                       null, null);
-        
+                new String[]{DatabaseHelper.MEDI_ID,
+                        DatabaseHelper.MEDI_NAME,
+                        DatabaseHelper.MEDI_DESC,
+                        DatabaseHelper.MEDI_CAT_ID,
+                        DatabaseHelper.MEDI_REMINDER_ID,
+                        DatabaseHelper.MEDI_REMIND_ENABLED,
+                        DatabaseHelper.MEDI_QUANTITY,
+                        DatabaseHelper.MEDI_DOSAGE,
+                        DatabaseHelper.MEDI_CONSUME_QUANTITY,
+                        DatabaseHelper.MEDI_THRESHOLD,
+                        DatabaseHelper.MEDI_DATE_ISSUED,
+                        DatabaseHelper.MEDI_EXPIRE_FACTOR,
+                }, null, null, null,
+                null, null);
+
         while (cursor.moveToNext()) {
             Medicine medicine = new Medicine();
             medicine.setId(cursor.getInt(0));
@@ -107,16 +107,16 @@ public class MedicineDao extends DBDAO {
         }
         return medicines;
     }
-    
+
     //Retrieves a single reminder record with the given id
     public Medicine getMedicine(long id) {
         Medicine medicine = null;
-        
+
         String sql = "SELECT * FROM " + DatabaseHelper.MEDI_TABLE
-        + " WHERE " + DatabaseHelper.MEDI_ID + " = ?";
-        
-        Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
-        
+                + " WHERE " + DatabaseHelper.MEDI_ID + " = ?";
+
+        Cursor cursor = database.rawQuery(sql, new String[]{id + ""});
+
         if (cursor.moveToNext()) {
             medicine = new Medicine();
             medicine.setId(cursor.getInt(0));
@@ -145,7 +145,7 @@ public class MedicineDao extends DBDAO {
         String sql = "SELECT * FROM " + DatabaseHelper.MEDI_TABLE
                 + " WHERE " + DatabaseHelper.MEDI_NAME + " = ?";
 
-        Cursor cursor = database.rawQuery(sql, new String[] { name + "" });
+        Cursor cursor = database.rawQuery(sql, new String[]{name + ""});
 
         while (cursor.moveToNext()) {
             Medicine medicine = new Medicine();

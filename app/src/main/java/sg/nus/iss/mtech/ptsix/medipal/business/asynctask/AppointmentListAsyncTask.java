@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.AppointmentService;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-/**
- * Created by win on 6/3/17.
- */
-
 public class AppointmentListAsyncTask extends AsyncTask<Appointment, Void, ArrayList<Appointment>> {
     private AppointmentService appointmentService;
 
@@ -23,8 +19,6 @@ public class AppointmentListAsyncTask extends AsyncTask<Appointment, Void, Array
     protected void onPreExecute() {
         super.onPreExecute();
     }
-
-
 
     @Override
     protected ArrayList<Appointment> doInBackground(Appointment... params) {
