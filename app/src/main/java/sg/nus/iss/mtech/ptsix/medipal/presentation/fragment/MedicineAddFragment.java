@@ -109,7 +109,6 @@ public class MedicineAddFragment extends Fragment {
 
         ArrayAdapter<String> catergoriesAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, categoryCodes);
         this.medicineCategory.setAdapter(catergoriesAdapter);
-
         this.medicineCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -126,8 +125,22 @@ public class MedicineAddFragment extends Fragment {
                         medicineRemindSwitch.setEnabled(false);
                         medicineRemindSwitch.setChecked(true);
                     } else {
-                        medicineRemindSwitch.setEnabled(true);
-                        medicineRemindSwitch.setChecked(true);
+                        if(getArguments().getInt("id") == Constant.MEDICINE_ADD_INVALID_ID) {
+                            medicineRemindSwitch.setEnabled(true);
+                            medicineRemindSwitch.setChecked(true);
+                        }
+                        else {
+                            Medicine databaseMedicine = medicineService.getMedicine(getArguments().getInt("id"));
+                            if (databaseMedicine.getRemind() == 1) {
+                                medicineRemindSwitch.setEnabled(true);
+                                medicineRemindSwitch.setChecked(true);
+                            }
+                            else {
+                                medicineRemindSwitch.setEnabled(true);
+                                medicineRemindSwitch.setChecked(false);
+                            }
+
+                        }
                     }
                 }
             }
@@ -379,11 +392,19 @@ public class MedicineAddFragment extends Fragment {
 
             Reminders reminder = this.remindersService.getReminders(medicine.getReminderId());
 
+
             this.medicineFrequency.setText(reminder.getFrequency() + "");
+            this.medicineFrequencyLabel.setVisibility(View.VISIBLE);
             this.medicineFrequencyInterval.setText(reminder.getInterval() + "");
+            this.medicineFrequencyIntervalLabel.setVisibility(View.VISIBLE);
             this.medicineFrequencyStartTime.setText(timeFormatter.format(reminder.getStartTime()));
+            this.medicineFrequencyStartTimeLabel.setVisibility(View.VISIBLE);
         } else {
+
             this.medicineRemindSwitch.setChecked(false);
+            this.medicineFrequencyLabel.setVisibility(View.GONE);
+            this.medicineFrequencyIntervalLabel.setVisibility(View.GONE);
+            this.medicineFrequencyStartTimeLabel.setVisibility(View.GONE);
         }
 
         if (medicine.getThreshold() >= 0) {
