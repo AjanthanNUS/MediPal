@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="sg.nus.iss.mtech.ptsix.medipal">
+          package="sg.nus.iss.mtech.ptsix.medipal">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- To access Google+ APIs: -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:allowBackup="true"
@@ -18,52 +18,54 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".presentation.activity.AppointmentActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".presentation.activity.ConsumptionActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".presentation.activity.MedicineActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".presentation.activity.CategoriesActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".presentation.activity.HealthBioActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".presentation.activity.ICEContactActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".presentation.activity.AppointmentDetailActivity"
-            android:parentActivityName=".presentation.activity.AppointmentActivity" />
+            android:parentActivityName=".presentation.activity.AppointmentActivity"/>
 
-        <receiver android:name=".business.services.AppointmentAlarmReceiver" />
+        <receiver android:name=".business.services.AppointmentAlarmReceiver"/>
 
-        <service android:name=".business.services.AppointmentReminder" />
+        <service android:name=".business.services.AppointmentReminder"/>
 
-        <receiver android:name=".business.services.ConsumptionAlarmReceiver" />
+        <receiver android:name=".business.services.ConsumptionAlarmReceiver"/>
 
-        <service android:name=".business.services.ConsumptionReminder" />
+        <service android:name=".business.services.ConsumptionReminder"/>
 
-        <receiver android:name=".business.services.MedicineReplenishAlarmReceiver" />
+        <receiver android:name=".business.services.MedicineReplenishAlarmReceiver"/>
 
-        <service android:name=".business.services.MedicineReplenishReminder" />
+        <service android:name=".business.services.MedicineReplenishReminder"/>
 
         <activity
             android:name=".presentation.activity.MeasurementActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".presentation.activity.PersonalActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".presentation.activity.SettingsActivity"></activity>
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".presentation.activity.SettingsActivity"/>
+        <activity android:name=".presentation.activity.MeasurementReportActivity">
+        </activity>
     </application>
 
 </manifest>

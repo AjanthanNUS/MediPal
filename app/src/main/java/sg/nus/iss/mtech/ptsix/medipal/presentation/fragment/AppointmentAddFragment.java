@@ -58,7 +58,10 @@ public class AppointmentAddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_appointment_add, container, false);
-        return initializeView(rootView);
+        rootView =initializeView(rootView);
+
+        return rootView;
+
     }
 
     private View initializeView(View rootView) {
@@ -147,6 +150,7 @@ public class AppointmentAddFragment extends Fragment {
                             Toast.makeText(getContext(), "Appointment already existed at that time.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getContext(), "Appointment created successfully.", Toast.LENGTH_SHORT).show();
+                            ((AppointmentActivity) getActivity()).switchTab(Constant.APPOINTMENT_TAB_LIST_INDEX, Constant.APPOINTMENT_ADD_INVALID_ID);
                         }
 
                     } else {
@@ -252,14 +256,20 @@ public class AppointmentAddFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         int id = getArguments().getInt("id");
+        Log.w(TAG, "Appointment ID " + id);
+        Log.w(TAG, "IS Visible to user" + isVisibleToUser);
+        Log.w(TAG, "Get View " + getView());
         if (getView() != null) {
+            Log.w(TAG, "View not null");
             if (isVisibleToUser) {
+                Log.w(TAG, "Visible to user");
                 if (id > Constant.APPOINTMENT_ADD_INVALID_ID) {
                     AppointmentGetAsyncTask appointmentGetAsyncTask = new AppointmentGetAsyncTask(getContext());
                     appointmentGetAsyncTask.execute(id);
 
                     try {
                         mAppointment = appointmentGetAsyncTask.get();
+                        Log.w(TAG, mAppointment.getDescription());
                         bindUI();
                     } catch (Exception e) {
                         Log.e(TAG, e.toString());
@@ -267,6 +277,7 @@ public class AppointmentAddFragment extends Fragment {
                 }
             }
         }
+        Log.w(TAG, "Set User Visible Hint");
 
     }
 }

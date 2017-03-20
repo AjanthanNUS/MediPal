@@ -15,6 +15,7 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementReportActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.SettingsActivity;
@@ -97,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSettings(View view) {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(settingsIntent );
+    }
+
+    public void openMeasurementReport(View view) {
+        Intent settingsIntent = new Intent(MainActivity.this, MeasurementReportActivity.class);
         startActivity(settingsIntent );
     }
 }

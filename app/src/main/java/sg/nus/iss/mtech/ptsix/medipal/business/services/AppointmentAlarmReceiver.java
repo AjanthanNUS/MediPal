@@ -48,6 +48,7 @@ public class AppointmentAlarmReceiver extends WakefulBroadcastReceiver {
 
         Log.w(TAG, calendar.getTime().toString());
 
+
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
         Log.w(TAG, "APPOINTMENT REMINDER SET");

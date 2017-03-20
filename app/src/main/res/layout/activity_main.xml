@@ -100,5 +100,12 @@
             android:layout_height="wrap_content"
             android:onClick="openSettings"
             android:text="Settings" />
+
+        <Button
+            android:id="@+id/btnMeasurementReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openMeasurementReport"
+            android:text="Measurement Report" />
     </LinearLayout>
 </RelativeLayout>
