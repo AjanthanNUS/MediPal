@@ -51,14 +51,14 @@ public class MeasurementListFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-        measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), rootView);
+        measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getContext(), rootView);
         measurementLoadAsyncTask.execute(0);
 
         btnShow3 = (Button) rootView.findViewById(R.id.btn_show_3);
         btnShow3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), rootView);
+                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getContext(), rootView);
                 measurementLoadAsyncTask.execute(3);
             }
         });
@@ -67,7 +67,7 @@ public class MeasurementListFragment extends Fragment {
         btnShow5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), rootView);
+                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getContext(), rootView);
                 measurementLoadAsyncTask.execute(5);
             }
         });
@@ -76,7 +76,7 @@ public class MeasurementListFragment extends Fragment {
         btnShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), rootView);
+                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getContext(), rootView);
                 measurementLoadAsyncTask.execute(0);
             }
         });
@@ -88,7 +88,7 @@ public class MeasurementListFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser == true) {
             if (measurementDao != null) {
-                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), getView());
+                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getContext(), getView());
                 measurementLoadAsyncTask.execute(0);
             }
         }

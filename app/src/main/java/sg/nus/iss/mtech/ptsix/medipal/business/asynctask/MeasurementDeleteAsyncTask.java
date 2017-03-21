@@ -4,15 +4,16 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import sg.nus.iss.mtech.ptsix.medipal.business.services.MeasurementService;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 
-public class MeasurementSaveAsyncTask extends AsyncTask<Measurement, Void, Void> {
-    private MeasurementDao measurementDao;
+
+public class MeasurementDeleteAsyncTask extends AsyncTask<Measurement, Void, Void> {
+
     private MeasurementService measurementService;
     private Context mContext;
 
-    public MeasurementSaveAsyncTask(Context context) {
+    public MeasurementDeleteAsyncTask(Context context) {
         measurementService = new MeasurementService(context);
         mContext = context;
     }
@@ -20,13 +21,12 @@ public class MeasurementSaveAsyncTask extends AsyncTask<Measurement, Void, Void>
     @Override
     protected Void doInBackground(Measurement... arg0) {
 
-        measurementService.saveMeasurement(arg0[0]);
+        measurementService.DeleteMeasurement(arg0[0]);
         return null;
     }
 
     @Override
     protected void onPostExecute(Void measurement) {
-
+        ((MeasurementActivity)mContext).recreate();
     }
 }
-

@@ -1,15 +1,13 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
-import java.util.Date;
-
 /**
  * Created by WongCheeVui on 3/19/2017.
  */
 
-public class Meas_MeasuredOn extends MeasurementBase {
-    private Date mDate;
+public class MeasComment extends MeasurementBase {
+    private String mComment;
 
-    Meas_MeasuredOn(){ mDate=new Date();}
+    MeasComment(){mComment="";}
     @Override
     public int get_reading() { throw new UnsupportedOperationException(); }
 
@@ -18,12 +16,11 @@ public class Meas_MeasuredOn extends MeasurementBase {
         throw new UnsupportedOperationException();
     }
 
-    public Date get_MeasDate() {
-        return mDate;
+    public String get_Comment() {
+        return mComment;
     }
 
-    public void set_MeasDate(Date comment) {
-        this.mDate = comment;
+    public void set_Comment(String comment) {
+        this.mComment = comment;
     }
 }
-
