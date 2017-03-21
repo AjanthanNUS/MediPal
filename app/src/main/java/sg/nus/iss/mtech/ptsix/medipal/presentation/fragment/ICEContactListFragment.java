@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.IceDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
@@ -39,7 +40,7 @@ public class ICEContactListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ICEContactAdapter mAdapter;
     private IceDao iceDao;
-
+    private FloatingActionButton addActionButton;
 
     public ICEContactListFragment() {
     }
@@ -48,7 +49,6 @@ public class ICEContactListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.iceDao = new IceDao(this.getContext());
-        Log.i("Before ICE LIST", "ABX");
         this.getICEContactList();
     }
 
@@ -59,12 +59,19 @@ public class ICEContactListFragment extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
-        Log.i("Fragment ICE LIST", String.valueOf(iceList.size()));
         mAdapter = new ICEContactAdapter(iceList, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+
+        addActionButton = (FloatingActionButton) rootView.findViewById(R.id.fragment_ice_add);
+        addActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ICEContactActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_ADD_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
+            }
+        });
 
         return rootView;
     }
@@ -76,7 +83,6 @@ public class ICEContactListFragment extends Fragment {
 
     private void getICEContactList() {
         iceList = this.iceDao.getICEs();
-        Log.i(String.valueOf(iceList.size())," ICELIST");
     }
 
 }
