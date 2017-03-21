@@ -3,6 +3,7 @@ package sg.nus.iss.mtech.ptsix.medipal.presentation.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 
@@ -61,13 +63,13 @@ public class ICEContactAdapter extends RecyclerView.Adapter<ICEContactAdapter.IC
     @Override
     public void onBindViewHolder(final ICEViewHolder holder, final int position) {
 
-        ICE ice = iceList.get(position);
+        final ICE ice = iceList.get(position);
         holder.name.setText(ice.getName().toString());
         final int id = ice.getId();
         final String contactNo = ice.getContactNo();
         holder.btnCall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Log.i("Befor Button Call", "BBC");
+                Log.i("Befor Button Call", "CALL");
                 call(contactNo);
             }
         });
@@ -82,11 +84,16 @@ public class ICEContactAdapter extends RecyclerView.Adapter<ICEContactAdapter.IC
             @Override
             public void onClick(View v) {
                 if(mContext instanceof ICEContactActivity){
-                    ((ICEContactActivity)mContext).switchTab(1, 1);
+                    ((ICEContactActivity)mContext).switchTab(Constant.ICE_TAB_ADD_INDEX, ice.getId());
                 }
             }
         });
 
+    }
+
+    @Nullable
+    public ICE getItem(int position) {
+        return iceList.get(position);
     }
 
     @Override

@@ -28,6 +28,7 @@
                     android:hint="@string/health_condition" />
             </android.support.design.widget.TextInputLayout>
 
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/health_start_date_label"
                 android:layout_width="match_parent"
@@ -38,12 +39,11 @@
                 android:layout_marginTop="20dp">
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:id="@+id/health_start_date"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/health_start_date"
-                    android:id="@+id/health_start_date"/>
+                    android:hint="Date Issued" />
             </android.support.design.widget.TextInputLayout>
-
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/health_condition_type_label"
@@ -89,6 +89,16 @@
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
                     android:text="@string/category_add_save"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="Delete"
                     android:textColor="@android:color/white" />
             </LinearLayout>
         </RelativeLayout>
