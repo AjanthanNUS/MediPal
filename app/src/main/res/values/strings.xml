@@ -121,9 +121,6 @@
     <string name="health_condition">Health Condition</string>
     <string name="health_start_date">Date</string>
 
-    <string name="ice_add_save">Saved New ICE Contact!!!</string>
-    <string name="ice_add_update">Updated ICE Contact!!!</string>
-
     <string-array name="ice_contact_types">
         <item>Doctor</item>
         <item>Next of Kin</item>
