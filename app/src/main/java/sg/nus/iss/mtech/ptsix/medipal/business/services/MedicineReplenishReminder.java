@@ -55,7 +55,6 @@ public class MedicineReplenishReminder extends IntentService {
         PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, medicineIntent, 0);
         StringBuilder notificationMessage = new StringBuilder();
         notificationMessage.append("Required: ");
-        Log.d("aaaaaa", Integer.toString(cal.get(Calendar.MINUTE)) + Integer.toString(cal.get(Calendar.SECOND)));
 
         for (String medicineName : medicineNameList) {
             notificationMessage.append(medicineName);
