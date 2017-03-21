@@ -69,7 +69,7 @@ public class ICEContactAdapter extends RecyclerView.Adapter<ICEContactAdapter.IC
         final String contactNo = ice.getContactNo();
         holder.btnCall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Log.i("Befor Button Call", "BBC");
+                Log.i("Befor Button Call", "CALL");
                 call(contactNo);
             }
         });

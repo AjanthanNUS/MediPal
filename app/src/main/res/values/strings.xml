@@ -124,6 +124,17 @@
     <string name="ice_add_save">Saved New ICE Contact!!!</string>
     <string name="ice_add_update">Updated ICE Contact!!!</string>
 
+    <string-array name="ice_contact_types">
+        <item>Doctor</item>
+        <item>Next of Kin</item>
+        <item>Emergency Contact</item>
+    </string-array>
+
+    <string-array name="ice_contact_sequence">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
     <string-array name="health_condition_type">
         <item>a</item>
