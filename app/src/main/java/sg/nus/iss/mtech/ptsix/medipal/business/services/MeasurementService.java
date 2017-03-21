@@ -2,13 +2,6 @@ package sg.nus.iss.mtech.ptsix.medipal.business.services;
 
 import android.content.Context;
 
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
-
-/**
- * Created by win on 18/3/17.
- */
-
 public class MeasurementService {
     private Context context;
 

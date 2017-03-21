@@ -127,4 +127,19 @@ public class MedicineService {
 
         return isValid;
     }
+
+    public List<String> getNamesOfMedicineBelowThreshold() {
+        List<Medicine> medicineList = this.getMedicine();
+        List<String> medicineNameList = new ArrayList<>();
+        for (Medicine medicine : medicineList) {
+
+            if (medicine.getThreshold() >= 0) {
+                if (medicine.getQuantity() < medicine.getThreshold()) {
+                    medicineNameList.add(medicine.getMedicine());
+                }
+            }
+        }
+
+        return medicineNameList;
+    }
 }

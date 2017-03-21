@@ -13,24 +13,20 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 
-/**
- * Created by win on 11/3/17.
- */
-
 public class AppointmentReminder extends IntentService {
     private static final String TAG = AppointmentReminder.class.getSimpleName();
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
     public static final int NOTIFICATION_ID = 1;
+
     public AppointmentReminder() {
-        super("Appointment Reminder");
+        super("Appointment Reminders");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.w(TAG, "On Handle Intent");
         Log.w(TAG, "HasExtra " + intent.hasExtra("appointment") + "");
-
 
 
         if (intent != null && intent.hasExtra("appointment")) {
@@ -47,7 +43,7 @@ public class AppointmentReminder extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int requestID = Integer.parseInt(NotificationID.APPOINTMENT + "" +appointment.getId());
+        int requestID = Integer.parseInt(NotificationID.APPOINTMENT + "" + appointment.getId());
 
         Intent appointmentIntent = new Intent(this, AppointmentActivity.class);
         appointmentIntent.putExtra("id", appointment.getId());
@@ -58,11 +54,10 @@ public class AppointmentReminder extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(getResources().getText(R.string.appointment_reminder_title))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(appointment.getDescription()))
-                .setContentText(appointment.getDescription() + " at " + appointment.getLocation());
-
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(getResources().getText(R.string.appointment_reminder_title))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(appointment.getDescription()))
+                        .setContentText(appointment.getDescription() + " at " + appointment.getLocation());
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

@@ -72,7 +72,8 @@ public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<Appoint
                                 mAppointments.remove(position);
                                 notifyDataSetChanged();
                                 Toast.makeText(mContext, "Appointment deleted successfully.", Toast.LENGTH_SHORT).show();
-                            }})
+                            }
+                        })
                         .setNegativeButton(android.R.string.no, null).show();
 
             }
@@ -83,7 +84,7 @@ public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<Appoint
             @Override
             public void onClick(View v) {
                 if (mContext instanceof AppointmentActivity) {
-                    ((AppointmentActivity)mContext).switchTab(Constant.APPOINTMENT_TAB_ADD_INDEX, appointment.getId());
+                    ((AppointmentActivity) mContext).switchTab(Constant.APPOINTMENT_TAB_ADD_INDEX, appointment.getId());
                 }
             }
         });
@@ -91,11 +92,11 @@ public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<Appoint
     }
 
     public void updateDataSet(List<Appointment> appointmentList) {
-        this.mAppointments.clear();;
+        this.mAppointments.clear();
+        ;
         this.mAppointments.addAll(appointmentList);
         notifyDataSetChanged();
     }
-
 
 
     @Override

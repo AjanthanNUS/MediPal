@@ -5,17 +5,7 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-/*
-ID              interger
-MedicineID      interger
-Quantity        interger
-ConsumedOn      Date
-
- */
-public class Consumption  implements Parcelable {
+public class Consumption implements Parcelable {
 
     private int m_id;
     private int mMedicineID;
@@ -42,26 +32,27 @@ public class Consumption  implements Parcelable {
         this.m_id = id;
     }
 
-    public int getEventMedicineID() {
+    public int getMedicineID() {
         return mMedicineID;
     }
 
-    public void setEventMedicineID(int medicineID) {
+    public void setMedicineID(int medicineID) {
         this.mMedicineID = medicineID;
     }
 
-    public int getEventQuantity() {
+    public int getQuantity() {
         return mQuantity;
     }
 
-    public void setEventQuantity(int Quantity) {
+    public void setQuantity(int Quantity) {
         this.mQuantity = Quantity;
     }
 
-    public Date getEventConsumedOn() {
+    public Date getConsumedOn() {
         return mConsumedOn;
     }
-    public void setEventConsumedOn(Date date) {
+
+    public void setConsumedOn(Date date) {
         this.mConsumedOn = date;
     }
 
@@ -81,9 +72,9 @@ public class Consumption  implements Parcelable {
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(getId());
-        dest.writeInt(getEventMedicineID());
-        dest.writeInt(getEventQuantity());
-        dest.writeLong(getEventConsumedOn().getDate());
+        dest.writeInt(getMedicineID());
+        dest.writeInt(getQuantity());
+        dest.writeLong(getConsumedOn().getDate());
     }
 
     public static final Parcelable.Creator<Consumption> CREATOR = new Parcelable.Creator<Consumption>() {
@@ -95,6 +86,5 @@ public class Consumption  implements Parcelable {
             return new Consumption[size];
         }
     };
-
 }
 

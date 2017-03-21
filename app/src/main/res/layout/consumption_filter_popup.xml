@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:paddingBottom="1dp"
+    android:paddingLeft="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:textColor="@android:color/darker_gray">
+
+
+        <EditText
+            android:id="@+id/filter_medicine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:ems="10"
+            android:hint="@string/medicine"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/filter_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/filter_medicine"
+            android:layout_below="@+id/filter_medicine"
+            android:layout_marginTop="31dp"
+            android:ems="10"
+            android:hint="@string/category"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/filter_go_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/filter_category"
+            android:layout_below="@+id/filter_category"
+            android:text="@string/go" />
+
+        <Button
+            android:id="@+id/filter_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset"
+            android:layout_below="@+id/filter_category"
+            android:layout_alignStart="@+id/filter_category" />
+    </RelativeLayout>
+</FrameLayout>

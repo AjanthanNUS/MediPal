@@ -6,8 +6,13 @@
     android:name="sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ConsumptionListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingBottom="1sp"
+    android:paddingLeft="16sp"
+    android:paddingRight="16sp"
+    android:paddingTop="1sp"
     app:layoutManager="LinearLayoutManager"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ConsumptionListFragment"
-    tools:listitem="@layout/fragment_consumption_row"/>
+    tools:listitem="@layout/fragment_consumption_row"
+
+    />

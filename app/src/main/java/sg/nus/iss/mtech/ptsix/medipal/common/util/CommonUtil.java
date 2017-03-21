@@ -15,18 +15,24 @@ import java.util.Locale;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.DosageEnums;
 
-/**
- * Created by win on 5/3/17.
- */
-
 public class CommonUtil {
+
+    public static Calendar dateToCalendar(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
+
     public static String formatCalender(Calendar calendar) {
         String formattedDate;
-
-        calendar.add(Calendar.DATE, 1);
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         formattedDate = format1.format(calendar.getTime());
         return formattedDate;
+    }
+
+    public static String formatDateStandard(Date date) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return dateFormatter.format(date.getTime());
     }
 
     public static String date2ddMMMYYYY(Date d) {
@@ -65,12 +71,50 @@ public class CommonUtil {
     public static String getFormattedTime(Date d) {
         SimpleDateFormat timeFormatter = null;
         try {
-            timeFormatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+            timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return Constant.EMPTY_VALUE;
         }
         return timeFormatter.format(d);
+    }
+
+    public static Date convertStringToDate(String dateString, String dateFormatString) {
+        SimpleDateFormat timeFormatter = new SimpleDateFormat(dateFormatString, Locale.getDefault());
+        Date formattedDate = null;
+        try {
+            formattedDate = timeFormatter.parse(dateString);
+        } catch (ParseException e) {
+            return null;
+        }
+        return formattedDate;
+    }
+
+    public static String convertDateToString(Date date, String dateFormatString) {
+        SimpleDateFormat dateString = null;
+        try {
+            dateString = new SimpleDateFormat(dateFormatString, Locale.getDefault());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+        return dateString.format(date);
+    }
+
+    public static long getMilliSeconds(int year, int month, int days) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, days);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+
+    }
+
+    public static boolean isNullOrEmpty(String string) {
+        return string == null || string.isEmpty();
     }
 
     public static boolean checkDateBeforeToday(Date date) {
@@ -165,7 +209,7 @@ public class CommonUtil {
     public static List<String> getDosageList() {
         List<String> dosageList = new ArrayList<>();
 
-        dosageList.add("<Select Dosage>");
+        dosageList.add("Select Dosage.");
         dosageList.add(DosageEnums.PILLS.getValue(), DosageEnums.PILLS.getStringValue());
         dosageList.add(DosageEnums.CC.getValue(), DosageEnums.CC.getStringValue());
         dosageList.add(DosageEnums.ML.getValue(), DosageEnums.ML.getStringValue());

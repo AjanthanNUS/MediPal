@@ -17,11 +17,10 @@ import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementLoadAsyncTask;
-import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementSaveAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.MeasurementAdapter;
+
 public class MeasurementListFragment extends Fragment {
 
     private List<Measurement> measurementList = new ArrayList<>();
@@ -29,7 +28,7 @@ public class MeasurementListFragment extends Fragment {
     private MeasurementAdapter mAdapter;
     private MeasurementDao measurementDao;
     private FloatingActionButton addActionButton;
-    private Button btnShow5, btnShow3,btnShowAll;
+    private Button btnShow5, btnShow3, btnShowAll;
     private MeasurementLoadAsyncTask measurementLoadAsyncTask;
 
     public MeasurementListFragment() {
@@ -52,14 +51,14 @@ public class MeasurementListFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-        measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(),rootView);
+        measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), rootView);
         measurementLoadAsyncTask.execute(0);
 
         btnShow3 = (Button) rootView.findViewById(R.id.btn_show_3);
         btnShow3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(),rootView);
+                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), rootView);
                 measurementLoadAsyncTask.execute(3);
             }
         });
@@ -68,7 +67,7 @@ public class MeasurementListFragment extends Fragment {
         btnShow5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(),rootView);
+                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), rootView);
                 measurementLoadAsyncTask.execute(5);
             }
         });
@@ -77,7 +76,7 @@ public class MeasurementListFragment extends Fragment {
         btnShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(),rootView);
+                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), rootView);
                 measurementLoadAsyncTask.execute(0);
             }
         });
@@ -87,10 +86,9 @@ public class MeasurementListFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser ==true)
-        {
-            if(measurementDao!=null) {
-                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(),getView());
+        if (isVisibleToUser == true) {
+            if (measurementDao != null) {
+                measurementLoadAsyncTask = new MeasurementLoadAsyncTask(getActivity(), getView());
                 measurementLoadAsyncTask.execute(0);
             }
         }

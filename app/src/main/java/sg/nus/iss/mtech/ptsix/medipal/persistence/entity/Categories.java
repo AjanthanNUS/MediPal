@@ -3,18 +3,6 @@ package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
-ID              interger
-Category        string
-Code            string
-Description     string
-Remind          Bool
- */
-
 public class Categories implements Parcelable {
 
     private int id;

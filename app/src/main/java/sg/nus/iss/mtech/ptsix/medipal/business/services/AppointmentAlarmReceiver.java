@@ -12,10 +12,6 @@ import java.util.Calendar;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-/**
- * Created by win on 11/3/17.
- */
-
 public class AppointmentAlarmReceiver extends WakefulBroadcastReceiver {
     public static final String TAG = AppointmentAlarmReceiver.class.getSimpleName();
 
