@@ -23,6 +23,7 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AddConsumptionActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppTourActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final String MAIN_ACTIVITY = "[MAIN ACTIVITY]";
     private Toolbar toolbar = null;
+    private  SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +49,50 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction("sg.nus.iss.mtech.ptsix.medipal.MainActivity");
         sendBroadcast(intent);
 
+        if (isFirstTimeAccess()) {
+            Intent myIntent =  new Intent(MainActivity.this, AppTourActivity.class);
+            startActivity(myIntent);
+        } else if (getTutorialRepeatStatus()) {
+            Intent myIntent = new Intent(MainActivity.this, AppTourActivity.class);
+            startActivity(myIntent);
+        }
+
         // setupAlarm(10);
         setupToolbar();
-        setDefaultPreference();
+//        setDefaultPreference();
         startMedicineReplenishReminder();
     }
 
+
+    private boolean getTutorialRepeatStatus() {
+
+        boolean repeatFlag = false;
+
+        sharedPreferences = getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+        repeatFlag = sharedPreferences.getBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, false);
+
+        return repeatFlag;
+    }
+
+    private boolean isFirstTimeAccess() {
+        boolean firstTime = false;
+
+        sharedPreferences = getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+        firstTime = sharedPreferences.getBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, true);
+
+        if (firstTime) {
+            setDefaultPreference();
+        }
+        return firstTime;
+    }
+
     private void setDefaultPreference() {
-        SharedPreferences sharedPreferences = this.getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        if(!sharedPreferences.contains(Constant.THRESHOLD_TIME_SETTINGS_LABEL)) {
-            editor.putString(Constant.THRESHOLD_TIME_SETTINGS_LABEL, Constant.THRESHOLD_TIME_SETTINGS_DEFAULT);
-        }
-        if(!sharedPreferences.contains(Constant.USER_CREATED_SETTINGS_LABEL)) {
-            editor.putBoolean(Constant.USER_CREATED_SETTINGS_LABEL, false);
-        }
-        if(!sharedPreferences.contains(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL)) {
-            editor.putBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, false);
-        }
+        editor.putBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, false);
+        editor.putBoolean(Constant.USER_CREATED_SETTINGS_LABEL, false);
+        editor.putString(Constant.THRESHOLD_TIME_SETTINGS_LABEL, Constant.THRESHOLD_TIME_SETTINGS_DEFAULT);
         editor.apply();
     }
 
@@ -168,5 +195,10 @@ public class MainActivity extends AppCompatActivity {
     public void openSettings(View view) {
         Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(settingsIntent);
+    }
+
+    public void openAppTour(View view) {
+        Intent  navigateIntent = new Intent(MainActivity.this, AppTourActivity.class);
+        startActivity(navigateIntent);
     }
 }

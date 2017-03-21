@@ -37,4 +37,7 @@ public final class Constant {
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
     public static final String REQUEST_CODE = "REQUEST_CODE";
     public static final String CONSUMPTION_BUNDLE = "CONSUMPTION_BUNDLE";
+
+    public  static final String APP_TOUR_REPEAT_ON_TEXT = "App tour repeat is ON";
+    public  static final String APP_TOUR_REPEAT_OFF_TEXT = "App tour repeat is OFF";
 }

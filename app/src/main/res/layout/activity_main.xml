@@ -99,6 +99,12 @@
             android:layout_height="wrap_content"
             android:onClick="openHealthBio"
             android:text="HealthBio" />
+        <Button
+            android:id="@+id/btnAppTour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openAppTour"
+            android:text="App Tour" />
 
         <Button
             android:id="@+id/btnSettings"
@@ -106,5 +112,7 @@
             android:layout_height="wrap_content"
             android:onClick="openSettings"
             android:text="Settings" />
+
+
     </LinearLayout>
 </RelativeLayout>

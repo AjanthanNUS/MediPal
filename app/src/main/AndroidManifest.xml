@@ -63,6 +63,11 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".presentation.activity.AppTourActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+
         <receiver android:name=".business.services.AppointmentAlarmReceiver" />
 
         <service android:name=".business.services.AppointmentReminder" />
