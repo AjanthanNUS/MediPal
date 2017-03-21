@@ -28,4 +28,6 @@ public final class Constant {
     public static  final String APP_TITLE = "Medipal";
     public static  final String APP_SUB_TITLE = "Health Maters";
 
+    public  static final String APP_TOUR_REPEAT_ON_TEXT = "App tour repeat is ON";
+    public  static final String APP_TOUR_REPEAT_OFF_TEXT = "App tour repeat is OFF";
 }

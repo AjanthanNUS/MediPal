@@ -63,7 +63,11 @@
         <activity
             android:name=".presentation.activity.PersonalActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".presentation.activity.SettingsActivity"></activity>
+        <activity
+            android:name=".presentation.activity.SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".presentation.activity.AppTourActivity"  />
     </application>
 
 </manifest>

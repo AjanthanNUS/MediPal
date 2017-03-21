@@ -100,5 +100,12 @@
             android:layout_height="wrap_content"
             android:onClick="openSettings"
             android:text="Settings" />
+
+        <Button
+            android:id="@+id/btnAppTour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="openAppTour"
+            android:text="App Tour" />
     </LinearLayout>
 </RelativeLayout>
