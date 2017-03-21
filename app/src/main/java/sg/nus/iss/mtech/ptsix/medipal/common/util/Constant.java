@@ -5,6 +5,8 @@ public final class Constant {
     public static final int CAT_REMIND_NO = 0;
     public static final int CAT_REMIND_OPT = -1;
 
+    public static final int ICE_TAB_ADD_INDEX =0;
+
     public static final String REMINDER_BUNDLE = "REMINDER_BUNDLE";
 
 
@@ -17,9 +19,6 @@ public final class Constant {
     public static final int MEDICINE_TAB_ADD_INDEX = 1;
 
     public static final int MEDICINE_ADD_INVALID_ID = -1;
-
-    public static final int ICE_TAB_LIST_INDEX = 0;
-    public static final int ICE_TAB_ADD_INDEX = 1;
 
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final String TIME_FORMAT = "hh:mm a";
@@ -34,5 +33,10 @@ public final class Constant {
     public static final String THRESHOLD_TIME_SETTINGS_LABEL = "ThresholdNotificationTime";
     public static final String THRESHOLD_TIME_SETTINGS_DEFAULT = "10:00 AM";
 
+    public static  final String APP_TITLE = "Medipal";
+    public static  final String APP_SUB_TITLE = "Health Maters";
 
+    public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
+    public static final String REQUEST_CODE = "REQUEST_CODE";
+    public static final String CONSUMPTION_BUNDLE = "CONSUMPTION_BUNDLE";
 }
