@@ -15,16 +15,19 @@ public class MeasurementService {
         this.context = context;
     }
 
-    public void saveMeasurement(Measurement measurement) {
+    public long saveMeasurement(Measurement measurement) {
+        long result = 0;
         measurementDao = new MeasurementDao(context);
         measurementDao.open();
         try {
-            measurementDao.save(measurement);
+            result = measurementDao.save(measurement);
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
             measurementDao.close();
         }
+        return result;
+
     }
 
     public ArrayList<Measurement> loadMeasurements(int amount) {
