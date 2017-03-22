@@ -1,11 +1,10 @@
 package sg.nus.iss.mtech.ptsix.medipal.common.util;
 
 public final class Constant {
+
     public static final int CAT_REMIND_YES = 1;
     public static final int CAT_REMIND_NO = 0;
     public static final int CAT_REMIND_OPT = -1;
-
-    public static final int ICE_TAB_ADD_INDEX =0;
 
     public static final String REMINDER_BUNDLE = "REMINDER_BUNDLE";
 
@@ -39,4 +38,13 @@ public final class Constant {
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
     public static final String REQUEST_CODE = "REQUEST_CODE";
     public static final String CONSUMPTION_BUNDLE = "CONSUMPTION_BUNDLE";
+
+    public  static final String APP_TOUR_REPEAT_ON_TEXT = "App tour repeat is ON";
+    public  static final String APP_TOUR_REPEAT_OFF_TEXT = "App tour repeat is OFF";
+
+    public static final int ICE_TAB_LIST_INDEX = 0;
+    public static final int ICE_TAB_ADD_INDEX = 1;
+
+
+
 }
