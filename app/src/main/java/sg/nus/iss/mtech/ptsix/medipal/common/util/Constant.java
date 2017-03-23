@@ -50,6 +50,9 @@ public final class Constant {
     public  static final String APP_TOUR_REPEAT_ON_TEXT = "App tour repeat is ON";
     public  static final String APP_TOUR_REPEAT_OFF_TEXT = "App tour repeat is OFF";
 
+    public static final String MEAS_ASK_TO_KEY_IN_DATA = "Please fill in measurement data";
+    public static final String MEAS_ASK_FOR_DELETE_CONFIRMATION = "Are you sure to delete ?";
+
     public static final int ICE_TAB_LIST_INDEX = 0;
     public static final int ICE_TAB_ADD_INDEX = 1;
 
