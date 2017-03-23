@@ -2,9 +2,11 @@ package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementDeleteAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementSaveAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
@@ -28,7 +31,7 @@ public class MeasurementAddFragment extends Fragment {
 
     private EditText MeaSystolic, MeaDiastolic, MeaPulse, MeaTemperature, MeaWeight, MeaMeasureOn, MeaComment;
     private Button btnSave, btnCancel;
-    private MeasurementDao measurementDao;
+
     private MeasurementSaveAsyncTask measurementSaveAsyncTask;
     private Date date = new Date();
 
@@ -44,7 +47,6 @@ public class MeasurementAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        measurementDao = new MeasurementDao(this.getContext());
         measurementSaveAsyncTask = new MeasurementSaveAsyncTask(getActivity());
         Calendar newCalendar = Calendar.getInstance();
         datePickerDialog = new DatePickerDialog(this.getContext(), new OnDateSetListener() {
@@ -52,7 +54,7 @@ public class MeasurementAddFragment extends Fragment {
                 dateCalendar = Calendar.getInstance();
                 dateCalendar.set(year, monthOfYear, dayOfMonth);
                 date = dateCalendar.getTime();
-                MeaMeasureOn.setText(formatter.format(dateCalendar.getTime()));
+                MeaMeasureOn.setText(formatter.format(date));
             }
         },
                 newCalendar.get(Calendar.YEAR),
@@ -72,7 +74,7 @@ public class MeasurementAddFragment extends Fragment {
         MeaWeight = (EditText) rootView.findViewById(R.id.eWeight);
         MeaComment = (EditText) rootView.findViewById(R.id.eComment);
         MeaMeasureOn = (EditText) rootView.findViewById(R.id.eMeasuredOn);
-
+        MeaMeasureOn.setText(formatter.format(date.getTime()));
         MeaMeasureOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,9 +88,29 @@ public class MeasurementAddFragment extends Fragment {
             public void onClick(View v) {
 
                 measurementSaveAsyncTask = new MeasurementSaveAsyncTask(getActivity());
-                measurementSaveAsyncTask.execute(createMeasurementFromInput());
-                resetFields();
-                ((MeasurementActivity) getActivity()).switchTab(0, -1);
+                Measurement measurement = createMeasurementFromInput();
+                if(CheckDataFields(measurement)) {
+                    measurementSaveAsyncTask.execute(measurement);
+                    resetFields();
+                    ((MeasurementActivity) getActivity()).switchTab(0, -1);
+                }
+                else
+                {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                    builder1.setMessage( Constant.MEAS_ASK_TO_KEY_IN_DATA);
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
 
             }
         });
@@ -104,6 +126,24 @@ public class MeasurementAddFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private boolean CheckDataFields(Measurement measurement_in) {
+
+        int i = 0;
+        int b = 0;
+        boolean result = true;
+
+        if((measurement_in.getEventPulse()==0)
+            &&(measurement_in.getEventDiastolic()==0)
+            &&(measurement_in.getEventSystolic()==0)
+            &&(measurement_in.getEventTemperature()==0)
+            &&(measurement_in.getEventWeight()==0))
+        {
+            result = false;
+        }
+        return result;
+
     }
 
     private Measurement createMeasurementFromInput() {
@@ -157,7 +197,7 @@ public class MeasurementAddFragment extends Fragment {
         MeaDiastolic.setText("");
         MeaSystolic.setText("");
         MeaComment.setText("");
-        MeaMeasureOn.setText("");
+
     }
 
 }
