@@ -1,5 +1,6 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -9,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +42,9 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
     private List<HealthBio> healthBios;
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
+
+    private Calendar currentCal = Calendar.getInstance();
+    private Calendar selectedDate = Calendar.getInstance();
 
     public HealthBioAddFragment() {
     }
@@ -67,6 +73,29 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         conditionType.setAdapter(contactTypeAapter);
 
         btnSave = (Button) rootView.findViewById(R.id.btn_save);
+
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog.OnDateSetListener onDateSetListener =
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(year, monthOfYear, dayOfMonth);
+                                selectedDate = calendar;
+                                startDate.setText(dateFormatter.format(calendar.getTime()));
+                            }
+                        };
+                DatePickerDialog datePickerDialog =
+                        new DatePickerDialog(getActivity(), onDateSetListener,
+                                currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH),
+                                currentCal.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -24,6 +24,7 @@
                 <EditText
                     android:id="@+id/ice_name"
                     android:layout_width="match_parent"
+                    android:maxLength="25"
                     android:layout_height="wrap_content"
                     android:hint="@string/ice_add_name" />
             </android.support.design.widget.TextInputLayout>
