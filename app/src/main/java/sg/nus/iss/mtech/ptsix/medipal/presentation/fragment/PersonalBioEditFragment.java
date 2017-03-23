@@ -291,7 +291,7 @@ public class PersonalBioEditFragment extends Fragment {
 //            personalBio = personalBioDao.getPersonalBio();
 //        }
 //        if (personalBio == null) {
-//            personalBio = new PersonalBio();
+//            personalBio = new personalBio();
 //        }
 //    }
 }

@@ -102,7 +102,7 @@ public class MedicineAddFragment extends Fragment {
 
         this.categoriesList = this.categoriesService.getCategories();
         List<String> categoryCodes = new ArrayList<>();
-        categoryCodes.add("<Select Category>");
+        categoryCodes.add("<Select category>");
         for (Categories category : categoriesList) {
             categoryCodes.add(category.getId(), category.getCode());
         }
@@ -243,7 +243,7 @@ public class MedicineAddFragment extends Fragment {
         this.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancel the Category
+                // Cancel the category
                 resetFields();
                 ((MedicineActivity) getActivity()).switchTab(Constant.MEDICINE_TAB_LIST_INDEX, Constant.MEDICINE_ADD_INVALID_ID);
             }
@@ -253,7 +253,7 @@ public class MedicineAddFragment extends Fragment {
         this.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Delete the Category
+                // Delete the category
                 deleteMedicines();
                 Toast.makeText(getActivity(), R.string.medicine_add_delete_completed, Toast.LENGTH_SHORT).show();
                 resetFields();

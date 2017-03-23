@@ -114,7 +114,7 @@ public class Measurement implements Parcelable {
     }
     @Override
     public String toString() {
-        return "Measurement [id=" + mMeas_Id.get_reading() +
+        return "measurement [id=" + mMeas_Id.get_reading() +
                 ", Systolic=" + mMeasBloodPressure.get_Systolic_reading() +
                 ", Diastolic=" + mMeasBloodPressure.get_Diastolic_reading() +
                 ", Pulse=" + mMeas_Pulse.get_reading() +

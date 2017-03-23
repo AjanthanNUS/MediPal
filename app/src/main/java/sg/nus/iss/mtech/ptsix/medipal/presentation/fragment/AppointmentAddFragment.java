@@ -144,16 +144,16 @@ public class AppointmentAddFragment extends Fragment {
                         Object returnObj = appointmentAsyncTask.get();
 
                         if (returnObj instanceof AppointmentExistException) {
-                            Toast.makeText(getContext(), "Appointment already existed at that time.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "appointment already existed at that time.", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), "Appointment created successfully.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "appointment created successfully.", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
                         AppointmentUpdateAsyncTask updateAsyncTask = new AppointmentUpdateAsyncTask(getContext());
                         updateAsyncTask.execute(appointment);
                         updateAsyncTask.get();
-                        Toast.makeText(getContext(), "Appointment updated successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "appointment updated successfully", Toast.LENGTH_SHORT).show();
 
                     }
 

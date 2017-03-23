@@ -25,26 +25,32 @@
         </activity>
         <activity
             android:name=".presentation.activity.AppointmentActivity"
+            android:label="Appointment"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.activity.ConsumptionActivity"
+            android:label="Consumption"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.activity.MedicineActivity"
+            android:label="Medicine"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.activity.CategoriesActivity"
+            android:label="Category"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.activity.HealthBioActivity"
+            android:label="Health Bio"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.activity.ICEContactActivity"
+            android:label="ICE Contact"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -52,19 +58,23 @@
             android:parentActivityName=".presentation.activity.AppointmentActivity" />
         <activity
             android:name=".presentation.activity.MeasurementActivity"
+            android:label="Measurement"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.activity.PersonalActivity"
+            android:label="Personal Bio"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.activity.SettingsActivity"
+            android:label="Settings"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".presentation.activity.AppTourActivity"
+            android:label="App Tour"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 

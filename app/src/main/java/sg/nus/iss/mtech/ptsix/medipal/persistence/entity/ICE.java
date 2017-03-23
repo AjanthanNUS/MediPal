@@ -76,7 +76,7 @@ public class ICE implements Parcelable {
 
     @Override
     public String toString() {
-        return "HealthBio [id=" + id +
+        return "healthBio [id=" + id +
                 ", Name=" + name +
                 ", ContactNo=" + contactNo +
                 ", ContactType=" + iceContactType +

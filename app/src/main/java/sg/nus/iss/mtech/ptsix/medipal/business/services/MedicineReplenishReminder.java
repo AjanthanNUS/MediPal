@@ -42,7 +42,7 @@ public class MedicineReplenishReminder extends IntentService {
         }
         MedicineReplenishAlarmReceiver.completeWakefulIntent(intent);
 
-        Log.w(TAG, "Call Medicine Replenish Alarm Receiver");
+        Log.w(TAG, "Call medicine Replenish Alarm Receiver");
     }
 
     private void sendNotification(List<String> medicineNameList) {
