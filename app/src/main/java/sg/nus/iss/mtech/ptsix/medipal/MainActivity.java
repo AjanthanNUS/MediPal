@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -26,19 +28,20 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AddConsumptionActivi
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppTourActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.SettingsActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ImageAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String MAIN_ACTIVITY = "[MAIN ACTIVITY]";
     private Toolbar toolbar = null;
-    private  SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
+    private GridView gridview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +53,65 @@ public class MainActivity extends AppCompatActivity {
         sendBroadcast(intent);
 
         if (isFirstTimeAccess()) {
-            Intent myIntent =  new Intent(MainActivity.this, AppTourActivity.class);
+            Intent myIntent = new Intent(MainActivity.this, AppTourActivity.class);
             startActivity(myIntent);
         } else if (getTutorialRepeatStatus()) {
             Intent myIntent = new Intent(MainActivity.this, AppTourActivity.class);
             startActivity(myIntent);
         }
 
+        setupHomeScreen();
+
         // setupAlarm(10);
         setupToolbar();
-//        setDefaultPreference();
         startMedicineReplenishReminder();
+    }
+
+    private void setupHomeScreen() {
+        gridview = (GridView) findViewById(R.id.gridview);
+
+        gridview.setAdapter(new ImageAdapter(this));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Intent myIntent = null;
+                switch (position) {
+                    case 0:
+                        myIntent = new Intent(MainActivity.this, MedicineActivity.class);
+                        break;
+                    case 1:
+                        myIntent = new Intent(MainActivity.this, AddConsumptionActivity.class);
+                        break;
+                    case 2:
+                        myIntent = new Intent(MainActivity.this, AppointmentActivity.class);
+                        break;
+                    case 3:
+                        myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
+                        break;
+                    case 4:
+                        myIntent = new Intent(MainActivity.this, CategoriesActivity.class);
+                        break;
+                    case 5:
+                        myIntent = new Intent(MainActivity.this, PersonalActivity.class);
+                        break;
+                    case 6:
+                        myIntent = new Intent(MainActivity.this, HealthBioActivity.class);
+                        break;
+                    case 7:
+                        myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
+                        break;
+                    case 8:
+                        myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                        break;
+                    case 9:
+                        myIntent = new Intent(MainActivity.this, AppTourActivity.class);
+                        break;
+                    default:
+                        break;
+                }
+                startActivity(myIntent);
+            }
+        });
     }
 
 
@@ -143,31 +194,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void openConsumables(View view) {
-        Intent myIntent = new Intent(MainActivity.this, ConsumptionActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openMedicine(View view) {
-        Intent myIntent = new Intent(MainActivity.this, MedicineActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openCategories(View view) {
-        Intent myIntent = new Intent(MainActivity.this, CategoriesActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openAppointment(View view) {
-        Intent myIntent = new Intent(MainActivity.this, AppointmentActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openMeasurement(View view) {
-        Intent myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
-        startActivity(myIntent);
-    }
-
     public void reminderEdit(View view) {
         ReminderManager reminderManager = new ReminderManager(this);
         Reminders reminders = reminderManager.getAllReminders().get(1);
@@ -177,28 +203,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-    public void openICEContact(View view) {
-        Intent myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openHealthBio(View view) {
-        Intent myIntent = new Intent(MainActivity.this, HealthBioActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openPersonalBio(View view) {
-        Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
-        startActivity(personalBioIntent);
-    }
-
-    public void openSettings(View view) {
-        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(settingsIntent);
-    }
-
-    public void openAppTour(View view) {
-        Intent  navigateIntent = new Intent(MainActivity.this, AppTourActivity.class);
-        startActivity(navigateIntent);
-    }
 }

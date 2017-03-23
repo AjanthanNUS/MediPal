@@ -97,7 +97,7 @@ public class MeasurementAddFragment extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancel the Category
+                // Cancel the category
                 resetFields();
                 ((MeasurementActivity) getActivity()).switchTab(0, -1);
             }

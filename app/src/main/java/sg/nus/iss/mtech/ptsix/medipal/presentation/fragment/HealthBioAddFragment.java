@@ -74,7 +74,7 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 
                 if (isNewId) {
                     healthBioService.saveHealthBioInfo(getHealthBioFromInput());
-                    Toast.makeText(getActivity(), "Saved New HealthBio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Saved New healthBio", Toast.LENGTH_SHORT).show();
                     resetFields();
                     ((HealthBioActivity) getActivity()).switchTab(0, -1);
                 } else {

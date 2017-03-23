@@ -85,7 +85,7 @@ public class CategoriesAddFragment extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancel the Category
+                // Cancel the category
                 resetFields();
                 ((CategoriesActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_LIST_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
             }

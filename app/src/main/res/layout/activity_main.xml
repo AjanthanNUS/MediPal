@@ -26,93 +26,20 @@
         app:titleMarginStart="@android:dimen/app_icon_size"
         app:titleTextAppearance="@style/AppExtraLargeText"
         app:titleTextColor="@color/cardview_light_background">
-
     </android.support.v7.widget.Toolbar>
-
-
-    <LinearLayout
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="20dp"
+        android:columnWidth="90dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
         android:layout_below="@+id/toolbar"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:textAlignment="center"
+        />
 
-        <Button
-            android:id="@+id/PersonalButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openPersonalBio"
-            android:text="Personal Bio"
-            tools:text="Personal Bio" />
-
-        <Button
-            android:id="@+id/ConsumableButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openConsumables"
-            android:text="Consumables" />
-
-        <Button
-            android:id="@+id/btnAppointment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openAppointment"
-            android:text="@string/appointment" />
-
-        <Button
-            android:id="@+id/btnCategories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openCategories"
-            android:text="Category" />
-
-        <Button
-            android:id="@+id/btnMedicines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openMedicine"
-            android:text="Medicine" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="reminderEdit"
-            android:text="Reminder Edit" />
-
-        <Button
-            android:id="@+id/btnMeasurement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openMeasurement"
-            android:text="Measurement" />
-
-        <Button
-            android:id="@+id/btnIceContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openICEContact"
-            android:text="ICE Contacts" />
-
-        <Button
-            android:id="@+id/btnHealthBio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openHealthBio"
-            android:text="HealthBio" />
-        <Button
-            android:id="@+id/btnAppTour"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openAppTour"
-            android:text="App Tour" />
-
-        <Button
-            android:id="@+id/btnSettings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="openSettings"
-            android:text="Settings" />
-
-
-    </LinearLayout>
 </RelativeLayout>

@@ -20,9 +20,9 @@ public class AppTourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_tour);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-
         List<DataModel> imageItemList = getDataList();
+
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         AppTourAdapter appTourAdapter = new AppTourAdapter(this, imageItemList);
 
@@ -33,14 +33,14 @@ public class AppTourActivity extends AppCompatActivity {
         List<DataModel> itemList = new ArrayList<>();
 
         int[] imageIds = new int[]{
-                R.drawable.image1, R.drawable.image2, R.drawable.image3, R.drawable.image4, R.drawable.image5, R.drawable.image6};
-
-        String[] titles = new String[] {
-                "Home screen", "Medicine list", "Medicine Entry", "Personal Bio", "Test 5", "Test 6"
+                R.drawable.image1, R.drawable.image2, R.drawable.image3 //, R.drawable.image4, R.drawable.image5, R.drawable.image6
         };
 
-        int count  = imageIds.length;
-        for (int i = 0; i < count; i++) {
+        String[] titles = new String[] {
+                "Home screen", "medicine list", "medicine Entry" //, "Personal Bio", "Test 5", "Test 6"
+        };
+
+       for (int i = 0; i < imageIds.length; i++) {
             itemList.add(new DataModel(imageIds[i], titles[i]));
         }
 

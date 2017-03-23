@@ -20,7 +20,7 @@ public class AppointmentReminder extends IntentService {
     public static final int NOTIFICATION_ID = 1;
 
     public AppointmentReminder() {
-        super("Appointment Reminders");
+        super("appointment Reminders");
     }
 
     @Override
@@ -34,7 +34,7 @@ public class AppointmentReminder extends IntentService {
 
             sendNotification(appointment);
             AppointmentAlarmReceiver.completeWakefulIntent(intent);
-            Log.w(TAG, "Call Appointment Alarm Receiver");
+            Log.w(TAG, "Call appointment Alarm Receiver");
         }
     }
 
