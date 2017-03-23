@@ -107,6 +107,7 @@
     <string name="replenish_parceable">replenish</string>
     <string name="title_activity_personal">Personal Bio</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="appointment_add_date">Appointment Date</string>
     <string name="appointment_add_time">Appointment Time</string>

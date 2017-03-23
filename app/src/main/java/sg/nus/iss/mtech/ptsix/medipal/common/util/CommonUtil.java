@@ -25,7 +25,7 @@ public class CommonUtil {
 
     public static String formatCalender(Calendar calendar) {
         String formattedDate;
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format1 = new SimpleDateFormat(Constant.DATE_TIME_FORMAT);
         formattedDate = format1.format(calendar.getTime());
         return formattedDate;
     }

@@ -8,9 +8,13 @@ import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
@@ -19,7 +23,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ReminderVO;
 public class RemindersDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.REMINDERS_ID + " =?";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat(Constant.DATE_TIME_FORMAT, Locale.getDefault());
     private MedicineDao medicineDao;
     private CategoriesDao categoriesDao;
 
@@ -30,6 +34,14 @@ public class RemindersDao extends DBDAO {
     }
 
     public long save(Reminders reminders) {
+        Date startTime = reminders.getStartTime();
+        Calendar startCal = CommonUtil.dateToCalendar(startTime);
+        Calendar currCalendar = Calendar.getInstance();
+        startCal.set(Calendar.YEAR, currCalendar.get(Calendar.YEAR));
+        startCal.set(Calendar.MONTH, currCalendar.get(Calendar.MONTH));
+        startCal.set(Calendar.DAY_OF_MONTH, currCalendar.get(Calendar.DAY_OF_MONTH));
+        reminders.setStartTime(startCal.getTime());
+
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.REMINDERS_FREQ, reminders.getFrequency());
         values.put(DatabaseHelper.REMINDERS_START_TIME, formatter.format(reminders.getStartTime()));
@@ -38,6 +50,14 @@ public class RemindersDao extends DBDAO {
     }
 
     public long update(Reminders reminders) {
+        Date startTime = reminders.getStartTime();
+        Calendar startCal = CommonUtil.dateToCalendar(startTime);
+        Calendar currCalendar = Calendar.getInstance();
+        startCal.set(Calendar.YEAR, currCalendar.get(Calendar.YEAR));
+        startCal.set(Calendar.MONTH, currCalendar.get(Calendar.MONTH));
+        startCal.set(Calendar.DAY_OF_MONTH, currCalendar.get(Calendar.DAY_OF_MONTH));
+        reminders.setStartTime(startCal.getTime());
+
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.REMINDERS_FREQ, reminders.getFrequency());
         values.put(DatabaseHelper.REMINDERS_START_TIME, formatter.format(reminders.getStartTime()));
