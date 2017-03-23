@@ -11,28 +11,30 @@ import java.util.List;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.RemindersDao;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.RemindersService;
+import sg.nus.iss.mtech.ptsix.medipal.common.enums.DosageEnums;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
-import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.MedicineViewHolder;
 
 public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
     private List<Medicine> medicinesList;
     private int mExpandedPosition = -1;
-    private CategoriesDao categoriesDao;
-    private RemindersDao remindersDao;
+    private CategoriesService categoriesService;
+    private RemindersService remindersService;
     private Context mContext;
 
     public MedicinesAdapter(List<Medicine> medicinesList, Context context) {
         this.medicinesList = medicinesList;
-        this.categoriesDao = new CategoriesDao(context);
-        this.remindersDao = new RemindersDao(context);
+        this.categoriesService = new CategoriesService(context);
+        this.remindersService = new RemindersService(context);
         this.mContext = context;
     }
 
@@ -45,8 +47,8 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
     @Override
     public void onBindViewHolder(MedicineViewHolder holder, final int position) {
         final Medicine medicine = medicinesList.get(position);
-        final Categories category = this.categoriesDao.getCategories(medicine.getCatId());
-        final Reminders reminder = this.remindersDao.getReminders(medicine.getReminderId());
+        final Categories category = this.categoriesService.getCategories(medicine.getCatId());
+        final Reminders reminder = this.remindersService.getReminders(medicine.getReminderId());
 
         holder.medicine.setText(medicine.getMedicine());
         holder.category.setText(this.mContext.getResources().getString(R.string.medicine_list_category, category.getCategory()));
@@ -55,7 +57,7 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
             holder.remind.setText(R.string.medicine_list_remind_on);
             holder.frequency.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency, reminder.getFrequency()));
             holder.frequencyInterval.setText(this.mContext.getResources().getString(R.string.medicine_list_frequency_interval, reminder.getInterval()));
-            holder.frequencyStartTime.setText("Start Date:" + dateFormatter.format(reminder.getEventStartTime()).toString());
+            holder.frequencyStartTime.setText("Start Date:" + dateFormatter.format(reminder.getStartTime()).toString());
         } else if (medicine.getRemind() == 0) {
             holder.remind.setText(R.string.medicine_list_remind_off);
             holder.frequency.setVisibility(View.GONE);
@@ -64,9 +66,9 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
         }
 
         holder.quantity.setText(this.mContext.getResources().getString(R.string.medicine_list_quantity_left, medicine.getQuantity()));
-        holder.dosage.setText(this.mContext.getResources().getString(R.string.medicine_list_dosage, medicine.getDosage()));
+        holder.dosage.setText(this.mContext.getResources().getString(R.string.medicine_list_dosage, DosageEnums.getDosageFromIntValue(medicine.getDosage())));
         holder.consumeQuantity.setText(this.mContext.getResources().getString(R.string.medicine_list_consume_quantity, medicine.getConsumeQuantity()));
-        if (medicine.getThreshold() > 0) {
+        if (medicine.getThreshold() >= 0) {
             holder.threshold.setText(this.mContext.getResources().getString(R.string.medicine_list_threshold_required, medicine.getThreshold()));
         } else {
             holder.threshold.setText(this.mContext.getResources().getString(R.string.medicine_list_threshold_required_not));

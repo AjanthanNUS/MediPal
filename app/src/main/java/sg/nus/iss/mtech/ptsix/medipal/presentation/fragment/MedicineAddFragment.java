@@ -1,6 +1,7 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -29,33 +31,35 @@ import java.util.List;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineService;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.RemindersService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.CategoriesDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MedicineDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.RemindersDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 
 public class MedicineAddFragment extends Fragment {
 
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
+    private SimpleDateFormat timeFormatter = new SimpleDateFormat(Constant.TIME_FORMAT, Locale.getDefault());
     private Spinner medicineCategory, medicineDosage;
     private EditText medicineName, medicineDescription, medicineFrequency, medicineFrequencyInterval, medicineFrequencyStartTime, medicineThreshold, medicineQuantity, medicineConsumeQuantity, medicineDateIssue, medicineExpireFactor;
     private Switch medicineRemindSwitch;
     private TextInputLayout medicineFrequencyLabel, medicineFrequencyIntervalLabel, medicineFrequencyStartTimeLabel, medicineThresholdLabel;
-    private MedicineDao medicineDao;
-    private CategoriesDao categoriesDao;
-    private RemindersDao remindersDao;
     private Button btnSave, btnCancel, btnDelete;
     Calendar currentCal = Calendar.getInstance();
     Calendar shownDate = Calendar.getInstance();
+    Calendar issueDate = Calendar.getInstance();
     private Boolean reminderSwitchValue = false;
 
     private List<Categories> categoriesList = null;
+
+    private MedicineService medicineService;
+    private RemindersService remindersService;
+    private CategoriesService categoriesService;
 
     public MedicineAddFragment() {
     }
@@ -63,9 +67,9 @@ public class MedicineAddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.medicineDao = new MedicineDao(this.getContext());
-        this.categoriesDao = new CategoriesDao(this.getContext());
-        this.remindersDao = new RemindersDao(this.getContext());
+        this.medicineService = new MedicineService(this.getContext());
+        this.remindersService = new RemindersService(this.getContext());
+        this.categoriesService = new CategoriesService(this.getContext());
     }
 
     @Nullable
@@ -91,25 +95,12 @@ public class MedicineAddFragment extends Fragment {
         this.medicineDateIssue = (EditText) rootView.findViewById(R.id.medicine_date_issue);
         this.medicineExpireFactor = (EditText) rootView.findViewById(R.id.medicine_expire_factor);
 
-        List<String> dosageList = new ArrayList<>();
-        dosageList.add("<Select Dosage>");
-        dosageList.add(1, "pills");
-        dosageList.add(2, "cc");
-        dosageList.add(3, "ml");
-        dosageList.add(4, "gr");
-        dosageList.add(5, "mg");
-        dosageList.add(6, "drops");
-        dosageList.add(7, "pieces");
-        dosageList.add(8, "puffs");
-        dosageList.add(9, "units");
-        dosageList.add(10, "teaspoon");
-        dosageList.add(11, "tablespoon");
-        dosageList.add(12, "patch");
+        List<String> dosageList = CommonUtil.getDosageList();
 
         ArrayAdapter<String> dosageAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, dosageList);
         this.medicineDosage.setAdapter(dosageAdapter);
 
-        this.categoriesList = this.categoriesDao.getCategories();
+        this.categoriesList = this.categoriesService.getCategories();
         List<String> categoryCodes = new ArrayList<>();
         categoryCodes.add("<Select Category>");
         for (Categories category : categoriesList) {
@@ -118,7 +109,6 @@ public class MedicineAddFragment extends Fragment {
 
         ArrayAdapter<String> catergoriesAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, categoryCodes);
         this.medicineCategory.setAdapter(catergoriesAdapter);
-
         this.medicineCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -135,8 +125,22 @@ public class MedicineAddFragment extends Fragment {
                         medicineRemindSwitch.setEnabled(false);
                         medicineRemindSwitch.setChecked(true);
                     } else {
-                        medicineRemindSwitch.setEnabled(true);
-                        medicineRemindSwitch.setChecked(true);
+                        if(getArguments().getInt("id") == Constant.MEDICINE_ADD_INVALID_ID) {
+                            medicineRemindSwitch.setEnabled(true);
+                            medicineRemindSwitch.setChecked(true);
+                        }
+                        else {
+                            Medicine databaseMedicine = medicineService.getMedicine(getArguments().getInt("id"));
+                            if (databaseMedicine.getRemind() == 1) {
+                                medicineRemindSwitch.setEnabled(true);
+                                medicineRemindSwitch.setChecked(true);
+                            }
+                            else {
+                                medicineRemindSwitch.setEnabled(true);
+                                medicineRemindSwitch.setChecked(false);
+                            }
+
+                        }
                     }
                 }
             }
@@ -154,8 +158,6 @@ public class MedicineAddFragment extends Fragment {
                     medicineFrequencyIntervalLabel.setVisibility(View.VISIBLE);
                     medicineFrequencyStartTimeLabel.setVisibility(View.VISIBLE);
                     reminderSwitchValue = true;
-
-
                 } else {
                     medicineFrequencyLabel.setVisibility(View.GONE);
                     medicineFrequencyIntervalLabel.setVisibility(View.GONE);
@@ -165,8 +167,8 @@ public class MedicineAddFragment extends Fragment {
             }
         });
 
-        this.medicineFrequencyStartTime.setText(dateFormatter.format(shownDate.getTime()));
-        this.medicineFrequencyStartTime.setOnClickListener(new View.OnClickListener() {
+        this.medicineDateIssue.setText(dateFormatter.format(issueDate.getTime()));
+        this.medicineDateIssue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog.OnDateSetListener onDateSetListener =
@@ -175,8 +177,8 @@ public class MedicineAddFragment extends Fragment {
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.set(year, monthOfYear, dayOfMonth);
-                                shownDate = calendar;
-                                medicineFrequencyStartTime.setText(dateFormatter.format(calendar.getTime()));
+                                issueDate = calendar;
+                                medicineDateIssue.setText(dateFormatter.format(calendar.getTime()));
                             }
                         };
                 DatePickerDialog datePickerDialog =
@@ -184,6 +186,32 @@ public class MedicineAddFragment extends Fragment {
                                 currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH),
                                 currentCal.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
+            }
+        });
+
+        this.medicineFrequencyStartTime.setText(timeFormatter.format(shownDate.getTime()));
+        this.medicineFrequencyStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText editText = (EditText) v;
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH), hourOfDay, minute);
+                        editText.setText(timeFormatter.format(calendar.getTime()));
+                    }
+                };
+                Calendar timeCalendar = Calendar.getInstance();
+                try {
+                    timeCalendar.setTime(timeFormatter.parse(editText.getText().toString()));
+                } catch (ParseException e) {
+                    Toast.makeText(getActivity(), R.string.generic_error, Toast.LENGTH_SHORT).show();
+                }
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), timeSetListener,
+                        timeCalendar.get(Calendar.HOUR_OF_DAY), timeCalendar.get(Calendar.MINUTE), false);
+                timePickerDialog.show();
             }
         });
 
@@ -225,12 +253,13 @@ public class MedicineAddFragment extends Fragment {
         this.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancel the Category
+                // Delete the Category
+                deleteMedicines();
+                Toast.makeText(getActivity(), R.string.medicine_add_delete_completed, Toast.LENGTH_SHORT).show();
                 resetFields();
-                ((CategoriesActivity) getActivity()).switchTab(Constant.MEDICINE_TAB_LIST_INDEX, Constant.MEDICINE_ADD_INVALID_ID);
+                ((MedicineActivity) getActivity()).switchTab(Constant.MEDICINE_TAB_LIST_INDEX, Constant.MEDICINE_ADD_INVALID_ID);
             }
         });
-
         return rootView;
     }
 
@@ -241,7 +270,7 @@ public class MedicineAddFragment extends Fragment {
         if (getView() != null) {
             if (isVisibleToUser) {
                 if (id > Constant.MEDICINE_ADD_INVALID_ID) {
-                    Medicine medicine = this.medicineDao.getMedicine(id);
+                    Medicine medicine = this.medicineService.getMedicine(id);
                     setInputFromMedicine(medicine);
                 } else {
                     this.resetFields();
@@ -252,8 +281,18 @@ public class MedicineAddFragment extends Fragment {
         }
     }
 
+    private long deleteMedicines() {
+        Medicine databaseMedicine = medicineService.getMedicine(getArguments().getInt("id"));
+        Reminders databaseReminder = remindersService.getReminders(databaseMedicine.getReminderId());
+
+        Long mediResult = medicineService.deleteMedicine(databaseMedicine);
+        Long remindResult = remindersService.deleteReminders(databaseReminder);
+
+        return 1;
+    }
+
     private long updateMedicines() {
-        Medicine databaseMedicine = medicineDao.getMedicine(getArguments().getInt("id"));
+        Medicine databaseMedicine = medicineService.getMedicine(getArguments().getInt("id"));
         Medicine newMedicine = createMedicineFromInput();
         newMedicine.setId(databaseMedicine.getId());
         newMedicine.setReminderId(databaseMedicine.getReminderId());
@@ -262,19 +301,19 @@ public class MedicineAddFragment extends Fragment {
 
         if (newMedicine.getRemind() == 1) {
             // Set reminder table
-            mediResult = medicineDao.update(newMedicine);
+            mediResult = medicineService.updateMedicine(newMedicine);
             Reminders reminder = createReminderFromInput();
             reminder.setId(databaseMedicine.getReminderId());
-            remindResult = remindersDao.update(reminder);
+            remindResult = remindersService.updateReminders(reminder);
         } else {
             // Clear reminder column data
-            mediResult = medicineDao.update(newMedicine);
+            mediResult = medicineService.updateMedicine(newMedicine);
             Reminders reminder = new Reminders();
             reminder.setId(databaseMedicine.getReminderId());
             reminder.setInterval(0);
             reminder.setFrequency(0);
-            reminder.setEventStartTime(new Date());
-            remindResult = remindersDao.update(reminder);
+            reminder.setStartTime(new Date());
+            remindResult = remindersService.updateReminders(reminder);
         }
 
         return 1;
@@ -288,18 +327,18 @@ public class MedicineAddFragment extends Fragment {
         if (newMedicine.getRemind() == 1) {
             // Set reminder table
             Reminders reminder = createReminderFromInput();
-            remindResult = remindersDao.save(reminder);
+            remindResult = remindersService.makeReminders(reminder);
             newMedicine.setReminderId(remindResult.intValue());
-            mediResult = medicineDao.save(newMedicine);
+            mediResult = medicineService.makeMedicine(newMedicine);
         } else {
             // Clear reminder column data
             Reminders reminder = new Reminders();
             reminder.setInterval(0);
             reminder.setFrequency(0);
-            reminder.setEventStartTime(new Date());
-            remindResult = remindersDao.save(reminder);
+            reminder.setStartTime(new Date());
+            remindResult = remindersService.makeReminders(reminder);
             newMedicine.setReminderId(remindResult.intValue());
-            mediResult = medicineDao.save(newMedicine);
+            mediResult = medicineService.makeMedicine(newMedicine);
         }
         return 1;
     }
@@ -323,14 +362,19 @@ public class MedicineAddFragment extends Fragment {
             // no need to handle
         }
         medicine.setExpireFactor(Integer.parseInt(this.medicineExpireFactor.getText().toString().trim()));
-        medicine.setThreshold(Integer.parseInt(this.medicineThreshold.getText().toString().trim()));
+        if (this.medicineThreshold.getText().toString().trim().length() != 0) {
+            medicine.setThreshold(Integer.parseInt(this.medicineThreshold.getText().toString().trim()));
+        } else {
+            medicine.setThreshold(-1);
+        }
+
         return medicine;
     }
 
     private Reminders createReminderFromInput() {
         Reminders reminder = new Reminders();
         try {
-            reminder.setEventStartTime(dateFormatter.parse(this.medicineFrequencyStartTime.getText().toString().trim()));
+            reminder.setStartTime(timeFormatter.parse(this.medicineFrequencyStartTime.getText().toString().trim()));
         } catch (ParseException ex) {
             // no need to handle
         }
@@ -346,19 +390,27 @@ public class MedicineAddFragment extends Fragment {
         if (medicine.getRemind() == 1) {
             this.medicineRemindSwitch.setChecked(true);
 
-            Reminders reminder = this.remindersDao.getReminders(medicine.getReminderId());
+            Reminders reminder = this.remindersService.getReminders(medicine.getReminderId());
+
 
             this.medicineFrequency.setText(reminder.getFrequency() + "");
+            this.medicineFrequencyLabel.setVisibility(View.VISIBLE);
             this.medicineFrequencyInterval.setText(reminder.getInterval() + "");
-            this.medicineFrequencyStartTime.setText(dateFormatter.format(reminder.getEventStartTime()));
+            this.medicineFrequencyIntervalLabel.setVisibility(View.VISIBLE);
+            this.medicineFrequencyStartTime.setText(timeFormatter.format(reminder.getStartTime()));
+            this.medicineFrequencyStartTimeLabel.setVisibility(View.VISIBLE);
         } else {
+
             this.medicineRemindSwitch.setChecked(false);
+            this.medicineFrequencyLabel.setVisibility(View.GONE);
+            this.medicineFrequencyIntervalLabel.setVisibility(View.GONE);
+            this.medicineFrequencyStartTimeLabel.setVisibility(View.GONE);
         }
 
-        if (medicine.getThreshold() > 0) {
+        if (medicine.getThreshold() >= 0) {
             this.medicineThreshold.setText(medicine.getThreshold() + "");
         } else {
-            this.medicineThreshold.setText("0");
+            this.medicineThreshold.setText("");
         }
         this.medicineQuantity.setText(medicine.getQuantity() + "");
         this.medicineConsumeQuantity.setText(medicine.getConsumeQuantity() + "");
@@ -379,7 +431,6 @@ public class MedicineAddFragment extends Fragment {
         this.medicineDescription.setText("");
         this.medicineDescription.setError(null);
         this.medicineCategory.setSelection(0);
-        ((TextView) this.medicineCategory.getSelectedView()).setError(null);
         this.medicineRemindSwitch.setEnabled(false);
         this.medicineRemindSwitch.setChecked(false);
         this.medicineFrequencyLabel.setVisibility(View.GONE);
@@ -387,21 +438,24 @@ public class MedicineAddFragment extends Fragment {
         this.medicineFrequencyIntervalLabel.setVisibility(View.GONE);
         this.medicineFrequencyInterval.setError(null);
         this.medicineFrequencyStartTimeLabel.setVisibility(View.GONE);
+        this.medicineFrequencyStartTime.setText(timeFormatter.format(currentCal.getTime()));
         this.medicineFrequencyStartTime.setError(null);
         this.medicineThresholdLabel.setVisibility(View.VISIBLE);
+        this.medicineThreshold.setText("");
         this.medicineThreshold.setError(null);
         this.medicineFrequency.setText("");
         this.medicineFrequency.setError(null);
         this.medicineFrequencyInterval.setText("");
         this.medicineFrequencyInterval.setError(null);
-        this.medicineFrequencyStartTime.setText(dateFormatter.format(currentCal.getTime()));
-        this.medicineFrequencyStartTime.setError(null);
         this.medicineQuantity.setText("");
         this.medicineQuantity.setError(null);
         this.medicineConsumeQuantity.setText("");
         this.medicineConsumeQuantity.setError(null);
         this.medicineDosage.setSelection(0);
-        ((TextView) this.medicineDosage.getSelectedView()).setError(null);
+        if ((TextView) this.medicineCategory.getSelectedView() != null) {
+            ((TextView) this.medicineCategory.getSelectedView()).setError(null);
+            ((TextView) this.medicineDosage.getSelectedView()).setError(null);
+        }
         this.medicineDateIssue.setText(dateFormatter.format(currentCal.getTime()));
         this.medicineDateIssue.setError(null);
         this.medicineExpireFactor.setText("");
@@ -473,7 +527,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         } else {
             try {
-                dateFormatter.parse(medicineFrequencyStartTimeString);
+                timeFormatter.parse(medicineFrequencyStartTimeString);
             } catch (ParseException ex) {
                 this.medicineFrequencyStartTime.setError(getResources().getString(R.string.medicine_add_error_start_time_format));
                 isValid = false;
@@ -502,11 +556,6 @@ public class MedicineAddFragment extends Fragment {
 
         if (!medicineConsumeQuantityString.equals("") && (Integer.parseInt(medicineConsumeQuantityString) < 1 || Integer.parseInt(medicineConsumeQuantityString) > 1000)) {
             this.medicineConsumeQuantity.setError(getResources().getString(R.string.medicine_add_error_consume_quantity_length));
-            isValid = false;
-        }
-
-        if (this.medicineThreshold.isShown() && TextUtils.isEmpty(medicineThresholdString)) {
-            this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_empty));
             isValid = false;
         }
 
@@ -543,21 +592,9 @@ public class MedicineAddFragment extends Fragment {
     private boolean isNewValid() {
         boolean isValid = true;
 
-        if (medicineDao.getMedicineByName(this.medicineName.getText().toString().trim()).size() > 0) {
+        if (medicineService.getMedicineByName(this.medicineName.getText().toString().trim()).size() > 0) {
             this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
             isValid = false;
-        }
-
-        String medicineFrequencyStartTimeString = this.medicineFrequencyStartTime.getText().toString().trim();
-        if (this.medicineFrequencyStartTime.isShown() && !TextUtils.isEmpty(medicineFrequencyStartTimeString)) {
-            try {
-                if (CommonUtil.checkDateBeforeToday(dateFormatter.parse(medicineFrequencyStartTimeString))) {
-                    this.medicineFrequencyStartTime.setError(getResources().getString(R.string.medicine_add_error_start_time_before_today));
-                    isValid = false;
-                }
-            } catch (ParseException ex) {
-
-            }
         }
 
         String medicineDateIssueString = this.medicineDateIssue.getText().toString().trim();
@@ -577,15 +614,9 @@ public class MedicineAddFragment extends Fragment {
     private boolean isUpdateValid() {
         boolean isValid = true;
 
-        List<Medicine> medicineList = medicineDao.getMedicineByName(this.medicineName.getText().toString().trim());
-        if (medicineList.size() > 0) {
-            for (int i = 0; i < medicineList.size(); i++) {
-                Medicine medicine = medicineList.get(i);
-                if (getArguments().getInt("id") != medicine.getId()) {
-                    this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
-                    isValid = false;
-                }
-            }
+        if (!medicineService.validCheckEditNameDuplicate(getArguments().getInt("id"), this.medicineName.getText().toString().trim())) {
+            this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
+            isValid = false;
         }
 
         return isValid;

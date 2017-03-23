@@ -7,10 +7,6 @@ import sg.nus.iss.mtech.ptsix.medipal.business.services.AppointmentService;
 import sg.nus.iss.mtech.ptsix.medipal.common.exception.AppointmentExistException;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-/**
- * Created by win on 5/3/17.
- */
-
 public class AppointmentAsyncTask extends AsyncTask <Appointment, Void, Object> {
 
     private AppointmentService appointmentService;

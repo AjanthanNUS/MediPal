@@ -5,63 +5,73 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+
+import java.util.Calendar;
+import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.NotificationID;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentDetailActivity;
-
-/**
- * Created by win on 12/3/17.
- */
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MedicineActivity;
 
 public class MedicineReplenishReminder extends IntentService {
-    public static final String TAG = ConsumptionReminder.class.getSimpleName();
+    public static final String TAG = ConsumptionDailyService.class.getSimpleName();
 
     private NotificationManager mNotificationManager;
-    NotificationCompat.Builder builder;
     public static final int NOTIFICATION_ID = 1;
+    private MedicineService medicineService;
+
     public MedicineReplenishReminder() {
         super("MedicineReplenishReminder");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        medicineService = new MedicineService(this.getApplicationContext());
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.w(TAG, "On Handle Intent");
 
-        if (intent != null && intent.hasExtra(getResources().getResourceName(R.string.replenish_parceable))) {
-            Medicine medicine = intent.getParcelableExtra(getResources().getResourceName(R.string.replenish_parceable));
-
-            sendNotification(medicine);
-            MedicineReplenishAlarmReceiver.completeWakefulIntent(intent);
-            Log.w(TAG, "Call Medicine Replenish Alarm Receiver");
+        List<String> medicineNameList = medicineService.getNamesOfMedicineBelowThreshold();
+        if (medicineNameList.size() > 0) {
+            sendNotification(medicineNameList);
         }
+        MedicineReplenishAlarmReceiver.completeWakefulIntent(intent);
+
+        Log.w(TAG, "Call Medicine Replenish Alarm Receiver");
     }
 
-    private void sendNotification(Medicine medicine) {
-        Log.w(TAG, "SEND REPLENISH NOTI");
-        mNotificationManager = (NotificationManager)
-                this.getSystemService(Context.NOTIFICATION_SERVICE);
+    private void sendNotification(List<String> medicineNameList) {
+        Log.w(TAG, "SEND REPLENISH NOTIFICATION");
+        mNotificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        int requestID = Integer.parseInt(NotificationID.CONSUMPTION + "" +medicine.getId());
+        Calendar cal = Calendar.getInstance();
+        int requestID = Integer.parseInt(NotificationID.REPLENISH + "" + Integer.toString(cal.get(Calendar.MINUTE)) + Integer.toString(cal.get(Calendar.SECOND)));
+        Intent medicineIntent = new Intent(this, MedicineActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, medicineIntent, 0);
+        StringBuilder notificationMessage = new StringBuilder();
+        notificationMessage.append("Required: ");
 
-        // TODO Replace your medicine replenish activities here
-        PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, new Intent(this, AppointmentDetailActivity.class), 0);
+        for (String medicineName : medicineNameList) {
+            notificationMessage.append(medicineName);
+            notificationMessage.append(",");
+        }
+        String notificationMessageString = notificationMessage.toString();
+        notificationMessageString = notificationMessageString.substring(0, notificationMessageString.length() - 1);
 
-        //TODO Replace your message preparation here
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setSmallIcon(R.drawable.ic_app_icon);
+        mBuilder.setContentTitle(getResources().getText(R.string.medicine_replenish_reminder_title));
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText("This is a replenish reminder."));
+        mBuilder.setContentText(notificationMessageString);
 
-//        NotificationCompat.Builder mBuilder =
-//                new NotificationCompat.Builder(this)
-//                        .setSmallIcon(R.mipmap.ic_launcher)
-//                        .setContentTitle(getResources().getText(R.string.appointment_reminder_title))
-//                        .setStyle(new NotificationCompat.BigTextStyle().bigText(appointment.getDescription()))
-//                        .setContentText(appointment.getLocation());
-//
-//        mBuilder.setContentIntent(contentIntent);
-//        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-        Log.w(TAG, "END REPLENISH NOTI");
+        mBuilder.setContentIntent(contentIntent);
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 
+        Log.w(TAG, "END REPLENISH NOTIFICATION");
     }
 }

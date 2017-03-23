@@ -28,19 +28,15 @@ public class MeasurementActivity extends AppCompatActivity {
             R.drawable.ic_edit_white
     };
 
-    private static final String MEASUREMENT_ADD_TAB_NAME = "Add/Edit";
+    private static final String MEASUREMENT_ADD_TAB_NAME = "Add";
     private static final String MEASUREMENT_LIST_TAB_NAME = "Listing";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measurement);
-        measurementDao = new MeasurementDao(this);
 
         measurementListFragment = new MeasurementListFragment();
         measurementAddFragment = new MeasurementAddFragment();
-
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -49,22 +45,7 @@ public class MeasurementActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//               Log.d("aaaaaaaaa", "aaaaaaaaaaaaa");
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//                // called when tab unselected
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//                // called when a tab is reselected
-//            }
-//        });
+
         setupTabIcons();
     }
     private void setupTabIcons() {

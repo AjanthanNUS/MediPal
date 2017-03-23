@@ -6,16 +6,11 @@ import android.os.AsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.AppointmentService;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-/**
- * Created by win on 6/3/17.
- */
-
 public class AppointmentUpdateAsyncTask extends AsyncTask<Appointment, Void, Long> {
     private AppointmentService appointmentService;
 
     public AppointmentUpdateAsyncTask(Context context) {
         appointmentService = new AppointmentService(context);
-
     }
 
     @Override

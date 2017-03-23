@@ -1,13 +1,9 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.Date;
 
-/**
- * Created by WONG_CH on 05-Mar-17.
- */
+import java.util.Date;
 
 public class PersonalBio implements Parcelable {
 
@@ -19,7 +15,6 @@ public class PersonalBio implements Parcelable {
     private String postalcode;
     private int height;
     private String bloodtype;
-
 
     public PersonalBio() {
         super();
@@ -140,5 +135,4 @@ public class PersonalBio implements Parcelable {
             return new PersonalBio[size];
         }
     };
-
 }

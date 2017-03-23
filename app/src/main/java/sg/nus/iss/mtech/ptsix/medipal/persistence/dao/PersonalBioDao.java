@@ -6,17 +6,13 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Locale;
 
+import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
-
 
 public class PersonalBioDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.PER_ID + " =?";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     public PersonalBioDao(Context context) {
         super(context);
@@ -48,13 +44,12 @@ public class PersonalBioDao extends DBDAO {
     public long update(PersonalBio personalBio) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.PER_NAME, personalBio.getUserName());
-        values.put(DatabaseHelper.PER_DOB, personalBio.getUserDOB().toString());
+        values.put(DatabaseHelper.PER_DOB, CommonUtil.date2ddMMMYYYY(personalBio.getUserDOB()));
         values.put(DatabaseHelper.PER_ID_NO, personalBio.getUserIDNo());
         values.put(DatabaseHelper.PER_ADDRESS, personalBio.getAddress());
         values.put(DatabaseHelper.PER_POSTAL_CODE, personalBio.getPostalcode());
         values.put(DatabaseHelper.PER_HEIGHT, personalBio.getHeight());
         values.put(DatabaseHelper.PER_BLOOD_TYPE, personalBio.getBloodType());
-
 
         long result = database.update(DatabaseHelper.PERSONAL_BIO_TABLE, values,
                 WHERE_ID_EQUALS,
@@ -63,7 +58,6 @@ public class PersonalBioDao extends DBDAO {
         return result;
 
     }
-
 
     //Retrieves a single reminder record with the given id
     public PersonalBio getPersonalBio() {
@@ -78,7 +72,7 @@ public class PersonalBioDao extends DBDAO {
             personalBio.setId(cursor.getInt(0));
             personalBio.setUserName(cursor.getString(1));
             try {
-                personalBio.setUserDOB(formatter.parse(cursor.getString(2)));
+                personalBio.setUserDOB(CommonUtil.ddmmmyyyy2date(cursor.getString(2)));
             } catch (ParseException e) {
                 personalBio.setUserDOB(null);
             }
@@ -87,7 +81,6 @@ public class PersonalBioDao extends DBDAO {
             personalBio.setPostalcode(cursor.getString(5));
             personalBio.setHeight(cursor.getInt(6));
             personalBio.setBloodType(cursor.getString(7));
-
         }
         return personalBio;
     }

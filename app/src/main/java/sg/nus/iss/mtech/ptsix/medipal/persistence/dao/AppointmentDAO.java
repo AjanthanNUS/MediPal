@@ -13,21 +13,6 @@ import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-
-
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-
-/*
-ID          interger
-Location    string
-Appointment date
-Description string
-
- */
-
 public class AppointmentDAO extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.APP_ID + " =?";
@@ -54,15 +39,14 @@ public class AppointmentDAO extends DBDAO {
 
         long result = database.update(DatabaseHelper.APPOINTMENT_TABLE, values,
                 WHERE_ID_EQUALS,
-                new String[] { String.valueOf(appointment.getId()) });
+                new String[]{String.valueOf(appointment.getId())});
         Log.d("Update Result:", "=" + result);
         return result;
-
     }
 
     public int delete(Appointment appointment) {
         return database.delete(DatabaseHelper.APPOINTMENT_TABLE, WHERE_ID_EQUALS,
-                new String[] { appointment.getId() + "" });
+                new String[]{appointment.getId() + ""});
     }
 
     //USING query() method
@@ -70,7 +54,7 @@ public class AppointmentDAO extends DBDAO {
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
 
         Cursor cursor = database.query(DatabaseHelper.APPOINTMENT_TABLE,
-                new String[] { DatabaseHelper.APP_ID,
+                new String[]{DatabaseHelper.APP_ID,
                         DatabaseHelper.APP_LOCATION,
                         DatabaseHelper.APP_DATE,
                         DatabaseHelper.APP_DESC,
@@ -92,14 +76,13 @@ public class AppointmentDAO extends DBDAO {
         return appointments;
     }
 
-    //Retrieves a single reminder record with the given id
     public Appointment getAppointment(long id) {
         Appointment appointment = null;
 
         String sql = "SELECT * FROM " + DatabaseHelper.APPOINTMENT_TABLE
                 + " WHERE " + DatabaseHelper.APP_ID + " = ?";
 
-        Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
+        Cursor cursor = database.rawQuery(sql, new String[]{id + ""});
 
         if (cursor.moveToNext()) {
             appointment = new Appointment();
@@ -117,7 +100,7 @@ public class AppointmentDAO extends DBDAO {
         return appointment;
     }
 
-    public Appointment getAppointmentByDateTime(Date date)  {
+    public Appointment getAppointmentByDateTime(Date date) {
         Appointment ret = null;
 
         String sql = "SELECT * FROM " + DatabaseHelper.APPOINTMENT_TABLE
@@ -148,8 +131,6 @@ public class AppointmentDAO extends DBDAO {
         database.execSQL(DatabaseHelper.CREATE_APPOINTMENT_TABLE);
         result = true;
 
-
         return result;
     }
-
 }
