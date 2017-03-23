@@ -89,7 +89,7 @@ public class ICEContactAddFragment extends Fragment {
                     resetFields();
                     ((ICEContactActivity) getActivity()).switchTab(0, -1);
                 } else {
-                    populateICESequences(getICEContactFromInput(), 1);
+                    populateICESequences();
                     iceList = iceContactService.getAllICEContact();
                     Toast.makeText(getActivity(), "Update ICE Contact Info!!!", Toast.LENGTH_SHORT).show();
                     resetFields();
@@ -125,8 +125,6 @@ public class ICEContactAddFragment extends Fragment {
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-       // Log.i("Show User Info : ", name.getText().toString());
-       // Log.i("Show User Info : ", name.getText().toString());
         super.setUserVisibleHint(isVisibleToUser);
         int id = getArguments().getInt("id");
         Log.i("ID : ", String.valueOf(id));
@@ -163,8 +161,6 @@ public class ICEContactAddFragment extends Fragment {
         ice.setId(getArguments().getInt("id"));
         ice.setName(name.getText().toString());
         ice.setContactNo(iceContactNo.getText().toString());
-        Log.i("iceContactTYPE STR : ", ((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumValue());
-        Log.i("iceContactTYPE INT : ", String.valueOf(((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumCode()));
         ice.setIceContactType(((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumCode());
         ice.setDescription(description.getText().toString());
         ice.setSequence(iceList.size());
@@ -211,9 +207,9 @@ public class ICEContactAddFragment extends Fragment {
         return false;
     }
 
-    private void populateICESequences() {
+    /*private void populateICESequences() {
         populateICESequences(false);
-    }
+    }*/
 
     private void populateICESequences(ICE newICEContact, int actionType) {
         int listCount = iceList.size();
@@ -265,7 +261,6 @@ public class ICEContactAddFragment extends Fragment {
 
     private void populateICESequences(boolean isDeleteAction) {
         ICE newICEContact = getICEContactFromInput();
-        int listCount = iceList.size();
         Log.i("populateICESequences : " , newICEContact.getName());
         int i = 0;
         int selectedItem  = (int)iceSequenceNo.getSelectedItemPosition();
@@ -273,34 +268,85 @@ public class ICEContactAddFragment extends Fragment {
         int l = 0;
         boolean isSequenceNoChanged = false;
 
-        if(newICEContact.getIceContactType() == selectedItem) {
-            iceContactService.updateICEContact(newICEContact);
-        } else {
-            if(!isDeleteAction) {
-                for(ICE iceContact : iceList) {
-                    Log.i(newICEContact.getName()  , iceContact.getName());
-                    if(newICEContact.getId() == iceContact.getId() && newICEContact.getSequence() != iceContact.getSequence()) {
-                        isSequenceNoChanged = true;
-                        Log.i("1. Name : " + newICEContact.getId(), newICEContact.getName());
-                        iceContact.setSequence(k);
-                        i++;
-                        Log.i("After Exchange" + iceContact.getName(), String.valueOf(iceContact.getSequence()));
-                        break;
-                    }
-                }
+        for(ICE iceContact : iceList) {
+            Log.i(newICEContact.getName()  , iceContact.getName());
+            if(newICEContact.getId() == iceContact.getId() && newICEContact.getSequence() != iceContact.getSequence()) {
+                isSequenceNoChanged = true;
+                Log.i("1. Name : " + newICEContact.getId(), newICEContact.getName());
+                iceContact.setSequence(k);
+                k--;
+                Log.i("After Exchange" + iceContact.getName(), String.valueOf(iceContact.getSequence()));
+                break;
             }
-
-
-            if(iceList.size() != i) {
-                for (ICE iceContact : iceList) {
-                    if (iceContact.getId() != newICEContact.getId()) {
-                        iceContact.setSequence(i);
-                        i++;
-                    }
-                }
-            }
-            iceContactService.updateICEContactByID(iceList);
         }
 
+
+        if(iceList.size() != i) {
+            for (ICE iceContact : iceList) {
+                if (iceContact.getId() != newICEContact.getId()) {
+                    iceContact.setSequence(k);
+                    k++;
+                }
+            }
+        }
+        iceContactService.updateICEContactByID(iceList);
+    }
+
+    private void populateICESequences() {
+        ICE newICEContact = getICEContactFromInput();
+        int listCount = iceList.size();
+        Log.i("populateICESequences : " , newICEContact.getName());
+        int i = 0;
+        int selectedItem  = (int)iceSequenceNo.getSelectedItemPosition();
+        int k = selectedItem;
+        int l = 0;
+        boolean isSequenceNoChanged = false;
+        int id, oldSequenceNo = 1;
+
+        for(ICE iceContact : iceList) {
+            Log.i(newICEContact.getName()  , iceContact.getName());
+            if(newICEContact.getId() == iceContact.getId() && newICEContact.getSequence() != iceContact.getSequence()) {
+                isSequenceNoChanged = true;
+                Log.i("1. Name : " + newICEContact.getId(), newICEContact.getName());
+                oldSequenceNo = iceContact.getSequence();
+                iceContact.setSequence(k);
+                Log.i("After Exchange" + iceContact.getName(), String.valueOf(iceContact.getSequence()));
+                break;
+            }
+        }
+
+        if(iceList.size() != i) {
+            for (ICE iceContact : iceList) {
+              /*  if(iceContact.getId() == newICEContact.getId() && k != 0 && iceContact.getSequence() == 1) {
+                    i--;
+                    iceContact.setSequence(i);
+                } else if(k==0 && iceContact.getSequence() == 0) {
+                      i++;
+                } else if()
+              */
+                if(oldSequenceNo == 0) {
+                    iceContact.setSequence(i);
+                    i++;
+                }
+
+                if (iceContact.getId() != newICEContact.getId()) {
+                    iceContact.setSequence(i);
+                    i++;
+                } else {
+                    i++;
+                    //iceContact.setSequence(i);
+                }
+              /*  if (iceContact.getId() != newICEContact.getId()) {
+                    iceContact.setSequence(i);
+                    i++;
+                } else if(iceContact.getSequence() == k) {
+                    i++;
+                } else if(iceContact.getSequence() == 1) {
+                    i--;
+                    iceContact.setSequence(i);
+                }*/
+            }
+        }
+        iceContactService.updateICEContactByID(iceList);
     }
 }
