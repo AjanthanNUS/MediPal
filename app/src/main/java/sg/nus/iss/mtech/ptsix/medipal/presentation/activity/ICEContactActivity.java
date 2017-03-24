@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.ICEContactService;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.IceDao;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ICEContactAddFragment;
@@ -24,7 +25,7 @@ public class ICEContactActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ICEContactAddFragment iceContactAddFragment;
     private ICEContactListFragment iceContactListFragment;
-    private IceDao iceDAO;
+    private ICEContactService iceContactService;
 
     private int[] tabIcons = {
             R.drawable.ic_view_list_white,
@@ -39,7 +40,7 @@ public class ICEContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ice_contacts);
 
-        iceDAO = new IceDao(this);
+        iceContactService = new ICEContactService(this);
 
         iceContactAddFragment = new ICEContactAddFragment();
         iceContactListFragment = new ICEContactListFragment();

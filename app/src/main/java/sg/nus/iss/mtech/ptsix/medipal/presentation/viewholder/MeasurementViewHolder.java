@@ -10,7 +10,7 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
 public class MeasurementViewHolder extends RecyclerView.ViewHolder {
 
     public TextView MeaID, MeaSystolic, MeaDiastolic,MeaPulse,MeaTemperature,MeaWeight,MeaMeasureOn,MeaComment ;
-    public Button btnEdit;
+    public Button btnDel;
 
     public MeasurementViewHolder(View view) {
         super(view);
@@ -22,5 +22,6 @@ public class MeasurementViewHolder extends RecyclerView.ViewHolder {
         MeaWeight = (TextView) view.findViewById(R.id.MeaWeight);
         MeaMeasureOn =(TextView) view.findViewById(R.id.MeaMeasureOn);
         MeaComment =(TextView) view.findViewById(R.id.MeaComment);
+        this.btnDel = (Button) view.findViewById(R.id.btn_Mea_Delete);
     }
 }

@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.HealthBioService;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.HealthBioDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.HealthBioAddFragment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.HealthBioListFragment;
@@ -25,7 +25,7 @@ public class HealthBioActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private HealthBioAddFragment healthBioAddFragment;
     private HealthBioListFragment healthBioListFragment;
-    private HealthBioDao healthBioDao;
+    private HealthBioService healthBioService;
 
 
     private int[] tabIcons = {
@@ -41,13 +41,10 @@ public class HealthBioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_bio);
 
-        healthBioDao = new HealthBioDao(this);
+        healthBioService = new HealthBioService(this);
 
         healthBioAddFragment = new HealthBioAddFragment();
         healthBioListFragment = new HealthBioListFragment();
-
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -56,22 +53,7 @@ public class HealthBioActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.health_bio_tabs);
         tabLayout.setupWithViewPager(viewPager);
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//               Log.d("aaaaaaaaa", "aaaaaaaaaaaaa");
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//                // called when tab unselected
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//                // called when a tab is reselected
-//            }
-//        });
+
         setupTabIcons();
 
     }

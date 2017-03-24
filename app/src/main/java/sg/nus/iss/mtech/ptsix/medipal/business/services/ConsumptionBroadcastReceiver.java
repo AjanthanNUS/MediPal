@@ -9,7 +9,10 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
@@ -33,8 +36,17 @@ public class ConsumptionBroadcastReceiver extends WakefulBroadcastReceiver {
         Reminders reminder = intent.getParcelableExtra(Constant.REMINDER_BUNDLE);
         ReminderVO reminderVO = reminderManager.castToReminderVo(reminder);
 
+        String remindTime = intent.getStringExtra(Constant.REMIND_TIME);
+        Date reminderDate = new Date();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_TIME_FORMAT, Locale.getDefault());
+        try {
+            reminderDate = dateFormatter.parse(remindTime);
+        } catch (ParseException e) {
+            Log.e(TAG, "DATE format issue");
+        }
+
         Consumption consumption = new Consumption();
-        consumption.setConsumedOn(new Date());
+        consumption.setConsumedOn(reminderDate);
         consumption.setMedicineID(reminderVO.getMedicine().getId());
         consumption.setQuantity(0);
 
@@ -56,7 +68,7 @@ public class ConsumptionBroadcastReceiver extends WakefulBroadcastReceiver {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_action_happy)
+                        .setSmallIcon(R.drawable.ic_app_icon)
                         .setContentTitle(context.getResources().getText(R.string.consumption_reminder_title))
                         .setContentText(notificationText)
                         .setAutoCancel(true)

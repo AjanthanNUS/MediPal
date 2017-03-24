@@ -256,13 +256,8 @@ public class AppointmentAddFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         int id = getArguments().getInt("id");
-        Log.w(TAG, "Appointment ID " + id);
-        Log.w(TAG, "IS Visible to user" + isVisibleToUser);
-        Log.w(TAG, "Get View " + getView());
         if (getView() != null) {
-            Log.w(TAG, "View not null");
             if (isVisibleToUser) {
-                Log.w(TAG, "Visible to user");
                 if (id > Constant.APPOINTMENT_ADD_INVALID_ID) {
                     AppointmentGetAsyncTask appointmentGetAsyncTask = new AppointmentGetAsyncTask(getContext());
                     appointmentGetAsyncTask.execute(id);

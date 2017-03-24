@@ -1,6 +1,5 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.HealthBioService;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.HealthBioDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
@@ -29,14 +30,15 @@ public class HealthBioListFragment extends android.support.v4.app.Fragment {
     private List<HealthBio> healthBioList = new ArrayList<>();
     private RecyclerView recyclerView;
     private HealthBioAdaptor mAdapter;
-    private HealthBioDao healthBioDao;
+    private HealthBioService healthBioService;
+    private FloatingActionButton addActionButton;
 
     public HealthBioListFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.healthBioDao = new HealthBioDao(this.getContext());
+        this.healthBioService = new HealthBioService(this.getContext());
         this.getHealthBioList();
     }
 
@@ -53,6 +55,15 @@ public class HealthBioListFragment extends android.support.v4.app.Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        addActionButton = (FloatingActionButton) rootView.findViewById(R.id.fragment_health_bio_list_add);
+        addActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HealthBioActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_ADD_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
+            }
+        });
+
+
         return rootView;
     }
 
@@ -62,7 +73,7 @@ public class HealthBioListFragment extends android.support.v4.app.Fragment {
     }
 
     private void getHealthBioList() {
-        healthBioList = this.healthBioDao.getHealthBios();
+        healthBioList = this.healthBioService.getAllHealthBio();
     }
 
 }

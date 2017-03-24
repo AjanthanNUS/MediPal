@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.SettingsActivity">
 
+
     <LinearLayout
-        android:id="@+id/settings_turorial_group"
+        android:id="@+id/app_tour_settings_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp">
 
@@ -30,11 +31,12 @@
             android:focusable="false" />
     </LinearLayout>
 
+
     <LinearLayout
         android:id="@+id/settings_threshold_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/settings_turorial_group"
+        android:layout_below="@+id/app_tour_settings_label"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp">
