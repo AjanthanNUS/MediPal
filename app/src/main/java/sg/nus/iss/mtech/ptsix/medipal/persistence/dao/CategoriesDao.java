@@ -112,4 +112,17 @@ public class CategoriesDao extends DBDAO {
         }
         return categories_array;
     }
+
+    public boolean truncateAllCategories() {
+        boolean result = false;
+
+        database.execSQL("DROP TABLE IF EXISTS " + DatabaseHelper.MEDI_TABLE);
+        database.execSQL(DatabaseHelper.CREATE_MEDI_TABLE);
+
+        database.execSQL("DROP TABLE IF EXISTS " + DatabaseHelper.CATS_TABLE);
+        database.execSQL(DatabaseHelper.CREATE_CATS_TABLE);
+        result = true;
+
+        return result;
+    }
 }

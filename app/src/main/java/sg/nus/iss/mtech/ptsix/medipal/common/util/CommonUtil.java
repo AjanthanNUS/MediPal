@@ -209,7 +209,7 @@ public class CommonUtil {
     public static List<String> getDosageList() {
         List<String> dosageList = new ArrayList<>();
 
-        dosageList.add("Select Dosage.");
+        dosageList.add("<Select Dosage>");
         dosageList.add(DosageEnums.PILLS.getValue(), DosageEnums.PILLS.getStringValue());
         dosageList.add(DosageEnums.CC.getValue(), DosageEnums.CC.getStringValue());
         dosageList.add(DosageEnums.ML.getValue(), DosageEnums.ML.getStringValue());
