@@ -20,30 +20,30 @@ MeasureOn       DateTime
  */
 public class Measurement implements Parcelable {
 
-    private Meas_Temp mMeas_Temp;
+    private MeasTemp mMeas_Temp;
     private MeasurementBase mMeas_Weight;
     private MeasurementBase mMeas_Id;
     private MeasurementBase mMeas_Pulse;
-    private Meas_BloodPressure mMeas_BloodPressure;
-    private Meas_Comment mMeasComment;
-    private Meas_MeasuredOn mMeasMeasuredOn;
+    private MeasBloodPressure mMeasBloodPressure;
+    private MeasComment mMeasComment;
+    private MeasMeasuredOn mMeasMeasuredOn;
 
     public Measurement() {
         super();
-        mMeas_Temp = new Meas_Temp();
+        mMeas_Temp = new MeasTemp();
         mMeas_Weight = new MeasurementBase("KG");
         mMeas_Id = new MeasurementBase();
         mMeas_Pulse = new MeasurementBase("BMP");
-        mMeas_BloodPressure = new Meas_BloodPressure();
-        mMeasComment = new Meas_Comment();
-        mMeasMeasuredOn = new Meas_MeasuredOn();
+        mMeasBloodPressure = new MeasBloodPressure();
+        mMeasComment = new MeasComment();
+        mMeasMeasuredOn = new MeasMeasuredOn();
     }
 
     private Measurement(Parcel in) {
         super();
         this.mMeas_Id.set_reading(in.readInt());
-        this.mMeas_BloodPressure.set_Systolic_reading(in.readInt());
-        this.mMeas_BloodPressure.set_Diastolic_reading(in.readInt());
+        this.mMeasBloodPressure.set_Systolic_reading(in.readInt());
+        this.mMeasBloodPressure.set_Diastolic_reading(in.readInt());
         this.mMeas_Pulse.set_reading(in.readInt());
         this.mMeas_Temp.set_Temp_reading(in.readInt());
         this.mMeas_Weight.set_reading(in.readInt());
@@ -60,19 +60,19 @@ public class Measurement implements Parcelable {
     }
 
     public int getEventSystolic() {
-        return this.mMeas_BloodPressure.get_Systolic_reading();
+        return this.mMeasBloodPressure.get_Systolic_reading();
     }
 
     public void setEventSystolic(int Systolic) {
-        this.mMeas_BloodPressure.set_Systolic_reading(Systolic);
+        this.mMeasBloodPressure.set_Systolic_reading(Systolic);
     }
 
     public int getEventDiastolic() {
-        return this.mMeas_BloodPressure.get_Diastolic_reading();
+        return this.mMeasBloodPressure.get_Diastolic_reading();
     }
 
     public void setEventDiastolic(int Diastolic) {
-        this.mMeas_BloodPressure.set_Diastolic_reading(Diastolic);
+        this.mMeasBloodPressure.set_Diastolic_reading(Diastolic);
     }
     public void setEventPulse (int Pulse ) {
         this.mMeas_Pulse.set_reading(Pulse) ;
@@ -114,9 +114,9 @@ public class Measurement implements Parcelable {
     }
     @Override
     public String toString() {
-        return "Measurement [id=" + mMeas_Id.get_reading() +
-                ", Systolic=" + mMeas_BloodPressure.get_Systolic_reading() +
-                ", Diastolic=" + mMeas_BloodPressure.get_Diastolic_reading() +
+        return "measurement [id=" + mMeas_Id.get_reading() +
+                ", Systolic=" + mMeasBloodPressure.get_Systolic_reading() +
+                ", Diastolic=" + mMeasBloodPressure.get_Diastolic_reading() +
                 ", Pulse=" + mMeas_Pulse.get_reading() +
                 ", Temperature=" + mMeas_Temp.get_Temp_reading() +
                 ", Weight=" + mMeas_Weight.get_reading() +

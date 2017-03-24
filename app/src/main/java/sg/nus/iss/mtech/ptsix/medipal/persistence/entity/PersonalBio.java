@@ -99,7 +99,7 @@ public class PersonalBio implements Parcelable {
 
     @Override
     public String toString() {
-        return "PersonalBio [id=" + id +
+        return "personalBio [id=" + id +
                 ", name=" + userName +
                 ", date=" + userDOB +
                 ", userIDNo=" + userIDNo +

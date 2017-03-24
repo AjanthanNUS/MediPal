@@ -25,7 +25,7 @@ public class CommonUtil {
 
     public static String formatCalender(Calendar calendar) {
         String formattedDate;
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format1 = new SimpleDateFormat(Constant.DATE_TIME_FORMAT);
         formattedDate = format1.format(calendar.getTime());
         return formattedDate;
     }
@@ -209,7 +209,7 @@ public class CommonUtil {
     public static List<String> getDosageList() {
         List<String> dosageList = new ArrayList<>();
 
-        dosageList.add("Select Dosage.");
+        dosageList.add("<Select Dosage>");
         dosageList.add(DosageEnums.PILLS.getValue(), DosageEnums.PILLS.getStringValue());
         dosageList.add(DosageEnums.CC.getValue(), DosageEnums.CC.getStringValue());
         dosageList.add(DosageEnums.ML.getValue(), DosageEnums.ML.getStringValue());

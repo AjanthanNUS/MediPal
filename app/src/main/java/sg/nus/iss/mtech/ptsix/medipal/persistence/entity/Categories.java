@@ -67,7 +67,7 @@ public class Categories implements Parcelable {
     @Override
     public String toString() {
         return "Categories [id=" + id +
-                ", Category=" + category +
+                ", category=" + category +
                 ", Code=" + code +
                 ", Description=" + description +
                 ", Remind=" + remind +

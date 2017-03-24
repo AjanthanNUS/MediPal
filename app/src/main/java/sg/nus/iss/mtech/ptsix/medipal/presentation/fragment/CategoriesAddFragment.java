@@ -41,7 +41,6 @@ public class CategoriesAddFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.categoriesService = new CategoriesService(this.getContext());
-        this.categorySaveAsyncTask = new CategorySaveAsyncTask(getActivity());
         this.categoryUpdateAsyncTask = new CategoryUpdateAsyncTask(getActivity());
     }
 
@@ -49,6 +48,8 @@ public class CategoriesAddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_categories_add, container, false);
+        this.categorySaveAsyncTask = new CategorySaveAsyncTask(getActivity());
+
 
         categoryName = (EditText) rootView.findViewById(R.id.categories_name);
         categoryCode = (EditText) rootView.findViewById(R.id.categories_code);
@@ -85,7 +86,7 @@ public class CategoriesAddFragment extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancel the Category
+                // Cancel the category
                 resetFields();
                 ((CategoriesActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_LIST_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
             }

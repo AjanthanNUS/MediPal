@@ -60,7 +60,7 @@ public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<Appoint
             public void onClick(View v) {
                 // Show Alert and call delete
                 new AlertDialog.Builder(mContext)
-                        .setTitle("Appointment Delete")
+                        .setTitle("appointment Delete")
                         .setMessage("Do you want to delete?")
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -70,7 +70,7 @@ public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<Appoint
                                 deleteAsysncTask.execute(appointment);
                                 mAppointments.remove(position);
                                 notifyDataSetChanged();
-                                Toast.makeText(mContext, "Appointment deleted successfully.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "appointment deleted successfully.", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null).show();

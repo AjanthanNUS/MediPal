@@ -139,7 +139,6 @@ public class MedicineAddFragment extends Fragment {
                                 medicineRemindSwitch.setEnabled(true);
                                 medicineRemindSwitch.setChecked(false);
                             }
-
                         }
                     }
                 }
@@ -243,7 +242,7 @@ public class MedicineAddFragment extends Fragment {
         this.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Cancel the Category
+                // Cancel the category
                 resetFields();
                 ((MedicineActivity) getActivity()).switchTab(Constant.MEDICINE_TAB_LIST_INDEX, Constant.MEDICINE_ADD_INVALID_ID);
             }
@@ -253,7 +252,7 @@ public class MedicineAddFragment extends Fragment {
         this.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Delete the Category
+                // Delete the category
                 deleteMedicines();
                 Toast.makeText(getActivity(), R.string.medicine_add_delete_completed, Toast.LENGTH_SHORT).show();
                 resetFields();
@@ -592,6 +591,10 @@ public class MedicineAddFragment extends Fragment {
     private boolean isNewValid() {
         boolean isValid = true;
 
+        String medicineQuantityString = this.medicineQuantity.getText().toString().trim();
+        String medicineConsumeQuantityString = this.medicineConsumeQuantity.getText().toString().trim();
+        String medicineThresholdString = this.medicineThreshold.getText().toString().trim();
+
         if (medicineService.getMedicineByName(this.medicineName.getText().toString().trim()).size() > 0) {
             this.medicineName.setError(getResources().getString(R.string.medicine_add_error_name_duplicated));
             isValid = false;
@@ -608,6 +611,17 @@ public class MedicineAddFragment extends Fragment {
 
             }
         }
+
+        if (!medicineQuantityString.equals("") && !medicineConsumeQuantityString.equals("") && Integer.parseInt(medicineQuantityString) <= Integer.parseInt(medicineConsumeQuantityString)) {
+            this.medicineConsumeQuantity.setError(getResources().getString(R.string.medicine_add_error_consume_quantity_value));
+            isValid = false;
+        }
+
+        if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && !medicineConsumeQuantityString.equals("") && Integer.parseInt(medicineConsumeQuantityString) <= Integer.parseInt(medicineThresholdString)) {
+            this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_value));
+            isValid = false;
+        }
+
         return isValid;
     }
 

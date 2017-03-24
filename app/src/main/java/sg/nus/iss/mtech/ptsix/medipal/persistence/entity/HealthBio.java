@@ -58,7 +58,7 @@ public class HealthBio implements Parcelable {
 
     @Override
     public String toString() {
-        return "HealthBio [id=" + m_id +
+        return "healthBio [id=" + m_id +
                 ", Condition=" + mCondition +
                 ", StartDate=" + mStartDate +
                 ", ConditionType=" + mConditionType +

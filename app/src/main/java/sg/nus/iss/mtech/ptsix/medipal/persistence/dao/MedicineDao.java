@@ -169,4 +169,14 @@ public class MedicineDao extends DBDAO {
         }
         return medicines;
     }
+
+    public boolean truncateAllMedicine() {
+        boolean result = false;
+
+        database.execSQL("DROP TABLE IF EXISTS " + DatabaseHelper.MEDI_TABLE);
+        database.execSQL(DatabaseHelper.CREATE_MEDI_TABLE);
+        result = true;
+
+        return result;
+    }
 }

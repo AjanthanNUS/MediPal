@@ -3,25 +3,29 @@ package sg.nus.iss.mtech.ptsix.medipal.common.enums;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by JOHN on 3/12/2017.
+ */
+
 public enum HealthBioConditionTypeEnums {
 
-    ALLERGY("A", "Allergy"),
-    CONDITION("B", "Condition");
+    ALLERGY(0, "A"),
+    CONDITION(1, "C");
 
-    private String conditionTypeCode;
-    private String conditionTypeName;
+    private int code;
+    private String conditionType;
 
-    HealthBioConditionTypeEnums(String categoryCode, String categoryName) {
-        this.conditionTypeCode = categoryCode;
-        this.conditionTypeName = categoryName;
+    HealthBioConditionTypeEnums(int code, String conditionType) {
+        this.code = code;
+        this.conditionType = conditionType;
     }
 
-    public String getConditionTypeCode() {
-        return conditionTypeCode;
+    public int getConditionTypeCode() {
+        return code;
     }
 
     public String getConditionTypeName() {
-        return conditionTypeName;
+        return conditionType;
     }
 
     public static List<HealthBioConditionTypeEnums> getAllHealthBioCategory() {
@@ -32,8 +36,17 @@ public enum HealthBioConditionTypeEnums {
     }
 
     public static String[] getAllHealthConditionTYPES() {
-        String[] healthCategories = {ALLERGY.getConditionTypeCode(), CONDITION.getConditionTypeCode()};
+        String[] healthCategories = {ALLERGY.getConditionTypeName(),CONDITION.getConditionTypeName()};
         return healthCategories;
+    }
+
+    public static HealthBioConditionTypeEnums getHealthBioConditionTypeEnums(String  conditionType) {
+        for(HealthBioConditionTypeEnums healthConditionTypeEnums : getAllHealthBioCategory()) {
+            if(healthConditionTypeEnums.getConditionTypeName().equals(conditionType)) {
+                return healthConditionTypeEnums;
+            }
+        }
+        return null;
     }
 
 }

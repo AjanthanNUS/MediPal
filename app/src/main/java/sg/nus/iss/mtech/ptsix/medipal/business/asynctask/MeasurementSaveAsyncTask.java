@@ -1,26 +1,26 @@
 package sg.nus.iss.mtech.ptsix.medipal.business.asynctask;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 
-import java.lang.ref.WeakReference;
-
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MeasurementService;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 
 public class MeasurementSaveAsyncTask extends AsyncTask<Measurement, Void, Void> {
-    private final WeakReference<Activity> activityWeakRef;
     private MeasurementDao measurementDao;
+    private MeasurementService measurementService;
+    private Context mContext;
 
-    public MeasurementSaveAsyncTask(Activity context) {
-        this.activityWeakRef = new WeakReference<Activity>(context);
-        measurementDao = new MeasurementDao(context);
+    public MeasurementSaveAsyncTask(Context context) {
+        measurementService = new MeasurementService(context);
+        mContext = context;
     }
 
     @Override
     protected Void doInBackground(Measurement... arg0) {
 
-        measurementDao.save(arg0[0]);
+        measurementService.saveMeasurement(arg0[0]);
         return null;
     }
 

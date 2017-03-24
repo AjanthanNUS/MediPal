@@ -49,6 +49,10 @@ public class HealthBioDao extends DBDAO {
                 new String[]{healthBio.getId() + ""});
     }
 
+    public void delete() {
+         database.execSQL("DELETE FROM " + DatabaseHelper.HEALTH_BIO_TABLE );
+    }
+
     //USING query() method
     public ArrayList<HealthBio> getHealthBios() {
         ArrayList<HealthBio> healthBios = new ArrayList<HealthBio>();

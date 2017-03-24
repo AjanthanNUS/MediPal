@@ -24,6 +24,7 @@
                 <EditText
                     android:id="@+id/ice_name"
                     android:layout_width="match_parent"
+                    android:maxLength="25"
                     android:layout_height="wrap_content"
                     android:hint="@string/ice_add_name" />
             </android.support.design.widget.TextInputLayout>
@@ -120,7 +121,7 @@
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/btn_save"
+                    android:id="@+id/btn_ice_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
@@ -128,6 +129,17 @@
                     android:background="@color/colorPrimary"
                     android:text="@string/category_add_save"
                     android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btn_ice_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="Delete"
+                    android:textColor="@android:color/white" />
+
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

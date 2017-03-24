@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,7 +19,11 @@ import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ConsumptionViewAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ConsumptionListFragment;
@@ -31,26 +37,72 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
     private final String WEEK_TAG = "WEEK";
     private final String DAY_TAG = "DAY";
     private ConsumptionListFragment consumptionListFragment;
-    private ArrayList<ConsumptionVO> fullConsumptionList;
+    private ArrayList<ConsumptionVO> allConsumptionList;
+
+
+    private CategoriesService categoriesService;
+
+    private MedicineService medicineService;
+
+    private AutoCompleteTextView categoryFilterView;
+    private AutoCompleteTextView medicineFilterView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consumption);
 
-        fullConsumptionList = new ArrayList<>();
+
+        allConsumptionList = new ArrayList<>();
         ConsumptionManager consumptionManager = new ConsumptionManager(this);
-        fullConsumptionList.addAll(consumptionManager.getAllConsumptionVOList());
+        allConsumptionList.addAll(consumptionManager.getAllConsumptionVOList());
 
 
         consumptionListFragment = ConsumptionListFragment.newInstance();
         ArrayList<ConsumptionVO> initConList = new ArrayList<>();
-        initConList.addAll(fullConsumptionList);
+        initConList.addAll(allConsumptionList);
         consumptionListFragment.setConsumptionList(initConList);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.consumptionFragmentHolder, consumptionListFragment);
         fragmentTransaction.commit();
+
+        setUpCategoryFilterAutocomplete();
+        setUpMedicineFilterAutocomplete();
+    }
+
+    private void setUpCategoryFilterAutocomplete() {
+        List<String> categoryCodeList;
+        List<Categories> categories;
+        categoriesService = new CategoriesService(this);
+        categories = new ArrayList<>();
+        categories.addAll(categoriesService.getCategories());
+        categoryCodeList = new ArrayList<>();
+        for (Categories category : categories) {
+            categoryCodeList.add(category.getCode());
+        }
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categoryCodeList);
+        categoryFilterView = (AutoCompleteTextView) findViewById(R.id.filter_category);
+        categoryFilterView.setAdapter(categoryAdapter);
+        categoryFilterView.setThreshold(1);
+    }
+
+    private void setUpMedicineFilterAutocomplete() {
+        List<String> medicineTitleList;
+        List<Medicine> medicines;
+        medicineService = new MedicineService(this);
+        medicines = new ArrayList<>();
+        medicines.addAll(medicineService.getMedicine());
+        medicineTitleList = new ArrayList<>();
+        for (Medicine medicine : medicines) {
+            medicineTitleList.add(medicine.getMedicine());
+        }
+        ArrayAdapter<String> medicineAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, medicineTitleList);
+        medicineFilterView = (AutoCompleteTextView) findViewById(R.id.filter_medicine);
+        medicineFilterView.setAdapter(medicineAdapter);
+        medicineFilterView.setThreshold(1);
     }
 
     @Override
@@ -58,7 +110,6 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.consumption_menu, menu);
         return true;
-
     }
 
     @Override
@@ -76,14 +127,15 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         final LinearLayout filterLayout = (LinearLayout) findViewById(R.id.filter_bar);
         filterLayout.setActivated(true);
         filterLayout.setVisibility(View.VISIBLE);
+
         Button goButton = (Button) filterLayout.findViewById(R.id.filter_go_btn);
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 filterLayout.setVisibility(View.GONE);
 
-                EditText medicineET = (EditText) filterLayout.findViewById(R.id.filter_medicine);
-                EditText categoryET = (EditText) filterLayout.findViewById(R.id.filter_category);
+                AutoCompleteTextView medicineET = (AutoCompleteTextView) filterLayout.findViewById(R.id.filter_medicine);
+                AutoCompleteTextView categoryET = (AutoCompleteTextView) filterLayout.findViewById(R.id.filter_category);
                 EditText fromYearsET = (EditText) filterLayout.findViewById(R.id.filter_year);
                 EditText fromMonthsET = (EditText) filterLayout.findViewById(R.id.filter_month);
                 EditText fromWeeksET = (EditText) filterLayout.findViewById(R.id.filter_week);
@@ -147,14 +199,14 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         ConsumptionViewAdapter viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
 
         List<ConsumptionVO> allConsumptionList = new ArrayList<>();
-        allConsumptionList.addAll(fullConsumptionList);
+        allConsumptionList.addAll(this.allConsumptionList);
 
         if (CommonUtil.isNullOrEmpty(searchMedicine) && CommonUtil.isNullOrEmpty(searchCategory) &&
                 CommonUtil.isNullOrEmpty(searchYear) && CommonUtil.isNullOrEmpty(searchMonth) &&
                 CommonUtil.isNullOrEmpty(searchWeek) && CommonUtil.isNullOrEmpty(searchDays)) {
 
             allConsumptionList.clear();
-            allConsumptionList.addAll(fullConsumptionList);
+            allConsumptionList.addAll(this.allConsumptionList);
 
             viewAdapter.getmConsumptionList().clear();
             viewAdapter.getmConsumptionList().addAll(allConsumptionList);
@@ -184,7 +236,6 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         String searchDays = searchBundle.getString(DAY_TAG);
         long consumedAgo = Calendar.getInstance().getTimeInMillis() - c.getConsumedOn().getTime();
 
-
         if (!CommonUtil.isNullOrEmpty(searchDays) && consumedAgo > CommonUtil.getMilliSeconds(0, 0, Integer.valueOf(searchDays))) {
             valid = false;
         } else {
@@ -209,46 +260,5 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
 
     @Override
     public void onListFragmentInteraction(ConsumptionVO consumption) {
-//        consumptionFragmentHolder = (FrameLayout) findViewById(R.id.consumptionFragmentHolder);
-//        if (mPopupWindow != null) {
-//            mPopupWindow.dismiss();
-//            mPopupWindow = null;
-//        } else {
-//            LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-//            View customView = inflater.inflate(R.layout.consumption_filter_popup, null);
-//
-//            TextView medicine = (TextView) customView.findViewById(R.id.popup_medicine);
-//            TextView consumedTimeView = (TextView) customView.findViewById(R.id.popup_consumed_on);
-//            TextView quantity = (TextView) customView.findViewById(R.id.popup_quantity);
-//            TextView description = (TextView) customView.findViewById(R.id.popup_description);
-//
-//            medicine.setText(consumption.getMedicine().getEventMedicine());
-//            consumedTimeView.setText(CommonUtil.formatDateStandard(consumption.getEventConsumedOn()));
-//            quantity.setText(String.valueOf(consumption.getEventQuantity()));
-//            description.setText(consumption.getMedicine().getEventDescription() + "Sample description");
-//
-//            mPopupWindow = new PopupWindow(
-//                    customView,
-//                    LayoutParams.WRAP_CONTENT,
-//                    LayoutParams.WRAP_CONTENT
-//            );
-//
-//            if (Build.VERSION.SDK_INT >= 21) {
-//                mPopupWindow.setElevation(5.0f);
-//            }
-//
-////            ImageButton closeButton = (ImageButton) customView.findViewById(R.id.popup_close);
-////
-////            closeButton.setOnClickListener(new View.OnClickListener() {
-////                @Override
-////                public void onClick(View view) {
-////                    mPopupWindow.dismiss();
-////                }
-////            });
-//
-//            mPopupWindow.showAtLocation(consumptionFragmentHolder, Gravity.CENTER, 0, 0);
-//        }
-
-
     }
 }

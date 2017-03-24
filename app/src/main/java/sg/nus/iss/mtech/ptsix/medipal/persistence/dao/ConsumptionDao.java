@@ -58,7 +58,7 @@ public class ConsumptionDao extends DBDAO {
                         DatabaseHelper.CON_QUANTITY,
                         DatabaseHelper.CON_CONSUMED_ON,
                 }, null, null, null,
-                null, null);
+                null, DatabaseHelper.CON_ID + " DESC");
 
         while (cursor.moveToNext()) {
             Consumption consumption = new Consumption();

@@ -138,8 +138,8 @@ public class Medicine implements Parcelable {
 
     @Override
     public String toString() {
-        return "Medicine [id=" + id +
-                ", Medicine=" + medicine +
+        return "medicine [id=" + id +
+                ", medicine=" + medicine +
                 ", Description=" + description +
                 ", CatID=" + catId +
                 ", ReminderID=" + reminderId +
