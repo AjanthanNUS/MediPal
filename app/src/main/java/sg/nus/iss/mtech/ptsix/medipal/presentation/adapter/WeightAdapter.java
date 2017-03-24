@@ -13,37 +13,37 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.BloodPressureViewHolder;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.WeightViewHolder;
 
 /**
  * Created by win on 19/3/17.
  */
 
-public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureViewHolder> {
+public class WeightAdapter extends RecyclerView.Adapter<WeightViewHolder> {
+
     private Context context;
     private List<Measurement> mMeasurements;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT);
 
 
-    public BloodPressureAdapter(Context context, List<Measurement> measurements) {
+    public WeightAdapter(Context context, List<Measurement> measurements) {
         this.context = context;
         this.mMeasurements = measurements;
     }
 
     @Override
-    public BloodPressureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public WeightViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_blood_pressure_list_row, parent, false);
-        return new BloodPressureViewHolder(itemView);
+        return new WeightViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(BloodPressureViewHolder holder, final int position) {
+    public void onBindViewHolder(WeightViewHolder holder, final int position) {
         final Measurement measurement = mMeasurements.get(position);
-        holder.tvSystolic.setText ("Systolic    : " + measurement.getEventSystolic() + "");
-        holder.tvDiastolic.setText("Diastolic   : " + measurement.getEventDiastolic() + "");
-        holder.tvDate.setText     ("Measured On : " + dateFormatter.format(measurement.getEventMeasureOn()));
-        holder.tvStatus.setText   ("Status      : " + CommonUtil.getBPStatus(measurement.getEventSystolic(), measurement.getEventDiastolic()));
-
+        holder.tvWeight.setText("Weight      : " + measurement.getEventWeight() + "");
+        holder.tvHeight.setText("Height      : " + 157);
+        holder.tvDate.setText  ("Measured On : " + dateFormatter.format(measurement.getEventMeasureOn()));
+        holder.tvBMI.setText   ("BMI         : " + CommonUtil.getBMI(measurement.getEventWeight(), 157));
     }
 
     @Override

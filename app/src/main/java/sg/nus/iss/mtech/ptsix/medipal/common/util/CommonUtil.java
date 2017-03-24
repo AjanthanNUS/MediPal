@@ -230,4 +230,63 @@ public class CommonUtil {
         return dosageList;
     }
 
+    public static Date getTodayDate() {
+        Date date = new Date();
+        return date;
+    }
+
+    public static Date getPreviousWeekDate(Date asDate) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(asDate);
+        c.add(Calendar.DATE, -7);
+        Date previousWeekDate = c.getTime();
+        return previousWeekDate;
+    }
+
+    public static Date getPreviousMonthDate(Date asDate) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(asDate);
+        c.add(Calendar.DATE, -30);
+        Date previousWeekDate = c.getTime();
+        return previousWeekDate;
+    }
+
+    public static final String BP_LOW = "Low";
+    public static final String BP_IDEAL_PRESSURE = "Ideal blood pressure";
+    public static final String BP_PRE_HIGH_PRESSURE = "Pre-high blood pressure";
+    public static final String BP_HIGH_PRESSURE = "High blood pressure";
+
+    public static Date fromDate = null;
+    public static Date toDate = null;
+    public static int reportType = 0;
+
+    public static String getBPStatus(int systolic, int diastolic) {
+        String ret = "";
+
+        if ((systolic >= 70 && systolic <= 90) &&
+                ((diastolic >= 40 && diastolic <= 60))) {
+            ret = BP_LOW;
+        } else if ((systolic >=90 && systolic <=120)
+            && (diastolic >= 60 && diastolic <= 80))
+        {
+            ret = BP_IDEAL_PRESSURE;
+        } else if ((systolic >= 120 && systolic <= 140)
+                && (diastolic >= 60 && diastolic <= 80)) {
+            ret = BP_PRE_HIGH_PRESSURE;
+        } else if ((systolic >=140 && systolic <=190)
+                && (diastolic >= 90 && diastolic <=100)){
+            ret = BP_HIGH_PRESSURE;
+        } else {
+            ret = "Extremely Terrible";
+        }
+        return ret;
+    }
+
+    public static double getBMI(int weight, int heightInCm) {
+        double bmi = 0;
+        int heightInmetre = heightInCm / 100;
+        bmi = weight / (heightInmetre * heightInmetre);
+        return bmi;
+    }
+
 }

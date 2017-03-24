@@ -48,6 +48,7 @@ public class AppointmentService {
 
         try {
             result = appointmentDAO.update(appointment);
+            AppointmentAlarmReceiver.setAlarm(context, appointment);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

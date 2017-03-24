@@ -274,7 +274,11 @@ public class AppointmentAddFragment extends Fragment {
                     } catch (Exception e) {
                         Log.e(TAG, e.toString());
                     }
+                } else {
+                    mAppointment = new Appointment();
+                    bindUI();
                 }
+
             }
         }
         Log.w(TAG, "Set User Visible Hint");

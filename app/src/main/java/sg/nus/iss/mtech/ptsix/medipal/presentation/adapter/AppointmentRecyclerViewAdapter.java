@@ -92,7 +92,6 @@ public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<Appoint
 
     public void updateDataSet(List<Appointment> appointmentList) {
         this.mAppointments.clear();
-        ;
         this.mAppointments.addAll(appointmentList);
         notifyDataSetChanged();
     }

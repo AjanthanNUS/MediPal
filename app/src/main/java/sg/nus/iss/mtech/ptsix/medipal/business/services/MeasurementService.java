@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
@@ -15,7 +16,7 @@ public class MeasurementService {
     private Context context;
 
     public MeasurementService(Context context) {
-        this.context = context;;
+        this.context = context;
     }
 /*
     public Measurement saveMeasurement(Measurement measurement) {
@@ -36,12 +37,28 @@ public class MeasurementService {
     }
     */
 
-    public List<Measurement> getMeasurements(String fromDate, String toDate) {
+    public List<Measurement> getBloodPressures(Date fromDate, Date toDate) {
         List<Measurement> ret = new ArrayList<>();
         MeasurementDao measurementDao = new MeasurementDao(context);
 
         try {
+            ret = measurementDao.getMeasurementsReport(fromDate, toDate);
 
+        } catch (Exception e) {
+            Log.w(TAG, e.toString());
+        } finally {
+            measurementDao.close();
+        }
+
+        return ret;
+    }
+
+    public List<Measurement> getWeights(Date fromDate, Date toDate) {
+        List<Measurement> ret = new ArrayList<>();
+        MeasurementDao measurementDao = new MeasurementDao(context);
+
+        try {
+            ret = measurementDao.getWeightReport(fromDate, toDate);
 
         } catch (Exception e) {
             Log.w(TAG, e.toString());
