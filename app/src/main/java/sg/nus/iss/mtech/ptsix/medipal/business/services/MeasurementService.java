@@ -35,6 +35,41 @@ public class MeasurementService {
 
     }
 
+    public ArrayList<Measurement> loadMeasurements( int amount){
+            measurementDao = new MeasurementDao(context);
+            ArrayList<Measurement> measurements = null;
+
+            measurementDao.open();
+            if (amount == 0) {
+                try {
+                    measurements = measurementDao.getMeasurements();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    measurements = measurementDao.getMeasurements(amount);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            measurementDao.close();
+            return measurements;
+    }
+
+
+
+    public void DeleteMeasurement(Measurement measurement) {
+        measurementDao = new MeasurementDao(context);
+        measurementDao.open();
+        try {
+            measurementDao.delete(measurement);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        measurementDao.close();
+    }
+
     public List<Measurement> getBloodPressures(Date fromDate, Date toDate) {
         List<Measurement> ret = new ArrayList<>();
         MeasurementDao measurementDao = new MeasurementDao(context);
@@ -63,40 +98,6 @@ public class MeasurementService {
         } finally {
             measurementDao.close();
         }
-
-
-        public ArrayList<Measurement> loadMeasurements(int amount) {
-            measurementDao = new MeasurementDao(context);
-            ArrayList<Measurement> measurements =null;
-
-            measurementDao.open();
-            if(amount==0){
-                try {
-                    measurements =  measurementDao.getMeasurements();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            else {
-                try {
-                    measurements = measurementDao.getMeasurements(amount);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            measurementDao.close();
-            return measurements;
-        }
-
-
-    public void DeleteMeasurement(Measurement measurement) {
-        measurementDao = new MeasurementDao(context);
-        measurementDao.open();
-        try {
-            measurementDao.delete(measurement);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        measurementDao.close();
+        return ret;
     }
 }

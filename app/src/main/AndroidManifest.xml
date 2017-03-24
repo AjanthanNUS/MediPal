@@ -78,6 +78,16 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".presentation.activity.MeasurementReportActivity"
+            android:label="App Tour"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".presentation.activity.ReportContainerActivity"
+                  android:parentActivityName=".presentation.activity.MeasurementReportActivity">
+        </activity>
+
         <receiver android:name=".business.services.AppointmentAlarmReceiver" />
 
         <service android:name=".business.services.AppointmentReminder" />
@@ -118,8 +128,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".presentation.activity.ReportContainerActivity"
-                  android:parentActivityName=".presentation.activity.MeasurementReportActivity">
-        </activity>
+
     </application>
 </manifest>

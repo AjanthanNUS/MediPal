@@ -33,7 +33,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                tools:ignore="ObsoleteLayoutParam"/>
+                />
 
             <TextView
                 android:id="@+id/tv_date"

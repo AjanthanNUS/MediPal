@@ -77,7 +77,7 @@ public class MeasurementReportActivity extends AppCompatActivity {
         this.tvDate = (TextView) findViewById(R.id.tv_date);
 
         List<String> reportTypes = getReportTypes();
-        ArrayAdapter<String> reportTypesAdapter = new ArrayAdapter<>(this.getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, reportTypes);
+        ArrayAdapter<String> reportTypesAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, reportTypes);
         this.spinner_ReportType.setAdapter(reportTypesAdapter);
 
 

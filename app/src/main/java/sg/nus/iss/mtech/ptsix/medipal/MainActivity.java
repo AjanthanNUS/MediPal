@@ -108,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
                     case 9:
                         myIntent = new Intent(MainActivity.this, AppTourActivity.class);
                         break;
+                    case 10:
+                        myIntent = new Intent(MainActivity.this, MeasurementReportActivity.class);
                     default:
                         break;
                 }
