@@ -1,13 +1,6 @@
 package sg.nus.iss.mtech.ptsix.medipal.business.services;
 
 import android.content.Context;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 
 import java.util.ArrayList;
 
@@ -42,22 +35,6 @@ public class MeasurementService {
     public ArrayList<Measurement> loadMeasurements(int amount) {
         measurementDao = new MeasurementDao(context);
         ArrayList<Measurement> measurements =null;
-    public List<Measurement> getMeasurements(String fromDate, String toDate) {
-        List<Measurement> ret = new ArrayList<>();
-        MeasurementDao measurementDao = new MeasurementDao(context);
-
-        try {
-
-
-        } catch (Exception e) {
-            Log.w(TAG, e.toString());
-        } finally {
-            measurementDao.close();
-        }
-
-        return ret;
-    }
-
 
         measurementDao.open();
         if(amount==0){

@@ -15,12 +15,12 @@ import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementLoadAsyncTask;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Meas_BloodPressure;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.MeasBloodPressure;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.BloodPressureAdapter;
 
 public class BloodPressureMeasurementListFragment extends Fragment {
 
-    private List<Meas_BloodPressure> measurementList = new ArrayList<>();
+    private List<MeasBloodPressure> measurementList = new ArrayList<>();
     private RecyclerView recyclerView;
     private BloodPressureAdapter mAdapter;
     private MeasurementLoadAsyncTask measurementLoadAsyncTask;

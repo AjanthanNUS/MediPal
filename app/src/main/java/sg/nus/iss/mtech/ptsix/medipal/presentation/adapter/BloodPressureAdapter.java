@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Meas_BloodPressure;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.MeasBloodPressure;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.BloodPressureViewHolder;
 
 /**
@@ -17,11 +17,11 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.BloodPressureViewH
 
 public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureViewHolder> {
     private Context context;
-    private List<Meas_BloodPressure> mBloodPressures;
+    private List<MeasBloodPressure> mBloodPressures;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT);
 
 
-    public BloodPressureAdapter(Context context, List<Meas_BloodPressure> bloodPressures) {
+    public BloodPressureAdapter(Context context, List<MeasBloodPressure> bloodPressures) {
         this.context = context;
         this.mBloodPressures = bloodPressures;
     }
@@ -36,7 +36,7 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureView
 
     @Override
     public void onBindViewHolder(BloodPressureViewHolder holder, int position) {
-        final Meas_BloodPressure bloodPressure = mBloodPressures.get(position);
+        final MeasBloodPressure bloodPressure = mBloodPressures.get(position);
         holder.tvSystolic.setText(bloodPressure.get_Systolic_reading());
         holder.tvDiastolic.setText(bloodPressure.get_Diastolic_reading());
         //holder.tvDate.setText(dateFormatter.format(bloodPressure.get));
