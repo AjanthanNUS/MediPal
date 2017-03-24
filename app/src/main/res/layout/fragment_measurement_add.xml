@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity">
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eSystolicTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <EditText
         android:id="@+id/eSystolic"
         android:layout_width="150dp"
@@ -17,29 +22,54 @@
         android:selectAllOnFocus="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eDiastolicTextLayout"
+        android:layout_width="match_parent"
+        android:layout_alignStart="@+id/eSystolicTextLayout"
+        android:layout_below="@+id/eSystolicTextLayout"
+        android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/eDiastolic"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/eSystolic"
-        android:layout_below="@+id/eSystolic"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Diastolic"
         android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/ePulseTextLayout"
+        android:layout_width="match_parent"
+        android:layout_alignStart="@+id/eDiastolicTextLayout"
+        android:layout_below="@+id/eDiastolicTextLayout"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/ePulse"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/eDiastolic"
         android:layout_below="@+id/eDiastolic"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Pulse"
         android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eTemperatureTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="200dp">
     <EditText
         android:id="@+id/eTemperature"
         android:layout_width="150dp"
@@ -47,22 +77,35 @@
         android:ems="10"
         android:hint="Temperture"
         android:inputType="numberDecimal"
-        android:layout_alignBaseline="@+id/eSystolic"
-        android:layout_alignBottom="@+id/eSystolic"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="25dp" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eWeightTextLayout"
+        android:layout_width="match_parent"
+        android:layout_alignStart="@+id/eTemperatureTextLayout"
+        android:layout_below="@+id/eTemperatureTextLayout"
+        android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/eWeight"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/eTemperature"
-        android:layout_below="@+id/eTemperature"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Weight"
         android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eMeasuredOnTextLayout"
+        android:layout_width="match_parent"
+        android:layout_alignStart="@+id/eWeightTextLayout"
+        android:layout_below="@+id/eWeightTextLayout"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/eMeasuredOn"
         android:layout_width="150dp"
@@ -74,7 +117,15 @@
         android:focusable="false"
         android:hint="Measured On"
         android:inputType="datetime" />
+    </android.support.design.widget.TextInputLayout>
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eCommentTextLayout"
+        android:layout_width="match_parent"
+        android:layout_alignStart="@+id/ePulseTextLayout"
+        android:layout_below="@+id/ePulseTextLayout"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/eComment"
         android:layout_width="350dp"
@@ -82,15 +133,15 @@
         android:ems="10"
         android:hint="Comment"
         android:inputType="text"
-        android:layout_below="@+id/ePulse"
-        android:layout_alignStart="@+id/ePulse"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp" />
+</android.support.design.widget.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/btns"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/eComment"
+        android:layout_below="@+id/eCommentTextLayout"
         android:layout_alignParentStart="true"
         android:layout_marginTop="150dp">
 
@@ -114,5 +165,11 @@
             android:text="@string/category_add_save"
             android:textColor="@android:color/white" />
     </LinearLayout>
+
+
+
+
+
+
 
 </RelativeLayout>
