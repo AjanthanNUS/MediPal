@@ -80,7 +80,7 @@
 
         <activity
             android:name=".presentation.activity.MeasurementReportActivity"
-            android:label="App Tour"
+            android:label="Report"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
