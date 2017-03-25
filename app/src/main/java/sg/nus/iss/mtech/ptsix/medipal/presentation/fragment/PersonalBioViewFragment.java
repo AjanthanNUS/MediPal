@@ -29,7 +29,6 @@ public class PersonalBioViewFragment extends Fragment {
 
     private PersonalBioEditFragment personalBioEditFragment = null;
     private FragmentManager manager = null;
-    private TextView id = null;
     private TextView userNameTextView = null;
     private TextView userDOBTextView = null;
     private TextView userIDNoTextView = null;
@@ -39,7 +38,6 @@ public class PersonalBioViewFragment extends Fragment {
     private TextView bloodTypeTextView = null;
     private PersonalBio personalBio = null;
     private PersonalBioDao personalBioDao = null;
-    private static final String TITLE = "Personal Bio";
     private static final String USERID = "UserId";
     private static final int USERID_DEFAULT = 0;
 
@@ -99,7 +97,6 @@ public class PersonalBioViewFragment extends Fragment {
     private void loadPersonalBioView() {
         Date userDOB = personalBio.getUserDOB();
         String userIDNo = personalBio.getUserIDNo();
-      //  String address =   String.valueOf(calculateUserAge(userDOB));
         String address =   personalBio.getAddress();
         String postalCode = personalBio.getPostalcode();
         int height = personalBio.getHeight();
@@ -109,7 +106,6 @@ public class PersonalBioViewFragment extends Fragment {
         if (userDOB != null) {
             userDOBTextView.setText(CommonUtil.date2ddMMMYYYY(userDOB));
         }
-        //Calculate Age
         if (userIDNo != null) {
             userIDNoTextView.setText(userIDNo);
         }
@@ -125,39 +121,6 @@ public class PersonalBioViewFragment extends Fragment {
         if (bloodType != null) {
             bloodTypeTextView.setText(bloodType);
         }
-    }
-
-    private static int  calculateUserAge(Date dateOfBirth) {
-        int age = 0;
-        if (dateOfBirth != null) {
-
-        Calendar today = Calendar.getInstance();
-        Calendar birthDate = Calendar.getInstance();
-        birthDate.setTime(dateOfBirth);
-        if (birthDate.after(today)) {
-            throw new IllegalArgumentException("You don't exist yet");
-        }
-        int todayYear = today.get(Calendar.YEAR);
-        int birthDateYear = birthDate.get(Calendar.YEAR);
-        int todayDayOfYear = today.get(Calendar.DAY_OF_YEAR);
-        int birthDateDayOfYear = birthDate.get(Calendar.DAY_OF_YEAR);
-        int todayMonth = today.get(Calendar.MONTH);
-        int birthDateMonth = birthDate.get(Calendar.MONTH);
-        int todayDayOfMonth = today.get(Calendar.DAY_OF_MONTH);
-        int birthDateDayOfMonth = birthDate.get(Calendar.DAY_OF_MONTH);
-        age = todayYear - birthDateYear;
-
-        // If birth date is greater than todays date (after 2 days adjustment of leap year) then decrement age one year
-        if ((birthDateDayOfYear - todayDayOfYear > 3) || (birthDateMonth > todayMonth)){
-            age--;
-
-            // If birth date and todays date are of same month and birth day of month is greater than todays day of month then decrement age
-        } else if ((birthDateMonth == todayMonth) && (birthDateDayOfMonth > todayDayOfMonth)){
-            age--;
-        }
-        }
-
-        return age;
     }
 
     public void initializeComponents(View rootView) {
