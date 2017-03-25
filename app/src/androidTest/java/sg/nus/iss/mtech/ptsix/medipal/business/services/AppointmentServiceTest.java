@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.common.exception.AppointmentExistException;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.AppointmentDAO;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.AppointmentDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
 import static junit.framework.Assert.assertEquals;
@@ -25,7 +25,7 @@ import static junit.framework.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public class AppointmentServiceTest {
-  //  private static final SimpleDateFormat formatter = new SimpleDateFormat("d-MMM-yyyy H:mm", Locale.ENGLISH);
+
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
     private Context context;
 
@@ -34,7 +34,7 @@ public class AppointmentServiceTest {
     public void setUp() {
         context = InstrumentationRegistry.getTargetContext();
 
-        AppointmentDAO appointmentDAO = new AppointmentDAO(context);
+        AppointmentDao appointmentDAO = new AppointmentDao(context);
         appointmentDAO.open();
         appointmentDAO.truncateAllAppointments();
         appointmentDAO.close();
@@ -49,7 +49,7 @@ public class AppointmentServiceTest {
         Appointment appointment = new Appointment("University Health Centre", "Medical Check Up", appointmentDate);
         appointment.setId(1);
         AppointmentService appointmentService = new AppointmentService(context);
-        appointmentService.makeAppointment(appointment);
+        appointment.setId((int)appointmentService.makeAppointment(appointment));
 
 
         Appointment appointment1 = new Appointment("Poly Clinic Tampines", "Blood Test First", appointmentDate);
@@ -72,9 +72,9 @@ public class AppointmentServiceTest {
         Date appointmentDate = formatter.parse(appointmentDateStr);
 
         Appointment appointment = new Appointment("University Health Centre", "Medical Check Up", appointmentDate);
-        appointment.setId(1);
+
         AppointmentService appointmentService = new AppointmentService(context);
-        appointmentService.makeAppointment(appointment);
+        appointment.setId((int)appointmentService.makeAppointment(appointment));
 
         appointmentService.deleteAppointment(appointment);
         Appointment deletedAppointment = appointmentService.getAppointment(1);
@@ -90,11 +90,11 @@ public class AppointmentServiceTest {
         Date appointmentDate = formatter.parse(appointmentDateStr);
 
         Appointment appointment = new Appointment("University Health Centre", "Medical Check Up", appointmentDate);
-        appointment.setId(1);
-        AppointmentService appointmentService = new AppointmentService(context);
-        appointmentService.makeAppointment(appointment);
 
-        Appointment appointFromDB = appointmentService.getAppointment(1);
+        AppointmentService appointmentService = new AppointmentService(context);
+        appointment.setId((int)appointmentService.makeAppointment(appointment));
+
+        Appointment appointFromDB = appointmentService.getAppointment(appointment.getId());
         assertEquals(appointment, appointFromDB);
     }
 
@@ -105,15 +105,15 @@ public class AppointmentServiceTest {
         Date appointmentDate = formatter.parse(appointmentDateStr);
 
         Appointment appointment = new Appointment("University Health Centre", "Medical Check Up", appointmentDate);
-        appointment.setId(1);
-        AppointmentService appointmentService = new AppointmentService(context);
-        appointmentService.makeAppointment(appointment);
 
-        Appointment appointFromDB = appointmentService.getAppointment(1);
+        AppointmentService appointmentService = new AppointmentService(context);
+        appointment.setId((int)appointmentService.makeAppointment(appointment));
+
+        Appointment appointFromDB = appointmentService.getAppointment(appointment.getId());
         appointFromDB.setLocation("Polyclinic");
         appointmentService.updateAppointment(appointFromDB);
 
-        Appointment updatedAppointment = appointmentService.getAppointment(1);
+        Appointment updatedAppointment = appointmentService.getAppointment(appointFromDB.getId());
         assertEquals(appointFromDB, updatedAppointment);
 
     }

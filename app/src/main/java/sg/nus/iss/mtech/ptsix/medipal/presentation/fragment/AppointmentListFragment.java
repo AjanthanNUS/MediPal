@@ -18,10 +18,10 @@ import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.AppointmentService;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.AppointmentRecyclerViewAdapter;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 /**
  * Created by win on 16/3/17.

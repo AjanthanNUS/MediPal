@@ -23,6 +23,10 @@ public final class Constant {
     public static final int ONE_MONTH_REPORT_INDEX = 2;
     public static final int DATE_RANGE_REPORT_INDEX = 3;
 
+    public static final int APPOINTMENT_TAB_LIST_INDEX = 0;
+    public static final int APPOINTMENT_TAB_ADD_INDEX = 1;
+    public static final int APPOINTMENT_ADD_INVALID_ID = -1;
+
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final String TIME_FORMAT = "hh:mm a";
     public static final String MEASUREMENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
