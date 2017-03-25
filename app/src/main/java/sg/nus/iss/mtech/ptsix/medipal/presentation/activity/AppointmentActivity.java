@@ -9,10 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.AppointmentAddFragment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.AppointmentListFragment;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 public class AppointmentActivity extends AppCompatActivity {
 

@@ -158,8 +158,6 @@ public class MeasurementReportActivity extends AppCompatActivity {
         adapter.addFragment(oneMonthFragment, ONE_MONTH_TAB_NAME);
         adapter.addFragment(dateRangeFragment, DATE_RANGE_TAB_NAME);
         viewPager.setAdapter(adapter);
-
-
     }
 
     private List<String> getReportTypes() {

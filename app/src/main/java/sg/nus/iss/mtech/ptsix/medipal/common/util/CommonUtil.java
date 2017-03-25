@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.format.Time;
 import android.util.Log;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -222,6 +223,7 @@ public class CommonUtil {
         dosageList.add(DosageEnums.TEASPOON.getValue(), DosageEnums.TEASPOON.getStringValue());
         dosageList.add(DosageEnums.TABLESPOON.getValue(), DosageEnums.TABLESPOON.getStringValue());
         dosageList.add(DosageEnums.PATCH.getValue(), DosageEnums.PATCH.getStringValue());
+
         dosageList.add(DosageEnums.MCG.getValue(), DosageEnums.MCG.getStringValue());
         dosageList.add(DosageEnums.L.getValue(), DosageEnums.L.getStringValue());
         dosageList.add(DosageEnums.MEQ.getValue(), DosageEnums.MEQ.getStringValue());
@@ -282,11 +284,43 @@ public class CommonUtil {
         return ret;
     }
 
+    public static String format2Decimals(double d) {
+        DecimalFormat df = new DecimalFormat("####0.00");
+        return df.format(d);
+    }
+
     public static double getBMI(int weight, int heightInCm) {
+        Log.w("INFO", "Weight " + weight);
         double bmi = 0;
-        int heightInmetre = heightInCm / 100;
-        bmi = weight / (heightInmetre * heightInmetre);
+        double heightInmetre = ((double)heightInCm / 100);
+
+        bmi = (weight / (heightInmetre * heightInmetre));
+
+        Log.w("INFO ", "BMI" + bmi);
         return bmi;
+    }
+
+    public static String getBMIStatus(double bmi) {
+        String status = "";
+        if (bmi < 18.5) {
+            status = "Underweight";
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            status = "Healthy Weight";
+        } else if (bmi >= 25.0 && bmi <= 29.9) {
+            status = "Over Weight";
+        } else {
+            status = "Obese";
+        }
+
+        return status;
+    }
+
+    public static String padRight(String s, int n) {
+        return String.format("%1$-" + n + "s", s);
+    }
+
+    public static String padLeft(String s, int n) {
+        return String.format("%1$" + n + "s", s);
     }
 
 }
