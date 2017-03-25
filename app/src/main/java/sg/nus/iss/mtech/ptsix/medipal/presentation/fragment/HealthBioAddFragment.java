@@ -25,6 +25,7 @@ import java.util.Locale;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.HealthBioService;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.HealthBioConditionTypeEnums;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
@@ -102,30 +103,57 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
             }
         });
 
+        startDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                DatePickerDialog.OnDateSetListener onDateSetListener =
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(year, monthOfYear, dayOfMonth);
+                                selectedDate = calendar;
+                                startDate.setText(dateFormatter.format(calendar.getTime()));
+                            }
+                        };
+
+                DatePickerDialog datePickerDialog =
+                        new DatePickerDialog(getActivity(), onDateSetListener,
+                                currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH),
+                                currentCal.get(Calendar.DAY_OF_MONTH));
+                if (hasFocus) {
+                    datePickerDialog.show();
+                } else {
+                    datePickerDialog.hide();
+                }
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean isNewId = isNewValidByID();
-
-                if (isNewId) {
+                boolean isValidInput = isCommandValid();
+                if (isValidInput && isNewId) {
                     healthBioService.saveHealthBioInfo(getHealthBioFromInput());
                     Toast.makeText(getActivity(), getResources().getString(
-                            R.string.health_save_contact_alert), Toast.LENGTH_SHORT).show();
+                            R.string.health_save_alert), Toast.LENGTH_SHORT).show();
                     resetFields();
                     ((HealthBioActivity) getActivity()).switchTab(
                             Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
                 } else {
-                    healthBioService.updateHealthBioInfo(getHealthBioFromInput());
-                    Toast.makeText(getActivity(), getResources().getString(
-                            R.string.health_update_contact_alert), Toast.LENGTH_SHORT).show();
-                    resetFields();
-                    ((HealthBioActivity) getActivity()).switchTab(
-                            Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
+                    if(isValidInput) {
+                        healthBioService.updateHealthBioInfo(getHealthBioFromInput());
+                        Toast.makeText(getActivity(), getResources().getString(
+                                R.string.health_update_alert), Toast.LENGTH_SHORT).show();
+                        resetFields();
+                        ((HealthBioActivity) getActivity()).switchTab(
+                                Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
+                    }
+
                 }
             }
         });
-
         btnCancel = (Button) rootView.findViewById(R.id.btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +170,7 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 healthBioService.deleteHealthBio(getHealthBioFromInput());
                 Toast.makeText(getActivity(),
-                        getResources().getString(R.string.health_delete_contact_alert),
+                        getResources().getString(R.string.health_start_date_alert),
                         Toast.LENGTH_SHORT).show();
                 resetFields();
                 ((HealthBioActivity) getActivity()).switchTab(
@@ -151,6 +179,18 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         });
 
         return rootView;
+    }
+
+    private boolean isCommandValid() {
+        boolean isValid = true;
+        try {
+            dateFormatter.parse(startDate.getText().toString());
+        } catch(ParseException ex) {
+            startDate.setError(getResources().getString(
+                    R.string.health_update_alert));
+            isValid = false;
+        }
+        return isValid;
     }
 
     /**
@@ -217,7 +257,7 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
     }
 
     /**
-     * to get Health Bio Information From UI
+     * to get Health Bio Information From Input
      * @return HealthBio
      */
     private HealthBio getHealthBioFromInput() {
@@ -238,9 +278,6 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         return healthBio;
     }
 
-    /**
-     * reset Fields
-     */
     private void resetFields() {
         this.getArguments().putInt("id", Constant.INVALID_INDEX_ID);
         this.condition.setText("");
