@@ -45,7 +45,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/filter_year"
+                android:id="@+id/filter_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -53,7 +53,7 @@
                 android:inputType="numberDecimal" />
 
             <EditText
-                android:id="@+id/filter_month"
+                android:id="@+id/filter_end_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -61,31 +61,6 @@
                 android:inputType="numberDecimal" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/filter_week"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/weeksFrom"
-                android:inputType="numberDecimal" />
-
-            <EditText
-                android:id="@+id/filter_day"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/daysFrom"
-                android:inputType="numberDecimal" />
-
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"

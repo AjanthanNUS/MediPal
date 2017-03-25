@@ -3,6 +3,8 @@ package sg.nus.iss.mtech.ptsix.medipal.business.manager;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.common.exception.ConsumptionSaveException;
@@ -25,6 +27,20 @@ public class ConsumptionManager {
         categoriesDao = new CategoriesDao(context);
     }
 
+    public void sortConsumptionList(List<ConsumptionVO> consumptions) {
+        Collections.sort(consumptions, new Comparator<ConsumptionVO>() {
+            @Override
+            public int compare(ConsumptionVO o1, ConsumptionVO o2) {
+                if (o1.getConsumedOn().after(o2.getConsumedOn())) {
+                    return -1;
+                } else if (o1.getConsumedOn().before(o2.getConsumedOn())) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+
+    }
 
     public List<Consumption> getAllConsumptionList() {
         List<Consumption> consumptions = consumptionDao.getConsumptions();
