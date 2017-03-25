@@ -53,7 +53,6 @@ public class PersonalBioViewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 loadPersonalBioEdit();
-//                Snackbar.make(view, "No create activity found...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
