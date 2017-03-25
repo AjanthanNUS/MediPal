@@ -232,5 +232,6 @@
 
     <string name="no_items_to_show">There are no item to show</string>
     <string name="medicine_not_in_inventory">Medicine not in inventory</string>
+    <string name="consumed_qty_empty">Consumed quantity cannot be empty</string>
 
 </resources>
