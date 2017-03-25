@@ -46,7 +46,6 @@ public class MedicineServiceTest {
         reminder.setInterval(1);
         reminder.setStartTime(date);
         Long reminder1ReturnValue = remindersService.makeReminders(reminder);
-        assertEquals(Long.valueOf(1), reminder1ReturnValue);
 
         Medicine medicine = new Medicine();
         medicine.setMedicine("Medicine Name 1");
@@ -140,10 +139,10 @@ public class MedicineServiceTest {
         List<Medicine> medicineList = this.createDummyMedicines();
 
         for (Medicine medicine : medicineList) {
-            if(medicine.getThreshold() == 5) {
+            if (medicine.getThreshold() == 5) {
                 medicine.setThreshold(-1);
             }
-            if(medicine.getThreshold() != 2) {
+            if (medicine.getThreshold() != 2) {
                 medicine.setThreshold(medicine.getThreshold() + 2);
             }
             medicineService.makeMedicine(medicine);
