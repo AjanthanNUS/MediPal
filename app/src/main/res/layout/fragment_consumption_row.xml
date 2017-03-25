@@ -72,7 +72,7 @@
             android:id="@+id/smiley_image"
             android:layout_width="20sp"
             android:layout_height="20sp"
-            android:src="@drawable/ic_action_happy" />
+            android:src="@drawable/ic_blue_happy_smily" />
     </LinearLayout>
 
     <LinearLayout

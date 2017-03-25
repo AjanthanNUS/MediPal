@@ -12,7 +12,7 @@
     <string name="quantity">Quantity : </string>
     <string name="description">Description : </string>
     <string name="action_filter">Filter</string>
-    <string name="skipped">Medicine Skipped</string>
+    <string name="skipped">Medicine missed</string>
     <string name="category_add_name">Category Name</string>
     <string name="category_add_code">Category Code</string>
     <string name="category_add_description">Category Description</string>
@@ -201,4 +201,6 @@
     <string name="medi_consume_saved">Medicine consumption saved.</string>
     <string name="fromDate">From Date</string>
     <string name="toDate">To Date</string>
+    <string name="no_items_to_show">There are no item to show</string>
+    <string name="medicine_not_in_inventory">Medicine not in inventory</string>
 </resources>
