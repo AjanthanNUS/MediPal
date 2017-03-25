@@ -8,10 +8,6 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.HealthBioDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 
-/**
- * Created by JOHN on 3/19/2017.
- */
-
 public class HealthBioService {
 
     HealthBioDao healthbioDAO;

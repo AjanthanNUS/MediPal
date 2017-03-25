@@ -96,11 +96,13 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         etTime.setText(timeFormatter.format(timeCalendar.getTime()));
 
         View.OnClickListener timeClickListener = new View.OnClickListener() {
-            @Override public void onClick(final View v) {
+            @Override
+            public void onClick(final View v) {
                 final EditText editText = (EditText) v;
                 TimePickerDialog.OnTimeSetListener timeSetListener =
                         new TimePickerDialog.OnTimeSetListener() {
-                            @Override public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                                         calendar.get(Calendar.DAY_OF_MONTH), hourOfDay, minute);
@@ -160,7 +162,7 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         try {
             String dbDateTime = etDate.getText().toString().trim() + " " + etTime.getText().toString().trim();
             mAppointment.setAppointmentDate(dbDateFormatter.parse(dbDateTime));
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.w(AppointmentDetailActivity.class.getName(), e);
         }
         return mAppointment;

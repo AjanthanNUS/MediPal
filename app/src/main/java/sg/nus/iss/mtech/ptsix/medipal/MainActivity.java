@@ -30,7 +30,6 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ImageAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String MAIN_ACTIVITY = "[MAIN ACTIVITY]";
     private Toolbar toolbar = null;
     private SharedPreferences sharedPreferences;
     private GridView gridview;
@@ -56,10 +55,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startConsumptionDailyNotificationService() {
-        //Check if the DailyNotification service Already Started with OnBootReceiver
-
         Intent intent = new Intent();
-        intent.setAction("sg.nus.iss.mtech.ptsix.medipal.MainActivity");
+        intent.setAction(Constant.PACKAGE_NAME_WITH_MAIN_ACTIVITY);
         sendBroadcast(intent);
     }
 
@@ -164,5 +161,11 @@ public class MainActivity extends AppCompatActivity {
         } else {
             MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), new Date());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finishAffinity();
     }
 }

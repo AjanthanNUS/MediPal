@@ -24,10 +24,6 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 
-/**
- * Created by JOHN on 3/12/2017.
- */
-
 public class ICEContactAddFragment extends Fragment {
 
     private EditText name, iceContactNo, description;
@@ -68,7 +64,7 @@ public class ICEContactAddFragment extends Fragment {
         iceContactTYPE.setAdapter(contactTypeAdapter);
 
         List<String> list = new ArrayList<>();
-        for(int i = 1; i < totalCount + 1; i++) {
+        for (int i = 1; i < totalCount + 1; i++) {
             list.add(String.valueOf(i));
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(),
@@ -81,13 +77,13 @@ public class ICEContactAddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 boolean isNewId = isNewValidByID();
-                if(isCommandValid() && isNewId) {
+                if (isCommandValid() && isNewId) {
                     iceContactService.saveICEContact(toSaveICEContactFromInput());
                     Toast.makeText(getActivity(), getResources().getString(R.string.ice_save_contact_alert), Toast.LENGTH_SHORT).show();
                     resetFields();
                     ((ICEContactActivity) getActivity()).switchTab(0, -1);
                 } else {
-                    if(isCommandValid()) {
+                    if (isCommandValid()) {
                         populateICESequences();
                         iceList = iceContactService.getAllICEContact();
                         Toast.makeText(getActivity(), getResources().getString(R.string.ice_update_contact_alert), Toast.LENGTH_SHORT).show();
@@ -110,7 +106,7 @@ public class ICEContactAddFragment extends Fragment {
 
         btnDelete = (Button) rootView.findViewById(R.id.btn_ice_delete);
 
-        btnDelete.setOnClickListener(new View.OnClickListener(){
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iceContactService.deleteCEContactsByID(getICEContactFromInput().getId());
@@ -149,13 +145,14 @@ public class ICEContactAddFragment extends Fragment {
 
     /**
      * select Spinner Item By Value
+     *
      * @param spnr
      * @param value
      */
     private void selectSpinnerItemByValue(Spinner spnr, long value) {
-        ArrayAdapter<ICEContactTypeEnums> adapter = (ArrayAdapter<ICEContactTypeEnums>)spnr.getAdapter();
+        ArrayAdapter<ICEContactTypeEnums> adapter = (ArrayAdapter<ICEContactTypeEnums>) spnr.getAdapter();
         for (int position = 0; position < adapter.getCount(); position++) {
-            if(adapter.getItemId(position) == value) {
+            if (adapter.getItemId(position) == value) {
                 spnr.setSelection(position);
                 return;
             }
@@ -164,6 +161,7 @@ public class ICEContactAddFragment extends Fragment {
 
     /**
      * get ICE Contact From Input
+     *
      * @return ICE
      */
     private ICE getICEContactFromInput() {
@@ -171,14 +169,15 @@ public class ICEContactAddFragment extends Fragment {
         ice.setId(getArguments().getInt("id"));
         ice.setName(name.getText().toString());
         ice.setContactNo(iceContactNo.getText().toString());
-        ice.setIceContactType(((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumCode());
+        ice.setIceContactType(((ICEContactTypeEnums) iceContactTYPE.getSelectedItem()).getEnumCode());
         ice.setDescription(description.getText().toString());
-        ice.setSequence(Integer.parseInt((String)iceSequenceNo.getSelectedItem()));
+        ice.setSequence(Integer.parseInt((String) iceSequenceNo.getSelectedItem()));
         return ice;
     }
 
     /**
      * to Save ICE Contact From UI
+     *
      * @return ICE
      */
     private ICE toSaveICEContactFromInput() {
@@ -186,7 +185,7 @@ public class ICEContactAddFragment extends Fragment {
         ice.setId(getArguments().getInt("id"));
         ice.setName(name.getText().toString());
         ice.setContactNo(iceContactNo.getText().toString());
-        ice.setIceContactType(((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumCode());
+        ice.setIceContactType(((ICEContactTypeEnums) iceContactTYPE.getSelectedItem()).getEnumCode());
         ice.setDescription(description.getText().toString());
         ice.setSequence(iceList.size());
         return ice;
@@ -209,6 +208,7 @@ public class ICEContactAddFragment extends Fragment {
 
     /**
      * is isCommand Valid
+     *
      * @return boolean
      */
     private boolean isCommandValid() {
@@ -238,6 +238,7 @@ public class ICEContactAddFragment extends Fragment {
 
     /**
      * check valid ID or not
+     *
      * @return boolean
      */
     private boolean isNewValidByID() {
@@ -272,13 +273,13 @@ public class ICEContactAddFragment extends Fragment {
      */
     private void populateICESequences() {
         ICE newICEContact = getICEContactFromInput();
-        Log.i("populateICESequences : " , newICEContact.getName());
-        int newSelectedValue  = iceSequenceNo.getSelectedItemPosition();
+        Log.i("populateICESequences : ", newICEContact.getName());
+        int newSelectedValue = iceSequenceNo.getSelectedItemPosition();
         int currentSelectedValue = -1;
         List<ICE> updatedICEContactList = new ArrayList<>();
 
-        for(ICE iceContact : iceList) {
-            if(newICEContact.getId() == iceContact.getId() && newSelectedValue != iceContact.getSequence()) {
+        for (ICE iceContact : iceList) {
+            if (newICEContact.getId() == iceContact.getId() && newSelectedValue != iceContact.getSequence()) {
                 currentSelectedValue = iceContact.getSequence();
                 iceContact.setSequence(newSelectedValue);
                 Log.i(iceContact.getName(), "New SEQ NO " + String.valueOf(newSelectedValue));
@@ -288,16 +289,16 @@ public class ICEContactAddFragment extends Fragment {
             }
         }
 
-        if(currentSelectedValue == -1) {
+        if (currentSelectedValue == -1) {
             return;
         }
 
-        if(currentSelectedValue > newSelectedValue) {
+        if (currentSelectedValue > newSelectedValue) {
             int i = newSelectedValue;
-            for(int j = i; j <= currentSelectedValue; j++) {
+            for (int j = i; j <= currentSelectedValue; j++) {
 
                 ICE ice = iceList.get(j);
-                if(newICEContact.getId() != ice.getId()) {
+                if (newICEContact.getId() != ice.getId()) {
                     i++;
                     ice.setSequence(i);
                     Log.i(ice.getName(), "New SEQ NO " + String.valueOf(i));
@@ -306,11 +307,11 @@ public class ICEContactAddFragment extends Fragment {
             }
         }
 
-        if( newSelectedValue > currentSelectedValue) {
+        if (newSelectedValue > currentSelectedValue) {
             int i = newSelectedValue;
-            for(int j = i; j > currentSelectedValue; j--) {
+            for (int j = i; j > currentSelectedValue; j--) {
                 ICE ice = iceList.get(j);
-                if(newICEContact.getId() != ice.getId()) {
+                if (newICEContact.getId() != ice.getId()) {
                     i--;
                     ice.setSequence(i);
                     Log.i(ice.getName(), "New SEQ NO " + String.valueOf(i));
@@ -326,14 +327,14 @@ public class ICEContactAddFragment extends Fragment {
      */
     private void deleteSelectedSequence() {
         ICE newICEContact = getICEContactFromInput();
-        Log.i("populateICESequences : " , newICEContact.getName());
-        int selectedValue  = iceSequenceNo.getSelectedItemPosition();
+        Log.i("populateICESequences : ", newICEContact.getName());
+        int selectedValue = iceSequenceNo.getSelectedItemPosition();
         List<ICE> updatedICEContactList = new ArrayList<>();
 
         int i = selectedValue;
-        for(int j = i + 1; j < iceList.size(); j++) {
+        for (int j = i + 1; j < iceList.size(); j++) {
             ICE ice = iceList.get(j);
-            if(newICEContact.getId() != ice.getId()) {
+            if (newICEContact.getId() != ice.getId()) {
                 ice.setSequence(i);
                 i++;
                 Log.i(ice.getName(), "New SEQ NO " + String.valueOf(i));

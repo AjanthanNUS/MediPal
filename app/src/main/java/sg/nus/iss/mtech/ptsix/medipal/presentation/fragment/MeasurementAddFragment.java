@@ -20,10 +20,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementDeleteAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementSaveAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
 
@@ -89,15 +87,13 @@ public class MeasurementAddFragment extends Fragment {
 
                 measurementSaveAsyncTask = new MeasurementSaveAsyncTask(getActivity());
                 Measurement measurement = createMeasurementFromInput();
-                if(CheckDataFields(measurement)) {
+                if (CheckDataFields(measurement)) {
                     measurementSaveAsyncTask.execute(measurement);
                     resetFields();
                     ((MeasurementActivity) getActivity()).switchTab(0, -1);
-                }
-                else
-                {
+                } else {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                    builder1.setMessage( Constant.MEAS_ASK_TO_KEY_IN_DATA);
+                    builder1.setMessage(Constant.MEAS_ASK_TO_KEY_IN_DATA);
                     builder1.setCancelable(true);
 
                     builder1.setPositiveButton(
@@ -134,12 +130,11 @@ public class MeasurementAddFragment extends Fragment {
         int b = 0;
         boolean result = true;
 
-        if((measurement_in.getEventPulse()==0)
-            &&(measurement_in.getEventDiastolic()==0)
-            &&(measurement_in.getEventSystolic()==0)
-            &&(measurement_in.getEventTemperature()==0)
-            &&(measurement_in.getEventWeight()==0))
-        {
+        if ((measurement_in.getEventPulse() == 0)
+                && (measurement_in.getEventDiastolic() == 0)
+                && (measurement_in.getEventSystolic() == 0)
+                && (measurement_in.getEventTemperature() == 0)
+                && (measurement_in.getEventWeight() == 0)) {
             result = false;
         }
         return result;

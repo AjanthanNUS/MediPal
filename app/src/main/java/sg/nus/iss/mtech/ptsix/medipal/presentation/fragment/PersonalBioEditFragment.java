@@ -1,11 +1,12 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,15 +26,11 @@ import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.common.enums.ICEContactTypeEnums;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.PersonalBioDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PersonalBioEditFragment extends Fragment {
 
     private int yearOfDate, monthOfDate, dayofDate;
@@ -59,12 +56,6 @@ public class PersonalBioEditFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-//        Intent intent = getActivity().getIntent();
-//        if (intent != null && intent.getExtras() != null) {
-//            int userId = intent.getIntExtra(USERID, 0);
-//            getPersonalBioInfo(userId);
-//        }
     }
 
     @Override
@@ -257,6 +248,7 @@ public class PersonalBioEditFragment extends Fragment {
             getUpdatedPersonalBioInfo();
             personalBioDao = new PersonalBioDao(this.getContext());
             if (personalBioDao.savePersonalBio(personalBio) > 0) {
+                setDefaultPreference();
                 PersonalBioViewFragment personalBioViewFragment = new PersonalBioViewFragment();
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.container_frame, personalBioViewFragment, personalBioViewFragment.getTag()).commit();
@@ -268,6 +260,14 @@ public class PersonalBioEditFragment extends Fragment {
         } else {
             validationStatus = true;
         }
+    }
+
+    private void setDefaultPreference() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getContext().getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(Constant.USER_CREATED_SETTINGS_LABEL, true);
+        editor.apply();
     }
 
     private void getUpdatedPersonalBioInfo() {
@@ -300,13 +300,4 @@ public class PersonalBioEditFragment extends Fragment {
         }
     }
 
-//    public void getPersonalBioInfo(int userId) {
-//        if (userId > 0) {
-//            personalBioDao = new PersonalBioDao(this.getContext());
-//            personalBio = personalBioDao.getPersonalBio();
-//        }
-//        if (personalBio == null) {
-//            personalBio = new personalBio();
-//        }
-//    }
 }

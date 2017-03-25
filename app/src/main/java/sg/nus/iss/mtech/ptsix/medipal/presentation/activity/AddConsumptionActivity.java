@@ -1,7 +1,6 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -117,8 +116,6 @@ public class AddConsumptionActivity extends AppCompatActivity {
                     }
                     if (noError) {
                         Toast.makeText(AddConsumptionActivity.this, getResources().getText(R.string.medi_consume_saved), Toast.LENGTH_LONG).show();
-                        Intent consumptionListView = new Intent(AddConsumptionActivity.this, ConsumptionActivity.class);
-                        startActivity(consumptionListView);
                         AddConsumptionActivity.this.finish();
                     }
                 }
@@ -137,8 +134,6 @@ public class AddConsumptionActivity extends AppCompatActivity {
                     }
                     if (noError) {
                         Toast.makeText(AddConsumptionActivity.this, getResources().getText(R.string.medi_consume_missed), Toast.LENGTH_LONG).show();
-                        Intent consumptionListView = new Intent(AddConsumptionActivity.this, ConsumptionActivity.class);
-                        startActivity(consumptionListView);
                         AddConsumptionActivity.this.finish();
                     }
                 }

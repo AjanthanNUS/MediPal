@@ -29,9 +29,6 @@ public final class Constant {
 
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final String TIME_FORMAT = "hh:mm a";
-    public static final String MEASUREMENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
-
     public static final String DATE_TIME_FORMAT = "dd MMM yyyy hh:mm a";
 
     public static final String SAVE_SUCCEED_MESSAGE = "Saved Successfully";
@@ -64,4 +61,7 @@ public final class Constant {
     public static final String REMIND_TIME = "REMIND_TIME";
     public static final String FROM_REMINDER_SERVICE = "FROM_REMINDER_SERVICE";
     public static final String CONSUMED_TIME = "CONSUMED_TIME";
+    public static final String PACKAGE_NAME_WITH_MAIN_ACTIVITY = "sg.nus.iss.mtech.ptsix.medipal.MainActivity";
+
+
 }

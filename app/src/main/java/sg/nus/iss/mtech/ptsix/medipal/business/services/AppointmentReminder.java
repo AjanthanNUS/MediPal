@@ -53,7 +53,7 @@ public class AppointmentReminder extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.appointment)
+                        .setSmallIcon(R.drawable.ic_app_icon)
                         .setContentTitle(getResources().getText(R.string.appointment_reminder_title))
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(appointment.getDescription()))
                         .setContentText(appointment.getDescription() + " at " + appointment.getLocation());

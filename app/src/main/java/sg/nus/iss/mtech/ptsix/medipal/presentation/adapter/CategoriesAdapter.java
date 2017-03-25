@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
-import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.CategoriesViewHolder;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder> {
@@ -49,23 +49,23 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesViewHolder
         }
 
         // Handle edit button
-        holder.btnEdit.setOnClickListener(new View.OnClickListener(){
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mContext instanceof CategoriesActivity){
-                    ((CategoriesActivity)mContext).switchTab(Constant.CATEGORY_TAB_ADD_INDEX, category.getId());
+                if (mContext instanceof CategoriesActivity) {
+                    ((CategoriesActivity) mContext).switchTab(Constant.CATEGORY_TAB_ADD_INDEX, category.getId());
                 }
             }
         });
 
         // Expandable part
         final boolean isExpanded = position == mExpandedPosition;
-        holder.description.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        holder.description.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mExpandedPosition = isExpanded ? - 1: position;
+                mExpandedPosition = isExpanded ? -1 : position;
                 notifyDataSetChanged();
             }
         });

@@ -9,10 +9,6 @@ import org.junit.runner.RunWith;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 
-/**
- * Created by ajay on 25/3/17.
- */
-
 @RunWith(AndroidJUnit4.class)
 public class ConsumptionActivityTest extends ActivityInstrumentationTestCase2<ConsumptionActivity> {
 

@@ -8,10 +8,6 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.IceDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 
-/**
- * Created by JOHN on 3/18/2017.
- */
-
 public class ICEContactService {
 
     private IceDao iceDAO;

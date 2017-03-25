@@ -116,7 +116,6 @@
     <string name="empty_date">Please enter your date of birth.</string>
     <string name="invalid_date">Please enter valid date of birth.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="appointment_add_date">Appointment Date</string>
     <string name="appointment_add_time">Appointment Time</string>
     <string name="appointment_add_description">Appointment Description</string>
@@ -152,7 +151,7 @@
     <string name="ice_add_contact_no">Contact Number</string>
     <string name="ice_add_description">Description</string>
     <string name="health_condition">Health Condition</string>
-    <string name="health_start_date">Date</string>
+    <string name="health_start_date">Start Date</string>
     <string name="height">Height (cm)</string>
     <string-array name="ice_contact_types">
         <item>Doctor</item>
@@ -205,7 +204,6 @@
     <string name="systolic">Systolic :</string>
     <string name="diastolic">Diastolic :</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="medicine">Medicine</string>
     <string name="category">Category</string>
@@ -233,5 +231,6 @@
     <string name="no_items_to_show">There are no item to show</string>
     <string name="medicine_not_in_inventory">Medicine not in inventory</string>
     <string name="consumed_qty_empty">Consumed quantity cannot be empty</string>
+    <string name="condition_blank">Condition cannot be blank</string>
 
 </resources>

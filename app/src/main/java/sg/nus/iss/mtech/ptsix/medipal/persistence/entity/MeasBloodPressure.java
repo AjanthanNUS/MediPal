@@ -1,9 +1,5 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
-/**
- * Created by WongCheeVui on 3/18/2017.
- */
-
 public class MeasBloodPressure extends MeasurementBase {
 
     MeasBloodPressure(){mDiastolic=0;}

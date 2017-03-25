@@ -19,10 +19,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-/**
- * Created by win on 5/3/17.
- */
-
 @RunWith(AndroidJUnit4.class)
 public class AppointmentServiceTest {
 

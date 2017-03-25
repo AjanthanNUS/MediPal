@@ -13,8 +13,6 @@
             android:background="@color/cardview_shadow_end_color"
             android:scaleType="centerCrop" />
 
-        <!--android:src="@drawable/navigation_header_image"-->
-
         <ImageButton
             android:id="@+id/user_profile_photo"
             android:layout_width="120dp"
@@ -44,14 +42,6 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_edit_white" />
-
-            <!--<ImageView-->
-            <!--android:id="@+id/add_friend"-->
-            <!--android:layout_width="30dp"-->
-            <!--android:layout_height="30dp"-->
-            <!--android:layout_marginLeft="16dp"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:src="@drawable/ic_edit_white" />-->
 
             <TextView
                 android:id="@+id/userNameViewText"

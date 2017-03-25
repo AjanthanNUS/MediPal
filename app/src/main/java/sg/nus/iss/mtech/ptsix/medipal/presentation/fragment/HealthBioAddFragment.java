@@ -3,7 +3,6 @@ package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,14 +24,9 @@ import java.util.Locale;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.HealthBioService;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.HealthBioConditionTypeEnums;
-import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
-
-/**
- * Created by JOHN on 3/12/2017.
- */
 
 public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 
@@ -132,6 +126,8 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                condition.setError(null);
+                startDate.setError(null);
                 boolean isNewId = isNewValidByID();
                 boolean isValidInput = isCommandValid();
                 if (isValidInput && isNewId) {
@@ -142,7 +138,7 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
                     ((HealthBioActivity) getActivity()).switchTab(
                             Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
                 } else {
-                    if(isValidInput) {
+                    if (isValidInput) {
                         healthBioService.updateHealthBioInfo(getHealthBioFromInput());
                         Toast.makeText(getActivity(), getResources().getString(
                                 R.string.health_update_alert), Toast.LENGTH_SHORT).show();
@@ -158,6 +154,8 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                condition.setError(null);
+                startDate.setError(null);
                 resetFields();
                 ((HealthBioActivity) getActivity()).switchTab(
                         Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
@@ -165,7 +163,7 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         });
 
         btnDelete = (Button) rootView.findViewById(R.id.btn_delete);
-        btnDelete.setOnClickListener(new View.OnClickListener(){
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 healthBioService.deleteHealthBio(getHealthBioFromInput());
@@ -184,8 +182,15 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
     private boolean isCommandValid() {
         boolean isValid = true;
         try {
+            isValid = condition.getText().toString().length() != 0;
+            if (!isValid) {
+                condition.setError(getResources().getText(R.string.condition_blank));
+            }
             dateFormatter.parse(startDate.getText().toString());
-        } catch(ParseException ex) {
+
+
+        } catch (ParseException ex) {
+
             startDate.setError(getResources().getString(
                     R.string.health_update_alert));
             isValid = false;
@@ -195,6 +200,7 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 
     /**
      * Check existing record or not
+     *
      * @return boolean
      */
     private boolean isNewValidByID() {
@@ -217,11 +223,11 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 
                     Log.i("Enum Code : ", String.valueOf(
                             HealthBioConditionTypeEnums.getHealthBioConditionTypeEnums(
-                            healthBio.getEventConditionType()).getConditionTypeCode()));
+                                    healthBio.getEventConditionType()).getConditionTypeCode()));
 
                     Log.i("Enum TYPE : ", String.valueOf(
                             HealthBioConditionTypeEnums.getHealthBioConditionTypeEnums(
-                            healthBio.getEventConditionType())));
+                                    healthBio.getEventConditionType())));
 
                     selectSpinnerItemByValue(conditionType,
                             HealthBioConditionTypeEnums.getHealthBioConditionTypeEnums(
@@ -242,14 +248,15 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 
     /**
      * select Spinner Item By Value
+     *
      * @param spnr
      * @param value
      */
     private void selectSpinnerItemByValue(Spinner spnr, long value) {
         ArrayAdapter<HealthBioConditionTypeEnums> adapter =
-                (ArrayAdapter<HealthBioConditionTypeEnums>)spnr.getAdapter();
+                (ArrayAdapter<HealthBioConditionTypeEnums>) spnr.getAdapter();
         for (int position = 0; position < adapter.getCount(); position++) {
-            if(adapter.getItemId(position) == value) {
+            if (adapter.getItemId(position) == value) {
                 spnr.setSelection(position);
                 return;
             }
@@ -258,6 +265,7 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 
     /**
      * to get Health Bio Information From Input
+     *
      * @return HealthBio
      */
     private HealthBio getHealthBioFromInput() {
@@ -266,12 +274,12 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         healthBio.setEventCondition(condition.getText().toString());
         Log.i("Spinner ", conditionType.getSelectedItem().toString());
         healthBio.setEventConditionType(
-                ((HealthBioConditionTypeEnums)conditionType.getSelectedItem()).getConditionTypeName());
+                ((HealthBioConditionTypeEnums) conditionType.getSelectedItem()).getConditionTypeName());
         Log.i("Date ", startDate.getText().toString());
         Date date = null;
         try {
-           date = dateFormatter.parse(startDate.getText().toString());
-        } catch(ParseException ex) {
+            date = dateFormatter.parse(startDate.getText().toString());
+        } catch (ParseException ex) {
             ex.printStackTrace();
         }
         healthBio.setEventStartDate(date);

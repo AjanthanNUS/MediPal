@@ -5,27 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
-ID              interger
-Name            string
-ContactNo       string
-ContactType     interger
-Description     string
-Sequence        interger
-
-
- */
 public class IceDao extends DBDAO {
 
     private static final String WHERE_ICE_NAME_EQUALS = DatabaseHelper.ICE_NAME + " =?";

@@ -1,9 +1,5 @@
 package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
-/**
- * Created by WongCheeVui on 3/19/2017.
- */
-
 public class MeasComment extends MeasurementBase {
     private String mComment;
 

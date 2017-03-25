@@ -2,7 +2,6 @@ package sg.nus.iss.mtech.ptsix.medipal.presentation.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,6 @@ import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
-
-/**
- * Created by JOHN on 3/14/2017.
- */
 
 public class HealthBioAdaptor extends RecyclerView.Adapter<HealthBioAdaptor.HealthBioHolder> {
     private List<HealthBio> healthBioList;

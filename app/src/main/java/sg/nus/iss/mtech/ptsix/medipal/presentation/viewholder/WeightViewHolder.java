@@ -6,10 +6,6 @@ import android.widget.TextView;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 
-/**
- * Created by win on 19/3/17.
- */
-
 public class WeightViewHolder extends RecyclerView.ViewHolder {
     public TextView tvWeight;
     public TextView tvHeight;

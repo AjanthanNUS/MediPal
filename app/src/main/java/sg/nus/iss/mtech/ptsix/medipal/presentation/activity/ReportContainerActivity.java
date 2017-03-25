@@ -46,7 +46,7 @@ public class ReportContainerActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.w(TAG, e.toString());
         } finally {
-             personalBioDao.close();
+            personalBioDao.close();
         }
     }
 
@@ -77,7 +77,7 @@ public class ReportContainerActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        if(reportType == 1) {
+        if (reportType == 1) {
             getSupportActionBar().setTitle("Blood Pressure Report");
             mAdapter = new BloodPressureAdapter(this, measurementList);
             refreshBloodPressures();
