@@ -138,10 +138,12 @@ public class PersonalBioEditFragment extends Fragment {
         dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                                          @Override
                                          public void onFocusChange(View v, boolean hasFocus) {
+                                             dob.setError(null);
                                              if (hasFocus) {
                                                  datePickerDialog.show();
                                              } else {
                                                  datePickerDialog.hide();
+
                                              }
                                          }
                                      }
@@ -223,16 +225,27 @@ public class PersonalBioEditFragment extends Fragment {
     }
 
     private void validatePersonalBio() {
+
+        String dobString = this.dob.getText().toString().trim();
+
         if (TextUtils.isEmpty(uesrName.getText().toString().trim())) {
             uesrName.setError("Please enter your name.");
             validationStatus = false;
         }
-        if (dob.getText() == null || TextUtils.isEmpty(dob.getText().toString().trim())) {
-            dob.setError("Please enter your date of birth.");
+        if (dob.getText() == null || TextUtils.isEmpty(dobString)) {
+            dob.setError(getResources().getString(R.string.empty_date));
             validationStatus = false;
-
-            // date  before validaton???
+        } else {
+            try {
+                if (!CommonUtil.checkDateBeforeToday(dateFormatter.parse(dobString))) {
+                    this.dob.setError(getResources().getString(R.string.invalid_date));
+                    validationStatus = false;
+                }
+            } catch (ParseException ex) {
+                validationStatus = false;
+            }
         }
+
         if (TextUtils.isEmpty(height.getText().toString().trim())) {
             height.setError("Please enter your height.");
             validationStatus = false;
@@ -252,6 +265,8 @@ public class PersonalBioEditFragment extends Fragment {
             } else {
                 Toast.makeText(this.getContext(), Constant.SAVE_FAILED_MESSAGE, Toast.LENGTH_SHORT).show();
             }
+        } else {
+            validationStatus = true;
         }
     }
 
