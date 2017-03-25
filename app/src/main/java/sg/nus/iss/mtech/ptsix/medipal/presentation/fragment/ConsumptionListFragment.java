@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
@@ -65,9 +64,6 @@ public class ConsumptionListFragment extends Fragment {
 
             consumptionViewAdapter = new ConsumptionViewAdapter(consumptionList, mListener);
             recyclerView.setAdapter(consumptionViewAdapter);
-            //   Drawable dividerDrawable = ContextCompat.getDrawable(container.getContext(), R.drawable.divider_horizontal);
-            //   RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecorator(dividerDrawable);
-            //   recyclerView.addItemDecoration(dividerItemDecoration);
         }
         return view;
     }

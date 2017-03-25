@@ -56,7 +56,7 @@ public class AppTourAdapter extends PagerAdapter {
                     Intent intent = null;
                     if (isExistingUser()) {
                         intent = new Intent(context, MainActivity.class);
-                    } else  {
+                    } else {
                         intent = new Intent(context, PersonalActivity.class);
                     }
                     context.startActivity(intent);

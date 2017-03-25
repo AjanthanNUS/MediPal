@@ -166,8 +166,6 @@ public class MeasurementReportActivity extends AppCompatActivity {
         reportTypes.add("<Select Measurement Type>");
         reportTypes.add("Blood Pressure");
         reportTypes.add("Weight");
-//        reportTypes.add("Cholesterol Level");
-//        reportTypes.add("Glucose Level");
         return reportTypes;
     }
 

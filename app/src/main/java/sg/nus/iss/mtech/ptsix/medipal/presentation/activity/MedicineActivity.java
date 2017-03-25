@@ -43,9 +43,6 @@ public class MedicineActivity extends AppCompatActivity {
         this.medicineListFragment = new MedicineListFragment();
         this.medicineAddFragment = new MedicineAddFragment();
 
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.viewPager = (ViewPager) findViewById(R.id.view_pager);

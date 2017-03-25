@@ -29,9 +29,6 @@ public final class Constant {
 
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final String TIME_FORMAT = "hh:mm a";
-    public static final String MEASUREMENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
-
     public static final String DATE_TIME_FORMAT = "dd MMM yyyy hh:mm a";
 
     public static final String SAVE_SUCCEED_MESSAGE = "Saved Successfully";

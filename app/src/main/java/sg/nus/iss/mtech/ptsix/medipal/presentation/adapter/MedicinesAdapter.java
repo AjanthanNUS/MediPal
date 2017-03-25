@@ -97,7 +97,7 @@ public class MedicinesAdapter extends RecyclerView.Adapter<MedicineViewHolder> {
         holder.dateIssued.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.expireFactor.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
-        if(medicine.getRemind() == 1) {
+        if (medicine.getRemind() == 1) {
             holder.frequency.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
             holder.frequencyInterval.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
             holder.frequencyStartTime.setVisibility(isExpanded ? View.VISIBLE : View.GONE);

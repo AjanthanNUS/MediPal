@@ -24,7 +24,7 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     private List<Appointment> mAppointments;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
-    public AppointmentAdapter(Context context, List <Appointment> appointments) {
+    public AppointmentAdapter(Context context, List<Appointment> appointments) {
         super(context, R.layout.fragment_appointment_item, appointments);
         this.context = context;
         refreshAppointments();
@@ -73,22 +73,17 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     }
 
 
-
-
     @Override
     public int getCount() {
         return mAppointments.size();
     }
 
     public void refreshAppointments() {
-           mAppointments = new ArrayList<>();
+        mAppointments = new ArrayList<>();
         mAppointments.clear();
         AppointmentService appointmentService = new AppointmentService(context);
         mAppointments.addAll(appointmentService.getAppointments());
 
-
-        //mAppointments.addAll(App.club.getFacilities(this.context));
-//        mAppointments.addAll(generateDummyAppointments());
         notifyDataSetChanged();
     }
 
@@ -106,9 +101,8 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         appointments.add(appointment1);
         appointments.add(appointment2);
         appointments.add(appointment3);
-        return  appointments;
+        return appointments;
     }
-
 
 
 }
