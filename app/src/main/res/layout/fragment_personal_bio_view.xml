@@ -177,6 +177,33 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/btns"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_layout">
+
+            <Button
+                android:id="@+id/btn_add_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="Add Health Bio"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btn_add_ice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="Add ICE"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 </ScrollView>
