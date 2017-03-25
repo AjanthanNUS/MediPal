@@ -53,7 +53,7 @@ public class ConsumptionManagerTest {
     }
 
     @After
-    public void destroy() {
+    public void tearDown() {
         context = null;
         consumptionManager = null;
         c1 = null;
