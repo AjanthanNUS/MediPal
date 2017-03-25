@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineReplenishAlarmReceiver;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 
@@ -78,7 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setUserPreferences() {
         setAppTourPreferenceSwich();
-        setThresholdTimePreferences();
+        setThresholdTime();
     }
 
     private void setAppTourPreferenceSwich() {
@@ -111,7 +112,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void setThresholdTimePreferences() {
+    private void setThresholdTime() {
         String dateString = sharedPreferences.getString(Constant.THRESHOLD_TIME_SETTINGS_LABEL, null);
         thresholdTime = CommonUtil.convertStringToDate(dateString, Constant.TIME_FORMAT);
 
@@ -126,5 +127,9 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constant.THRESHOLD_TIME_SETTINGS_LABEL, dateString);
         editor.apply();
+
+        Date date = CommonUtil.convertStringToDate(dateString, Constant.TIME_FORMAT);
+
+        MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), date);
     }
 }

@@ -1,56 +1,121 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ConsumptionViewAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ConsumptionListFragment;
 
 public class ConsumptionActivity extends AppCompatActivity implements ConsumptionListFragment.OnListFragmentInteractionListener {
+    private static final int START_DATE_DIALOG_ID = 1;
+    private static final int END_DATE_DIALOG_ID = 2;
     private final String TAG = "[CONSUMPTION ACTIVITY]";
     private final String MEDICINE_TAG = "MED";
     private final String CATEGORY_TAG = "CAT";
-    private final String YEAR_TAG = "YEAR";
-    private final String MONTH_TAG = "MON";
-    private final String WEEK_TAG = "WEEK";
-    private final String DAY_TAG = "DAY";
+    private final String START_DATE = "YEAR";
+    private final String END_DATE = "MON";
     private ConsumptionListFragment consumptionListFragment;
-    private ArrayList<ConsumptionVO> fullConsumptionList;
+    private ArrayList<ConsumptionVO> allConsumptionList;
+
+    private CategoriesService categoriesService;
+    private MedicineService medicineService;
+
+    private LinearLayout filterLayout;
+    private AutoCompleteTextView categoryFilterView;
+    private AutoCompleteTextView medicineFilterView;
+    private EditText filterStartDateView;
+    private EditText filterEndDateView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consumption);
 
-        fullConsumptionList = new ArrayList<>();
-        ConsumptionManager consumptionManager = new ConsumptionManager(this);
-        fullConsumptionList.addAll(consumptionManager.getAllConsumptionVOList());
+        filterLayout = (LinearLayout) findViewById(R.id.filter_bar);
+        categoryFilterView = (AutoCompleteTextView) filterLayout.findViewById(R.id.filter_medicine);
+        medicineFilterView = (AutoCompleteTextView) filterLayout.findViewById(R.id.filter_category);
+        filterStartDateView = (EditText) filterLayout.findViewById(R.id.filter_start_date);
+        filterEndDateView = (EditText) filterLayout.findViewById(R.id.filter_end_date);
 
+        allConsumptionList = new ArrayList<>();
+        ConsumptionManager consumptionManager = new ConsumptionManager(this);
+        allConsumptionList.addAll(consumptionManager.getAllConsumptionVOList());
+        consumptionManager.sortConsumptionList(allConsumptionList);
 
         consumptionListFragment = ConsumptionListFragment.newInstance();
         ArrayList<ConsumptionVO> initConList = new ArrayList<>();
-        initConList.addAll(fullConsumptionList);
+        initConList.addAll(allConsumptionList);
         consumptionListFragment.setConsumptionList(initConList);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.consumptionFragmentHolder, consumptionListFragment);
         fragmentTransaction.commit();
+
+        setUpCategoryFilterAutocomplete();
+        setUpMedicineFilterAutocomplete();
+    }
+
+    private void setUpCategoryFilterAutocomplete() {
+        List<String> categoryCodeList;
+        List<Categories> categories;
+        categoriesService = new CategoriesService(this);
+        categories = new ArrayList<>();
+        categories.addAll(categoriesService.getCategories());
+        categoryCodeList = new ArrayList<>();
+        for (Categories category : categories) {
+            categoryCodeList.add(category.getCode());
+        }
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categoryCodeList);
+        categoryFilterView = (AutoCompleteTextView) findViewById(R.id.filter_category);
+        categoryFilterView.setAdapter(categoryAdapter);
+        categoryFilterView.setThreshold(1);
+    }
+
+    private void setUpMedicineFilterAutocomplete() {
+        List<String> medicineTitleList;
+        List<Medicine> medicines;
+        medicineService = new MedicineService(this);
+        medicines = new ArrayList<>();
+        medicines.addAll(medicineService.getMedicine());
+        medicineTitleList = new ArrayList<>();
+        for (Medicine medicine : medicines) {
+            medicineTitleList.add(medicine.getMedicine());
+        }
+        ArrayAdapter<String> medicineAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, medicineTitleList);
+        medicineFilterView = (AutoCompleteTextView) findViewById(R.id.filter_medicine);
+        medicineFilterView.setAdapter(medicineAdapter);
+        medicineFilterView.setThreshold(1);
     }
 
     @Override
@@ -58,7 +123,6 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.consumption_menu, menu);
         return true;
-
     }
 
     @Override
@@ -71,37 +135,39 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         return true;
     }
 
-
     private void showHistoryFilterPopUp() {
-        final LinearLayout filterLayout = (LinearLayout) findViewById(R.id.filter_bar);
         filterLayout.setActivated(true);
         filterLayout.setVisibility(View.VISIBLE);
+
+        filterStartDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(START_DATE_DIALOG_ID);
+            }
+        });
+
+        filterEndDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(END_DATE_DIALOG_ID);
+            }
+        });
+
         Button goButton = (Button) filterLayout.findViewById(R.id.filter_go_btn);
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 filterLayout.setVisibility(View.GONE);
 
-                EditText medicineET = (EditText) filterLayout.findViewById(R.id.filter_medicine);
-                EditText categoryET = (EditText) filterLayout.findViewById(R.id.filter_category);
-                EditText fromYearsET = (EditText) filterLayout.findViewById(R.id.filter_year);
-                EditText fromMonthsET = (EditText) filterLayout.findViewById(R.id.filter_month);
-                EditText fromWeeksET = (EditText) filterLayout.findViewById(R.id.filter_week);
-                EditText fromDaysET = (EditText) filterLayout.findViewById(R.id.filter_day);
-
-                String searchMedicine = medicineET.getText().toString();
-                String searchCategory = categoryET.getText().toString();
-                String searchYear = fromYearsET.getText().toString();
-                String searchMonth = fromMonthsET.getText().toString();
-                String searchWeek = fromWeeksET.getText().toString();
-                String searchDays = fromDaysET.getText().toString();
+                String searchMedicine = medicineFilterView.getText().toString();
+                String searchCategory = categoryFilterView.getText().toString();
+                String filterDateStart = filterStartDateView.getText().toString();
+                String filterDateEnd = filterEndDateView.getText().toString();
                 Bundle searchBundle = new Bundle();
                 searchBundle.putString(MEDICINE_TAG, searchMedicine);
                 searchBundle.putString(CATEGORY_TAG, searchCategory);
-                searchBundle.putString(YEAR_TAG, searchYear);
-                searchBundle.putString(MONTH_TAG, searchMonth);
-                searchBundle.putString(WEEK_TAG, searchWeek);
-                searchBundle.putString(DAY_TAG, searchDays);
+                searchBundle.putString(START_DATE, filterDateStart);
+                searchBundle.putString(END_DATE, filterDateEnd);
                 filterConsumptionHistory(searchBundle);
             }
         });
@@ -111,25 +177,16 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
             @Override
             public void onClick(View view) {
                 filterLayout.setVisibility(View.GONE);
-                EditText medicineET = (EditText) filterLayout.findViewById(R.id.filter_medicine);
-                EditText categoryET = (EditText) filterLayout.findViewById(R.id.filter_category);
-                EditText fromYearsET = (EditText) filterLayout.findViewById(R.id.filter_year);
-                EditText fromMonthsET = (EditText) filterLayout.findViewById(R.id.filter_month);
-                EditText fromWeeksET = (EditText) filterLayout.findViewById(R.id.filter_week);
-                EditText fromDaysET = (EditText) filterLayout.findViewById(R.id.filter_day);
-                medicineET.getText().clear();
-                categoryET.getText().clear();
-                fromYearsET.getText().clear();
-                fromMonthsET.getText().clear();
-                fromWeeksET.getText().clear();
-                fromDaysET.getText().clear();
+
+                medicineFilterView.getText().clear();
+                categoryFilterView.getText().clear();
+                filterStartDateView.getText().clear();
+                filterEndDateView.getText().clear();
                 Bundle resetBundle = new Bundle();
                 resetBundle.putString(MEDICINE_TAG, "");
                 resetBundle.putString(CATEGORY_TAG, "");
-                resetBundle.putString(YEAR_TAG, "");
-                resetBundle.putString(MONTH_TAG, "");
-                resetBundle.putString(WEEK_TAG, "");
-                resetBundle.putString(DAY_TAG, "");
+                resetBundle.putString(START_DATE, "");
+                resetBundle.putString(END_DATE, "");
                 filterConsumptionHistory(resetBundle);
             }
         });
@@ -139,22 +196,19 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
 
         String searchMedicine = searchBundle.getString(MEDICINE_TAG);
         String searchCategory = searchBundle.getString(CATEGORY_TAG);
-        String searchYear = searchBundle.getString(YEAR_TAG);
-        String searchMonth = searchBundle.getString(MONTH_TAG);
-        String searchWeek = searchBundle.getString(WEEK_TAG);
-        String searchDays = searchBundle.getString(DAY_TAG);
+        String filterStartDate = searchBundle.getString(START_DATE);
+        String filterEndDate = searchBundle.getString(END_DATE);
 
         ConsumptionViewAdapter viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
 
         List<ConsumptionVO> allConsumptionList = new ArrayList<>();
-        allConsumptionList.addAll(fullConsumptionList);
+        allConsumptionList.addAll(this.allConsumptionList);
 
         if (CommonUtil.isNullOrEmpty(searchMedicine) && CommonUtil.isNullOrEmpty(searchCategory) &&
-                CommonUtil.isNullOrEmpty(searchYear) && CommonUtil.isNullOrEmpty(searchMonth) &&
-                CommonUtil.isNullOrEmpty(searchWeek) && CommonUtil.isNullOrEmpty(searchDays)) {
+                CommonUtil.isNullOrEmpty(filterStartDate) && CommonUtil.isNullOrEmpty(filterEndDate)) {
 
             allConsumptionList.clear();
-            allConsumptionList.addAll(fullConsumptionList);
+            allConsumptionList.addAll(this.allConsumptionList);
 
             viewAdapter.getmConsumptionList().clear();
             viewAdapter.getmConsumptionList().addAll(allConsumptionList);
@@ -177,78 +231,77 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
     }
 
     private boolean isValidForFilter(ConsumptionVO c, Bundle searchBundle) {
-        boolean valid = true;
-        String searchYear = searchBundle.getString(YEAR_TAG);
-        String searchMonth = searchBundle.getString(MONTH_TAG);
-        String searchWeek = searchBundle.getString(WEEK_TAG);
-        String searchDays = searchBundle.getString(DAY_TAG);
-        long consumedAgo = Calendar.getInstance().getTimeInMillis() - c.getConsumedOn().getTime();
+        boolean valid = false;
+        try {
+            Date consumedDate = c.getConsumedOn();
+            Date filterStartDate;
+            Date filterEndDate;
+
+            String startDate = searchBundle.getString(START_DATE);
+
+            if (CommonUtil.isNullOrEmpty(startDate)) {
+                Calendar epochCal = Calendar.getInstance();
+                epochCal.setTimeInMillis(0);
+                filterStartDate = epochCal.getTime();
+            } else {
+                filterStartDate = CommonUtil.ddmmmyyyy2date(startDate);
+            }
+
+            String endDate = searchBundle.getString(END_DATE);
+            if (CommonUtil.isNullOrEmpty(endDate)) {
+                Calendar nowCal = Calendar.getInstance();
+                filterEndDate = nowCal.getTime();
+            } else {
+                filterEndDate = CommonUtil.ddmmmyyyy2date(endDate);
+            }
 
 
-        if (!CommonUtil.isNullOrEmpty(searchDays) && consumedAgo > CommonUtil.getMilliSeconds(0, 0, Integer.valueOf(searchDays))) {
-            valid = false;
-        } else {
-            searchDays = "0";
-        }
-        if (valid && !CommonUtil.isNullOrEmpty(searchWeek) && consumedAgo > CommonUtil.getMilliSeconds(0, 0, Integer.valueOf(searchDays) + Integer.valueOf(searchWeek) * 7)) {
-            valid = false;
-        } else {
-            searchWeek = "0";
-        }
-
-        if (valid && !CommonUtil.isNullOrEmpty(searchMonth) && consumedAgo > CommonUtil.getMilliSeconds(0, Integer.valueOf(searchMonth), Integer.valueOf(searchDays) + Integer.valueOf(searchWeek) * 7)) {
-            valid = false;
-        } else {
-            searchMonth = "0";
-        }
-        if (valid && !CommonUtil.isNullOrEmpty(searchYear) && consumedAgo > CommonUtil.getMilliSeconds(Integer.valueOf(searchYear), Integer.valueOf(searchMonth), Integer.valueOf(searchDays) + Integer.valueOf(searchWeek) * 7)) {
-            valid = false;
+            if (filterStartDate.before(consumedDate) && filterEndDate.after(consumedDate)) {
+                valid = true;
+            }
+        } catch (ParseException e) {
+            Log.e(TAG, "Date format error in parsing string to Date.");
         }
         return valid;
     }
 
     @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case START_DATE_DIALOG_ID: {
+                Consumption consumption = allConsumptionList.get(allConsumptionList.size() - 1);
+                Calendar consumedOn = CommonUtil.dateToCalendar(consumption.getConsumedOn());
+                return new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar startDate = Calendar.getInstance();
+                        startDate.set(Calendar.YEAR, year);
+                        startDate.set(Calendar.MONTH, month);
+                        startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        filterStartDateView.setText(CommonUtil.date2ddMMMYYYY(startDate.getTime()));
+                    }
+                }, consumedOn.get(Calendar.YEAR), consumedOn.get(Calendar.MONTH), consumedOn.get(Calendar.DAY_OF_MONTH));
+            }
+            case END_DATE_DIALOG_ID: {
+
+                Consumption consumption = allConsumptionList.get(0);
+                Calendar consumedOn = CommonUtil.dateToCalendar(consumption.getConsumedOn());
+                return new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar startDate = Calendar.getInstance();
+                        startDate.set(Calendar.YEAR, year);
+                        startDate.set(Calendar.MONTH, month);
+                        startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        filterEndDateView.setText(CommonUtil.date2ddMMMYYYY(startDate.getTime()));
+                    }
+                }, consumedOn.get(Calendar.YEAR), consumedOn.get(Calendar.MONTH), consumedOn.get(Calendar.DAY_OF_MONTH));
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void onListFragmentInteraction(ConsumptionVO consumption) {
-//        consumptionFragmentHolder = (FrameLayout) findViewById(R.id.consumptionFragmentHolder);
-//        if (mPopupWindow != null) {
-//            mPopupWindow.dismiss();
-//            mPopupWindow = null;
-//        } else {
-//            LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-//            View customView = inflater.inflate(R.layout.consumption_filter_popup, null);
-//
-//            TextView medicine = (TextView) customView.findViewById(R.id.popup_medicine);
-//            TextView consumedTimeView = (TextView) customView.findViewById(R.id.popup_consumed_on);
-//            TextView quantity = (TextView) customView.findViewById(R.id.popup_quantity);
-//            TextView description = (TextView) customView.findViewById(R.id.popup_description);
-//
-//            medicine.setText(consumption.getMedicine().getEventMedicine());
-//            consumedTimeView.setText(CommonUtil.formatDateStandard(consumption.getEventConsumedOn()));
-//            quantity.setText(String.valueOf(consumption.getEventQuantity()));
-//            description.setText(consumption.getMedicine().getEventDescription() + "Sample description");
-//
-//            mPopupWindow = new PopupWindow(
-//                    customView,
-//                    LayoutParams.WRAP_CONTENT,
-//                    LayoutParams.WRAP_CONTENT
-//            );
-//
-//            if (Build.VERSION.SDK_INT >= 21) {
-//                mPopupWindow.setElevation(5.0f);
-//            }
-//
-////            ImageButton closeButton = (ImageButton) customView.findViewById(R.id.popup_close);
-////
-////            closeButton.setOnClickListener(new View.OnClickListener() {
-////                @Override
-////                public void onClick(View view) {
-////                    mPopupWindow.dismiss();
-////                }
-////            });
-//
-//            mPopupWindow.showAtLocation(consumptionFragmentHolder, Gravity.CENTER, 0, 0);
-//        }
-
-
     }
 }

@@ -8,7 +8,6 @@ public final class Constant {
 
     public static final String REMINDER_BUNDLE = "REMINDER_BUNDLE";
 
-
     public static final int CATEGORY_TAB_LIST_INDEX = 0;
     public static final int CATEGORY_TAB_ADD_INDEX = 1;
 
@@ -19,8 +18,17 @@ public final class Constant {
 
     public static final int MEDICINE_ADD_INVALID_ID = -1;
 
+    public static final int TODAY_TAB_REPORT_INDEX = 0;
+    public static final int ONE_WEEK_TAB_REPORT_INDEX = 1;
+    public static final int ONE_MONTH_REPORT_INDEX = 2;
+    public static final int DATE_RANGE_REPORT_INDEX = 3;
+
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final String TIME_FORMAT = "hh:mm a";
+    public static final String MEASUREMENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+
+    public static final String DATE_TIME_FORMAT = "dd MMM yyyy hh:mm a";
 
     public static final String SAVE_SUCCEED_MESSAGE = "Saved Successfully";
     public static final String SAVE_FAILED_MESSAGE = "Unable to save, please try again...";
@@ -32,7 +40,7 @@ public final class Constant {
     public static final String THRESHOLD_TIME_SETTINGS_LABEL = "ThresholdNotificationTime";
     public static final String THRESHOLD_TIME_SETTINGS_DEFAULT = "10:00 AM";
 
-    public static  final String APP_TITLE = "Medipal";
+    public static  final String APP_TITLE = "MediPal";
     public static  final String APP_SUB_TITLE = "Health Maters";
 
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
@@ -49,5 +57,5 @@ public final class Constant {
     public static final int ICE_TAB_ADD_INDEX = 1;
 
 
-
+    public static final String REMIND_TIME = "REMIND_TIME";
 }

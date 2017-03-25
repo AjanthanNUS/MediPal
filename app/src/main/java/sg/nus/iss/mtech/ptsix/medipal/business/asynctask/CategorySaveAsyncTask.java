@@ -1,25 +1,28 @@
 package sg.nus.iss.mtech.ptsix.medipal.business.asynctask;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
-
-import java.lang.ref.WeakReference;
 
 import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 
-public class CategorySaveAsyncTask extends AsyncTask<Categories, Void, Long> {
-    private final WeakReference<Activity> activityWeakRef;
+public class CategorySaveAsyncTask extends AsyncTask<Categories, Void, Void> {
     private CategoriesService categoriesService;
+    private Context mContext;
 
-    public CategorySaveAsyncTask(Activity context) {
-        this.activityWeakRef = new WeakReference<Activity>(context);
-        categoriesService = new CategoriesService(context);
+    public CategorySaveAsyncTask(Context context) {
+        this.categoriesService = new CategoriesService(context);
+        this.mContext = context;
     }
 
     @Override
-    protected Long doInBackground(Categories... arg0) {
-        return categoriesService.makeCategories(arg0[0]);
+    protected Void doInBackground(Categories... arg0) {
+        this.categoriesService.makeCategories(arg0[0]);
+        return null;
     }
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+    }
 }

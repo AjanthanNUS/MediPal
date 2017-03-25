@@ -58,7 +58,10 @@ public class AppointmentAddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_appointment_add, container, false);
-        return initializeView(rootView);
+        rootView =initializeView(rootView);
+
+        return rootView;
+
     }
 
     private View initializeView(View rootView) {
@@ -144,16 +147,17 @@ public class AppointmentAddFragment extends Fragment {
                         Object returnObj = appointmentAsyncTask.get();
 
                         if (returnObj instanceof AppointmentExistException) {
-                            Toast.makeText(getContext(), "appointment already existed at that time.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Appointment already existed at that time.", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), "appointment created successfully.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Appointment created successfully.", Toast.LENGTH_SHORT).show();
+                            ((AppointmentActivity) getActivity()).switchTab(Constant.APPOINTMENT_TAB_LIST_INDEX, Constant.APPOINTMENT_ADD_INVALID_ID);
                         }
 
                     } else {
                         AppointmentUpdateAsyncTask updateAsyncTask = new AppointmentUpdateAsyncTask(getContext());
                         updateAsyncTask.execute(appointment);
                         updateAsyncTask.get();
-                        Toast.makeText(getContext(), "appointment updated successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Appointment updated successfully", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -260,13 +264,19 @@ public class AppointmentAddFragment extends Fragment {
 
                     try {
                         mAppointment = appointmentGetAsyncTask.get();
+                        Log.w(TAG, mAppointment.getDescription());
                         bindUI();
                     } catch (Exception e) {
                         Log.e(TAG, e.toString());
                     }
+                } else {
+                    mAppointment = new Appointment();
+                    bindUI();
                 }
+
             }
         }
+        Log.w(TAG, "Set User Visible Hint");
 
     }
 }

@@ -78,11 +78,19 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".presentation.activity.MeasurementReportActivity"
+            android:label="Report"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".presentation.activity.ReportContainerActivity"
+                  android:parentActivityName=".presentation.activity.MeasurementReportActivity">
+        </activity>
+
         <receiver android:name=".business.services.AppointmentAlarmReceiver" />
 
         <service android:name=".business.services.AppointmentReminder" />
-
-        <receiver android:name=".business.services.ConsumptionAlarmReceiver" />
 
         <service android:name=".business.services.ConsumptionDailyService" />
 
@@ -94,6 +102,7 @@
             android:name=".business.services.ConsumptionBroadcastReceiver"
             android:enabled="true"
             android:exported="false" />
+
         <receiver
             android:name=".business.services.OnBootReceiver"
             android:enabled="true"
@@ -102,10 +111,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <receiver
             android:name=".business.services.DailyReminderBroadcastReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false" />
 
         <activity android:name=".presentation.activity.AddConsumptionActivity" />
 
@@ -113,10 +123,11 @@
             android:name=".business.services.AppStartBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-
             <intent-filter>
                 <action android:name="sg.nus.iss.mtech.ptsix.medipal.MainActivity" />
             </intent-filter>
         </receiver>
+
+
     </application>
 </manifest>

@@ -1,6 +1,7 @@
 package sg.nus.iss.mtech.ptsix.medipal.business.services;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class RemindersService {
         try {
             result = remindersDao.save(reminders);
             reminders.setId((int) result);
-
+            broadcastToReminderService();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -39,6 +40,7 @@ public class RemindersService {
         remindersDao.open();
         try {
             result = remindersDao.update(reminders);
+            broadcastToReminderService();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -94,5 +96,11 @@ public class RemindersService {
         }
 
         return ret;
+    }
+
+    private void broadcastToReminderService() {
+        Intent intent = new Intent();
+        intent.setAction("sg.nus.iss.mtech.ptsix.medipal.ReminderService");
+        context.sendBroadcast(intent);
     }
 }

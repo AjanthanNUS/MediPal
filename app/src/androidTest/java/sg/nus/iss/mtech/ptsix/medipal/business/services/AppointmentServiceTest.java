@@ -98,6 +98,7 @@ public class AppointmentServiceTest {
         assertEquals(appointment, appointFromDB);
     }
 
+
     @Test
     public void updateAppointment() throws Exception {
         String appointmentDateStr = "02 MAR 2017 2:30 PM";
