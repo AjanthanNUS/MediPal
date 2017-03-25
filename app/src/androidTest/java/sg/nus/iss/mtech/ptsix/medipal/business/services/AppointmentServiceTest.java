@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.common.exception.AppointmentExistException;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.AppointmentDAO;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.AppointmentDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
 import static junit.framework.Assert.assertEquals;
@@ -34,7 +34,7 @@ public class AppointmentServiceTest {
     public void setUp() {
         context = InstrumentationRegistry.getTargetContext();
 
-        AppointmentDAO appointmentDAO = new AppointmentDAO(context);
+        AppointmentDao appointmentDAO = new AppointmentDao(context);
         appointmentDAO.open();
         appointmentDAO.truncateAllAppointments();
         appointmentDAO.close();

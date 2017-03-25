@@ -13,12 +13,12 @@ import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-public class AppointmentDAO extends DBDAO {
+public class AppointmentDao extends DBDAO {
 
     private static final String WHERE_ID_EQUALS = DatabaseHelper.APP_ID + " =?";
     private static final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
 
-    public AppointmentDAO(Context context) {
+    public AppointmentDao(Context context) {
         super(context);
     }
 

@@ -146,10 +146,6 @@ public class CommonUtil {
 
 
     public static String getFriendlyDayString(Context context, long dateInMillis) {
-        // For today: "Today"
-        // For tomorrow:  "Tomorrow"
-        // For the next 5 days: "Wednesday" (just the day name)
-        // For all days after that: "Mon Jun 8"
 
         Time time = new Time();
         time.setToNow();
@@ -163,7 +159,6 @@ public class CommonUtil {
             String today = context.getString(R.string.today);
 
             return today + " at " + getFormattedTime(new Date(dateInMillis));
-//
         } else if (julianDay < currentJulianDay + 7) {
             // If the input date is less than a week in the future, just return the day name.
             return getDayName(context, dateInMillis) + " at " + getFormattedTime(new Date(dateInMillis));
@@ -180,7 +175,6 @@ public class CommonUtil {
     public static String getFormattedMonthDay(Context context, long dateInMillis) {
         Time time = new Time();
         time.setToNow();
-//        SimpleDateFormat dbDateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm a");
         SimpleDateFormat monthDayFormat = new SimpleDateFormat("MMM dd");
         String monthDayString = monthDayFormat.format(dateInMillis);
         return monthDayString;
