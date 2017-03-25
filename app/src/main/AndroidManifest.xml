@@ -88,7 +88,8 @@
         <activity
             android:name=".presentation.activity.ReportContainerActivity"
             android:label="Report"
-            android:parentActivityName=".presentation.activity.MeasurementReportActivity"></activity>
+            android:parentActivityName=".presentation.activity.MeasurementReportActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".business.services.AppointmentAlarmReceiver" />
 
