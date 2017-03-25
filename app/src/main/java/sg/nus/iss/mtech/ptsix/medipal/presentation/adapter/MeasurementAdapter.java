@@ -57,25 +57,40 @@ public class MeasurementAdapter extends RecyclerView.Adapter<MeasurementViewHold
         if(measurement.getEventSystolic()!=0) {
             measurementValue = String.valueOf(measurement.getEventSystolic());
         }
+        else{
+            measurementValue=" -- ";
+        }
         holder.MeaSystolic.setText("Systolic " + measurementValue + " mm Hg,");
 
         if(measurement.getEventDiastolic()!=0) {
             measurementValue = String.valueOf(measurement.getEventDiastolic());
+        }
+        else{
+            measurementValue=" -- ";
         }
         holder.MeaDiastolic.setText("Diastolic "+ measurementValue +" mm Hg,");
 
         if(measurement.getEventPulse()!=0) {
             measurementValue = String.valueOf(measurement.getEventPulse());
         }
+        else{
+            measurementValue=" -- ";
+        }
         holder.MeaPulse.setText("Pulse "+ measurementValue +" BPM,");
 
         if(measurement.getEventTemperature()!=0) {
             measurementValue = String.valueOf(measurement.getEventTemperature());
         }
+        else{
+            measurementValue=" -- ";
+        }
         holder.MeaTemperature.setText("Temp "+ measurementValue +" C,");
 
         if(measurement.getEventWeight()!=0) {
             measurementValue = String.valueOf(measurement.getEventWeight());
+        }
+        else{
+            measurementValue=" -- ";
         }
         holder.MeaWeight.setText("Weight "+ measurementValue + " Kg");
 

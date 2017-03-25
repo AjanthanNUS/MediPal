@@ -48,7 +48,7 @@ public class PersonalBioEditFragment extends Fragment {
     private DatePickerDialog datePickerDialog;
     private Calendar calendar = null;
     private static final int USERID_DEFAULT = 0;
-    private static final String USERIDNo_BASE = "MPT600";
+    private static final String USERIDNo_BASE = "MPT6001";
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
 
     @Override

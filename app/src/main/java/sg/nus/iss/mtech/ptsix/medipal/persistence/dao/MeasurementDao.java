@@ -8,6 +8,7 @@ import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
@@ -163,6 +164,68 @@ public class MeasurementDao extends DBDAO {
             measurement.setComment(cursor.getString(7));
         }
         return measurement;
+    }
+
+    public ArrayList<Measurement> getMeasurementsReport(Date fromDate, Date toDate)
+    {
+        ArrayList<Measurement> measurements = new ArrayList<Measurement>();
+
+        String sql = "SELECT * FROM " + DatabaseHelper.MEAS_TABLE
+                   + " WHERE " + DatabaseHelper.MEAS_MEASURED_ON + " >= ? AND "
+                   + DatabaseHelper.MEAS_MEASURED_ON + " <= ? ";
+
+        Cursor cursor = database.rawQuery(sql, new String [] {formatter.format(fromDate), formatter.format(toDate)});
+
+
+        while (cursor.moveToNext()) {
+            Measurement measurement = new Measurement();
+            measurement.setId(cursor.getInt(0));
+            measurement.setEventSystolic(cursor.getInt(1));
+            measurement.setEventDiastolic(cursor.getInt(2));
+            measurement.setEventPulse(cursor.getInt(3));
+            measurement.setEventTemperature(cursor.getFloat(4));
+            measurement.setEventWeight(cursor.getInt(5));
+            try {
+                measurement.setEventMeasureOn(formatter.parse(cursor.getString(6)));
+            } catch (ParseException e) {
+                measurement.setEventMeasureOn(null);
+            }
+            measurement.setComment(cursor.getString(7));
+            measurements.add(measurement);
+        }
+        return measurements;
+    }
+
+    public ArrayList<Measurement> getWeightReport (Date fromDate, Date toDate)
+    {
+        ArrayList<Measurement> measurements = new ArrayList<Measurement>();
+
+        String sql = "SELECT * FROM " + DatabaseHelper.MEAS_TABLE
+                + " WHERE " + DatabaseHelper.MEAS_MEASURED_ON + " >= ? AND "
+                + DatabaseHelper.MEAS_MEASURED_ON + " <= ? AND "
+                + DatabaseHelper.MEAS_WEIGHT + " <> 0" ;
+
+
+        Cursor cursor = database.rawQuery(sql, new String [] {formatter.format(fromDate), formatter.format(toDate)});
+
+
+        while (cursor.moveToNext()) {
+            Measurement measurement = new Measurement();
+            measurement.setId(cursor.getInt(0));
+            measurement.setEventSystolic(cursor.getInt(1));
+            measurement.setEventDiastolic(cursor.getInt(2));
+            measurement.setEventPulse(cursor.getInt(3));
+            measurement.setEventTemperature(cursor.getFloat(4));
+            measurement.setEventWeight(cursor.getInt(5));
+            try {
+                measurement.setEventMeasureOn(formatter.parse(cursor.getString(6)));
+            } catch (ParseException e) {
+                measurement.setEventMeasureOn(null);
+            }
+            measurement.setComment(cursor.getString(7));
+            measurements.add(measurement);
+        }
+        return measurements;
     }
 }
 

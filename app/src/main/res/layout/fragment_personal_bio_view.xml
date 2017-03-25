@@ -4,118 +4,127 @@
     android:layout_height="match_parent"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.PersonalBioViewFragment">
 
-    <RelativeLayout
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:scrollbars="vertical">-->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="30dp">
 
-        <TextView
-            android:id="@+id/personalBioTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center_horizontal"
-            android:text="Personal Bio"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="25sp" />
+        <!--<android.support.v4.widget.Space-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="5dp"-->
+        <!--android:background="#a31d10" />-->
+        <!--<android.support.v4.widget.Space-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="8dp"-->
+        <!--android:background="#456" />-->
+        <!--<android.support.v4.widget.Space-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#fe5324" />-->
 
         <TextView
             android:id="@+id/userNameViewLabel"
+            style="@style/AppTextLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/personalBioTextView"
             android:text="Full Name" />
 
         <TextView
             android:id="@+id/userNameViewText"
+            style="@style/AppTextContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/userNameViewLabel"
-            android:layout_marginLeft="75dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/userIDNoViewLabel"
+            style="@style/AppTextLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/userNameViewText"
             android:text="ID No" />
 
         <TextView
             android:id="@+id/userIDNoViewText"
+            style="@style/AppTextContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/userIDNoViewLabel"
-            android:layout_marginLeft="75dp" />
+            android:layout_height="wrap_content" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0" />
 
         <TextView
             android:id="@+id/userDOBViewLabel"
+            style="@style/AppTextLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/userIDNoViewText"
             android:text="Date Of Brith" />
 
         <TextView
             android:id="@+id/userDOBViewText"
+            style="@style/AppTextContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/userDOBViewLabel"
-            android:layout_marginLeft="75dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/addressViewLabel"
+            style="@style/AppTextLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/userDOBViewText"
             android:text="Adress" />
 
         <TextView
             android:id="@+id/addressViewText"
+            style="@style/AppTextContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/addressViewLabel"
-            android:layout_marginLeft="75dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/postalCodeViewText"
+            style="@style/AppTextContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/addressViewText"
-            android:layout_marginLeft="75dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/heightViewLabel"
+            style="@style/AppTextLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/postalCodeViewText"
             android:text="Height" />
 
         <TextView
             android:id="@+id/heightViewText"
+            style="@style/AppTextContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/heightViewLabel"
-            android:layout_marginLeft="75dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/bloodTypeViewLabel"
+            style="@style/AppTextLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/heightViewText"
             android:text="Blood Type" />
 
         <TextView
             android:id="@+id/bloodTypeViewText"
+            style="@style/AppTextContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/bloodTypeViewLabel"
-            android:layout_marginLeft="75dp" />
-    </RelativeLayout>
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <!--</ScrollView>-->
 
     <android.support.design.widget.FloatingActionButton
-    android:id="@+id/fabUpdatePersonalBio"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_margin="@dimen/fab_margin" />
+        android:id="@+id/fabUpdatePersonalBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_edit_white" />
 
 </FrameLayout>

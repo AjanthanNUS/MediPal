@@ -54,7 +54,6 @@ public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<Appoint
         holder.tvDescription.setText(appointment.getDescription());
         holder.tvLocation.setText(appointment.getLocation());
         holder.tv_date_time.setText(CommonUtil.getFriendlyDayString(mContext, appointment.getAppointmentDate().getTime()));
-//        holder.tvDate.setText(dbDateFormatter.format(appointment.getAppointmentDate()));
 
         holder.btnDelete.setOnClickListener(new OnClickListener() {
             @Override
@@ -93,7 +92,6 @@ public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<Appoint
 
     public void updateDataSet(List<Appointment> appointmentList) {
         this.mAppointments.clear();
-        ;
         this.mAppointments.addAll(appointmentList);
         notifyDataSetChanged();
     }

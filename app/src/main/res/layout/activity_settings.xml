@@ -21,7 +21,8 @@
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
             android:text="Open with tutorial everytime"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/AppTextLabel"/>
 
         <Switch
             android:id="@+id/tutorial_switch"
@@ -48,13 +49,14 @@
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
             android:text="Medicine Threshold Reminder time"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/AppTextLabel" />
 
         <EditText
             android:id="@+id/settings_threshold_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="15"
+            android:layout_weight="25"
             android:gravity="right" />
     </LinearLayout>
 

@@ -2,11 +2,22 @@ package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Consumption implements Parcelable {
 
+    public static final Parcelable.Creator<Consumption> CREATOR = new Parcelable.Creator<Consumption>() {
+        public Consumption createFromParcel(Parcel in) {
+            return new Consumption(in);
+        }
+
+        public Consumption[] newArray(int size) {
+            return new Consumption[size];
+        }
+    };
     private int m_id;
     private int mMedicineID;
     private int mQuantity;
@@ -77,14 +88,5 @@ public class Consumption implements Parcelable {
         dest.writeLong(getConsumedOn().getDate());
     }
 
-    public static final Parcelable.Creator<Consumption> CREATOR = new Parcelable.Creator<Consumption>() {
-        public Consumption createFromParcel(Parcel in) {
-            return new Consumption(in);
-        }
-
-        public Consumption[] newArray(int size) {
-            return new Consumption[size];
-        }
-    };
 }
 
