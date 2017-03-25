@@ -199,4 +199,6 @@
     <string name="missed">missed</string>
     <string name="medi_consume_missed">Medicine consumption missed!</string>
     <string name="medi_consume_saved">Medicine consumption saved.</string>
+    <string name="fromDate">From Date</string>
+    <string name="toDate">To Date</string>
 </resources>

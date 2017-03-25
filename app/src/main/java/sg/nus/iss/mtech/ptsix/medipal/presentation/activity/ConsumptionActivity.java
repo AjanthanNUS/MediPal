@@ -49,6 +49,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
     private CategoriesService categoriesService;
     private MedicineService medicineService;
 
+    private ConsumptionViewAdapter viewAdapter;
     private LinearLayout filterLayout;
     private AutoCompleteTextView categoryFilterView;
     private AutoCompleteTextView medicineFilterView;
@@ -69,7 +70,6 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         allConsumptionList = new ArrayList<>();
         ConsumptionManager consumptionManager = new ConsumptionManager(this);
         allConsumptionList.addAll(consumptionManager.getAllConsumptionVOList());
-        consumptionManager.sortConsumptionList(allConsumptionList);
 
         consumptionListFragment = ConsumptionListFragment.newInstance();
         ArrayList<ConsumptionVO> initConList = new ArrayList<>();
@@ -80,8 +80,25 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         fragmentTransaction.add(R.id.consumptionFragmentHolder, consumptionListFragment);
         fragmentTransaction.commit();
 
+        viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
+
         setUpCategoryFilterAutocomplete();
         setUpMedicineFilterAutocomplete();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "Repopulating the Consumption list on the resume");
+        allConsumptionList = new ArrayList<>();
+        ConsumptionManager consumptionManager = new ConsumptionManager(this);
+        allConsumptionList.addAll(consumptionManager.getAllConsumptionVOList());
+        if (viewAdapter == null) {
+            viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
+        }
+        viewAdapter.getmConsumptionList().clear();
+        viewAdapter.setmConsumptionList(allConsumptionList);
+        viewAdapter.notifyDataSetChanged();
     }
 
     private void setUpCategoryFilterAutocomplete() {
@@ -139,6 +156,14 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         filterLayout.setActivated(true);
         filterLayout.setVisibility(View.VISIBLE);
 
+        filterStartDateView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    filterStartDateView.callOnClick();
+                }
+            }
+        });
         filterStartDateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +171,14 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
             }
         });
 
+        filterEndDateView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    filterEndDateView.callOnClick();
+                }
+            }
+        });
         filterEndDateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +232,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         String filterStartDate = searchBundle.getString(START_DATE);
         String filterEndDate = searchBundle.getString(END_DATE);
 
-        ConsumptionViewAdapter viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
+        //ConsumptionViewAdapter viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
 
         List<ConsumptionVO> allConsumptionList = new ArrayList<>();
         allConsumptionList.addAll(this.allConsumptionList);
@@ -225,8 +258,8 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
                 }
             }
             viewAdapter.getmConsumptionList().clear();
-            viewAdapter.getmConsumptionList().addAll(filterList);
-            viewAdapter.notifyDataSetChanged();
+            viewAdapter.setmConsumptionList(filterList);
+//            viewAdapter.notifyDataSetChanged();
         }
     }
 
