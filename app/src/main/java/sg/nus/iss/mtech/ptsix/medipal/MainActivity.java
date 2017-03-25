@@ -12,12 +12,9 @@ import android.widget.GridView;
 
 import java.util.Date;
 
-import sg.nus.iss.mtech.ptsix.medipal.business.manager.ReminderManager;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineReplenishAlarmReceiver;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AddConsumptionActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppTourActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
@@ -54,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupHomeScreen();
-
-        // setupAlarm(10);
         setupToolbar();
         startMedicineReplenishReminder();
     }
@@ -66,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction("sg.nus.iss.mtech.ptsix.medipal.MainActivity");
         sendBroadcast(intent);
-
     }
 
     private void setupHomeScreen() {
@@ -130,15 +124,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isFirstTimeAccess() {
-        boolean firstTime = false;
+        boolean containSharePreference = false;
 
         sharedPreferences = getSharedPreferences(getPackageName() + Constant.SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
-        firstTime = sharedPreferences.getBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, true);
+        containSharePreference = sharedPreferences.contains(Constant.USER_CREATED_SETTINGS_LABEL);
 
-        if (firstTime) {
+        if (!containSharePreference) {
             setDefaultPreference();
+            return true;
         }
-        return firstTime;
+        return false;
     }
 
     private void setDefaultPreference() {
@@ -153,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         getSupportActionBar().hide();
         toolbar.setTitle(Constant.APP_TITLE);
@@ -171,63 +165,4 @@ public class MainActivity extends AppCompatActivity {
             MedicineReplenishAlarmReceiver.setAlarm(this.getApplicationContext(), new Date());
         }
     }
-
-//    public void openConsumables(View view) {
-//        Intent myIntent = new Intent(MainActivity.this, ConsumptionActivity.class);
-//        startActivity(myIntent);
-//    }
-//
-//    public void openMedicine(View view) {
-//        Intent myIntent = new Intent(MainActivity.this, MedicineActivity.class);
-//        startActivity(myIntent);
-//    }
-//
-//    public void openCategories(View view) {
-//        Intent myIntent = new Intent(MainActivity.this, CategoriesActivity.class);
-//        startActivity(myIntent);
-//    }
-//
-//    public void openAppointment(View view) {
-//        Intent myIntent = new Intent(MainActivity.this, AppointmentActivity.class);
-//        startActivity(myIntent);
-//    }
-//
-//    public void openMeasurement(View view) {
-//        Intent myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
-//        startActivity(myIntent);
-//    }
-//
-//    public void reminderEdit(View view) {
-//        ReminderManager reminderManager = new ReminderManager(this);
-//        Reminders reminders = reminderManager.getAllReminders().get(1);
-//
-//        Intent myIntent = new Intent(MainActivity.this, AddConsumptionActivity.class);
-//        myIntent.putExtra(Constant.REMINDER_BUNDLE, reminders);
-//        startActivity(myIntent);
-//    }
-//
-//    public void openICEContact(View view) {
-//        Intent myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
-//        startActivity(myIntent);
-//    }
-//
-//    public void openHealthBio(View view) {
-//        Intent myIntent = new Intent(MainActivity.this, HealthBioActivity.class);
-//        startActivity(myIntent);
-//    }
-//
-//    public void openPersonalBio(View view) {
-//        Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
-//        startActivity(personalBioIntent);
-//    }
-//
-//    public void openSettings(View view) {
-//        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-//        startActivity(settingsIntent);
-//    }
-//
-//    public void openMeasurementReport(View view) {
-//        Intent settingsIntent = new Intent(MainActivity.this, MeasurementReportActivity.class);
-//        startActivity(settingsIntent );
-//    }
 }
