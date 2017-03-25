@@ -27,13 +27,15 @@ public class ICEContactService {
      * Save ICE information into DB
      * @param iceContact
      */
-    public void saveICEContact(ICE iceContact) {
+    public int saveICEContact(ICE iceContact) {
+        int id = -1;
         try {
             iceDAO.open();
-            this.iceDAO.save(iceContact);
+            id = this.iceDAO.save(iceContact);
         } finally {
             iceDAO.close();
         }
+        return id;
     }
 
     /**

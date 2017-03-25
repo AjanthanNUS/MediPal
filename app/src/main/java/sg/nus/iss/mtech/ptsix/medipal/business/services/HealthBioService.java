@@ -20,13 +20,15 @@ public class HealthBioService {
         this.healthbioDAO = new HealthBioDao(context);
     }
 
-    public void saveHealthBioInfo(HealthBio healthBio) {
+    public long saveHealthBioInfo(HealthBio healthBio) {
+        long id = -1;
         try {
             healthbioDAO.open();
-            healthbioDAO.save(healthBio);
+            id = healthbioDAO.save(healthBio);
         } finally {
             healthbioDAO.close();
         }
+        return id;
     }
 
     public void updateHealthBioInfo(HealthBio healthBio) {
