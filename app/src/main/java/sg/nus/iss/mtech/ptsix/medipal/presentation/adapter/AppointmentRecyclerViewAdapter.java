@@ -22,10 +22,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.AppointmentViewHolder;
 
-/**
- * Created by win on 15/3/17.
- */
-
 public class AppointmentRecyclerViewAdapter extends RecyclerView.Adapter<AppointmentViewHolder> {
     private List<Appointment> mAppointments;
     private int mExpandedPosition = -1;

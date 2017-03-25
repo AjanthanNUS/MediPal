@@ -4,10 +4,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 
-/**
- * Created by Ajanthan on 3/11/2017.
- */
-
 public class ConsumptionVO extends Consumption {
     public Categories categories;
     private Medicine medicine;

@@ -9,14 +9,9 @@ import android.support.v7.widget.Toolbar;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.HealthBioService;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.HealthBioDao;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.HealthBioAddFragment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.HealthBioListFragment;
-
-/**
- * Created by JOHN on 3/12/2017.
- */
 
 public class HealthBioActivity extends AppCompatActivity {
 

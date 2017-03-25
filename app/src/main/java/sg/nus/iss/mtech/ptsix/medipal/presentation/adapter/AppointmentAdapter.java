@@ -19,10 +19,6 @@ import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.AppointmentListAsyncTas
 import sg.nus.iss.mtech.ptsix.medipal.business.services.AppointmentService;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
-/**
- * Created by win on 6/3/17.
- */
-
 public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     private Context context;
     private List<Appointment> mAppointments;

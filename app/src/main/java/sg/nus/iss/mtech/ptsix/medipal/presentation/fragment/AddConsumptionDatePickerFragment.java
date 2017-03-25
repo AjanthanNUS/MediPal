@@ -14,10 +14,6 @@ import java.util.Date;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 
-/**
- * Created by ajay on 19/3/17.
- */
-
 public class AddConsumptionDatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 

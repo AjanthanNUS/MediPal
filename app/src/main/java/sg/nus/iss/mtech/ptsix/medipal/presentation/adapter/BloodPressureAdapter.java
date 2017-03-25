@@ -15,10 +15,6 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.BloodPressureViewHolder;
 
-/**
- * Created by win on 19/3/17.
- */
-
 public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureViewHolder> {
     private Context context;
     private List<Measurement> mMeasurements;
