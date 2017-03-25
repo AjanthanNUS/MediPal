@@ -152,7 +152,7 @@
     <string name="ice_add_contact_no">Contact Number</string>
     <string name="ice_add_description">Description</string>
     <string name="health_condition">Health Condition</string>
-    <string name="health_start_date">Date</string>
+    <string name="health_start_date">Start Date</string>
     <string name="height">Height (cm)</string>
     <string-array name="ice_contact_types">
         <item>Doctor</item>
