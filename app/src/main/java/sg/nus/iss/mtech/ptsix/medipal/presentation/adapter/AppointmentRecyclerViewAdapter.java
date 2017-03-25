@@ -17,9 +17,9 @@ import java.util.Locale;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.AppointmentDeleteAsysncTask;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.AppointmentViewHolder;
 
 /**

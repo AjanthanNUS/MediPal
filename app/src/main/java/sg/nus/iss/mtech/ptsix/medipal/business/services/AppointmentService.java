@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import sg.nus.iss.mtech.ptsix.medipal.common.exception.AppointmentExistException;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.AppointmentDAO;
+import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.AppointmentDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 
 public class AppointmentService {
@@ -16,7 +16,7 @@ public class AppointmentService {
     }
 
     public long makeAppointment(Appointment appointment) throws AppointmentExistException {
-        AppointmentDAO appointmentDAO = new AppointmentDAO(context);
+        AppointmentDao appointmentDAO = new AppointmentDao(context);
         long result = 0;
         appointmentDAO.open();
 
@@ -41,7 +41,7 @@ public class AppointmentService {
     }
 
     public long updateAppointment(Appointment appointment) {
-        AppointmentDAO appointmentDAO = new AppointmentDAO(context);
+        AppointmentDao appointmentDAO = new AppointmentDao(context);
         long result = 0;
 
         appointmentDAO.open();
@@ -59,7 +59,7 @@ public class AppointmentService {
     }
 
     public long deleteAppointment(Appointment appointment) {
-        AppointmentDAO appointmentDAO = new AppointmentDAO(context);
+        AppointmentDao appointmentDAO = new AppointmentDao(context);
         long result = 0;
 
         appointmentDAO.open();
@@ -74,7 +74,7 @@ public class AppointmentService {
     }
 
     public Appointment getAppointment(int appointmentId) {
-        AppointmentDAO appointmentDAO = new AppointmentDAO(context);
+        AppointmentDao appointmentDAO = new AppointmentDao(context);
         Appointment appointment = null;
 
 
@@ -91,7 +91,7 @@ public class AppointmentService {
     }
 
     public ArrayList<Appointment> getAppointments() {
-        AppointmentDAO appointmentDAO = new AppointmentDAO(context);
+        AppointmentDao appointmentDAO = new AppointmentDao(context);
         ArrayList<Appointment> ret = new ArrayList<>();
         appointmentDAO.open();
         try {

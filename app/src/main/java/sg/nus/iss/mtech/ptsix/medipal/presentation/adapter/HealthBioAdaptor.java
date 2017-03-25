@@ -61,14 +61,12 @@ public class HealthBioAdaptor extends RecyclerView.Adapter<HealthBioAdaptor.Heal
         final HealthBio healthBio = healthBioList.get(position);
         final int id = healthBio.getId();
         holder.condition.setText(healthBio.getEventCondition().toString());
-        //String dateStr = dateFormatter.format(healthBio.getEventStartDate());
         holder.startDate.setText(dateFormatter.format(healthBio.getEventStartDate()));
-        Log.i("ADAPTOR Date ", dateFormatter.format(healthBio.getEventStartDate()));
         holder.btnEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if(mContext instanceof HealthBioActivity){
-                    ((HealthBioActivity)mContext).switchTab(1, healthBio.getId());
+                    ((HealthBioActivity)mContext).switchTab(Constant.TAB_ADD_INDEX, healthBio.getId());
                 }
             }
         });
@@ -79,4 +77,11 @@ public class HealthBioAdaptor extends RecyclerView.Adapter<HealthBioAdaptor.Heal
     public int getItemCount() {
         return healthBioList.size();
     }
+
+    public void updateDataSet(List<HealthBio> healthBioList) {
+        this.healthBioList.clear();
+        this.healthBioList.addAll(healthBioList);
+        notifyDataSetChanged();
+    }
+
 }

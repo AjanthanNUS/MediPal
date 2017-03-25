@@ -7,13 +7,13 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".presentation.activity.MeasurementActivity">
 
-
-
     <Button
         android:id="@+id/btn_show_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:text="Show 3" />
 
     <Button
@@ -21,6 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:text="Show 5" />
 
     <Button
@@ -28,6 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:text="Show All" />
 
     <android.support.v7.widget.RecyclerView

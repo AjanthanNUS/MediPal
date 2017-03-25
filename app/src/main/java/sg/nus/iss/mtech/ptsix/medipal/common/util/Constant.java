@@ -23,6 +23,10 @@ public final class Constant {
     public static final int ONE_MONTH_REPORT_INDEX = 2;
     public static final int DATE_RANGE_REPORT_INDEX = 3;
 
+    public static final int APPOINTMENT_TAB_LIST_INDEX = 0;
+    public static final int APPOINTMENT_TAB_ADD_INDEX = 1;
+    public static final int APPOINTMENT_ADD_INVALID_ID = -1;
+
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final String TIME_FORMAT = "hh:mm a";
     public static final String MEASUREMENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -53,9 +57,9 @@ public final class Constant {
     public static final String MEAS_ASK_TO_KEY_IN_DATA = "Please fill in measurement data";
     public static final String MEAS_ASK_FOR_DELETE_CONFIRMATION = "Are you sure to delete ?";
 
-    public static final int ICE_TAB_LIST_INDEX = 0;
-    public static final int ICE_TAB_ADD_INDEX = 1;
-
+    public static final int TAB_LIST_INDEX = 0;
+    public static final int TAB_ADD_INDEX = 1;
+    public static final int INVALID_INDEX_ID = -1;
 
     public static final String REMIND_TIME = "REMIND_TIME";
     public static final String FROM_REMINDER_SERVICE = "FROM_REMINDER_SERVICE";

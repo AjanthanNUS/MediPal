@@ -129,31 +129,41 @@ public class RemindersDao extends DBDAO {
     public List<ReminderVO> getReminderVOs() {
         ReminderVO reminderVO;
         ArrayList<ReminderVO> reminderVOs = new ArrayList<>();
-        String sql = "SELECT * FROM " + DatabaseHelper.REMINDERS_TABLE + " JOIN " + DatabaseHelper.MEDI_TABLE +
-                " ON " + DatabaseHelper.REMINDERS_TABLE + "." + DatabaseHelper.REMINDERS_ID + "=" +
-                DatabaseHelper.MEDI_TABLE + "." + DatabaseHelper.MEDI_REMINDER_ID;
 
-        Cursor cursor = database.rawQuery(sql, new String[]{});
+        try {
+            medicineDao.open();
+            categoriesDao.open();
 
-        while (cursor.moveToNext()) {
-            reminderVO = new ReminderVO();
-            reminderVO.setId(cursor.getInt(0));
-            reminderVO.setFrequency(cursor.getInt(1));
-            try {
-                reminderVO.setStartTime(formatter.parse(cursor.getString(2)));
-            } catch (ParseException e) {
-                reminderVO.setStartTime(null);
+            String sql = "SELECT * FROM " + DatabaseHelper.REMINDERS_TABLE + " JOIN " + DatabaseHelper.MEDI_TABLE +
+                    " ON " + DatabaseHelper.REMINDERS_TABLE + "." + DatabaseHelper.REMINDERS_ID + "=" +
+                    DatabaseHelper.MEDI_TABLE + "." + DatabaseHelper.MEDI_REMINDER_ID;
+
+            Cursor cursor = database.rawQuery(sql, new String[]{});
+
+
+            while (cursor.moveToNext()) {
+                reminderVO = new ReminderVO();
+                reminderVO.setId(cursor.getInt(0));
+                reminderVO.setFrequency(cursor.getInt(1));
+                try {
+                    reminderVO.setStartTime(formatter.parse(cursor.getString(2)));
+                } catch (ParseException e) {
+                    reminderVO.setStartTime(null);
+                }
+                reminderVO.setInterval(cursor.getInt(3));
+
+                int medicineId = cursor.getInt(4);
+                Medicine medicine = medicineDao.getMedicine(medicineId);
+                reminderVO.setMedicine(medicine);
+
+                int catId = cursor.getInt(7);
+                Categories categories = categoriesDao.getCategories(catId);
+                reminderVO.setCategory(categories);
+                reminderVOs.add(reminderVO);
             }
-            reminderVO.setInterval(cursor.getInt(3));
-
-            int medicineId = cursor.getInt(4);
-            Medicine medicine = medicineDao.getMedicine(medicineId);
-            reminderVO.setMedicine(medicine);
-
-            int catId = cursor.getInt(7);
-            Categories categories = categoriesDao.getCategories(catId);
-            reminderVO.setCategory(categories);
-            reminderVOs.add(reminderVO);
+        } finally {
+            medicineDao.close();
+            categoriesDao.close();
         }
         return reminderVOs;
     }

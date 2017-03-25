@@ -26,10 +26,11 @@ import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.AppointmentAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.AppointmentGetAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.AppointmentUpdateAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.common.exception.AppointmentExistException;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentDetailActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 
 public class AppointmentAddFragment extends Fragment {
@@ -158,14 +159,12 @@ public class AppointmentAddFragment extends Fragment {
                         updateAsyncTask.execute(appointment);
                         updateAsyncTask.get();
                         Toast.makeText(getContext(), "Appointment updated successfully", Toast.LENGTH_SHORT).show();
-
+                        ((AppointmentActivity) getActivity()).switchTab(Constant.APPOINTMENT_TAB_LIST_INDEX, Constant.APPOINTMENT_ADD_INVALID_ID);
                     }
 
                 } catch (Exception e) {
                     Toast.makeText(getContext(), "Something wrong!", Toast.LENGTH_SHORT).show();
                 }
-
-
 
             }
         });
@@ -224,6 +223,18 @@ public class AppointmentAddFragment extends Fragment {
             etDescription.setError("Please fill in appointment location.");
             isValid = false;
         }
+
+        try {
+            if (CommonUtil.checkDateBeforeToday(dateFormatter.parse(etDate.getText().toString()))) {
+                etDate.setError("Appointment date must be equal or after today date.");
+                isValid = false;
+            }
+        } catch (Exception e) {
+            etDate.setError("Invalid date format.");
+            isValid = false;
+
+        }
+
 
         return isValid;
     }

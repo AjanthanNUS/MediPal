@@ -15,7 +15,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 public class ICEContactService {
 
     private IceDao iceDAO;
-
     /**
      * Instantiating ICEContactService object
      * @param context
@@ -146,5 +145,23 @@ public class ICEContactService {
              iceDAO.close();
         }
     }
+
+    public long makeCategories(ICE ice) {
+        long result = 0;
+
+        this.iceDAO.open();
+        try {
+            result = this.iceDAO.save(ice);
+            ice.setId((int) result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.iceDAO.close();
+        }
+
+        return result;
+    }
+
 
 }

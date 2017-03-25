@@ -46,7 +46,6 @@ public class AppointmentReminder extends IntentService {
         int requestID = Integer.parseInt(NotificationID.APPOINTMENT + "" + appointment.getId());
 
         Intent appointmentIntent = new Intent(this, AppointmentActivity.class);
-        appointmentIntent.putExtra("id", appointment.getId());
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, requestID, appointmentIntent, 0);
         Log.w(TAG, "appointment desc" + appointment.getDescription());
@@ -54,7 +53,7 @@ public class AppointmentReminder extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.appointment)
                         .setContentTitle(getResources().getText(R.string.appointment_reminder_title))
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(appointment.getDescription()))
                         .setContentText(appointment.getDescription() + " at " + appointment.getLocation());

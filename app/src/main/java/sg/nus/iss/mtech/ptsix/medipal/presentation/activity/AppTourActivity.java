@@ -1,8 +1,8 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,11 @@ public class AppTourActivity extends AppCompatActivity {
         List<DataModel> itemList = new ArrayList<>();
 
         int[] imageIds = new int[]{
-                R.drawable.image1, R.drawable.image2, R.drawable.image3 //, R.drawable.image4, R.drawable.image5, R.drawable.image6
+                R.drawable.screen_app, R.drawable.screen_personal, R.drawable.screen_health, R.drawable.screen_measurement, R.drawable.screen_category, R.drawable.screen_medicine, R.drawable.screen_appointment, R.drawable.screen_consumption_list, R.drawable.screen_consumption_add, R.drawable.screen_ice, R.drawable.screen_settings, R.drawable.screen_report
         };
 
         String[] titles = new String[] {
-                "Home screen", "medicine list", "medicine Entry" //, "Personal Bio", "Test 5", "Test 6"
+                "Home", "Personal Bio", "Health Bio", "Measurement", "Category", "Medicine", "Appointment", "Consumption", "Consumption Add", "ICE", "Settings", "Report"
         };
 
        for (int i = 0; i < imageIds.length; i++) {

@@ -70,6 +70,10 @@ public class HealthBioListFragment extends android.support.v4.app.Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (getView() != null && isVisibleToUser) {
+            getHealthBioList();
+            mAdapter.updateDataSet(healthBioList);
+        }
     }
 
     private void getHealthBioList() {
