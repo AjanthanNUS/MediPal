@@ -28,7 +28,8 @@ public class HealthBioListFragment extends android.support.v4.app.Fragment {
     private HealthBioService healthBioService;
     private FloatingActionButton addActionButton;
 
-    public HealthBioListFragment() {}
+    public HealthBioListFragment() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

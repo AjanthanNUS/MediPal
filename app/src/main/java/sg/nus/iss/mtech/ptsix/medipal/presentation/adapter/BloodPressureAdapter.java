@@ -35,10 +35,10 @@ public class BloodPressureAdapter extends RecyclerView.Adapter<BloodPressureView
     @Override
     public void onBindViewHolder(BloodPressureViewHolder holder, final int position) {
         final Measurement measurement = mMeasurements.get(position);
-        holder.tvSystolic.setText (measurement.getEventSystolic() + "");
+        holder.tvSystolic.setText(measurement.getEventSystolic() + "");
         holder.tvDiastolic.setText(measurement.getEventDiastolic() + "");
-        holder.tvDate.setText     (dateFormatter.format(measurement.getEventMeasureOn()));
-        holder.tvStatus.setText   (CommonUtil.getBPStatus(measurement.getEventSystolic(), measurement.getEventDiastolic()));
+        holder.tvDate.setText(dateFormatter.format(measurement.getEventMeasureOn()));
+        holder.tvStatus.setText(CommonUtil.getBPStatus(measurement.getEventSystolic(), measurement.getEventDiastolic()));
 
     }
 

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
@@ -22,9 +21,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PersonalBioViewFragment extends Fragment {
 
     private PersonalBioEditFragment personalBioEditFragment = null;
@@ -117,7 +113,7 @@ public class PersonalBioViewFragment extends Fragment {
     private void loadPersonalBioView() {
         Date userDOB = personalBio.getUserDOB();
         String userIDNo = personalBio.getUserIDNo();
-        String address =   personalBio.getAddress();
+        String address = personalBio.getAddress();
         String postalCode = personalBio.getPostalcode();
         int height = personalBio.getHeight();
         String bloodType = personalBio.getBloodType();

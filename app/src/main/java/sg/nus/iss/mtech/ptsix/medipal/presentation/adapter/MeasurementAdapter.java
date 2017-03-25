@@ -26,6 +26,7 @@ public class MeasurementAdapter extends RecyclerView.Adapter<MeasurementViewHold
     private Context mContext;
     private Button btnDel;
     private View itemView;
+
     public MeasurementAdapter(List<Measurement> categoriesList, Context context) {
         this.measurementList = categoriesList;
         this.mContext = context;
@@ -42,60 +43,55 @@ public class MeasurementAdapter extends RecyclerView.Adapter<MeasurementViewHold
         final Measurement measurement = measurementList.get(position);
 
         Date date = measurement.getEventMeasureOn();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-        String date_string=sdf.format(date.getTime());
-        String measurementValue=" -- ";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date_string = sdf.format(date.getTime());
+        String measurementValue = " -- ";
         holder.MeaID.setText("No " + measurement.getId() + ",");
 
-        if(measurement.getEventSystolic()!=0) {
+        if (measurement.getEventSystolic() != 0) {
             measurementValue = String.valueOf(measurement.getEventSystolic());
-        }
-        else{
-            measurementValue=" -- ";
+        } else {
+            measurementValue = " -- ";
         }
         holder.MeaSystolic.setText("Systolic " + measurementValue + " mm Hg,");
 
-        if(measurement.getEventDiastolic()!=0) {
+        if (measurement.getEventDiastolic() != 0) {
             measurementValue = String.valueOf(measurement.getEventDiastolic());
+        } else {
+            measurementValue = " -- ";
         }
-        else{
-            measurementValue=" -- ";
-        }
-        holder.MeaDiastolic.setText("Diastolic "+ measurementValue +" mm Hg,");
+        holder.MeaDiastolic.setText("Diastolic " + measurementValue + " mm Hg,");
 
-        if(measurement.getEventPulse()!=0) {
+        if (measurement.getEventPulse() != 0) {
             measurementValue = String.valueOf(measurement.getEventPulse());
+        } else {
+            measurementValue = " -- ";
         }
-        else{
-            measurementValue=" -- ";
-        }
-        holder.MeaPulse.setText("Pulse "+ measurementValue +" BPM,");
+        holder.MeaPulse.setText("Pulse " + measurementValue + " BPM,");
 
-        if(measurement.getEventTemperature()!=0) {
+        if (measurement.getEventTemperature() != 0) {
             measurementValue = String.valueOf(measurement.getEventTemperature());
+        } else {
+            measurementValue = " -- ";
         }
-        else{
-            measurementValue=" -- ";
-        }
-        holder.MeaTemperature.setText("Temp "+ measurementValue +" C,");
+        holder.MeaTemperature.setText("Temp " + measurementValue + " C,");
 
-        if(measurement.getEventWeight()!=0) {
+        if (measurement.getEventWeight() != 0) {
             measurementValue = String.valueOf(measurement.getEventWeight());
+        } else {
+            measurementValue = " -- ";
         }
-        else{
-            measurementValue=" -- ";
-        }
-        holder.MeaWeight.setText("Weight "+ measurementValue + " Kg");
+        holder.MeaWeight.setText("Weight " + measurementValue + " Kg");
 
-        holder.MeaMeasureOn.setText("Measured on "+date_string);
-        holder.MeaComment.setText("-- "+String.valueOf(measurement.getComment()));
+        holder.MeaMeasureOn.setText("Measured on " + date_string);
+        holder.MeaComment.setText("-- " + String.valueOf(measurement.getComment()));
         // Handle edit button
-        holder.btnDel.setOnClickListener(new View.OnClickListener(){
+        holder.btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mContext instanceof MeasurementActivity){
+                if (mContext instanceof MeasurementActivity) {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
-                    builder1.setMessage( Constant.MEAS_ASK_FOR_DELETE_CONFIRMATION);
+                    builder1.setMessage(Constant.MEAS_ASK_FOR_DELETE_CONFIRMATION);
                     builder1.setCancelable(true);
 
                     builder1.setPositiveButton(

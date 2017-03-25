@@ -42,7 +42,6 @@ public class WeightAdapter extends RecyclerView.Adapter<WeightViewHolder> {
     public void onBindViewHolder(WeightViewHolder holder, final int position) {
         final Measurement measurement = mMeasurements.get(position);
         StringBuilder strWeight = new StringBuilder();
-//        strWeight.append(CommonUtil.padRight("Weight", 14));
         strWeight.append(measurement.getEventWeight()).append(" (kg)");
         holder.tvWeight.setText(strWeight.toString());
 
@@ -52,25 +51,19 @@ public class WeightAdapter extends RecyclerView.Adapter<WeightViewHolder> {
             StringBuilder strHeight = new StringBuilder();
             strHeight.append(mPersonalBio.getHeight()).append(" (cm)");
 
-//            strHeight.append(CommonUtil.padRight("Height", 14));
-//            strHeight.append(": ").append(mPersonalBio.getHeight()).append(" (cm)");
             holder.tvHeight.setText(strHeight.toString());
 
             StringBuilder strBMI = new StringBuilder();
             strBMI.append(CommonUtil.format2Decimals(bmi));
-//            strBMI.append(CommonUtil.padRight("BMI", 14));
-//            strBMI.append(": ").append(CommonUtil.format2Decimals(bmi));
             holder.tvBMI.setText(strBMI.toString());
 
             StringBuilder strBMIStatus = new StringBuilder();
             strBMIStatus.append(CommonUtil.getBMIStatus(bmi));
-//            strBMIStatus.append(CommonUtil.padRight("Status", 14));
-//            strBMIStatus.append(": ").append(CommonUtil.getBMIStatus(bmi));
             Log.w("INFO", "BMI Status " + strBMIStatus.toString());
             holder.tvBMIStatus.setText(strBMIStatus.toString());
         }
 
-        holder.tvDate.setText  (dateFormatter.format(measurement.getEventMeasureOn()));
+        holder.tvDate.setText(dateFormatter.format(measurement.getEventMeasureOn()));
 
 
     }

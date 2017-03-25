@@ -27,21 +27,14 @@ import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.AppointmentAdapter;
  * interface.
  */
 public class AppointmentFragment extends Fragment {
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private AppointmentAdapter mAppointmentAdapter;
     private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public AppointmentFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static AppointmentFragment newInstance(int columnCount) {
         AppointmentFragment fragment = new AppointmentFragment();
@@ -133,7 +126,6 @@ public class AppointmentFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(Appointment item);
     }
 }

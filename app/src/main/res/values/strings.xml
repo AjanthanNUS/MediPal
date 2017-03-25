@@ -116,7 +116,6 @@
     <string name="empty_date">Please enter your date of birth.</string>
     <string name="invalid_date">Please enter valid date of birth.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="appointment_add_date">Appointment Date</string>
     <string name="appointment_add_time">Appointment Time</string>
     <string name="appointment_add_description">Appointment Description</string>
@@ -205,7 +204,6 @@
     <string name="systolic">Systolic :</string>
     <string name="diastolic">Diastolic :</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="medicine">Medicine</string>
     <string name="category">Category</string>

@@ -59,7 +59,7 @@ public class AppointmentAddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_appointment_add, container, false);
-        rootView =initializeView(rootView);
+        rootView = initializeView(rootView);
 
         return rootView;
 
@@ -105,11 +105,13 @@ public class AppointmentAddFragment extends Fragment {
         etTime.setText(timeFormatter.format(timeCalendar.getTime()));
 
         View.OnClickListener timeClickListener = new View.OnClickListener() {
-            @Override public void onClick(final View v) {
+            @Override
+            public void onClick(final View v) {
                 final EditText editText = (EditText) v;
                 TimePickerDialog.OnTimeSetListener timeSetListener =
                         new TimePickerDialog.OnTimeSetListener() {
-                            @Override public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                                         calendar.get(Calendar.DAY_OF_MONTH), hourOfDay, minute);
@@ -141,7 +143,7 @@ public class AppointmentAddFragment extends Fragment {
                 Appointment appointment = prepareAppointment();
 
                 try {
-                    if (getArguments().getInt("id") == Constant.APPOINTMENT_ADD_INVALID_ID)  {
+                    if (getArguments().getInt("id") == Constant.APPOINTMENT_ADD_INVALID_ID) {
                         AppointmentAsyncTask appointmentAsyncTask = new AppointmentAsyncTask(getContext());
                         appointmentAsyncTask.execute(appointment);
 
@@ -250,7 +252,7 @@ public class AppointmentAddFragment extends Fragment {
         try {
             String dbDateTime = etDate.getText().toString().trim() + " " + etTime.getText().toString().trim();
             mAppointment.setAppointmentDate(dbDateFormatter.parse(dbDateTime));
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.w(AppointmentDetailActivity.class.getName(), e);
         }
         return mAppointment;

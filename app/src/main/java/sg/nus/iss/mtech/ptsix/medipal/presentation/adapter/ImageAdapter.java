@@ -41,7 +41,7 @@ public class ImageAdapter extends BaseAdapter {
             grid = new View(mContext);
             grid = inflater.inflate(R.layout.grid_view_item, null);
             textView = (TextView) grid.findViewById(R.id.grid_text);
-            imageView = (ImageView)grid.findViewById(R.id.grid_image);
+            imageView = (ImageView) grid.findViewById(R.id.grid_image);
             textView.setText(imageText[position]);
             imageView.setImageResource(mThumbIds[position]);
 
@@ -66,7 +66,7 @@ public class ImageAdapter extends BaseAdapter {
             "Settings",
             "App Tour"
 
-    } ;
+    };
 
     private Integer[] mThumbIds = {
             R.drawable.medicine, R.drawable.intake, R.drawable.appointment, R.drawable.measurement,
