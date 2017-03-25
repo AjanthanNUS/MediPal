@@ -188,6 +188,28 @@ public class MedicineAddFragment extends Fragment {
             }
         });
 
+
+        this.medicineDateIssue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                DatePickerDialog.OnDateSetListener onDateSetListener =
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(year, monthOfYear, dayOfMonth);
+                                issueDate = calendar;
+                                medicineDateIssue.setText(dateFormatter.format(calendar.getTime()));
+                            }
+                        };
+                DatePickerDialog datePickerDialog =
+                        new DatePickerDialog(getActivity(), onDateSetListener,
+                                currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH),
+                                currentCal.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+
         this.medicineFrequencyStartTime.setText(timeFormatter.format(shownDate.getTime()));
         this.medicineFrequencyStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
