@@ -128,6 +128,14 @@
         <xliff:g id="time">%2$s</xliff:g>
     </string>
 
+    <string name="ice_contact_no_numeric">Give Numeric Values</string>
+    <string name="ice_contact_no_length">Please fill in  between 10000000 to 99999999.</string>
+    <string name="ice_save_contact_alert">Saved New ICE Contact !!!</string>
+    <string name="ice_update_contact_alert">Update ICE Contact Info !!!</string>
+    <string name="ice_delete_contact_alert">Deleted Successfully !!!</string>
+    <string name="health_save_contact_alert">Saved New HealthBio !!!</string>
+    <string name="health_update_contact_alert">Updating category completed !!!</string>
+    <string name="health_delete_contact_alert">Deleted Successfully !!!</string>
     <string name="ice_name">Name</string>
     <string name="ice_contact_no">98765432</string>
     <string name="ice_contact_type">1</string>

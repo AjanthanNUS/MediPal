@@ -20,6 +20,7 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.ICEContactService;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.ICEContactTypeEnums;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 
@@ -59,7 +60,6 @@ public class ICEContactAddFragment extends Fragment {
 
         iceList = iceContactService.getAllICEContact();
         totalCount = iceList.size();
-        Log.i("", "Sixe : " + totalCount);
 
         ArrayAdapter<ICEContactTypeEnums> contactTypeAdapter = new ArrayAdapter<>(this.getActivity(),
                 android.R.layout.simple_spinner_item, ICEContactTypeEnums.getAllICEContactTypeEnums());
@@ -80,20 +80,21 @@ public class ICEContactAddFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Save button : ","Clicked");
                 boolean isNewId = isNewValidByID();
-                Log.i("Is New ID : ", String.valueOf(isNewValidByID()));
-                if(isNewId) {
-                    iceContactService.saveICEContact(getICEContactFromInput());
-                    Toast.makeText(getActivity(), "Saved New ICE Contact!!!", Toast.LENGTH_SHORT).show();
+                if(isCommandValid() && isNewId) {
+                    iceContactService.saveICEContact(toSaveICEContactFromInput());
+                    Toast.makeText(getActivity(), getResources().getString(R.string.ice_save_contact_alert), Toast.LENGTH_SHORT).show();
                     resetFields();
                     ((ICEContactActivity) getActivity()).switchTab(0, -1);
                 } else {
-                    populateICESequences();
-                    iceList = iceContactService.getAllICEContact();
-                    Toast.makeText(getActivity(), "Update ICE Contact Info!!!", Toast.LENGTH_SHORT).show();
-                    resetFields();
-                    ((ICEContactActivity) getActivity()).switchTab(0, -1);
+                    if(isCommandValid()) {
+                        populateICESequences();
+                        iceList = iceContactService.getAllICEContact();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.ice_update_contact_alert), Toast.LENGTH_SHORT).show();
+                        resetFields();
+                        ((ICEContactActivity) getActivity()).switchTab(Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
+                    }
+
                 }
             }
         });
@@ -103,7 +104,7 @@ public class ICEContactAddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 resetFields();
-                ((ICEContactActivity) getActivity()).switchTab(0, -1);
+                ((ICEContactActivity) getActivity()).switchTab(Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
             }
         });
 
@@ -113,10 +114,10 @@ public class ICEContactAddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 iceContactService.deleteCEContactsByID(getICEContactFromInput().getId());
-                populateICESequences(getICEContactFromInput(), 2);
-                Toast.makeText(getActivity(), "Deleted Successfully!!!", Toast.LENGTH_SHORT).show();
+                deleteSelectedSequence();
+                Toast.makeText(getActivity(), getResources().getString(R.string.ice_delete_contact_alert), Toast.LENGTH_SHORT).show();
                 resetFields();
-                ((ICEContactActivity) getActivity()).switchTab(0, -1);
+                ((ICEContactActivity) getActivity()).switchTab(Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
             }
         });
 
@@ -146,6 +147,11 @@ public class ICEContactAddFragment extends Fragment {
         }
     }
 
+    /**
+     * select Spinner Item By Value
+     * @param spnr
+     * @param value
+     */
     private void selectSpinnerItemByValue(Spinner spnr, long value) {
         ArrayAdapter<ICEContactTypeEnums> adapter = (ArrayAdapter<ICEContactTypeEnums>)spnr.getAdapter();
         for (int position = 0; position < adapter.getCount(); position++) {
@@ -156,7 +162,26 @@ public class ICEContactAddFragment extends Fragment {
         }
     }
 
+    /**
+     * get ICE Contact From Input
+     * @return ICE
+     */
     private ICE getICEContactFromInput() {
+        ICE ice = new ICE();
+        ice.setId(getArguments().getInt("id"));
+        ice.setName(name.getText().toString());
+        ice.setContactNo(iceContactNo.getText().toString());
+        ice.setIceContactType(((ICEContactTypeEnums)iceContactTYPE.getSelectedItem()).getEnumCode());
+        ice.setDescription(description.getText().toString());
+        ice.setSequence(Integer.parseInt((String)iceSequenceNo.getSelectedItem()));
+        return ice;
+    }
+
+    /**
+     * to Save ICE Contact From UI
+     * @return ICE
+     */
+    private ICE toSaveICEContactFromInput() {
         ICE ice = new ICE();
         ice.setId(getArguments().getInt("id"));
         ice.setName(name.getText().toString());
@@ -167,39 +192,54 @@ public class ICEContactAddFragment extends Fragment {
         return ice;
     }
 
+    /**
+     * reset Fields
+     */
     private void resetFields() {
-        this.getArguments().putInt("id", -1);
+        int id = this.getArguments().getInt("id");
+        this.getArguments().putInt("id", Constant.INVALID_INDEX_ID);
         this.name.setText("");
         this.iceContactNo.setText("");
         //this.iceContactTYPE.setPromptId(0);
         this.description.setText("");
         //this.iceSequenceNo.setPromptId(1);
+        this.btnDelete.setVisibility(View.GONE);
+
     }
 
-    private boolean isCommonValid() {
+    /**
+     * is isCommand Valid
+     * @return boolean
+     */
+    private boolean isCommandValid() {
         boolean isValid = true;
 
+        String nameStr = this.name.getText().toString();
+        String iceContactNoStr = this.iceContactNo.getText().toString();
         // ICE name required check
         if (TextUtils.isEmpty(name.getText())) {
-            name.setError("Please fill in a category name.");
+            name.setError("* ICE Name name.");
             isValid = false;
         }
         // ICE name number of character check
-        if (iceContactNo.getText().toString().trim().length() > 50) {
-            iceContactNo.setError("Please fill in a name below 50 characters.");
+        int iceContactNoInt = 0;
+        try {
+            iceContactNoInt = Integer.parseInt(iceContactNoStr);
+        } catch (NumberFormatException e) {
+            iceContactNo.setError(getResources().getString(R.string.ice_contact_no_numeric));
             isValid = false;
         }
-
+        if (iceContactNoInt < 10000000 || iceContactNoInt > 99999999) {
+            iceContactNo.setError(getResources().getString(R.string.ice_contact_no_length));
+            isValid = false;
+        }
         return isValid;
     }
 
-    private boolean isNewValid() {
-        if (iceContactService.getICEContactByName(name.getText().toString().trim()) == null) {
-           return true;
-        }
-        return false;
-    }
-
+    /**
+     * check valid ID or not
+     * @return boolean
+     */
     private boolean isNewValidByID() {
         if (iceContactService.getICEContactByID(getArguments().getInt("id")) == null) {
             return true;
@@ -207,146 +247,100 @@ public class ICEContactAddFragment extends Fragment {
         return false;
     }
 
-    /*private void populateICESequences() {
-        populateICESequences(false);
-    }*/
 
-    private void populateICESequences(ICE newICEContact, int actionType) {
-        int listCount = iceList.size();
-        int i = 0;
-        int selectedItem  = (int)iceSequenceNo.getSelectedItemPosition();
-        int k = selectedItem;
-        int l = 0;
+    /*
+       * 1) Moving Top order position element (X) to Down side of the list Y position:
+           Details :
+               a) No change if there is X-i
+               b) No change if there is Y+i
+               c) X posistion must became Y posistion
+               d) from X+1 element to Y element posistion decereased by one.
+               Example : 2 => 1 , 3=> 2 etc, n => n-1 & 1 => n
 
-        if(newICEContact.getIceContactType() == selectedItem) {
-            iceContactService.updateICEContact(newICEContact);
-            return;
-        } else {
-            if(actionType == 1) { // action type =1 => update
-                for(ICE iceContact : iceList) {
-                    Log.i(newICEContact.getName()  , iceContact.getName());
+         2) Moving X position into top order (Posistion Y)
+           Details :
+               a) No change in order from 1st posistion to Y Postion.
+               b) No change in after the X position
+               c) X posistion became Y position
+               d) Y to X position increased by 1
+               Example : x=> Y, y => Y+1, Y+1 => Y+2 ...Until X Position
+       * */
 
-                    if(newICEContact.getId() == iceContact.getId() && newICEContact.getSequence() != iceContact.getSequence()) {
-                        l = iceContact.getSequence();
-                        Log.i("1. Name : " + newICEContact.getId(), newICEContact.getName());
-                        iceContact.setSequence(k);
-                        Log.i("After Exchange" + iceContact.getName(), String.valueOf(iceContact.getSequence()));
-                        break;
-                    }
-                }
-            }
-            if(iceList.size() != i) {
-                for (ICE iceContact : iceList) {
-                    if(k != i) {
-                        if (iceContact.getId() != newICEContact.getId()) {
-                            if(selectedItem == i ) {
-                                i++;
-                            }
-                            iceContact.setSequence(i);
-                            i++;
-                        } else {
-                            i++;
-                        }
-                    } else {
-                        i++;
-                        iceContact.setSequence(i);
-                    }
-
-                }
-            }
-            iceContactService.updateICEContactByID(iceList);
-        }
-
-    }
-
-    private void populateICESequences(boolean isDeleteAction) {
-        ICE newICEContact = getICEContactFromInput();
-        Log.i("populateICESequences : " , newICEContact.getName());
-        int i = 0;
-        int selectedItem  = (int)iceSequenceNo.getSelectedItemPosition();
-        int k = selectedItem;
-        int l = 0;
-        boolean isSequenceNoChanged = false;
-
-        for(ICE iceContact : iceList) {
-            Log.i(newICEContact.getName()  , iceContact.getName());
-            if(newICEContact.getId() == iceContact.getId() && newICEContact.getSequence() != iceContact.getSequence()) {
-                isSequenceNoChanged = true;
-                Log.i("1. Name : " + newICEContact.getId(), newICEContact.getName());
-                iceContact.setSequence(k);
-                k--;
-                Log.i("After Exchange" + iceContact.getName(), String.valueOf(iceContact.getSequence()));
-                break;
-            }
-        }
-
-
-        if(iceList.size() != i) {
-            for (ICE iceContact : iceList) {
-                if (iceContact.getId() != newICEContact.getId()) {
-                    iceContact.setSequence(k);
-                    k++;
-                }
-            }
-        }
-        iceContactService.updateICEContactByID(iceList);
-    }
-
+    /**
+     * Above is the detailed scenarios of below function
+     * populate ICE Sequences numbers
+     */
     private void populateICESequences() {
         ICE newICEContact = getICEContactFromInput();
-        int listCount = iceList.size();
         Log.i("populateICESequences : " , newICEContact.getName());
-        int i = 0;
-        int selectedItem  = (int)iceSequenceNo.getSelectedItemPosition();
-        int k = selectedItem;
-        int l = 0;
-        boolean isSequenceNoChanged = false;
-        int id, oldSequenceNo = 1;
+        int newSelectedValue  = iceSequenceNo.getSelectedItemPosition();
+        int currentSelectedValue = -1;
+        List<ICE> updatedICEContactList = new ArrayList<>();
 
         for(ICE iceContact : iceList) {
-            Log.i(newICEContact.getName()  , iceContact.getName());
-            if(newICEContact.getId() == iceContact.getId() && newICEContact.getSequence() != iceContact.getSequence()) {
-                isSequenceNoChanged = true;
-                Log.i("1. Name : " + newICEContact.getId(), newICEContact.getName());
-                oldSequenceNo = iceContact.getSequence();
-                iceContact.setSequence(k);
-                Log.i("After Exchange" + iceContact.getName(), String.valueOf(iceContact.getSequence()));
+            if(newICEContact.getId() == iceContact.getId() && newSelectedValue != iceContact.getSequence()) {
+                currentSelectedValue = iceContact.getSequence();
+                iceContact.setSequence(newSelectedValue);
+                Log.i(iceContact.getName(), "New SEQ NO " + String.valueOf(newSelectedValue));
+
+                updatedICEContactList.add(iceContact);
                 break;
             }
         }
 
-        if(iceList.size() != i) {
-            for (ICE iceContact : iceList) {
-              /*  if(iceContact.getId() == newICEContact.getId() && k != 0 && iceContact.getSequence() == 1) {
-                    i--;
-                    iceContact.setSequence(i);
-                } else if(k==0 && iceContact.getSequence() == 0) {
-                      i++;
-                } else if()
-              */
-                if(oldSequenceNo == 0) {
-                    iceContact.setSequence(i);
-                    i++;
-                }
+        if(currentSelectedValue == -1) {
+            return;
+        }
 
-                if (iceContact.getId() != newICEContact.getId()) {
-                    iceContact.setSequence(i);
+        if(currentSelectedValue > newSelectedValue) {
+            int i = newSelectedValue;
+            for(int j = i; j <= currentSelectedValue; j++) {
+
+                ICE ice = iceList.get(j);
+                if(newICEContact.getId() != ice.getId()) {
                     i++;
-                } else {
-                    i++;
-                    //iceContact.setSequence(i);
+                    ice.setSequence(i);
+                    Log.i(ice.getName(), "New SEQ NO " + String.valueOf(i));
+                    updatedICEContactList.add(ice);
                 }
-              /*  if (iceContact.getId() != newICEContact.getId()) {
-                    iceContact.setSequence(i);
-                    i++;
-                } else if(iceContact.getSequence() == k) {
-                    i++;
-                } else if(iceContact.getSequence() == 1) {
-                    i--;
-                    iceContact.setSequence(i);
-                }*/
             }
         }
-        iceContactService.updateICEContactByID(iceList);
+
+        if( newSelectedValue > currentSelectedValue) {
+            int i = newSelectedValue;
+            for(int j = i; j > currentSelectedValue; j--) {
+                ICE ice = iceList.get(j);
+                if(newICEContact.getId() != ice.getId()) {
+                    i--;
+                    ice.setSequence(i);
+                    Log.i(ice.getName(), "New SEQ NO " + String.valueOf(i));
+                    updatedICEContactList.add(ice);
+                }
+            }
+        }
+        iceContactService.updateICEContactByID(updatedICEContactList);
     }
+
+    /**
+     * adjust sequence number when user delete record from ICE Contact List
+     */
+    private void deleteSelectedSequence() {
+        ICE newICEContact = getICEContactFromInput();
+        Log.i("populateICESequences : " , newICEContact.getName());
+        int selectedValue  = iceSequenceNo.getSelectedItemPosition();
+        List<ICE> updatedICEContactList = new ArrayList<>();
+
+        int i = selectedValue;
+        for(int j = i + 1; j < iceList.size(); j++) {
+            ICE ice = iceList.get(j);
+            if(newICEContact.getId() != ice.getId()) {
+                ice.setSequence(i);
+                i++;
+                Log.i(ice.getName(), "New SEQ NO " + String.valueOf(i));
+                updatedICEContactList.add(ice);
+            }
+        }
+        iceContactService.updateICEContactByID(updatedICEContactList);
+    }
+
 }

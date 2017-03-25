@@ -32,8 +32,8 @@ public class ICEContactActivity extends AppCompatActivity {
             R.drawable.ic_edit_white
     };
 
-    private static final String CATEGORIES_ADD_TAB_NAME = "Add/Edit";
-    private static final String CATEGORIES_LIST_TAB_NAME = "Listing";
+    private static final String ICE_ADD_TAB_NAME = "Add/Edit";
+    private static final String ICE_LIST_TAB_NAME = "Listing";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class ICEContactActivity extends AppCompatActivity {
         iceContactAddFragment.setArguments(bundle);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(iceContactListFragment, CATEGORIES_LIST_TAB_NAME);
-        adapter.addFragment(iceContactAddFragment, CATEGORIES_ADD_TAB_NAME);
+        adapter.addFragment(iceContactListFragment, ICE_LIST_TAB_NAME);
+        adapter.addFragment(iceContactAddFragment, ICE_ADD_TAB_NAME);
         viewPager.setAdapter(adapter);
     }
 
