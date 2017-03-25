@@ -35,7 +35,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/ice_list_contact_type"
+                android:id="@+id/ice_list_contact_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ice_list_name"
@@ -49,54 +49,19 @@
                 android:background="@color/colorPrimary"
                 android:text="SMS"
                 android:textColor="@android:color/white"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@+id/list_btn_edit" />
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/list_btn_call" />
 
             <Button
                 android:id="@+id/list_btn_call"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:text="CALL"
                 android:textColor="@android:color/white"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@+id/list_btn_sms" />
-
-            <Button
-                android:id="@+id/list_btn_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:text="Edit"
-                android:textColor="@android:color/white"
-                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true" />
-
-            <!--<TextView
-                android:id="@+id/ice_list_contact_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ice_list_name"
-                android:textColor="@color/title"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/ice_list_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ice_list_contact_type"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/title"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/ice_sequence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ice_list_description"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/title"
-                android:textSize="14sp" />-->
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

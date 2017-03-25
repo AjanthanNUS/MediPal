@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
+import sg.nus.iss.mtech.ptsix.medipal.business.services.ICEContactService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.IceDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
@@ -39,7 +40,7 @@ public class ICEContactListFragment extends Fragment {
     private List<ICE> iceList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ICEContactAdapter mAdapter;
-    private IceDao iceDao;
+    private ICEContactService service;
     private FloatingActionButton addActionButton;
 
     public ICEContactListFragment() {
@@ -48,7 +49,7 @@ public class ICEContactListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.iceDao = new IceDao(this.getContext());
+        this.service = new ICEContactService(this.getContext());
         this.getICEContactList();
     }
 
@@ -69,7 +70,7 @@ public class ICEContactListFragment extends Fragment {
         addActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ICEContactActivity) getActivity()).switchTab(Constant.CATEGORY_TAB_ADD_INDEX, Constant.CATEGORY_ADD_INVALID_ID);
+                ((ICEContactActivity) getActivity()).switchTab(Constant.TAB_ADD_INDEX, Constant.INVALID_INDEX_ID);
             }
         });
 
@@ -79,10 +80,15 @@ public class ICEContactListFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        if (getView() != null && isVisibleToUser) {
+            getICEContactList();
+            mAdapter.updateDataSet(iceList);
+        }
+
     }
 
     private void getICEContactList() {
-        iceList = this.iceDao.getICEs();
+        iceList = this.service.getAllICEContact();
     }
 
 }

@@ -33,18 +33,17 @@ public class ICEContactAdapter extends RecyclerView.Adapter<ICEContactAdapter.IC
 
     public class ICEViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView name, contactNo, contactType, description, sequence;
-        public Button btnEdit,btnCall,btnSMS;
+        public TextView name, contactNo, description, sequence;
+        public Button btnCall,btnSMS;
 
         public ICEViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.ice_list_name);
-            contactNo = (TextView) view.findViewById(R.id.ice_contact_no);
+            contactNo = (TextView) view.findViewById(R.id.ice_list_contact_no);
 
             description = (TextView) view.findViewById(R.id.description);
             btnCall = (Button) view.findViewById(R.id.list_btn_call);
             btnSMS = (Button) view.findViewById(R.id.list_btn_sms);
-            btnEdit = (Button)  view.findViewById(R.id.list_btn_edit);
         }
     }
 
@@ -67,6 +66,7 @@ public class ICEContactAdapter extends RecyclerView.Adapter<ICEContactAdapter.IC
         holder.name.setText(ice.getName().toString());
         final int id = ice.getId();
         final String contactNo = ice.getContactNo();
+        holder.contactNo.setText(contactNo);
         holder.btnCall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Log.i("Befor Button Call", "CALL");
@@ -80,14 +80,15 @@ public class ICEContactAdapter extends RecyclerView.Adapter<ICEContactAdapter.IC
             }
         });
 
-        holder.btnEdit.setOnClickListener(new View.OnClickListener(){
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mContext instanceof ICEContactActivity){
-                    ((ICEContactActivity)mContext).switchTab(Constant.ICE_TAB_ADD_INDEX, ice.getId());
+                    ((ICEContactActivity)mContext).switchTab(Constant.TAB_ADD_INDEX, ice.getId());
                 }
             }
         });
+
 
     }
 
@@ -116,6 +117,12 @@ public class ICEContactAdapter extends RecyclerView.Adapter<ICEContactAdapter.IC
         SmsManager sm=SmsManager.getDefault();
         sm.sendTextMessage(number, null, msg, null, null);
         Toast.makeText(mContext,"Messege sent",Toast.LENGTH_LONG).show();
+    }
+
+    public void updateDataSet(List<ICE> iceList) {
+        this.iceList.clear();
+        this.iceList.addAll(iceList);
+        notifyDataSetChanged();
     }
 
 }

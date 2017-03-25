@@ -57,9 +57,9 @@ public final class Constant {
     public static final String MEAS_ASK_TO_KEY_IN_DATA = "Please fill in measurement data";
     public static final String MEAS_ASK_FOR_DELETE_CONFIRMATION = "Are you sure to delete ?";
 
-    public static final int ICE_TAB_LIST_INDEX = 0;
-    public static final int ICE_TAB_ADD_INDEX = 1;
-
+    public static final int TAB_LIST_INDEX = 0;
+    public static final int TAB_ADD_INDEX = 1;
+    public static final int INVALID_INDEX_ID = -1;
 
     public static final String REMIND_TIME = "REMIND_TIME";
     public static final String FROM_REMINDER_SERVICE = "FROM_REMINDER_SERVICE";
