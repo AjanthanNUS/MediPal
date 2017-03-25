@@ -94,6 +94,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         }
     }
 
+
     private void setUpCategoryFilterAutocomplete() {
         List<String> categoryCodeList;
         List<Categories> categories;
@@ -141,6 +142,10 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         switch (item.getItemId()) {
             case R.id.action_filter:
                 showHistoryFilterPopUp();
+                break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
         }
         return true;
     }
