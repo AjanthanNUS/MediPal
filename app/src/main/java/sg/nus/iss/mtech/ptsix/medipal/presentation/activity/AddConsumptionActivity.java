@@ -34,7 +34,7 @@ public class AddConsumptionActivity extends AppCompatActivity {
         consumptionManager = new ConsumptionManager(this);
 
         consumption = getIntent().getExtras().getParcelable(Constant.CONSUMPTION_BUNDLE);
-        consumption.setConsumedOn(CommonUtil.convertStringToDate(getIntent().getStringExtra(Constant.REMIND_TIME), Constant.DATE_TIME_FORMAT));
+        consumption.setConsumedOn(CommonUtil.convertStringToDate(getIntent().getStringExtra(Constant.CONSUMED_TIME), Constant.DATE_TIME_FORMAT));
 
         if (consumption != null) {
 
