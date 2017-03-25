@@ -4,29 +4,11 @@
     android:layout_height="match_parent"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.PersonalBioViewFragment">
 
-    <!--<ScrollView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:scrollbars="vertical">-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="30dp">
-
-        <!--<android.support.v4.widget.Space-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="5dp"-->
-        <!--android:background="#a31d10" />-->
-        <!--<android.support.v4.widget.Space-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="8dp"-->
-        <!--android:background="#456" />-->
-        <!--<android.support.v4.widget.Space-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="#fe5324" />-->
 
         <TextView
             android:id="@+id/userNameViewLabel"
