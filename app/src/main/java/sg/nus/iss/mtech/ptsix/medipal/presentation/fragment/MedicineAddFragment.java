@@ -104,7 +104,7 @@ public class MedicineAddFragment extends Fragment {
         List<String> categoryCodes = new ArrayList<>();
         categoryCodes.add("<Select Category>");
         for (Categories category : categoriesList) {
-            categoryCodes.add(category.getId(), category.getCode());
+            categoryCodes.add(category.getId(), category.getCategory());
         }
 
         ArrayAdapter<String> catergoriesAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, categoryCodes);
