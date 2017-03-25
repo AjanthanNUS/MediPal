@@ -27,7 +27,7 @@ public class ConsumptionManager {
         categoriesDao = new CategoriesDao(context);
     }
 
-    public void sortConsumptionList(List<ConsumptionVO> consumptions) {
+    private void sortConsumptionList(List<ConsumptionVO> consumptions) {
         Collections.sort(consumptions, new Comparator<ConsumptionVO>() {
             @Override
             public int compare(ConsumptionVO o1, ConsumptionVO o2) {
@@ -118,7 +118,7 @@ public class ConsumptionManager {
                 throw new ConsumptionSaveException();
             }
 
-        }  finally {
+        } finally {
             consumptionDao.close();
         }
         return consumption;
@@ -133,5 +133,16 @@ public class ConsumptionManager {
             consumptionDao.close();
         }
         return id;
+    }
+
+    public void truncateTable() {
+        try {
+            consumptionDao.open();
+            consumptionDao.truncateAllConsumptions();
+        } finally {
+
+            consumptionDao.close();
+        }
+
     }
 }

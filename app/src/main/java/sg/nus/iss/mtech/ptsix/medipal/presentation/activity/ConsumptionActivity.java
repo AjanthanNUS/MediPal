@@ -86,7 +86,6 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         fragmentTransaction.add(R.id.consumptionFragmentHolder, consumptionListFragment);
         fragmentTransaction.commit();
 
-        viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
 
         setUpCategoryFilterAutocomplete();
         setUpMedicineFilterAutocomplete();
@@ -220,6 +219,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
     }
 
     private void filterConsumptionHistory(Bundle searchBundle) {
+        viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
 
         String searchMedicine = searchBundle.getString(MEDICINE_TAG);
         String searchCategory = searchBundle.getString(CATEGORY_TAG);
@@ -251,7 +251,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
             }
             viewAdapter.getmConsumptionList().clear();
             viewAdapter.setmConsumptionList(filterList);
-//            viewAdapter.notifyDataSetChanged();
+            viewAdapter.notifyDataSetChanged();
         }
     }
 

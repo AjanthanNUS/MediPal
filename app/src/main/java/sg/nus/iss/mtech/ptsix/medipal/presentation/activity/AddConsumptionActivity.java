@@ -68,6 +68,7 @@ public class AddConsumptionActivity extends AppCompatActivity {
             viewHolder.consumedTimeView.setText(consumedTime);
         }
 
+        viewHolder.medicineNameView.requestFocus();
         viewHolder.consumedDateView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

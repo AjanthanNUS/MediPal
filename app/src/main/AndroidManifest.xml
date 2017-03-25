@@ -85,10 +85,10 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".presentation.activity.ReportContainerActivity"
-                  android:label="Report"
-                  android:parentActivityName=".presentation.activity.MeasurementReportActivity">
-        </activity>
+        <activity
+            android:name=".presentation.activity.ReportContainerActivity"
+            android:label="Report"
+            android:parentActivityName=".presentation.activity.MeasurementReportActivity"></activity>
 
         <receiver android:name=".business.services.AppointmentAlarmReceiver" />
 
@@ -121,8 +121,9 @@
 
         <activity
             android:name=".presentation.activity.AddConsumptionActivity"
-            android:label="Consumption"
-            android:parentActivityName=".MainActivity" />
+            android:label="Add Consumption"
+            android:parentActivityName=".presentation.activity.ConsumptionActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".business.services.AppStartBroadcastReceiver"

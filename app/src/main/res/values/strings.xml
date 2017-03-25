@@ -109,6 +109,8 @@
     <string name="replenish_parceable">replenish</string>
     <string name="title_activity_personal">Personal Bio</string>
 
+    <string name="empty_date">Please enter your date of birth.</string>
+    <string name="invalid_date">Please enter valid date of birth.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="appointment_add_date">Appointment Date</string>
@@ -166,7 +168,7 @@
     </string-array>
 
     <string-array name="bloodType_items">
-        <item></item>
+        <item>Select BloodType</item>
         <item>A+</item>
         <item>A-</item>
         <item>B+</item>
@@ -218,6 +220,13 @@
     <string name="medi_consume_saved">Medicine consumption saved.</string>
     <string name="fromDate">From Date</string>
     <string name="toDate">To Date</string>
+
+    <string name="user_id_no">UserIDNo is </string>
+    <string name="user_dob">DOB is </string>
+    <string name="blood_type">Blood Type is </string>
+    <string name="user_height">Height is </string>
+
     <string name="no_items_to_show">There are no item to show</string>
     <string name="medicine_not_in_inventory">Medicine not in inventory</string>
+
 </resources>

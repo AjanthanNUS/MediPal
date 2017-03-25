@@ -1,26 +1,26 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.PersonalBioDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +42,7 @@ public class PersonalBioViewFragment extends Fragment {
     private static final String TITLE = "Personal Bio";
     private static final String USERID = "UserId";
     private static final int USERID_DEFAULT = 0;
+    private Button addIceBtn, addHealthBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +54,25 @@ public class PersonalBioViewFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 loadPersonalBioEdit();
-//                Snackbar.make(view, "No create activity found...", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+
+        addIceBtn = (Button) rootView.findViewById(R.id.btn_add_ice);
+        addIceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iceIntent = new Intent(getActivity(), ICEContactActivity.class);
+                startActivity(iceIntent);
+            }
+        });
+
+        addHealthBtn = (Button) rootView.findViewById(R.id.btn_add_health);
+        addHealthBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iceIntent = new Intent(getActivity(), HealthBioActivity.class);
+                startActivity(iceIntent);
+
             }
         });
 
