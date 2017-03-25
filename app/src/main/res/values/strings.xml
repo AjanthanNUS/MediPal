@@ -220,13 +220,13 @@
     <string name="medi_consume_saved">Medicine consumption saved.</string>
     <string name="fromDate">From Date</string>
     <string name="toDate">To Date</string>
-<<<<<<< HEAD
+
     <string name="user_id_no">UserIDNo is </string>
     <string name="user_dob">DOB is </string>
     <string name="blood_type">Blood Type is </string>
     <string name="user_height">Height is </string>
-=======
+
     <string name="no_items_to_show">There are no item to show</string>
     <string name="medicine_not_in_inventory">Medicine not in inventory</string>
->>>>>>> master
+
 </resources>
