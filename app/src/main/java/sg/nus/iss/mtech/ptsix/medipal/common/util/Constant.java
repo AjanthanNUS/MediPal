@@ -41,7 +41,7 @@ public final class Constant {
     public static final String THRESHOLD_TIME_SETTINGS_DEFAULT = "10:00 AM";
 
     public static  final String APP_TITLE = "MediPal";
-    public static  final String APP_SUB_TITLE = "Health Maters";
+    public static  final String APP_SUB_TITLE = "Health Matters";
 
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
     public static final String REQUEST_CODE = "REQUEST_CODE";
