@@ -278,6 +278,9 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
                 filterEndDate = nowCal.getTime();
             } else {
                 filterEndDate = CommonUtil.ddmmmyyyy2date(endDate);
+                Calendar endCal = CommonUtil.dateToCalendar(filterEndDate);
+                endCal.add(Calendar.DAY_OF_MONTH, 1);
+                filterEndDate = endCal.getTime();
             }
 
 
