@@ -84,6 +84,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
 
         setUpCategoryFilterAutocomplete();
         setUpMedicineFilterAutocomplete();
+
     }
 
     @Override

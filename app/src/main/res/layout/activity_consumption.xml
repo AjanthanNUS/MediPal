@@ -73,6 +73,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/colorPrimary"
                 android:text="@string/reset" />
 
             <Button
@@ -80,6 +84,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:text="@string/go" />
 
         </LinearLayout>
