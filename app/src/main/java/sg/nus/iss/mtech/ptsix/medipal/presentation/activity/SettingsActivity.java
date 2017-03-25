@@ -78,11 +78,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setUserPreferences() {
-        setAppTourPreferenceSwich();
+        setAppTourPreferenceSwitch();
         setThresholdTime();
     }
 
-    private void setAppTourPreferenceSwich() {
+    private void setAppTourPreferenceSwitch() {
         boolean tutorialRepeatFlag = false;
 
         tutorialRepeatFlag = sharedPreferences.getBoolean(Constant.TUTORIAL_REPEAT_SETTINGS_LABEL, false);
