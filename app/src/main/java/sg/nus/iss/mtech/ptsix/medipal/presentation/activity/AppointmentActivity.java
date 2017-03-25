@@ -1,15 +1,18 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.AppointmentAddFragment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.AppointmentListFragment;
+import sg.nus.iss.mtech.ptsix.medipal.presentation.util.Constant;
 
 public class AppointmentActivity extends AppCompatActivity {
 
@@ -44,10 +47,20 @@ public class AppointmentActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs_appointment);
         tabLayout.setupWithViewPager(viewPager);
-
-
         setupTabIcons();
+
+        Intent intent = getIntent();
+        Log.w("Appointment extra", "appointment extra " + intent.hasExtra("id"));
+        if (intent != null && intent.hasExtra("id")) {
+            int id = intent.getIntExtra("id", -1);
+            if (id != -1) {
+                switchTab(Constant.APPOINTMENT_TAB_ADD_INDEX, id);
+            }
+
+        }
+
     }
+
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -66,8 +79,10 @@ public class AppointmentActivity extends AppCompatActivity {
     }
 
     public void switchTab(int index, int appointmentId) {
+        Log.w("INtent id  ", appointmentId + "");
         appointmentAddFragment.getArguments().putInt("id", appointmentId);
         tabLayout.getTabAt(index).select();
+
     }
 
 

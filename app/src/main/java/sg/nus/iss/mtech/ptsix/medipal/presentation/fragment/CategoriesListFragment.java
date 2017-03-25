@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
-import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
+import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.CategoryLoadAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
@@ -26,8 +26,8 @@ public class CategoriesListFragment extends Fragment {
     private List<Categories> categoriesList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CategoriesAdapter mAdapter;
-    private CategoriesService categoriesService;
     private FloatingActionButton addActionButton;
+    private CategoryLoadAsyncTask categoryLoadAsyncTask;
 
     public CategoriesListFragment() {
     }
@@ -35,8 +35,6 @@ public class CategoriesListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.categoriesService = new CategoriesService(this.getContext());
-        this.getCategoriesList();
     }
 
     @Nullable
@@ -45,6 +43,9 @@ public class CategoriesListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_categories_list, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+
+        categoryLoadAsyncTask = new CategoryLoadAsyncTask(getContext(), rootView);
+        categoryLoadAsyncTask.execute();
 
         mAdapter = new CategoriesAdapter(categoriesList, getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -66,12 +67,13 @@ public class CategoriesListFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (getView() != null && isVisibleToUser) {
-            getCategoriesList();
+            this.getCategoriesList();
             mAdapter.updateDataSet(categoriesList);
         }
     }
 
     private void getCategoriesList() {
-        categoriesList = this.categoriesService.getCategories();
+        categoryLoadAsyncTask = new CategoryLoadAsyncTask(getContext(), getView());
+        categoryLoadAsyncTask.execute();
     }
 }
