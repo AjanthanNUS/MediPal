@@ -10,10 +10,6 @@ import android.widget.TextView;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 
-/**
- * Created by Praba on 23/3/2017.
- */
-
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 

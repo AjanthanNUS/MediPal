@@ -15,17 +15,10 @@ import java.util.List;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementDeleteAsyncTask;
-import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementLoadAsyncTask;
-import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementSaveAsyncTask;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.CategoriesActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.MeasurementActivity;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.MeasurementListFragment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.MeasurementViewHolder;
-/**
- * Created by WONG_CH on 12-Mar-17.
- */
 
 public class MeasurementAdapter extends RecyclerView.Adapter<MeasurementViewHolder> {
 

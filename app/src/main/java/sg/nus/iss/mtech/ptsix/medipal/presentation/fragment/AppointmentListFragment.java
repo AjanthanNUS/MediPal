@@ -23,10 +23,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppointmentActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.AppointmentRecyclerViewAdapter;
 
-/**
- * Created by win on 16/3/17.
- */
-
 public class AppointmentListFragment extends Fragment {
     private List<Appointment> appointmentList = new ArrayList<>();
     private RecyclerView recyclerView;

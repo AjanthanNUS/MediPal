@@ -9,14 +9,9 @@ import android.support.v7.widget.Toolbar;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.ICEContactService;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.IceDao;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ICEContactAddFragment;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.fragment.ICEContactListFragment;
-
-/**
- * Created by JOHN on 3/11/2017.
- */
 
 public class ICEContactActivity extends AppCompatActivity {
 

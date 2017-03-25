@@ -13,18 +13,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import sg.nus.iss.mtech.ptsix.medipal.business.asynctask.MeasurementSaveAsyncTask;
-import sg.nus.iss.mtech.ptsix.medipal.common.exception.MeasurementExistException;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.MeasurementDao;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Appointment;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
-
-/**
- * Created by win on 5/3/17.
- */
 
 @RunWith(AndroidJUnit4.class)
 public class MeasurementServiceTest {

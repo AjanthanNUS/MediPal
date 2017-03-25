@@ -1,7 +1,5 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,15 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,15 +17,9 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.ICEContactService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.IceDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ICEContactAdapter;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.ViewPagerAdapter;
-
-/**
- * Created by JOHN on 3/12/2017.
- */
 
 public class ICEContactListFragment extends Fragment {
 

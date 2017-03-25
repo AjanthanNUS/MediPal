@@ -16,14 +16,9 @@ import java.util.List;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.HealthBioService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.HealthBioDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.adapter.HealthBioAdaptor;
-
-/**
- * Created by JOHN on 3/12/2017.
- */
 
 public class HealthBioListFragment extends android.support.v4.app.Fragment {
 

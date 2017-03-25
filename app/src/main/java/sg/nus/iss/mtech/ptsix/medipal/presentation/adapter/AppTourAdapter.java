@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +18,7 @@ import sg.nus.iss.mtech.ptsix.medipal.MainActivity;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.DataModel;
-import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AppTourActivity;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.PersonalActivity;
-
-/**
- * Created by Praba on 21/3/2017.
- */
 
 public class AppTourAdapter extends PagerAdapter {
 

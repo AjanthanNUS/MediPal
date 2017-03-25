@@ -58,17 +58,6 @@ public class CommonUtil {
         return dateFormatter.parse(ddmmmyyyy);
     }
 
-    public static String getDBDateTimeFormat(Date d) {
-        SimpleDateFormat dbDateFormatter = null;
-        try {
-            dbDateFormatter = new SimpleDateFormat("dd MMM yyyy hh:mm a", Locale.getDefault());
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return Constant.EMPTY_VALUE;
-        }
-        return dbDateFormatter.format(d);
-    }
-
     public static String getFormattedTime(Date d) {
         SimpleDateFormat timeFormatter = null;
         try {
@@ -101,19 +90,6 @@ public class CommonUtil {
         return dateString.format(date);
     }
 
-    public static long getMilliSeconds(int year, int month, int days) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, days);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTimeInMillis();
-
-    }
-
     public static boolean isNullOrEmpty(String string) {
         return string == null || string.isEmpty();
     }
@@ -137,7 +113,6 @@ public class CommonUtil {
         Date todayDate = cal.getTime();
 
         if (date.before(todayDate)) {
-            Log.d(date + "", todayDate + "");
             return true;
         }
 

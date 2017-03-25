@@ -17,10 +17,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Measurement;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.viewholder.WeightViewHolder;
 
-/**
- * Created by win on 19/3/17.
- */
-
 public class WeightAdapter extends RecyclerView.Adapter<WeightViewHolder> {
 
     private Context context;

@@ -2,10 +2,6 @@ package sg.nus.iss.mtech.ptsix.medipal.persistence.entity;
 
 import java.util.Date;
 
-/**
- * Created by WongCheeVui on 3/19/2017.
- */
-
 public class MeasMeasuredOn extends MeasurementBase {
     private Date mDate;
 

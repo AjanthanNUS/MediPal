@@ -9,15 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.ICEContactTypeEnums;
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.IceDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
-
-/**
- * Created by JOHN on 3/25/2017.
- */
 
 @RunWith(AndroidJUnit4.class)
 public class ICEContactServiceTest {

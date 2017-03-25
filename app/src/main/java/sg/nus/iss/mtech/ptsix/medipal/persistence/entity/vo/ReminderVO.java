@@ -4,10 +4,6 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Reminders;
 
-/**
- * Created by Ajanthan on 3/17/2017.
- */
-
 public class ReminderVO extends Reminders {
     private Medicine medicine;
     private Categories category;

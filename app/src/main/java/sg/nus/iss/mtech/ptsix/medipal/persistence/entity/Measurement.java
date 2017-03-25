@@ -4,20 +4,6 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-/**
- * Created by WongCheeVui on 3/6/2017.
- */
-
-/*
-ID              interger
-Systolic        interger
-Diastolic       interger
-Pulse           interger
-Temperature     Decimal(5,2)
-Weight          interger
-MeasureOn       DateTime
-
- */
 public class Measurement implements Parcelable {
 
     private MeasTemp mMeas_Temp;

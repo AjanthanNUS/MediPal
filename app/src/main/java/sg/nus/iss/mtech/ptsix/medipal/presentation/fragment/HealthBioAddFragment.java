@@ -3,7 +3,6 @@ package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,14 +24,9 @@ import java.util.Locale;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.HealthBioService;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.HealthBioConditionTypeEnums;
-import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
-
-/**
- * Created by JOHN on 3/12/2017.
- */
 
 public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 

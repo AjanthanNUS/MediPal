@@ -3,10 +3,6 @@ package sg.nus.iss.mtech.ptsix.medipal.common.enums;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JOHN on 3/12/2017.
- */
-
 public enum HealthBioConditionTypeEnums {
 
     ALLERGY(0, "A"),

@@ -21,10 +21,6 @@ import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.ICE;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ICEContactActivity;
 
-/**
- * Created by JOHN on 3/12/2017.
- */
-
 public class ICEContactAdapter extends RecyclerView.Adapter<ICEContactAdapter.ICEViewHolder> {
 
     private List<ICE> iceList;
