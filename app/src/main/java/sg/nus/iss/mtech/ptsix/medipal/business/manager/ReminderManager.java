@@ -27,37 +27,50 @@ public class ReminderManager {
 
     public List<ReminderVO> getAllReminders() {
         List<ReminderVO> reminderVOs = new ArrayList<>();
-
-        reminderVOs.addAll(remindersDao.getReminderVOs());
-
+        try {
+            remindersDao.open();
+            reminderVOs.addAll(remindersDao.getReminderVOs());
+        } finally {
+            remindersDao.close();
+        }
         return reminderVOs;
     }
 
     public ReminderVO castToReminderVo(Reminders reminder) {
         ReminderVO reminderVO = new ReminderVO();
-        if (reminder == null) {
-            return null;
-        }
-        if (reminder instanceof ReminderVO) {
-            reminderVO = (ReminderVO) reminder;
-        } else {
-            reminderVO.setId(reminder.getId());
-            reminderVO.setFrequency(reminder.getFrequency());
-            reminderVO.setStartTime(reminder.getStartTime());
-            reminderVO.setInterval(reminder.getInterval());
 
-            List<Medicine> medicines = medicineDao.getMedicines();
-            for (Medicine medicine : medicines) {
-                if (reminder.getId() == medicine.getReminderId()) {
-                    reminderVO.setMedicine(medicine);
-                    Categories category = categoriesDao.getCategories(medicine.getCatId());
-
-                    reminderVO.setCategory(category);
-
-                    break;
-                }
-
+        try {
+            remindersDao.open();
+            medicineDao.open();
+            categoriesDao.open();
+            if (reminder == null) {
+                return null;
             }
+            if (reminder instanceof ReminderVO) {
+                reminderVO = (ReminderVO) reminder;
+            } else {
+                reminderVO.setId(reminder.getId());
+                reminderVO.setFrequency(reminder.getFrequency());
+                reminderVO.setStartTime(reminder.getStartTime());
+                reminderVO.setInterval(reminder.getInterval());
+
+                List<Medicine> medicines = medicineDao.getMedicines();
+                for (Medicine medicine : medicines) {
+                    if (reminder.getId() == medicine.getReminderId()) {
+                        reminderVO.setMedicine(medicine);
+                        Categories category = categoriesDao.getCategories(medicine.getCatId());
+
+                        reminderVO.setCategory(category);
+
+                        break;
+                    }
+
+                }
+            }
+        } finally {
+            remindersDao.close();
+            medicineDao.close();
+            categoriesDao.close();
         }
         return reminderVO;
     }

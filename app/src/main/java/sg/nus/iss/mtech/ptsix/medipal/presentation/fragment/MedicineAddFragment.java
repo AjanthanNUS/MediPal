@@ -506,7 +506,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (this.medicineFrequency.isShown() && !medicineFrequencyString.equals("") && (Integer.parseInt(medicineFrequencyString) < 0 || Integer.parseInt(medicineFrequencyString) > 1000)) {
+        if (this.medicineFrequency.isShown() && !medicineFrequencyString.equals("") && (Integer.parseInt(medicineFrequencyString) < 0 || Integer.parseInt(medicineFrequencyString) > 999999)) {
             this.medicineFrequency.setError(getResources().getString(R.string.medicine_add_error_frequency_length));
             isValid = false;
         }
@@ -516,7 +516,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (this.medicineFrequencyInterval.isShown() && !medicineFrequencyIntervalString.equals("") && (Integer.parseInt(medicineFrequencyIntervalString) < 0 || Integer.parseInt(medicineFrequencyIntervalString) > 1000)) {
+        if (this.medicineFrequencyInterval.isShown() && !medicineFrequencyIntervalString.equals("") && (Integer.parseInt(medicineFrequencyIntervalString) < 0 || Integer.parseInt(medicineFrequencyIntervalString) > 999999)) {
             this.medicineFrequencyInterval.setError(getResources().getString(R.string.medicine_add_error_frequency_interval_length));
             isValid = false;
         }
@@ -538,7 +538,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (!medicineQuantityString.equals("") && (Integer.parseInt(medicineQuantityString) < 1 || Integer.parseInt(medicineQuantityString) > 1000)) {
+        if (!medicineQuantityString.equals("") && (Integer.parseInt(medicineQuantityString) < 1 || Integer.parseInt(medicineQuantityString) > 999999)) {
             this.medicineQuantity.setError(getResources().getString(R.string.medicine_add_error_quantity_length));
             isValid = false;
         }
@@ -553,12 +553,12 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (!medicineConsumeQuantityString.equals("") && (Integer.parseInt(medicineConsumeQuantityString) < 1 || Integer.parseInt(medicineConsumeQuantityString) > 1000)) {
+        if (!medicineConsumeQuantityString.equals("") && (Integer.parseInt(medicineConsumeQuantityString) < 1 || Integer.parseInt(medicineConsumeQuantityString) > 999999)) {
             this.medicineConsumeQuantity.setError(getResources().getString(R.string.medicine_add_error_consume_quantity_length));
             isValid = false;
         }
 
-        if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && (Integer.parseInt(medicineThresholdString) < 0 || Integer.parseInt(medicineThresholdString) > 1000)) {
+        if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && (Integer.parseInt(medicineThresholdString) < 0 || Integer.parseInt(medicineThresholdString) > 999999)) {
             this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_length));
             isValid = false;
         }
@@ -617,7 +617,7 @@ public class MedicineAddFragment extends Fragment {
             isValid = false;
         }
 
-        if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && !medicineConsumeQuantityString.equals("") && Integer.parseInt(medicineConsumeQuantityString) <= Integer.parseInt(medicineThresholdString)) {
+        if (this.medicineThreshold.isShown() && !medicineThresholdString.equals("") && !medicineConsumeQuantityString.equals("") && Integer.parseInt(medicineQuantityString) <= Integer.parseInt(medicineThresholdString)) {
             this.medicineThreshold.setError(getResources().getString(R.string.medicine_add_error_threshold_value));
             isValid = false;
         }

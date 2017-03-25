@@ -63,17 +63,18 @@ public class ImageAdapter extends BaseAdapter {
             "Appointment",
             "Measurement",
             "Category",
+            "Report",
             "Personal Bio",
             "Health Bio",
             "ICE Contact",
             "Settings",
-            "App Tour",
-            "Report"
+            "App Tour"
+
     } ;
 
     private Integer[] mThumbIds = {
             R.drawable.medicine, R.drawable.intake, R.drawable.appointment, R.drawable.measurement,
-            R.drawable.category, R.drawable.personal_bio, R.drawable.health_bio,
-            R.drawable.ice_contact, R.drawable.user_settings, R.drawable.app_tour, R.drawable.intake
+            R.drawable.category, R.drawable.report, R.drawable.personal_bio, R.drawable.health_bio,
+            R.drawable.ice_contact, R.drawable.user_settings, R.drawable.app_tour
     };
 }

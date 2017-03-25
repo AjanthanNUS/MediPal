@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_consumables"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.ConsumptionActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_consumption_float_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_add_white" />
+
     <LinearLayout
-        android:id="@+id/filter_bar" android:padding="10sp"
+        android:id="@+id/filter_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
+        android:padding="10sp"
         android:visibility="gone">
 
         <LinearLayout
@@ -49,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/yearsFrom"
+                android:hint="@string/fromDate"
                 android:inputType="numberDecimal" />
 
             <EditText
@@ -57,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/monthsFrom"
+                android:hint="@string/toDate"
                 android:inputType="numberDecimal" />
 
         </LinearLayout>

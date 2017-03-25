@@ -19,27 +19,24 @@
         android:titleMargin="@dimen/nav_header_height"
         android:titleTextColor="@color/cardview_light_background"
         app:logo="@drawable/ic_app_icon"
-        app:subtitle="Health matters"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Menu"
         app:subtitleTextColor="@color/colorPrimary_light"
-        app:title="MediPlal"
         app:titleMarginStart="@android:dimen/app_icon_size"
         app:titleTextAppearance="@style/AppExtraLargeText"
-        app:titleTextColor="@color/cardview_light_background">
-    </android.support.v7.widget.Toolbar>
+        app:titleTextColor="@color/cardview_light_background"></android.support.v7.widget.Toolbar>
+
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        android:columnWidth="90dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:stretchMode="columnWidth"
         android:layout_below="@+id/toolbar"
+        android:columnWidth="90dp"
         android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:padding="10dp"
+        android:stretchMode="columnWidth"
         android:textAlignment="center"
-        />
+        android:verticalSpacing="10dp" />
 
 </RelativeLayout>

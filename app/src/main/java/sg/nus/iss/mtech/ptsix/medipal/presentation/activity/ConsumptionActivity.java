@@ -2,7 +2,9 @@ package sg.nus.iss.mtech.ptsix.medipal.presentation.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ import sg.nus.iss.mtech.ptsix.medipal.business.manager.ConsumptionManager;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.CategoriesService;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.MedicineService;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Categories;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Medicine;
@@ -49,6 +53,7 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
     private CategoriesService categoriesService;
     private MedicineService medicineService;
 
+    private ConsumptionViewAdapter viewAdapter;
     private LinearLayout filterLayout;
     private AutoCompleteTextView categoryFilterView;
     private AutoCompleteTextView medicineFilterView;
@@ -59,6 +64,8 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consumption);
+        FloatingActionButton addConsumptionBtn = (FloatingActionButton) findViewById(R.id.add_consumption_float_btn);
+        setOnClickListenerForAddConsumption(addConsumptionBtn);
 
         filterLayout = (LinearLayout) findViewById(R.id.filter_bar);
         categoryFilterView = (AutoCompleteTextView) filterLayout.findViewById(R.id.filter_medicine);
@@ -69,7 +76,6 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         allConsumptionList = new ArrayList<>();
         ConsumptionManager consumptionManager = new ConsumptionManager(this);
         allConsumptionList.addAll(consumptionManager.getAllConsumptionVOList());
-        consumptionManager.sortConsumptionList(allConsumptionList);
 
         consumptionListFragment = ConsumptionListFragment.newInstance();
         ArrayList<ConsumptionVO> initConList = new ArrayList<>();
@@ -80,8 +86,13 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         fragmentTransaction.add(R.id.consumptionFragmentHolder, consumptionListFragment);
         fragmentTransaction.commit();
 
+        viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
+
         setUpCategoryFilterAutocomplete();
         setUpMedicineFilterAutocomplete();
+        if (initConList.isEmpty()){
+            Toast.makeText(this, getResources().getText(R.string.no_items_to_show), Toast.LENGTH_LONG);
+        }
     }
 
     private void setUpCategoryFilterAutocomplete() {
@@ -139,6 +150,14 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         filterLayout.setActivated(true);
         filterLayout.setVisibility(View.VISIBLE);
 
+        filterStartDateView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    filterStartDateView.callOnClick();
+                }
+            }
+        });
         filterStartDateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +165,14 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
             }
         });
 
+        filterEndDateView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    filterEndDateView.callOnClick();
+                }
+            }
+        });
         filterEndDateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,8 +226,6 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
         String filterStartDate = searchBundle.getString(START_DATE);
         String filterEndDate = searchBundle.getString(END_DATE);
 
-        ConsumptionViewAdapter viewAdapter = consumptionListFragment.getConsumptionViewAdapter();
-
         List<ConsumptionVO> allConsumptionList = new ArrayList<>();
         allConsumptionList.addAll(this.allConsumptionList);
 
@@ -225,8 +250,8 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
                 }
             }
             viewAdapter.getmConsumptionList().clear();
-            viewAdapter.getmConsumptionList().addAll(filterList);
-            viewAdapter.notifyDataSetChanged();
+            viewAdapter.setmConsumptionList(filterList);
+//            viewAdapter.notifyDataSetChanged();
         }
     }
 
@@ -263,6 +288,18 @@ public class ConsumptionActivity extends AppCompatActivity implements Consumptio
             Log.e(TAG, "Date format error in parsing string to Date.");
         }
         return valid;
+    }
+
+    private void setOnClickListenerForAddConsumption(FloatingActionButton actionButton) {
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addConsumption = new Intent(ConsumptionActivity.this, AddConsumptionActivity.class);
+                Date now = new Date();
+                addConsumption.putExtra(Constant.CONSUMED_TIME, CommonUtil.convertDateToString(now, Constant.DATE_TIME_FORMAT));
+                startActivity(addConsumption);
+            }
+        });
     }
 
     @Override

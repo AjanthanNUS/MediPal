@@ -22,7 +22,7 @@ public class AppTourActivity extends AppCompatActivity {
 
         List<DataModel> imageItemList = getDataList();
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = (ViewPager) findViewById(R.id.view_app_tour_pager);
 
         AppTourAdapter appTourAdapter = new AppTourAdapter(this, imageItemList);
 

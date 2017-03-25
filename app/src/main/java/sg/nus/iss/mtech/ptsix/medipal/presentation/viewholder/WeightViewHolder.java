@@ -15,13 +15,15 @@ public class WeightViewHolder extends RecyclerView.ViewHolder {
     public TextView tvHeight;
     public TextView tvBMI;
     public TextView tvDate;
+    public TextView tvBMIStatus;
 
 
     public WeightViewHolder(View view) {
         super(view);
-        this.tvWeight = (TextView) view.findViewById(R.id.tv_systolic);
-        this.tvHeight = (TextView) view.findViewById(R.id.tv_distolic);
-        this.tvBMI = (TextView) view.findViewById(R.id.tv_bpstatus);
+        this.tvWeight = (TextView) view.findViewById(R.id.tv_weight);
+        this.tvHeight = (TextView) view.findViewById(R.id.tv_height);
+        this.tvBMI = (TextView) view.findViewById(R.id.tv_bmi);
         this.tvDate = (TextView) view.findViewById(R.id.tv_measure_date);
+        this.tvBMIStatus = (TextView) view.findViewById(R.id.tv_bmi_status);
     }
 }

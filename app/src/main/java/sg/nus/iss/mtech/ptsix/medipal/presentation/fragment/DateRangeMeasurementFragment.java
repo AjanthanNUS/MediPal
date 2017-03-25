@@ -1,10 +1,12 @@
 package sg.nus.iss.mtech.ptsix.medipal.presentation.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -170,11 +172,13 @@ public class DateRangeMeasurementFragment extends Fragment {
         this.btnSearch.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+            Bundle bundle = new Bundle();
 
-                Bundle bundle = new Bundle();
+            bundle.putLong("fromDate", fromDate.getTime());
+            bundle.putLong("toDate", toDate.getTime());
+            bundle.putInt("reportType", CommonUtil.reportType);
 
-                bundle.putLong("fromDate", fromDate.getTime());
-                bundle.putLong("toDate", toDate.getTime());
+            if (CommonUtil.reportType != 0) {
                 if (bundle != null) {
                     Log.w(TAG, "Not Null");
                     Intent myIntent = new Intent(getActivity(), ReportContainerActivity.class);
@@ -182,6 +186,19 @@ public class DateRangeMeasurementFragment extends Fragment {
                     startActivity(myIntent);
                 } else {
                     Log.w(TAG, "Null");
+                }
+            } else {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Report")
+                        .setMessage("Please select the report type.")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                            }
+                        })
+                        .show();
+
                 }
             }
 
