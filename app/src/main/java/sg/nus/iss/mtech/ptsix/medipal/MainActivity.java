@@ -94,22 +94,22 @@ public class MainActivity extends AppCompatActivity {
                         myIntent = new Intent(MainActivity.this, CategoriesActivity.class);
                         break;
                     case 5:
-                        myIntent = new Intent(MainActivity.this, PersonalActivity.class);
+                        myIntent = new Intent(MainActivity.this, MeasurementReportActivity.class);
                         break;
                     case 6:
-                        myIntent = new Intent(MainActivity.this, HealthBioActivity.class);
+                        myIntent = new Intent(MainActivity.this, PersonalActivity.class);
                         break;
                     case 7:
-                        myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
+                        myIntent = new Intent(MainActivity.this, HealthBioActivity.class);
                         break;
                     case 8:
-                        myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                        myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
                         break;
                     case 9:
-                        myIntent = new Intent(MainActivity.this, AppTourActivity.class);
+                        myIntent = new Intent(MainActivity.this, SettingsActivity.class);
                         break;
                     case 10:
-                        myIntent = new Intent(MainActivity.this, MeasurementReportActivity.class);
+                        myIntent = new Intent(MainActivity.this, AppTourActivity.class);
                     default:
                         break;
                 }
@@ -172,62 +172,62 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void openConsumables(View view) {
-        Intent myIntent = new Intent(MainActivity.this, ConsumptionActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openMedicine(View view) {
-        Intent myIntent = new Intent(MainActivity.this, MedicineActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openCategories(View view) {
-        Intent myIntent = new Intent(MainActivity.this, CategoriesActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openAppointment(View view) {
-        Intent myIntent = new Intent(MainActivity.this, AppointmentActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openMeasurement(View view) {
-        Intent myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void reminderEdit(View view) {
-        ReminderManager reminderManager = new ReminderManager(this);
-        Reminders reminders = reminderManager.getAllReminders().get(1);
-
-        Intent myIntent = new Intent(MainActivity.this, AddConsumptionActivity.class);
-        myIntent.putExtra(Constant.REMINDER_BUNDLE, reminders);
-        startActivity(myIntent);
-    }
-
-    public void openICEContact(View view) {
-        Intent myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openHealthBio(View view) {
-        Intent myIntent = new Intent(MainActivity.this, HealthBioActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void openPersonalBio(View view) {
-        Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
-        startActivity(personalBioIntent);
-    }
-
-    public void openSettings(View view) {
-        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(settingsIntent);
-    }
-
-    public void openMeasurementReport(View view) {
-        Intent settingsIntent = new Intent(MainActivity.this, MeasurementReportActivity.class);
-        startActivity(settingsIntent );
-    }
+//    public void openConsumables(View view) {
+//        Intent myIntent = new Intent(MainActivity.this, ConsumptionActivity.class);
+//        startActivity(myIntent);
+//    }
+//
+//    public void openMedicine(View view) {
+//        Intent myIntent = new Intent(MainActivity.this, MedicineActivity.class);
+//        startActivity(myIntent);
+//    }
+//
+//    public void openCategories(View view) {
+//        Intent myIntent = new Intent(MainActivity.this, CategoriesActivity.class);
+//        startActivity(myIntent);
+//    }
+//
+//    public void openAppointment(View view) {
+//        Intent myIntent = new Intent(MainActivity.this, AppointmentActivity.class);
+//        startActivity(myIntent);
+//    }
+//
+//    public void openMeasurement(View view) {
+//        Intent myIntent = new Intent(MainActivity.this, MeasurementActivity.class);
+//        startActivity(myIntent);
+//    }
+//
+//    public void reminderEdit(View view) {
+//        ReminderManager reminderManager = new ReminderManager(this);
+//        Reminders reminders = reminderManager.getAllReminders().get(1);
+//
+//        Intent myIntent = new Intent(MainActivity.this, AddConsumptionActivity.class);
+//        myIntent.putExtra(Constant.REMINDER_BUNDLE, reminders);
+//        startActivity(myIntent);
+//    }
+//
+//    public void openICEContact(View view) {
+//        Intent myIntent = new Intent(MainActivity.this, ICEContactActivity.class);
+//        startActivity(myIntent);
+//    }
+//
+//    public void openHealthBio(View view) {
+//        Intent myIntent = new Intent(MainActivity.this, HealthBioActivity.class);
+//        startActivity(myIntent);
+//    }
+//
+//    public void openPersonalBio(View view) {
+//        Intent personalBioIntent = new Intent(MainActivity.this, PersonalActivity.class);
+//        startActivity(personalBioIntent);
+//    }
+//
+//    public void openSettings(View view) {
+//        Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+//        startActivity(settingsIntent);
+//    }
+//
+//    public void openMeasurementReport(View view) {
+//        Intent settingsIntent = new Intent(MainActivity.this, MeasurementReportActivity.class);
+//        startActivity(settingsIntent );
+//    }
 }
