@@ -9,10 +9,12 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 
 /**
  * Created by Ajanthan on 3/17/2017.
@@ -24,15 +26,12 @@ public class AddConsumptionTimePickerFragment extends DialogFragment implements 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         EditText startTimeView = (EditText) getActivity().findViewById(R.id.et_consumed_time);
         String selectedTime = startTimeView.getText().toString();
+        Date selectedDate = CommonUtil.convertStringToDate(selectedTime, Constant.TIME_FORMAT);
 
-
-        String[] timeValues = (selectedTime.substring(0, 5)).split(Pattern.quote(":"));
-
-        int hour = Integer.parseInt(timeValues[0]);
-        int minute = Integer.parseInt(timeValues[1]);
+      Calendar  selectedCal = CommonUtil.dateToCalendar( selectedDate);
 
         //Create and return a new instance of TimePickerDialog
-        return new TimePickerDialog(getActivity(), this, hour, minute,
+        return new TimePickerDialog(getActivity(), this, selectedCal.get(Calendar.HOUR), selectedCal.get(Calendar.MINUTE),
                 DateFormat.is24HourFormat(getActivity()));
     }
 

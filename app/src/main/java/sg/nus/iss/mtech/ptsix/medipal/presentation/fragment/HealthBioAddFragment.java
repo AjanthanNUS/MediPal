@@ -25,6 +25,7 @@ import java.util.Locale;
 import sg.nus.iss.mtech.ptsix.medipal.R;
 import sg.nus.iss.mtech.ptsix.medipal.business.services.HealthBioService;
 import sg.nus.iss.mtech.ptsix.medipal.common.enums.HealthBioConditionTypeEnums;
+import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.common.util.Constant;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.HealthBio;
 import sg.nus.iss.mtech.ptsix.medipal.presentation.activity.HealthBioActivity;
@@ -41,7 +42,8 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
     private HealthBioService healthBioService;
     private List<HealthBio> healthBios;
 
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constant.DATE_FORMAT, Locale.getDefault());
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat(
+            Constant.DATE_FORMAT, Locale.getDefault());
 
     private Calendar currentCal = Calendar.getInstance();
     private Calendar selectedDate = Calendar.getInstance();
@@ -57,7 +59,9 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_health_bio_add, container, false);
 
         condition = (EditText) rootView.findViewById(R.id.health_condition);
@@ -66,9 +70,12 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
 
         healthBios = healthBioService.getAllHealthBio();
 
-        List<HealthBioConditionTypeEnums> contactTypes = HealthBioConditionTypeEnums.getAllHealthBioCategory();
-        ArrayAdapter<HealthBioConditionTypeEnums> contactTypeAapter = new ArrayAdapter<>(this.getActivity(),
-                android.R.layout.simple_spinner_item, contactTypes);
+        List<HealthBioConditionTypeEnums> contactTypes =
+                HealthBioConditionTypeEnums.getAllHealthBioCategory();
+
+        ArrayAdapter<HealthBioConditionTypeEnums> contactTypeAapter = new ArrayAdapter<>(
+                this.getActivity(), android.R.layout.simple_spinner_item, contactTypes);
+
         contactTypeAapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         conditionType.setAdapter(contactTypeAapter);
 
@@ -87,6 +94,7 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
                                 startDate.setText(dateFormatter.format(calendar.getTime()));
                             }
                         };
+
                 DatePickerDialog datePickerDialog =
                         new DatePickerDialog(getActivity(), onDateSetListener,
                                 currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH),
@@ -95,32 +103,64 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
             }
         });
 
+        startDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                DatePickerDialog.OnDateSetListener onDateSetListener =
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(year, monthOfYear, dayOfMonth);
+                                selectedDate = calendar;
+                                startDate.setText(dateFormatter.format(calendar.getTime()));
+                            }
+                        };
+
+                DatePickerDialog datePickerDialog =
+                        new DatePickerDialog(getActivity(), onDateSetListener,
+                                currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH),
+                                currentCal.get(Calendar.DAY_OF_MONTH));
+                if (hasFocus) {
+                    datePickerDialog.show();
+                } else {
+                    datePickerDialog.hide();
+                }
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean isNewId = isNewValidByID();
-
-                if (isNewId) {
+                boolean isValidInput = isCommandValid();
+                if (isValidInput && isNewId) {
                     healthBioService.saveHealthBioInfo(getHealthBioFromInput());
-                    Toast.makeText(getActivity(), "Saved New healthBio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getResources().getString(
+                            R.string.health_save_alert), Toast.LENGTH_SHORT).show();
                     resetFields();
-                    ((HealthBioActivity) getActivity()).switchTab(0, -1);
+                    ((HealthBioActivity) getActivity()).switchTab(
+                            Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
                 } else {
-                    healthBioService.updateHealthBioInfo(getHealthBioFromInput());
-                    Toast.makeText(getActivity(), "Updating category completed", Toast.LENGTH_SHORT).show();
-                    resetFields();
-                    ((HealthBioActivity) getActivity()).switchTab(0, -1);
+                    if(isValidInput) {
+                        healthBioService.updateHealthBioInfo(getHealthBioFromInput());
+                        Toast.makeText(getActivity(), getResources().getString(
+                                R.string.health_update_alert), Toast.LENGTH_SHORT).show();
+                        resetFields();
+                        ((HealthBioActivity) getActivity()).switchTab(
+                                Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
+                    }
+
                 }
             }
         });
-
         btnCancel = (Button) rootView.findViewById(R.id.btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetFields();
-                ((HealthBioActivity) getActivity()).switchTab(0, -1);
+                ((HealthBioActivity) getActivity()).switchTab(
+                        Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
             }
         });
 
@@ -129,15 +169,34 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 healthBioService.deleteHealthBio(getHealthBioFromInput());
-                Toast.makeText(getActivity(), "Deleted Successfully!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),
+                        getResources().getString(R.string.health_start_date_alert),
+                        Toast.LENGTH_SHORT).show();
                 resetFields();
-                ((HealthBioActivity) getActivity()).switchTab(0, -1);
+                ((HealthBioActivity) getActivity()).switchTab(
+                        Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
             }
         });
 
         return rootView;
     }
 
+    private boolean isCommandValid() {
+        boolean isValid = true;
+        try {
+            dateFormatter.parse(startDate.getText().toString());
+        } catch(ParseException ex) {
+            startDate.setError(getResources().getString(
+                    R.string.health_update_alert));
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    /**
+     * Check existing record or not
+     * @return boolean
+     */
     private boolean isNewValidByID() {
         if (healthBioService.getHealthBioInfo(getArguments().getInt("id")) == null) {
             return true;
@@ -156,10 +215,12 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
                     HealthBio healthBio = this.healthBioService.getHealthBioInfo(id);
                     condition.setText(healthBio.getEventCondition());
 
-                    Log.i("Enum Code : ", String.valueOf(HealthBioConditionTypeEnums.getHealthBioConditionTypeEnums(
+                    Log.i("Enum Code : ", String.valueOf(
+                            HealthBioConditionTypeEnums.getHealthBioConditionTypeEnums(
                             healthBio.getEventConditionType()).getConditionTypeCode()));
 
-                    Log.i("Enum TYPE : ", String.valueOf(HealthBioConditionTypeEnums.getHealthBioConditionTypeEnums(
+                    Log.i("Enum TYPE : ", String.valueOf(
+                            HealthBioConditionTypeEnums.getHealthBioConditionTypeEnums(
                             healthBio.getEventConditionType())));
 
                     selectSpinnerItemByValue(conditionType,
@@ -179,8 +240,14 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         }
     }
 
+    /**
+     * select Spinner Item By Value
+     * @param spnr
+     * @param value
+     */
     private void selectSpinnerItemByValue(Spinner spnr, long value) {
-        ArrayAdapter<HealthBioConditionTypeEnums> adapter = (ArrayAdapter<HealthBioConditionTypeEnums>)spnr.getAdapter();
+        ArrayAdapter<HealthBioConditionTypeEnums> adapter =
+                (ArrayAdapter<HealthBioConditionTypeEnums>)spnr.getAdapter();
         for (int position = 0; position < adapter.getCount(); position++) {
             if(adapter.getItemId(position) == value) {
                 spnr.setSelection(position);
@@ -189,13 +256,17 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         }
     }
 
+    /**
+     * to get Health Bio Information From Input
+     * @return HealthBio
+     */
     private HealthBio getHealthBioFromInput() {
         HealthBio healthBio = new HealthBio();
         healthBio.setId(getArguments().getInt("id"));
         healthBio.setEventCondition(condition.getText().toString());
         Log.i("Spinner ", conditionType.getSelectedItem().toString());
-        Log.i("ENUM Spinner ", ((HealthBioConditionTypeEnums)conditionType.getSelectedItem()).getConditionTypeName());
-        healthBio.setEventConditionType(((HealthBioConditionTypeEnums)conditionType.getSelectedItem()).getConditionTypeName());
+        healthBio.setEventConditionType(
+                ((HealthBioConditionTypeEnums)conditionType.getSelectedItem()).getConditionTypeName());
         Log.i("Date ", startDate.getText().toString());
         Date date = null;
         try {
@@ -208,31 +279,10 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
     }
 
     private void resetFields() {
-        this.getArguments().putInt("id", -1);
+        this.getArguments().putInt("id", Constant.INVALID_INDEX_ID);
         this.condition.setText("");
         this.conditionType.setSelection(1);
         this.startDate.setText("");
-    }
-
-
-    private boolean isCommonValid() {
-        boolean isValid = true;
-
-        if (TextUtils.isEmpty(condition.getText().toString().trim())) {
-            condition.setError("Please fill in a category name.");
-            isValid = false;
-        }
-
-        if (TextUtils.isEmpty(startDate.getText().toString().trim())) {
-            startDate.setError("Please fill in a 3 character code.");
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
-    private boolean isUpdateValid() {
-        return true;
     }
 
 }

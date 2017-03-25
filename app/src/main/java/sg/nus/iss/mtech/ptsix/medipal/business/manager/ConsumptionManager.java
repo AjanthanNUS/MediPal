@@ -43,54 +43,95 @@ public class ConsumptionManager {
     }
 
     public List<Consumption> getAllConsumptionList() {
-        List<Consumption> consumptions = consumptionDao.getConsumptions();
+        List<Consumption> consumptions;
+        try {
+            consumptionDao.open();
+
+            consumptions = consumptionDao.getConsumptions();
+        } finally {
+            consumptionDao.close();
+        }
         return consumptions;
     }
 
     public List<ConsumptionVO> getAllConsumptionVOList() {
+
+
         List<ConsumptionVO> consumptionVOList = new ArrayList<>();
-        List<Consumption> consumptions = consumptionDao.getConsumptions();
-        for (Consumption consumption : consumptions) {
-            consumptionVOList.add(castToConsumptionVo(consumption));
+
+        List<Consumption> consumptions;
+        try {
+            consumptionDao.open();
+            consumptions = consumptionDao.getConsumptions();
+            for (Consumption consumption : consumptions) {
+                consumptionVOList.add(castToConsumptionVo(consumption));
+            }
+            sortConsumptionList(consumptionVOList);
+
+        } finally {
+            consumptionDao.close();
         }
-        sortConsumptionList(consumptionVOList);
         return consumptionVOList;
     }
 
     public ConsumptionVO castToConsumptionVo(Consumption consumption) {
         ConsumptionVO consumptionVO;
-        if (consumption instanceof ConsumptionVO) {
-            consumptionVO = (ConsumptionVO) consumption;
-        } else {
-            Consumption consFromDB = consumptionDao.getConsumption(consumption.getId());
 
-            consumptionVO = new ConsumptionVO();
-            consumptionVO.setQuantity(consFromDB.getQuantity());
-            consumptionVO.setMedicineID(consFromDB.getMedicineID());
-            consumptionVO.setConsumedOn(consFromDB.getConsumedOn());
+        try {
+            consumptionDao.open();
+            medicineDao.open();
+            categoriesDao.open();
+            if (consumption instanceof ConsumptionVO) {
+                consumptionVO = (ConsumptionVO) consumption;
+            } else {
+                Consumption consFromDB = consumptionDao.getConsumption(consumption.getId());
 
-            Medicine medicine = medicineDao.getMedicine(consumption.getMedicineID());
-            consumptionVO.setMedicine(medicine);
+                consumptionVO = new ConsumptionVO();
+                consumptionVO.setQuantity(consFromDB.getQuantity());
+                consumptionVO.setMedicineID(consFromDB.getMedicineID());
+                consumptionVO.setConsumedOn(consFromDB.getConsumedOn());
 
-            Categories category = categoriesDao.getCategories(medicine.getCatId());
-            consumptionVO.setCategories(category);
+                Medicine medicine = medicineDao.getMedicine(consumption.getMedicineID());
+                consumptionVO.setMedicine(medicine);
 
+                Categories category = categoriesDao.getCategories(medicine.getCatId());
+                consumptionVO.setCategories(category);
+
+            }
+        } finally {
+            consumptionDao.close();
+            medicineDao.close();
+            categoriesDao.close();
         }
+
         return consumptionVO;
     }
 
     public Consumption insertConsumption(Consumption consumption) {
-        long id = consumptionDao.save(consumption);
+        try {
+            consumptionDao.open();
+            long id = consumptionDao.save(consumption);
 
-        if (id != -1) {
-            consumption = consumptionDao.getConsumptionByRowID(id);
-        } else {
-            throw new ConsumptionSaveException();
+            if (id != -1) {
+                consumption = consumptionDao.getConsumptionByRowID(id);
+            } else {
+                throw new ConsumptionSaveException();
+            }
+
+        }  finally {
+            consumptionDao.close();
         }
         return consumption;
     }
 
     public long update(Consumption consumption) {
-        return consumptionDao.update(consumption);
+        long id = -1;
+        try {
+            consumptionDao.open();
+            id = consumptionDao.update(consumption);
+        } finally {
+            consumptionDao.close();
+        }
+        return id;
     }
 }
