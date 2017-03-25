@@ -53,6 +53,7 @@ public class ConsumptionManager {
         for (Consumption consumption : consumptions) {
             consumptionVOList.add(castToConsumptionVo(consumption));
         }
+        sortConsumptionList(consumptionVOList);
         return consumptionVOList;
     }
 

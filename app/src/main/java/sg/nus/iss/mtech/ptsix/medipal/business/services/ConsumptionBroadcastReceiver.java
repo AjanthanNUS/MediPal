@@ -77,7 +77,7 @@ public class ConsumptionBroadcastReceiver extends WakefulBroadcastReceiver {
         Intent resultIntent = new Intent(context, AddConsumptionActivity.class);
         resultIntent.putExtra(Constant.CONSUMPTION_BUNDLE, consumption);
         resultIntent.putExtra(Constant.NOTIFICATION_ID, notificationId);
-
+        resultIntent.putExtra(Constant.CONSUMED_TIME, CommonUtil.convertDateToString(consumption.getConsumedOn(),Constant.DATE_TIME_FORMAT ));
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(AddConsumptionActivity.class);
