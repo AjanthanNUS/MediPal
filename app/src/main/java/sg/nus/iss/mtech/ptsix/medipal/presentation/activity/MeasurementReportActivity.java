@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -100,53 +101,55 @@ public class MeasurementReportActivity extends AppCompatActivity {
 
         showDate(0);
 
-       this.spinner_ReportType.setOnItemSelectedListener(new OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               selectedReportType = position;
-               CommonUtil.reportType = selectedReportType;
-           }
+        this.spinner_ReportType.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedReportType = position;
+                CommonUtil.reportType = selectedReportType;
+            }
 
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
                 selectedReportType = 0;
-           }
-       });
+            }
+        });
     }
 
     private void showDate(int tabPosition) {
 
         Date fromDate = new Date();
         Date toDate = new Date();
-
-        switch(tabPosition) {
+        Calendar toCal = CommonUtil.getTodayDate();
+        toCal.add(Calendar.DAY_OF_MONTH, 1);
+        switch (tabPosition) {
             case TODAY_TAB_REPORT_INDEX:
 
-                fromDate = CommonUtil.getTodayDate();
-                toDate = CommonUtil.getTodayDate();
+                fromDate = CommonUtil.getTodayDate().getTime();
+
+                toDate = toCal.getTime();
                 tvDate.setText(getFormattedDate(fromDate, toDate));
                 switchTab(tabPosition, selectedReportType, fromDate, toDate);
                 break;
             case Constant.ONE_WEEK_TAB_REPORT_INDEX:
                 fromDate = CommonUtil.getPreviousWeekDate(new Date());
-                toDate = CommonUtil.getTodayDate();
+                toDate = toCal.getTime();
+
                 tvDate.setText(getFormattedDate(fromDate, toDate));
                 switchTab(tabPosition, selectedReportType, fromDate, toDate);
                 break;
             case ONE_MONTH_REPORT_INDEX:
                 fromDate = CommonUtil.getPreviousMonthDate(new Date());
-                toDate = CommonUtil.getTodayDate();
+                toDate = toCal.getTime();
                 tvDate.setText(getFormattedDate(fromDate, toDate));
                 switchTab(tabPosition, selectedReportType, fromDate, toDate);
                 break;
             case DATE_RANGE_REPORT_INDEX:
                 fromDate = CommonUtil.getPreviousMonthDate(new Date());
-                toDate = CommonUtil.getTodayDate();
+                toDate = toCal.getTime();
                 tvDate.setText(getFormattedDate(fromDate, toDate));
                 switchTab(tabPosition, selectedReportType, fromDate, toDate);
                 break;
             default:
-                tvDate.setText(getFormattedDate(CommonUtil.getTodayDate(), CommonUtil.getTodayDate()));
                 break;
         }
     }

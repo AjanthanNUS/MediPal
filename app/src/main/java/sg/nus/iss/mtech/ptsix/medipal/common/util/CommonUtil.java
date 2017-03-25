@@ -201,9 +201,15 @@ public class CommonUtil {
         return dosageList;
     }
 
-    public static Date getTodayDate() {
-        Date date = new Date();
-        return date;
+    public static Calendar getTodayDate() {
+        Calendar cal = Calendar.getInstance();
+
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        return cal;
     }
 
     public static Date getPreviousWeekDate(Date asDate) {
