@@ -100,7 +100,7 @@ public class PersonalBioViewFragment extends Fragment {
     private void loadPersonalBioView() {
         Date userDOB = personalBio.getUserDOB();
         String userIDNo = personalBio.getUserIDNo();
-//        String.valueOf(calculateUserAge(userDOB));
+      //  String address =   String.valueOf(calculateUserAge(userDOB));
         String address =   personalBio.getAddress();
         String postalCode = personalBio.getPostalcode();
         int height = personalBio.getHeight();
@@ -129,6 +129,9 @@ public class PersonalBioViewFragment extends Fragment {
     }
 
     private static int  calculateUserAge(Date dateOfBirth) {
+        int age = 0;
+        if (dateOfBirth != null) {
+
         Calendar today = Calendar.getInstance();
         Calendar birthDate = Calendar.getInstance();
         birthDate.setTime(dateOfBirth);
@@ -143,7 +146,7 @@ public class PersonalBioViewFragment extends Fragment {
         int birthDateMonth = birthDate.get(Calendar.MONTH);
         int todayDayOfMonth = today.get(Calendar.DAY_OF_MONTH);
         int birthDateDayOfMonth = birthDate.get(Calendar.DAY_OF_MONTH);
-        int age = todayYear - birthDateYear;
+        age = todayYear - birthDateYear;
 
         // If birth date is greater than todays date (after 2 days adjustment of leap year) then decrement age one year
         if ((birthDateDayOfYear - todayDayOfYear > 3) || (birthDateMonth > todayMonth)){
@@ -153,6 +156,8 @@ public class PersonalBioViewFragment extends Fragment {
         } else if ((birthDateMonth == todayMonth) && (birthDateDayOfMonth > todayDayOfMonth)){
             age--;
         }
+        }
+
         return age;
     }
 

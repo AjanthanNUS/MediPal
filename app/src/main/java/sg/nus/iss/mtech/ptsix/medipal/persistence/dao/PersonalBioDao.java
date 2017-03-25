@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import sg.nus.iss.mtech.ptsix.medipal.common.util.CommonUtil;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.PersonalBio;
@@ -31,7 +33,7 @@ public class PersonalBioDao extends DBDAO {
     public long create(PersonalBio personalBio) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.PER_NAME, personalBio.getUserName());
-        values.put(DatabaseHelper.PER_DOB, personalBio.getUserDOB().toString());
+        values.put(DatabaseHelper.PER_DOB, CommonUtil.date2ddMMMYYYY(personalBio.getUserDOB()));
         values.put(DatabaseHelper.PER_ID_NO, personalBio.getUserIDNo());
         values.put(DatabaseHelper.PER_ADDRESS, personalBio.getAddress());
         values.put(DatabaseHelper.PER_POSTAL_CODE, personalBio.getPostalcode());

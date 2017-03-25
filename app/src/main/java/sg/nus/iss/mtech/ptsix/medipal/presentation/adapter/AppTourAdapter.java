@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,30 +27,25 @@ public class AppTourAdapter extends PagerAdapter {
     private ImageView imageView;
     private TextView textView;
 
-
     public AppTourAdapter (Context context, List<DataModel> itemList) {
         this.context = context;
         this.itemList = itemList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-
     @Override
     public int getCount() {
-
         return itemList.size();
     }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return false;
+        return view == object;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-
         Log.i("APP TOUR", "Image pos -> " + position + "  item => " + (position+1));
-
 
         View itemView = inflater.inflate(R.layout.viewpager_item, container, false);
 
@@ -60,7 +56,7 @@ public class AppTourAdapter extends PagerAdapter {
 
         imageView.setImageResource(dataModel.imageId);
         textView.setText(dataModel.title);
-
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(itemView);
 
         return itemView;
@@ -68,6 +64,6 @@ public class AppTourAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-
+        container.removeView((FrameLayout) object);
     }
 }

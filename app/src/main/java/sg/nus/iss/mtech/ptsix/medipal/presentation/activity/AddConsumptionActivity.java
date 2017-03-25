@@ -22,6 +22,7 @@ public class AddConsumptionActivity extends AppCompatActivity {
     public static final String DATE_PICKER = "ADD_CONSUMPTION_DATE_PICKER";
     private ViewHolder viewHolder;
     private ConsumptionManager consumptionManager;
+    private Consumption consumption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,10 @@ public class AddConsumptionActivity extends AppCompatActivity {
         viewHolder = new ViewHolder();
         consumptionManager = new ConsumptionManager(this);
 
-        final Consumption consumption = getIntent().getExtras().getParcelable(Constant.CONSUMPTION_BUNDLE);
+        consumption = getIntent().getExtras().getParcelable(Constant.CONSUMPTION_BUNDLE);
+        consumption.setConsumedOn(CommonUtil.convertStringToDate(getIntent().getStringExtra(Constant.CONSUMED_TIME), Constant.DATE_TIME_FORMAT));
 
         if (consumption != null) {
-
 
             ConsumptionVO consumptionVO = consumptionManager.castToConsumptionVo(consumption);
 
@@ -47,6 +48,14 @@ public class AddConsumptionActivity extends AppCompatActivity {
             viewHolder.medicineNameView.setText(String.valueOf(consumptionVO.getMedicine().getMedicine()));
             viewHolder.consumedQuantityView.setText(String.valueOf(consumption.getQuantity()));
 
+            viewHolder.consumedDateView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        viewHolder.consumedDateView.callOnClick();
+                    }
+                }
+            });
             viewHolder.consumedDateView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -55,6 +64,14 @@ public class AddConsumptionActivity extends AppCompatActivity {
                 }
             });
 
+            viewHolder.consumedTimeView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        viewHolder.consumedTimeView.callOnClick();
+                    }
+                }
+            });
             viewHolder.consumedTimeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

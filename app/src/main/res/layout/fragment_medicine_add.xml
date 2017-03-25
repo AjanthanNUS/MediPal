@@ -59,10 +59,10 @@
 
                 <Spinner
                     android:id="@+id/medicine_category"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="10"
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="40dp"
-                    android:layout_weight="2" />
+                    android:layout_marginEnd="40dp" />
 
                 <TextView
                     android:id="@+id/medicine_remind_label"
