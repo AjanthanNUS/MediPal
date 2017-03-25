@@ -3,95 +3,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16sp"
     tools:context="sg.nus.iss.mtech.ptsix.medipal.presentation.activity.AddConsumptionActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/consumedOn" />
-
-    <EditText
-        android:id="@+id/et_consumed_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignParentEnd="true"
-        android:ems="10"
-        android:inputType="date" />
-
-    <EditText
-        android:id="@+id/et_consumed_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/et_consumed_date"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:focusable="true"
-        android:inputType="time" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/et_consumed_time"
-        android:layout_marginTop="30dp"
-        android:text="@string/medicineName" />
-
-    <AutoCompleteTextView
-        android:id="@+id/actv_medicine_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignParentEnd="true"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/actv_medicine_name"
-        android:layout_marginTop="30dp"
-        android:text="@string/quantity" />
-
-    <EditText
-        android:id="@+id/et_quantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView4"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_alignStart="@+id/actv_medicine_name"
-        android:ems="10"
-        android:inputType="number" />
-
-    <Button
-        android:id="@+id/btn_consumption_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/et_quantity"
-        android:layout_below="@+id/et_quantity"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="27dp"
-        android:text="@string/save" />
-
-    <Button
-        android:id="@+id/btn_consumption_missed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_consumption_save"
-        android:layout_toStartOf="@+id/btn_consumption_save"
-        android:text="@string/missed" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/consume_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/et_consumed_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/consumed_date"
+                    />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/consume_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/consume_date">
+
+                <EditText
+                    android:id="@+id/et_consumed_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_consumed_date"
+                    android:focusable="true"
+                    android:hint="@string/consumed_time"
+                    android:inputType="time" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/medicine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/consume_time">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actv_medicine_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/consumed_medicine"
+                    android:inputType="textPersonName" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/consumption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/medicine">
+
+
+                <EditText
+                    android:id="@+id/et_quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/consumed_qty"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/consumption">
+                >
+                <Button
+                    android:id="@+id/btn_consumption_missed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/missed"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btn_consumption_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/save"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

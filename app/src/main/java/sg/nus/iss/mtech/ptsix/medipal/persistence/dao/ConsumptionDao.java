@@ -118,4 +118,15 @@ public class ConsumptionDao extends DBDAO {
         }
         return consumption;
     }
+
+
+    public boolean truncateAllConsumptions() {
+        boolean result;
+
+        database.execSQL("DROP TABLE IF EXISTS " + DatabaseHelper.CONSUMPTION_TABLE);
+        database.execSQL(DatabaseHelper.CREATE_CONSUMPTION_TABLE);
+        result = true;
+
+        return result;
+    }
 }

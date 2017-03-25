@@ -118,7 +118,7 @@ public class ConsumptionManager {
                 throw new ConsumptionSaveException();
             }
 
-        }  finally {
+        } finally {
             consumptionDao.close();
         }
         return consumption;
@@ -133,5 +133,16 @@ public class ConsumptionManager {
             consumptionDao.close();
         }
         return id;
+    }
+
+    public void truncateTable() {
+        try {
+            consumptionDao.open();
+            consumptionDao.truncateAllConsumptions();
+        } finally {
+
+            consumptionDao.close();
+        }
+
     }
 }

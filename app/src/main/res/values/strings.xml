@@ -7,6 +7,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
 
+    <string name="consumed_date">Consumed Date</string>
+    <string name="consumed_time">Consumed Time</string>
+    <string name="consumed_qty">Quantity</string>
+    <string name="consumed_medicine">Medicine</string>
     <string name="consumedOn">Consumed On : </string>
     <string name="medicineName">Medicine : </string>
     <string name="quantity">Quantity : </string>
@@ -228,5 +232,6 @@
 
     <string name="no_items_to_show">There are no item to show</string>
     <string name="medicine_not_in_inventory">Medicine not in inventory</string>
+    <string name="consumed_qty_empty">Consumed quantity cannot be empty</string>
 
 </resources>

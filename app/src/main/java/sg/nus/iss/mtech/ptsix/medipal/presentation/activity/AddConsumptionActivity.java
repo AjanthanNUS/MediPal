@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -104,32 +105,43 @@ public class AddConsumptionActivity extends AppCompatActivity {
         viewHolder.saveButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                viewHolder.medicineNameView.setError(null);
+                viewHolder.consumedDateView.setError(null);
                 //  consumption.setConsumedOn();
-                if (consumption != null) {
-                    consumptionManager.update(consumption);
-                } else {
-                    manuallyAddConsumption(false);
+                boolean noError = true;
+                if (validateFields()) {
+                    if (consumption != null) {
+                        consumptionManager.update(consumption);
+                    } else {
+                        noError = manuallyAddConsumption(false);
+                    }
+                    if (noError) {
+                        Toast.makeText(AddConsumptionActivity.this, getResources().getText(R.string.medi_consume_saved), Toast.LENGTH_LONG).show();
+                        Intent consumptionListView = new Intent(AddConsumptionActivity.this, ConsumptionActivity.class);
+                        startActivity(consumptionListView);
+                        AddConsumptionActivity.this.finish();
+                    }
                 }
-                Toast.makeText(AddConsumptionActivity.this, getResources().getText(R.string.medi_consume_saved), Toast.LENGTH_LONG).show();
-                Intent consumptionListView = new Intent(AddConsumptionActivity.this, ConsumptionActivity.class);
-                startActivity(consumptionListView);
-                AddConsumptionActivity.this.finish();
             }
         });
 
         viewHolder.missedButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                if (consumption == null) {
-
-                    manuallyAddConsumption(true);
+                viewHolder.medicineNameView.setError(null);
+                viewHolder.consumedQuantityView.setError(null);
+                boolean noError = true;
+                if (validateFields()) {
+                    if (consumption == null) {
+                        noError = manuallyAddConsumption(true);
+                    }
+                    if (noError) {
+                        Toast.makeText(AddConsumptionActivity.this, getResources().getText(R.string.medi_consume_missed), Toast.LENGTH_LONG).show();
+                        Intent consumptionListView = new Intent(AddConsumptionActivity.this, ConsumptionActivity.class);
+                        startActivity(consumptionListView);
+                        AddConsumptionActivity.this.finish();
+                    }
                 }
-                Toast.makeText(AddConsumptionActivity.this, getResources().getText(R.string.medi_consume_missed), Toast.LENGTH_LONG).show();
-                Intent consumptionListView = new Intent(AddConsumptionActivity.this, ConsumptionActivity.class);
-                startActivity(consumptionListView);
-                AddConsumptionActivity.this.finish();
             }
         });
 
@@ -137,27 +149,47 @@ public class AddConsumptionActivity extends AppCompatActivity {
 
     }
 
+    private boolean validateFields() {
+        boolean valid = true;
+        if (CommonUtil.isNullOrEmpty(viewHolder.consumedQuantityView.getText().toString())) {
+            viewHolder.consumedQuantityView.setError(getResources().getText(R.string.consumed_qty_empty));
+            valid = false;
+        }
+
+        if (CommonUtil.isNullOrEmpty(viewHolder.medicineNameView.getText().toString())) {
+            viewHolder.medicineNameView.setError(getResources().getText(R.string.medicine_add_error_name_empty));
+            valid = false;
+        }
+        return valid;
+    }
+
     private boolean manuallyAddConsumption(boolean missed) {
         boolean isSaved = false;
         medicineService = new MedicineService(this);
         String medName = viewHolder.medicineNameView.getText().toString().trim();
         List<Medicine> medicines = medicineService.getMedicineByName(medName);
+
+
         if (medicines.size() > 0) {
-            Medicine medicine = medicines.get(0);
-            consumption = new Consumption();
-            consumption.setMedicineID(medicine.getId());
-            if (missed) {
-                consumption.setQuantity(0);
-            } else {
-                consumption.setQuantity(Integer.valueOf(viewHolder.consumedQuantityView.getText().toString()));
+            try {
+                Medicine medicine = medicines.get(0);
+                consumption = new Consumption();
+                consumption.setMedicineID(medicine.getId());
+                if (missed) {
+                    consumption.setQuantity(0);
+                } else if (!CommonUtil.isNullOrEmpty(viewHolder.consumedQuantityView.getText().toString())) {
+                    consumption.setQuantity(Integer.valueOf(viewHolder.consumedQuantityView.getText().toString()));
+                }
+
+                String dateTime = viewHolder.consumedDateView.getText().toString().trim() + " " + viewHolder.consumedTimeView.getText().toString().trim();
+                Date consumedOn = CommonUtil.convertStringToDate(dateTime, Constant.DATE_TIME_FORMAT);
+                consumption.setConsumedOn(consumedOn);
+
+                consumptionManager.insertConsumption(consumption);
+                isSaved = true;
+            } catch (Exception e) {
+                Log.e(getLocalClassName(), e.getMessage());
             }
-
-            String dateTime = viewHolder.consumedDateView.getText().toString().trim() + " " + viewHolder.consumedTimeView.getText().toString().trim();
-            Date consumedOn = CommonUtil.convertStringToDate(dateTime, Constant.DATE_TIME_FORMAT);
-            consumption.setConsumedOn(consumedOn);
-
-            consumptionManager.insertConsumption(consumption);
-            isSaved = true;
         } else {
             viewHolder.medicineNameView.setError(getResources().getText(R.string.medicine_not_in_inventory));
         }

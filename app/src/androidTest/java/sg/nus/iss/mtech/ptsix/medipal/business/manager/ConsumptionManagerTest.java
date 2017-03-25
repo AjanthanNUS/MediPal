@@ -3,17 +3,20 @@ package sg.nus.iss.mtech.ptsix.medipal.business.manager;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.runner.AndroidJUnitRunner;
+
+import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Date;
 
-import sg.nus.iss.mtech.ptsix.medipal.persistence.dao.ConsumptionDao;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.Consumption;
 import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
+
+import static junit.framework.Assert.*;
 
 /**
  * Created by ajay on 25/3/17.
@@ -23,7 +26,7 @@ import sg.nus.iss.mtech.ptsix.medipal.persistence.entity.vo.ConsumptionVO;
  * Run this on different emulator
  */
 @RunWith(AndroidJUnit4.class)
-public class ConsumptionManagerTest  {
+public class ConsumptionManagerTest {
 
     private ConsumptionManager consumptionManager;
     private Context context;
@@ -37,23 +40,45 @@ public class ConsumptionManagerTest  {
         context = InstrumentationRegistry.getTargetContext();
         consumptionManager = new ConsumptionManager(context);
 
+
         c1 = new Consumption();
         c1.setQuantity(1);
         c1.setConsumedOn(new Date());
+        c1.setMedicineID(-1);
+
+        c2 = new Consumption();
+        c2.setQuantity(2);
+        c2.setConsumedOn(new Date());
+        c2.setMedicineID(-1);
     }
 
     @After
-    public  void destroy(){
+    public void tearDown() {
         context = null;
         consumptionManager = null;
-    }
-
-
-    public void getAllConsumptionList(){
+        c1 = null;
+        c2 = null;
 
     }
 
-    public void insertConsumption(){
+    @Test
+    public void truncateTable(){
+       // consumptionManager.truncateTable();
+       // assertEquals(consumptionManager.getAllConsumptionList().size(), 0);
+    }
+
+    @Test
+    public void getAllConsumptionList() {
+
+    }
+
+    @Test
+    public void insertConsumption() {
+        try {
+            consumptionManager.insertConsumption(c1);
+        } catch (Exception e) {
+            assert true;
+        }
 
     }
 
