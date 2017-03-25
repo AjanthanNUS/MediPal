@@ -16,6 +16,14 @@ public class ICE implements Parcelable {
         super();
     }
 
+    public ICE(String name, String contactNo, int iceContactType, String description, int sequence) {
+        this.name = name;
+        this.contactNo = contactNo;
+        this.iceContactType = iceContactType;
+        this.description = description;
+        this.sequence = sequence;
+    }
+
     private ICE(Parcel in) {
         super();
         this.id = in.readInt();
@@ -108,4 +116,32 @@ public class ICE implements Parcelable {
             return new ICE[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ICE ice = (ICE) o;
+
+        if (id != ice.id) return false;
+        if (iceContactType != ice.iceContactType) return false;
+        if (sequence != ice.sequence) return false;
+        if (name != null ? !name.equals(ice.name) : ice.name != null) return false;
+        if (contactNo != null ? !contactNo.equals(ice.contactNo) : ice.contactNo != null)
+            return false;
+        return description != null ? description.equals(ice.description) : ice.description == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (contactNo != null ? contactNo.hashCode() : 0);
+        result = 31 * result + iceContactType;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + sequence;
+        return result;
+    }
 }

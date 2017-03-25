@@ -36,7 +36,7 @@ public class IceDao extends DBDAO {
         super(context);
     }
 
-    public long save(ICE ice) {
+    public int save(ICE ice) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.ICE_NAME, ice.getName());
         values.put(DatabaseHelper.ICE_CONTACT_NO, ice.getContactNo());
@@ -44,7 +44,7 @@ public class IceDao extends DBDAO {
         values.put(DatabaseHelper.ICE_DESC, ice.getDescription());
         values.put(DatabaseHelper.ICE_SEQ, ice.getSequence());
 
-        return database.insert(DatabaseHelper.ICE_TABLE, null, values);
+        return (int)database.insert(DatabaseHelper.ICE_TABLE, null, values);
     }
 
     public long update(ICE ice) {
@@ -158,6 +158,16 @@ public class IceDao extends DBDAO {
             ice.setSequence(cursor.getInt(5));
         }
         return ice;
+    }
+
+    public boolean truncateICETable() {
+        boolean result;
+
+        database.execSQL("DROP TABLE IF EXISTS " + DatabaseHelper.ICE_TABLE);
+        database.execSQL(DatabaseHelper.CREATE_ICE_TABLE);
+        result = true;
+
+        return result;
     }
 }
 

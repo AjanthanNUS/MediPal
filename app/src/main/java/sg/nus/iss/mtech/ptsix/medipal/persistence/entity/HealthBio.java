@@ -16,6 +16,12 @@ public class HealthBio implements Parcelable {
         super();
     }
 
+    public HealthBio(String mCondition, Date mStartDate, String mConditionType) {
+        this.mCondition = mCondition;
+        this.mStartDate = mStartDate;
+        this.mConditionType = mConditionType;
+    }
+
     private HealthBio(Parcel in) {
         super();
         this.m_id = in.readInt();
@@ -87,6 +93,31 @@ public class HealthBio implements Parcelable {
             return new HealthBio[size];
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HealthBio)) return false;
+
+        HealthBio healthBio = (HealthBio) o;
+
+        if (m_id != healthBio.m_id) return false;
+        if (mCondition != null ? !mCondition.equals (healthBio.mCondition) : healthBio.mCondition != null)
+            return false;
+        if (mStartDate != null ? !mStartDate.equals (healthBio.mStartDate) : healthBio.mStartDate != null)
+            return false;
+        return mConditionType != null ? mConditionType.equals (healthBio.mConditionType) : healthBio.mConditionType == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = m_id;
+        result = 31 * result + (mCondition != null ? mCondition.hashCode ( ) : 0);
+        result = 31 * result + (mStartDate != null ? mStartDate.hashCode ( ) : 0);
+        result = 31 * result + (mConditionType != null ? mConditionType.hashCode ( ) : 0);
+        return result;
+    }
 }
 
 
