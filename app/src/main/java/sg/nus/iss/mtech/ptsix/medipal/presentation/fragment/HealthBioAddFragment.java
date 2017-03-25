@@ -126,6 +126,8 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                condition.setError(null);
+                startDate.setError(null);
                 boolean isNewId = isNewValidByID();
                 boolean isValidInput = isCommandValid();
                 if (isValidInput && isNewId) {
@@ -152,6 +154,8 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                condition.setError(null);
+                startDate.setError(null);
                 resetFields();
                 ((HealthBioActivity) getActivity()).switchTab(
                         Constant.TAB_LIST_INDEX, Constant.INVALID_INDEX_ID);
@@ -178,8 +182,15 @@ public class HealthBioAddFragment extends android.support.v4.app.Fragment {
     private boolean isCommandValid() {
         boolean isValid = true;
         try {
+            isValid = condition.getText().toString().length() != 0;
+            if (!isValid) {
+                condition.setError(getResources().getText(R.string.condition_blank));
+            }
             dateFormatter.parse(startDate.getText().toString());
+
+
         } catch (ParseException ex) {
+
             startDate.setError(getResources().getString(
                     R.string.health_update_alert));
             isValid = false;
